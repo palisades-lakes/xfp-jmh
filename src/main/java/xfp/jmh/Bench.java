@@ -1,17 +1,25 @@
 package xfp.jmh;
 
-import java.util.List;
 import java.util.Map;
-import java.util.function.BiPredicate;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
 
-import xfp.java.algebra.OneSetOneOperation;
-import xfp.java.algebra.OneSetTwoOperations;
 import xfp.java.algebra.Set;
-import xfp.java.algebra.TwoSetsTwoOperations;
+import xfp.java.algebra.Sets;
+import xfp.java.algebra.Structure;
+import xfp.java.algebra.TwoSetsOneOperation;
+import xfp.java.linear.BigDecimalsN;
+import xfp.java.linear.BigFractionsN;
+import xfp.java.linear.Dn;
+import xfp.java.linear.Fn;
+import xfp.java.linear.Qn;
+import xfp.java.linear.RatiosN;
 import xfp.java.prng.PRNG;
 import xfp.java.prng.Seeds;
 
@@ -22,51 +30,113 @@ public class Bench {
 
   //--------------------------------------------------------------
 
-  private static final int TRYS = 1023;
+  private static final boolean testMembership (final Set set,
+                                               final int ntrys) {
+    final Supplier g = 
+      set.generator( 
+        PRNG.well44497b(
+          Seeds.seed("seeds/Well44497b-2019-01-05.txt")));
+    for (int i=0; i<ntrys; i++) {
+      final Object x = g.get();
+      if (! set.contains(x)) { return false; } } 
+    return true; }
+
+  private static final boolean testEquivalence (final Set set,
+                                                final int ntrys) {
+    final Supplier g = 
+      set.generator( 
+        PRNG.well44497b(
+          Seeds.seed("seeds/Well44497b-2019-01-07.txt")));
+    for (int i=0; i<ntrys; i++) {
+      if (! Sets.isReflexive(set,g)) { return false; }
+      if (! Sets.isSymmetric(set,g)) { return false; } }
+    return true; }
+
+  private static final boolean setTests (final Set set,
+                                         final int ntrys) {
+    return
+      testMembership(set,ntrys)
+      &&
+      testEquivalence(set,ntrys); }
+
+  //--------------------------------------------------------------
 
   private static final boolean 
-  twoSetsTwoOperationsTests (final TwoSetsTwoOperations space) {
-
-    final Map<Set,List> lawLists = space.linearSpaceLaws();
-
-    final OneSetOneOperation elements = 
-      (OneSetOneOperation) space.elements();
-    final Supplier vg = 
-      space.elements().generator( 
+  structureTests (final Structure s,
+                  final int ntrys) {
+    final Map<Set,Supplier> generators = 
+      s.generators(
         PRNG.well44497b(
           Seeds.seed("seeds/Well44497b-2019-01-09.txt")));
-    for(final Object law : lawLists.get(elements)) {
-      for (int i=0; i<TRYS; i++) {
-        if (! ((Predicate) law).test(vg)) {
-          throw new RuntimeException(law + " failed."); } } } 
+    for(final Predicate law : s.laws()) {
+      for (int i=0; i<ntrys; i++) {
+        if (! law.test(generators)) { return false; } } }
+    return true; }
 
-    final OneSetTwoOperations scalars = 
-      (OneSetTwoOperations) space.scalars();
-    final Supplier sg = 
-      space.scalars().generator( 
-        PRNG.well44497b(
-          Seeds.seed("seeds/Well44497b-2019-01-11.txt")));
-    for(final Object law : lawLists.get(scalars)) {
-      for (int i=0; i<TRYS; i++) {
-        if (! ((Predicate) law).test(sg)) {
-          throw new RuntimeException(law + " failed."); } } } 
+  //--------------------------------------------------------------
 
-    for(final Object law : lawLists.get(space)) {
-      for (int i=0; i<TRYS; i++) {
-        if (! ((BiPredicate) law).test(vg,sg))  {
-          throw new RuntimeException(law + " failed."); } } } 
+  private static final int TRYS =1;
 
+  public static final boolean 
+  spaceTest (final TwoSetsOneOperation space) {
+    if (! setTests(space,TRYS)) { return false; }
+    if (! structureTests(space,TRYS)) { return false; } 
     return true; }
 
   //--------------------------------------------------------------
 
   @SuppressWarnings({ "static-method" })
   @Benchmark
-  public final boolean qn () {
-    for (final int n : new int[] { 1, 3, 13, 127, 1023}) {
-      System.out.println(n);
-      final TwoSetsTwoOperations qn = TwoSetsTwoOperations.getQn(n);
-      if (! twoSetsTwoOperationsTests(qn)) { return false; } } 
+  @BenchmarkMode(Mode.AverageTime)
+  @OutputTimeUnit(TimeUnit.SECONDS)
+  public final boolean bdnTest () {
+    for (final int n : new int[] { 16 * 1024, }) {
+      if (! spaceTest(BigDecimalsN.space(n))) { return false; } }
+    return true; }
+
+  @SuppressWarnings({ "static-method" })
+  @Benchmark
+  @BenchmarkMode(Mode.AverageTime)
+  @OutputTimeUnit(TimeUnit.SECONDS)
+  public final boolean bfnTest () {
+    for (final int n : new int[] { 16 * 1024, }) {
+      if (! spaceTest(BigFractionsN.space(n))) { return false; } }
+    return true; }
+
+  @SuppressWarnings({ "static-method" })
+  @Benchmark
+  @BenchmarkMode(Mode.AverageTime)
+  @OutputTimeUnit(TimeUnit.SECONDS)
+  public final boolean rationTest () {
+    for (final int n : new int[] { 16 * 1024, }) {
+      if (! spaceTest(RatiosN.space(n))) { return false; } }
+    return true; }
+
+  @SuppressWarnings({ "static-method" })
+  @Benchmark
+  @BenchmarkMode(Mode.AverageTime)
+  @OutputTimeUnit(TimeUnit.SECONDS)
+  public final boolean qnTest () {
+    for (final int n : new int[] { 16 * 1024, }) {
+      if (! spaceTest(Qn.space(n))) { return false; } }
+    return true; }
+
+  @SuppressWarnings({ "static-method" })
+  @Benchmark
+  @BenchmarkMode(Mode.AverageTime)
+  @OutputTimeUnit(TimeUnit.SECONDS)
+  public final boolean dnTest () {
+    for (final int n : new int[] { 16 * 1024, }) {
+      if (! spaceTest(Dn.space(n))) { return false; } }
+    return true; }
+
+  @SuppressWarnings({ "static-method" })
+  @Benchmark
+  @BenchmarkMode(Mode.AverageTime)
+  @OutputTimeUnit(TimeUnit.SECONDS)
+  public final boolean fnTest () {
+    for (final int n : new int[] { 16 * 1024, }) {
+      if (! spaceTest(Fn.space(n))) { return false; } }
     return true; }
 
   //--------------------------------------------------------------
