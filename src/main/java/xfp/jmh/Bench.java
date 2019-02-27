@@ -10,6 +10,8 @@ import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
 
+import com.google.common.collect.ImmutableMap;
+
 import xfp.java.algebra.Set;
 import xfp.java.algebra.Sets;
 import xfp.java.algebra.Structure;
@@ -34,8 +36,10 @@ public class Bench {
                                                final int ntrys) {
     final Supplier g = 
       set.generator( 
-        PRNG.well44497b(
-          Seeds.seed("seeds/Well44497b-2019-01-05.txt")));
+        ImmutableMap.of(
+          Set.URP,
+          PRNG.well44497b(
+            Seeds.seed("seeds/Well44497b-2019-01-05.txt"))));
     for (int i=0; i<ntrys; i++) {
       final Object x = g.get();
       if (! set.contains(x)) { return false; } } 
@@ -45,8 +49,10 @@ public class Bench {
                                                 final int ntrys) {
     final Supplier g = 
       set.generator( 
-        PRNG.well44497b(
-          Seeds.seed("seeds/Well44497b-2019-01-07.txt")));
+        ImmutableMap.of(
+          Set.URP,
+          PRNG.well44497b(
+            Seeds.seed("seeds/Well44497b-2019-01-07.txt"))));
     for (int i=0; i<ntrys; i++) {
       if (! Sets.isReflexive(set,g)) { return false; }
       if (! Sets.isSymmetric(set,g)) { return false; } }
@@ -66,8 +72,10 @@ public class Bench {
                   final int ntrys) {
     final Map<Set,Supplier> generators = 
       s.generators(
-        PRNG.well44497b(
-          Seeds.seed("seeds/Well44497b-2019-01-09.txt")));
+        ImmutableMap.of(
+          Set.URP,
+          PRNG.well44497b(
+            Seeds.seed("seeds/Well44497b-2019-01-09.txt"))));
     for(final Predicate law : s.laws()) {
       for (int i=0; i<ntrys; i++) {
         if (! law.test(generators)) { return false; } } }
@@ -75,7 +83,9 @@ public class Bench {
 
   //--------------------------------------------------------------
 
-  private static final int TRYS =1;
+  private static final int TRYS = 1;
+  private static final int[] DIMENSIONS = 
+    new int[] { 16 * 1024, };
 
   public static final boolean 
   spaceTest (final TwoSetsOneOperation space) {
@@ -90,7 +100,7 @@ public class Bench {
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.SECONDS)
   public final boolean bdnTest () {
-    for (final int n : new int[] { 16 * 1024, }) {
+    for (final int n : DIMENSIONS) {
       if (! spaceTest(BigDecimalsN.space(n))) { return false; } }
     return true; }
 
@@ -99,7 +109,7 @@ public class Bench {
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.SECONDS)
   public final boolean bfnTest () {
-    for (final int n : new int[] { 16 * 1024, }) {
+    for (final int n : DIMENSIONS) {
       if (! spaceTest(BigFractionsN.space(n))) { return false; } }
     return true; }
 
@@ -108,7 +118,7 @@ public class Bench {
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.SECONDS)
   public final boolean rationTest () {
-    for (final int n : new int[] { 16 * 1024, }) {
+    for (final int n : DIMENSIONS) {
       if (! spaceTest(RatiosN.space(n))) { return false; } }
     return true; }
 
@@ -117,7 +127,7 @@ public class Bench {
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.SECONDS)
   public final boolean qnTest () {
-    for (final int n : new int[] { 16 * 1024, }) {
+    for (final int n : DIMENSIONS) {
       if (! spaceTest(Qn.space(n))) { return false; } }
     return true; }
 
@@ -126,7 +136,7 @@ public class Bench {
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.SECONDS)
   public final boolean dnTest () {
-    for (final int n : new int[] { 16 * 1024, }) {
+    for (final int n : DIMENSIONS) {
       if (! spaceTest(Dn.space(n))) { return false; } }
     return true; }
 
@@ -135,7 +145,7 @@ public class Bench {
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.SECONDS)
   public final boolean fnTest () {
-    for (final int n : new int[] { 16 * 1024, }) {
+    for (final int n : DIMENSIONS) {
       if (! spaceTest(Fn.space(n))) { return false; } }
     return true; }
 
