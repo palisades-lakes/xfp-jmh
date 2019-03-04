@@ -19,6 +19,7 @@ import xfp.java.algebra.TwoSetsOneOperation;
 import xfp.java.linear.BigDecimalsN;
 import xfp.java.linear.BigFractionsN;
 import xfp.java.linear.Dn;
+import xfp.java.linear.ERationalsN;
 import xfp.java.linear.Fn;
 import xfp.java.linear.Qn;
 import xfp.java.linear.RatiosN;
@@ -102,6 +103,15 @@ public class Bench {
   public final boolean bdnTest () {
     for (final int n : DIMENSIONS) {
       if (! spaceTest(BigDecimalsN.space(n))) { return false; } }
+    return true; }
+
+  @SuppressWarnings({ "static-method" })
+  @Benchmark
+  @BenchmarkMode(Mode.AverageTime)
+  @OutputTimeUnit(TimeUnit.SECONDS)
+  public final boolean erTest () {
+    for (final int n : DIMENSIONS) {
+      if (! spaceTest(ERationalsN.space(n))) { return false; } }
     return true; }
 
   @SuppressWarnings({ "static-method" })
