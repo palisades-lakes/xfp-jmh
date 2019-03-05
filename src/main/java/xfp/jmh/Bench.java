@@ -28,6 +28,11 @@ import xfp.java.prng.Seeds;
 
 // java --illegal-access=warn -jar target/benchmarks.jar
 
+/** Benchmark algebraic structure tests.
+ * 
+ * @author palisades dot lakes at gmail dot com
+ * @version 2019-03-04
+ */
 @SuppressWarnings("unchecked")
 public class Bench {
 
