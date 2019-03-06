@@ -4,3 +4,8 @@ Benchmark       Mode  Cnt     Score    Error  Units
 Sum.bfNaiveSum  avgt   25    85.873 ±  0.940  ms/op
 Sum.dnNaiveSum  avgt   25     0.003 ±  0.001  ms/op
 Sum.qnNaiveSum  avgt   25  1808.495 ± 18.273  ms/op
+DIM-=2048
+Benchmark       Mode  Cnt     Score    Error  Units
+Sum.bfNaiveSum  avgt   25   172.224 ±  1.222  ms/op
+Sum.dnNaiveSum  avgt   25     0.006 ±  0.001  ms/op
+Sum.qnNaiveSum  avgt   25  7096.222 ± 45.943  ms/op
