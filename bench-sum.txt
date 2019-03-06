@@ -1,0 +1,6 @@
+2019-03-05 21:00
+DIM=1024
+Benchmark       Mode  Cnt     Score    Error  Units
+Sum.bfNaiveSum  avgt   25    85.873 ±  0.940  ms/op
+Sum.dnNaiveSum  avgt   25     0.003 ±  0.001  ms/op
+Sum.qnNaiveSum  avgt   25  1808.495 ± 18.273  ms/op

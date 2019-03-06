@@ -18,12 +18,10 @@ import xfp.java.prng.Generator;
 import xfp.java.prng.Generators;
 import xfp.java.prng.PRNG;
 
-// java -ea --illegal-access=warn -jar target/benchmarks.jar
-
-/** Benchmark algebraic structure tests.
+/** Benchmark double dot products
  * 
  * <pre>
- * java -ea -jar target\benchmarks.jar Sum
+ * java -ea -jar target\benchmarks.jar Dot
  * </pre>
  * @author palisades dot lakes at gmail dot com
  * @version 2019-03-05
@@ -32,9 +30,9 @@ import xfp.java.prng.PRNG;
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-public class Sum {
+public class Dot {
 
-  private static final int DIM = 2 * 1024;
+  private static final int DIM = 1 * 1024;
   private static final int DELTA = 2 +
     ((Doubles.MAXIMUM_BIASED_EXPONENT  
     - 30 
@@ -50,25 +48,29 @@ public class Sum {
   public final double[] x11 = (double[]) g.next();
   public final double[] x1 = Dn.concatenate(x11,x11);
   
-  public final double trueSum = Qn.naiveSum(x0);
   public final double trueDot = Qn.naiveDot(x0,x1);
   
   //--------------------------------------------------------------
 
   @Benchmark
-  public final double dnNaiveSum () { 
-    return Math.abs(trueSum - Dn.naiveSum(x0)) 
-      / (1.0 + trueSum); }
+  public final double dnNaiveDot () { 
+    return  Math.abs(trueDot - Dn.naiveDot(x0,x1)) 
+      / (1.0 + trueDot); }
 
   @Benchmark
-  public final double bfNaiveSum () {
-    return Math.abs(trueSum - BigFractionsN.naiveSum(x0)) 
-      / (1.0 + trueSum); }
+  public final double dnFmaDot () { 
+    return  Math.abs(trueDot - Dn.fmaDot(x0,x1)) 
+  / (1.0 + trueDot); }
 
   @Benchmark
-  public final double qnNaiveSum () {
-    return Math.abs(trueSum - Qn.naiveSum(x0)) 
-      / (1.0 + trueSum); }
+  public final double bfNaiveDot () { 
+    return  Math.abs(trueDot - BigFractionsN.naiveDot(x0,x1)) 
+  / (1.0 + trueDot); }
+
+  @Benchmark
+  public final double qnNaiveDot () { 
+    return  Math.abs(trueDot - Qn.naiveDot(x0,x1)) 
+  / (1.0 + trueDot); }
 
   //--------------------------------------------------------------
 }
