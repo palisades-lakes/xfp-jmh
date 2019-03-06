@@ -24,18 +24,23 @@ import xfp.java.linear.Fn;
 import xfp.java.linear.Qn;
 import xfp.java.linear.RatiosN;
 import xfp.java.prng.PRNG;
-import xfp.java.prng.Seeds;
 
-// java --illegal-access=warn -jar target/benchmarks.jar
+// java -ea --illegal-access=warn -jar target/benchmarks.jar NaiveSum
 
 /** Benchmark algebraic structure tests.
  * 
+ * <pre>
+ * java -jar target\benchmarks.jar qnSpaceTest
+ * java -jar target\benchmarks.jar .*SpaceTest
+ * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-04
+ * @version 2019-03-05
  */
 @SuppressWarnings("unchecked")
 public class Bench {
 
+  //--------------------------------------------------------------
+  // benchmarking structure validation --- not that useful
   //--------------------------------------------------------------
 
   private static final boolean testMembership (final Set set,
@@ -44,8 +49,7 @@ public class Bench {
       set.generator( 
         ImmutableMap.of(
           Set.URP,
-          PRNG.well44497b(
-            Seeds.seed("seeds/Well44497b-2019-01-05.txt"))));
+          PRNG.well44497b("seeds/Well44497b-2019-01-05.txt")));
     for (int i=0; i<ntrys; i++) {
       final Object x = g.get();
       if (! set.contains(x)) { return false; } } 
@@ -57,8 +61,7 @@ public class Bench {
       set.generator( 
         ImmutableMap.of(
           Set.URP,
-          PRNG.well44497b(
-            Seeds.seed("seeds/Well44497b-2019-01-07.txt"))));
+          PRNG.well44497b("seeds/Well44497b-2019-01-07.txt")));
     for (int i=0; i<ntrys; i++) {
       if (! Sets.isReflexive(set,g)) { return false; }
       if (! Sets.isSymmetric(set,g)) { return false; } }
@@ -80,8 +83,7 @@ public class Bench {
       s.generators(
         ImmutableMap.of(
           Set.URP,
-          PRNG.well44497b(
-            Seeds.seed("seeds/Well44497b-2019-01-09.txt"))));
+          PRNG.well44497b("seeds/Well44497b-2019-01-09.txt")));
     for(final Predicate law : s.laws()) {
       for (int i=0; i<ntrys; i++) {
         if (! law.test(generators)) { return false; } } }
@@ -105,7 +107,7 @@ public class Bench {
   @Benchmark
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.SECONDS)
-  public final boolean bdnTest () {
+  public final boolean bdnSpaceTest () {
     for (final int n : DIMENSIONS) {
       if (! spaceTest(BigDecimalsN.space(n))) { return false; } }
     return true; }
@@ -114,7 +116,7 @@ public class Bench {
   @Benchmark
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.SECONDS)
-  public final boolean erTest () {
+  public final boolean erSpaceTest () {
     for (final int n : DIMENSIONS) {
       if (! spaceTest(ERationalsN.space(n))) { return false; } }
     return true; }
@@ -123,7 +125,7 @@ public class Bench {
   @Benchmark
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.SECONDS)
-  public final boolean bfnTest () {
+  public final boolean bfnSpaceTest () {
     for (final int n : DIMENSIONS) {
       if (! spaceTest(BigFractionsN.space(n))) { return false; } }
     return true; }
@@ -132,7 +134,7 @@ public class Bench {
   @Benchmark
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.SECONDS)
-  public final boolean rationTest () {
+  public final boolean rationSpaceTest () {
     for (final int n : DIMENSIONS) {
       if (! spaceTest(RatiosN.space(n))) { return false; } }
     return true; }
@@ -141,7 +143,7 @@ public class Bench {
   @Benchmark
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.SECONDS)
-  public final boolean qnTest () {
+  public final boolean qnSpaceTest () {
     for (final int n : DIMENSIONS) {
       if (! spaceTest(Qn.space(n))) { return false; } }
     return true; }
@@ -150,7 +152,7 @@ public class Bench {
   @Benchmark
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.SECONDS)
-  public final boolean dnTest () {
+  public final boolean dnSpaceTest () {
     for (final int n : DIMENSIONS) {
       if (! spaceTest(Dn.space(n))) { return false; } }
     return true; }
@@ -159,7 +161,7 @@ public class Bench {
   @Benchmark
   @BenchmarkMode(Mode.AverageTime)
   @OutputTimeUnit(TimeUnit.SECONDS)
-  public final boolean fnTest () {
+  public final boolean fnSpaceTest () {
     for (final int n : DIMENSIONS) {
       if (! spaceTest(Fn.space(n))) { return false; } }
     return true; }
