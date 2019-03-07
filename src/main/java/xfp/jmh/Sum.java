@@ -10,9 +10,13 @@ import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 
+import xfp.java.linear.BigDecimalsN;
 import xfp.java.linear.BigFractionsN;
 import xfp.java.linear.Dn;
+import xfp.java.linear.ERationalsN;
+import xfp.java.linear.Fn;
 import xfp.java.linear.Qn;
+import xfp.java.linear.RatiosN;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.Generators;
@@ -26,7 +30,7 @@ import xfp.java.prng.PRNG;
  * java -ea -jar target\benchmarks.jar Sum
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-05
+ * @version 2019-03-06
  */
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
@@ -61,8 +65,28 @@ public class Sum {
       / (1.0 + trueSum); }
 
   @Benchmark
+  public final double fnNaiveSum () { 
+    return Math.abs(trueSum - Fn.naiveSum(x0)) 
+      / (1.0 + trueSum); }
+
+  @Benchmark
+  public final double rationNaiveSum () { 
+    return Math.abs(trueSum - RatiosN.naiveSum(x0)) 
+      / (1.0 + trueSum); }
+
+  @Benchmark
+  public final double ernNaiveSum () { 
+    return Math.abs(trueSum - ERationalsN.naiveSum(x0)) 
+      / (1.0 + trueSum); }
+
+  @Benchmark
   public final double bfNaiveSum () {
     return Math.abs(trueSum - BigFractionsN.naiveSum(x0)) 
+      / (1.0 + trueSum); }
+
+  @Benchmark
+  public final double bdNaiveSum () {
+    return Math.abs(trueSum - BigDecimalsN.naiveSum(x0)) 
       / (1.0 + trueSum); }
 
   @Benchmark
