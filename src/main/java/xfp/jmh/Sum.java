@@ -27,7 +27,7 @@ import xfp.java.prng.PRNG;
 
 // java -ea --illegal-access=warn -jar target/benchmarks.jar
 
-/** Benchmark algebraic structure tests.
+/** Benchmark double sums.
  * 
  * <pre>
  * java -ea -jar target\benchmarks.jar Sum
@@ -92,18 +92,22 @@ public class Sum {
     for (int i=0;i<n;i++) { x[i] = sampleDoubles(g,urp); }
     return x; }
 
+  //--------------------------------------------------------------
+
   private static final int DIM = 1024;
 
   double[] x0;
   double trueSum;
 
   @Param({
-//    "BigDecimalSum",
-//    "BigFractionSum",
-    "DoubleNaiveSum",
-//    "ERationalSum",
-    "FloatNaiveSum",
-//    "RatioSum",
+    "BigDecimalSum",
+    "BigFractionSum",
+    "DoubleSum",
+    "DoubleFmaSum",
+    "ERationalSum",
+    "FloatSum",
+    "FloatFmaSum",
+    "RatioSum",
     })
   String className;
   Accumulator a;

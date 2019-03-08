@@ -21,8 +21,18 @@ Sum.fnNaiveSum      avgt   25     0.006 ±  0.001  ms/op
 Sum.qnNaiveSum      avgt   25  2566.471 ±  8.282  ms/op
 Sum.rationNaiveSum  avgt   25   185.172 ±  0.801  ms/op
 
-2019-03-06
+2019-03-07
 DIM=16*1024
 Benchmark           Mode  Cnt   Score   Error  Units
 Sum.dnNaiveSum      avgt   25  27.454 ± 0.006  us/op
 Sum.doubleNaiveSum  avgt   25  27.463 ± 0.009  us/op
+
+DIM=1024
+
+Benchmark     (className)  Mode  Cnt         Score         Error  Units
+Sum.sum     BigDecimalSum  avgt   25      6111.547 ±      51.036  us/op
+Sum.sum    BigFractionSum  avgt   25     84043.052 ±     215.726  us/op
+Sum.sum    DoubleNaiveSum  avgt   25         3.053 ±       0.001  us/op
+Sum.sum      ERationalSum  avgt   25  28190554.220 ± 3289763.668  us/op
+Sum.sum     FloatNaiveSum  avgt   25        10.689 ±       0.011  us/op
+Sum.sum          RatioSum  avgt   25     83679.609 ±     856.089  us/op
