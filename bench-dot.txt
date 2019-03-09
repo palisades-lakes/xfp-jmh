@@ -23,3 +23,34 @@ Dot.fnFmaDot        avgt   25     0.003 ±  0.001  ms/op
 Dot.fnNaiveDot      avgt   25     0.006 ±  0.001  ms/op
 Dot.qnNaiveDot      avgt   25  1379.723 ± 10.636  ms/op
 Dot.rationNaiveDot  avgt   25    20.884 ±  0.044  ms/op
+
+2019-03-07 accumulators
+dim=4*1024
+Benchmark     (className)  Mode  Cnt         Score         Error  Units
+Dot.dot     BigDecimalSum  avgt   25     17061.941 ±     102.651  us/op
+Dot.dot    BigFractionSum  avgt   25    281648.376 ±    2367.573  us/op
+Dot.dot         DoubleSum  avgt   25         5.833 ±       0.008  us/op
+Dot.dot      DoubleFmaSum  avgt   25         3.165 ±       0.002  us/op
+Dot.dot      ERationalSum  avgt   25  58636772.984 ± 7646178.144  us/op
+Dot.dot          FloatSum  avgt   25         4.763 ±       0.003  us/op
+Dot.dot       FloatFmaSum  avgt   25         3.058 ±       0.001  us/op
+Dot.dot          RatioSum  avgt   25    285845.931 ±    2230.468  us/op
+
+2019-03-08 RationalSum accumulator
+dim=1024
+Benchmark     (className)  Mode  Cnt         Score         Error  Units
+Sum.sum    BigFractionSum  avgt   25     83734.923 ±     228.621  us/op
+Sum.sum      ERationalSum  avgt   25  27921924.052 ± 3251157.923  us/op
+Sum.sum       RationalSum  avgt   25    633233.829 ±    1752.393  us/op
+
+reduce on multiply
+Benchmark     (className)  Mode  Cnt      Score      Error  Units
+Dot.dot    BigFractionSum  avgt   25    283.440 ±    2.008  ms/op
+Dot.dot      ERationalSum  avgt   25  58894.642 ± 7609.120  ms/op
+Dot.dot       RationalSum  avgt   25    272.689 ±    2.252  ms/op
+
+reduce on add
+Benchmark     (className)  Mode  Cnt         Score         Error  Units
+Dot.dot    BigFractionSum  avgt   25       282.910 ±       2.205  ms/op
+Dot.dot      ERationalSum  avgt   25     58825.916 ±    7689.055  ms/op
+Dot.dot       RationalSum  avgt   25       273.116 ±       2.247  ms/op

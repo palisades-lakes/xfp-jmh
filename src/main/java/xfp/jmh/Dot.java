@@ -31,12 +31,12 @@ import xfp.java.prng.PRNG;
  * java -ea -jar target\benchmarks.jar Dot
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-07
+ * @version 2019-03-08
  */
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class Dot {
 
   //--------------------------------------------------------------
@@ -92,21 +92,22 @@ public class Dot {
 
   //--------------------------------------------------------------
 
-  private static final int DIM = 1024;
+  private static final int DIM = 1*1024;
 
   double[] x0;
   double[] x1;
   double trueDot;
 
   @Param({
-    "BigDecimalSum",
+//    "BigDecimalSum",
     "BigFractionSum",
-    "DoubleSum",
-    "DoubleFmaSum",
+//    "DoubleSum",
+//    "DoubleFmaSum",
     "ERationalSum",
-    "FloatSum",
-    "FloatFmaSum",
-    "RatioSum",
+//    "FloatSum",
+//    "FloatFmaSum",
+//    "RatioSum",
+    "RationalSum",
     })
   String className;
   Accumulator a;

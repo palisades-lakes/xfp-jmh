@@ -47,3 +47,16 @@ Sum.sum      ERationalSum  avgt   25  27844561.876 ± 3220382.007  us/op
 Sum.sum          FloatSum  avgt   25         3.058 ±       0.001  us/op
 Sum.sum       FloatFmaSum  avgt   25         3.057 ±       0.001  us/op
 Sum.sum          RatioSum  avgt   25     84384.019 ±     515.501  us/op
+
+2019-03-08 RationalSum accumulator
+dim=1024
+Benchmark     (className)  Mode  Cnt         Score         Error  Units
+Sum.sum    BigFractionSum  avgt   25     83734.923 ±     228.621  us/op
+Sum.sum      ERationalSum  avgt   25  27921924.052 ± 3251157.923  us/op
+Sum.sum       RationalSum  avgt   25    633233.829 ±    1752.393  us/op
+
+reduce on add
+Benchmark     (className)  Mode  Cnt         Score         Error  Units
+Sum.sum    BigFractionSum  avgt   25     83497.433 ±     708.835  us/op
+Sum.sum      ERationalSum  avgt   25  27979727.024 ± 3230333.148  us/op
+Sum.sum       RationalSum  avgt   25     84223.265 ±     646.197  us/op
