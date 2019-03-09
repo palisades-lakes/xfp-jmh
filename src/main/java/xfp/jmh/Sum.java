@@ -38,7 +38,7 @@ import xfp.java.prng.PRNG;
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class Sum {
 
   //--------------------------------------------------------------
