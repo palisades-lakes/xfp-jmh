@@ -55,10 +55,8 @@ Dot.dot    BigFractionSum  avgt   25       282.910 ±       2.205  ms/op
 Dot.dot      ERationalSum  avgt   25     58825.916 ±    7689.055  ms/op
 Dot.dot       RationalSum  avgt   25       273.116 ±       2.247  ms/op
 
+fixed subnormnal rounding by RationalAccumulator
 Benchmark     (className)  Mode  Cnt         Score         Error  Units
 Dot.dot    BigFractionSum  avgt   25       279.251 ±       2.502  ms/op
 Dot.dot      ERationalSum  avgt   25     58518.898 ±    7507.953  ms/op
 Dot.dot       RationalSum  avgt   25       269.045 ±       2.618  ms/op
-Sum.sum    BigFractionSum  avgt   25     83343.560 ±     558.602  us/op
-Sum.sum      ERationalSum  avgt   25  27979744.332 ± 3236413.027  us/op
-Sum.sum       RationalSum  avgt   25     84281.462 ±    1187.323  us/op

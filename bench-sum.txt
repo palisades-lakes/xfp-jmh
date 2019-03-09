@@ -61,6 +61,7 @@ Sum.sum    BigFractionSum  avgt   25     83497.433 ±     708.835  us/op
 Sum.sum      ERationalSum  avgt   25  27979727.024 ± 3230333.148  us/op
 Sum.sum       RationalSum  avgt   25     84223.265 ±     646.197  us/op
 
+fixed subnormnal rounding by RationalAccumulator
 Benchmark     (className)  Mode  Cnt         Score         Error  Units
 Sum.sum    BigFractionSum  avgt   25     83343.560 ±     558.602  us/op
 Sum.sum      ERationalSum  avgt   25  27979744.332 ± 3236413.027  us/op
