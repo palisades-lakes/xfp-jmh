@@ -33,7 +33,7 @@ import xfp.java.prng.PRNG;
  * java -ea -jar target\benchmarks.jar Sum
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-08
+ * @version 2019-03-09
  */
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
@@ -100,16 +100,17 @@ public class Sum {
   double trueSum;
 
   @Param({
-//    "BigDecimalSum",
+    "BigDecimalSum",
     "BigFractionSum",
-//    "DoubleSum",
-//    "DoubleFmaSum",
+    "DoubleSum",
+    "DoubleFmaSum",
+    "EFloatSum",
     "ERationalSum",
-//    "FloatSum",
-//    "FloatFmaSum",
-//    "RatioSum",
+    "FloatSum",
+    "FloatFmaSum",
+    "RatioSum",
     "RationalSum",
-    })
+  })
   String className;
   Accumulator a;
 

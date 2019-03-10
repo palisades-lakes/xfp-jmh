@@ -66,3 +66,18 @@ Benchmark     (className)  Mode  Cnt         Score         Error  Units
 Sum.sum    BigFractionSum  avgt   25     83343.560 ±     558.602  us/op
 Sum.sum      ERationalSum  avgt   25  27979744.332 ± 3236413.027  us/op
 Sum.sum       RationalSum  avgt   25     84281.462 ±    1187.323  us/op
+
+2019-03-09
+dim=1024 simplify RationalSum.doubleValue()
+Benchmark     (className)  Mode  Cnt      Score      Error  Units
+Sum.sum     BigDecimalSum  avgt   25      6.087 ±    0.124  ms/op
+Sum.sum    BigFractionSum  avgt   25     83.287 ±    0.387  ms/op
+Sum.sum         DoubleSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum      DoubleFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum         EFloatSum  avgt   25      0.623 ±    0.004  ms/op
+Sum.sum      ERationalSum  avgt   25  28157.847 ± 3339.282  ms/op
+Sum.sum          FloatSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum       FloatFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum          RatioSum  avgt   25     83.760 ±    0.669  ms/op
+Sum.sum       RationalSum  avgt   25     83.484 ±    0.399  ms/op
+ 

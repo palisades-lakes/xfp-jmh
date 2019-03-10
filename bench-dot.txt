@@ -60,3 +60,17 @@ Benchmark     (className)  Mode  Cnt         Score         Error  Units
 Dot.dot    BigFractionSum  avgt   25       279.251 ±       2.502  ms/op
 Dot.dot      ERationalSum  avgt   25     58518.898 ±    7507.953  ms/op
 Dot.dot       RationalSum  avgt   25       269.045 ±       2.618  ms/op
+
+2019-03-09
+dim=1024 simplify RationalSum.doubleValue()
+Benchmark     (className)  Mode  Cnt      Score      Error  Units
+Dot.dot     BigDecimalSum  avgt   25     17.078 ±    0.137  ms/op
+Dot.dot    BigFractionSum  avgt   25    278.214 ±    0.614  ms/op
+Dot.dot         DoubleSum  avgt   25      0.006 ±    0.001  ms/op
+Dot.dot      DoubleFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Dot.dot         EFloatSum  avgt   25      0.896 ±    0.008  ms/op
+Dot.dot      ERationalSum  avgt   25  58367.608 ± 7640.212  ms/op
+Dot.dot          FloatSum  avgt   25      0.005 ±    0.001  ms/op
+Dot.dot       FloatFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Dot.dot          RatioSum  avgt   25    284.615 ±    2.514  ms/op
+Dot.dot       RationalSum  avgt   25    266.369 ±    0.483  ms/op
