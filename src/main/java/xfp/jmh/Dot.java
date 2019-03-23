@@ -99,15 +99,15 @@ public class Dot {
 
   @Param({
     "BigDecimalSum",
-//    "BigFractionSum",
-//    "DoubleSum",
-//    "DoubleFmaSum",
-//    "EFloatSum",
+    "BigFractionSum",
+    "DoubleSum",
+    "DoubleFmaSum",
+    "EFloatSum",
     "ERationalSum",
-//    "FloatSum",
-//    "FloatFmaSum",
-//    "RatioSum",
-//    "MutableRationalSum",
+    //    "FloatSum",
+    //    "FloatFmaSum",
+    "RatioSum",
+    "MutableRationalSum",
     "RationalSum",
   })
   String className;

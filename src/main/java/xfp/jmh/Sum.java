@@ -100,15 +100,15 @@ public class Sum {
 
   @Param({
     "BigDecimalSum",
-//    "BigFractionSum",
-//    "DoubleSum",
-//    "DoubleFmaSum",
-//    "EFloatSum",
+    "BigFractionSum",
+    "DoubleSum",
+    "DoubleFmaSum",
+    "EFloatSum",
     "ERationalSum",
 //    "FloatSum",
 //    "FloatFmaSum",
-//    "RatioSum",
-//    "MutableRationalSum",
+    "RatioSum",
+    "MutableRationalSum",
     "RationalSum",
   })
   String className;
