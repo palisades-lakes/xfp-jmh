@@ -20,9 +20,8 @@ import org.openjdk.jmh.annotations.State;
 import xfp.java.accumulators.Accumulator;
 import xfp.java.accumulators.ERationalSum;
 import xfp.java.linear.Dn;
-import xfp.java.numbers.Floats;
+import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
-import xfp.java.prng.Generators;
 import xfp.java.prng.PRNG;
 
 // java -ea --illegal-access=warn -jar target/benchmarks.jar
@@ -33,7 +32,7 @@ import xfp.java.prng.PRNG;
  * java -ea -jar target\benchmarks.jar Sum
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-09
+ * @version 2019-03-22
  */
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
@@ -68,7 +67,7 @@ public class Sum {
    * (with high enough probability).
    */
   private static final int feMax (final int dim) { 
-    final int d = Floats.MAXIMUM_EXPONENT - ceilLog2(dim);
+    final int d = Float.MAX_EXPONENT - ceilLog2(dim);
     //System.out.println("emax=" + d);
     return d; }
 
@@ -86,7 +85,7 @@ public class Sum {
     final UniformRandomProvider urp = 
       PRNG.well44497b("seeds/Well44497b-2019-01-05.txt");
     final Generator g = 
-      Generators.finiteDoubleGenerator(dim,urp,feMax(dim));
+      Doubles.finiteGenerator(dim,urp,feMax(dim));
 
     final double[][] x = new double[n][];
     for (int i=0;i<n;i++) { x[i] = sampleDoubles(g,urp); }
@@ -101,14 +100,15 @@ public class Sum {
 
   @Param({
     "BigDecimalSum",
-    "BigFractionSum",
-    "DoubleSum",
-    "DoubleFmaSum",
-    "EFloatSum",
+//    "BigFractionSum",
+//    "DoubleSum",
+//    "DoubleFmaSum",
+//    "EFloatSum",
     "ERationalSum",
-    "FloatSum",
-    "FloatFmaSum",
-    "RatioSum",
+//    "FloatSum",
+//    "FloatFmaSum",
+//    "RatioSum",
+//    "MutableRationalSum",
     "RationalSum",
   })
   String className;
