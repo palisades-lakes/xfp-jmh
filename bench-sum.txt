@@ -81,3 +81,26 @@ Sum.sum       FloatFmaSum  avgt   25      0.003 ±    0.001  ms/op
 Sum.sum          RatioSum  avgt   25     83.760 ±    0.669  ms/op
 Sum.sum       RationalSum  avgt   25     83.484 ±    0.399  ms/op
  
+ 2019-03-22 
+dim = 1024 RationalSum uses immutable Rational version 0 accumulator
+Benchmark         (className)  Mode  Cnt      Score      Error  Units
+Dot.dot         BigDecimalSum  avgt   25     17.262 ±    0.124  ms/op
+Dot.dot        BigFractionSum  avgt   25    281.447 ±    2.489  ms/op
+Dot.dot             DoubleSum  avgt   25      0.006 ±    0.001  ms/op
+Dot.dot          DoubleFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Dot.dot             EFloatSum  avgt   25      0.927 ±    0.019  ms/op
+Dot.dot          ERationalSum  avgt   25  58342.891 ± 7599.037  ms/op
+Dot.dot              RatioSum  avgt   25    282.963 ±    1.827  ms/op
+Dot.dot    MutableRationalSum  avgt   25    270.776 ±    5.199  ms/op
+Dot.dot           RationalSum  avgt   25    271.930 ±    3.205  ms/op
+Sum.sum         BigDecimalSum  avgt   25      6.010 ±    0.046  ms/op
+Sum.sum        BigFractionSum  avgt   25     83.211 ±    0.181  ms/op
+Sum.sum             DoubleSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum          DoubleFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum             EFloatSum  avgt   25      0.625 ±    0.008  ms/op
+Sum.sum          ERationalSum  avgt   25  27737.049 ± 3212.917  ms/op
+Sum.sum              RatioSum  avgt   25     84.467 ±    0.099  ms/op
+Sum.sum    MutableRationalSum  avgt   25     83.133 ±    0.407  ms/op
+Sum.sum           RationalSum  avgt   25     83.106 ±    0.343  ms/op
+
+ 
