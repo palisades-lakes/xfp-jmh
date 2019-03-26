@@ -1,0 +1,4 @@
+2019-03-26 10:00
+TRYS= 1 * 1024
+Benchmark            Mode  Cnt   Score   Error  Units
+Roundtrip.roundtrip  avgt   25  54.469 ± 0.232  ms/op
