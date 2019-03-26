@@ -27,8 +27,9 @@ import xfp.java.prng.Generator;
  * <code>BigFraction</code>
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-02-27
+ * @version 2019-03-25
  */
+@SuppressWarnings("unchecked")
 public final class BigFractions implements Set {
 
   //--------------------------------------------------------------

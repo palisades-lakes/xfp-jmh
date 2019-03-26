@@ -30,7 +30,7 @@ import xfp.jmh.accumulators.ERationalSum;
  * java -ea -jar target\benchmarks.jar Dot
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-22
+ * @version 2019-03-25
  */
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
@@ -98,17 +98,17 @@ public class Dot {
   double trueDot;
 
   @Param({
-    "BigDecimalSum",
-    "BigFractionSum",
-    "DoubleSum",
-    "DoubleFmaSum",
-    "EFloatSum",
-    "ERationalSum",
-    //    "FloatSum",
-    //    "FloatFmaSum",
-    "RatioSum",
-    "MutableRationalSum",
-    "RationalSum",
+    "xfp.java.accumulators.BigDecimalSum",
+    "xfp.jmh.accumulators.BigFractionSum",
+    "xfp.java.accumulators.DoubleSum",
+    "xfp.java.accumulators.DoubleFmaSum",
+    "xfp.jmh.accumulators.EFloatSum",
+    "xfp.jmh.accumulators.ERationalSum",
+//    "xfp.java.accumulators.FloatSum",
+//    "xfp.java.accumulators.FloatFmaSum",
+    "xfp.jmh.accumulators.RatioSum",
+    "xfp.java.accumulators.MutableRationalSum",
+    "xfp.java.accumulators.RationalSum",
   })
   String className;
   Accumulator a;
@@ -126,8 +126,7 @@ public class Dot {
     final Accumulator a0 = ERationalSum.make();
     a0.addProducts(x0,x1);
     trueDot = a0.doubleValue(); 
-    final Class c = 
-      Class.forName("xfp.java.accumulators." + className);
+    final Class c = Class.forName(className);
     //System.out.println(c); 
     final Method m = c.getMethod("make");
     a = (Accumulator) m.invoke(null); }  
