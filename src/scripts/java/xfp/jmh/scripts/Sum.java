@@ -1,21 +1,9 @@
-package xfp.jmh;
+package xfp.jmh.scripts;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.rng.UniformRandomProvider;
 import org.apache.commons.rng.sampling.ListSampler;
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.BenchmarkMode;
-import org.openjdk.jmh.annotations.Level;
-import org.openjdk.jmh.annotations.Mode;
-import org.openjdk.jmh.annotations.OutputTimeUnit;
-import org.openjdk.jmh.annotations.Param;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.Setup;
-import org.openjdk.jmh.annotations.State;
 
 import xfp.java.accumulators.Accumulator;
 import xfp.java.linear.Dn;
@@ -24,19 +12,18 @@ import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
 import xfp.jmh.accumulators.ERationalSum;
 
-/** Benchmark double dot products
+// java -ea --illegal-access=warn -jar target/benchmarks.jar
+
+/** Benchmark algebraic structure tests.
  * 
  * <pre>
- * java -ea -jar target\benchmarks.jar Dot
+ * jy --source 11 src/scripts/java/xfp/java/scripts/Sum.java
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-22
+ * @version 2019-03-21
  */
 @SuppressWarnings("unchecked")
-@State(Scope.Thread)
-@BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
-public class Dot {
+public final class Sum {
 
   //--------------------------------------------------------------
   //  /** See {@link Integer#numberOfLeadingZeros(int)}. */
@@ -83,62 +70,32 @@ public class Dot {
     final UniformRandomProvider urp = 
       PRNG.well44497b("seeds/Well44497b-2019-01-05.txt");
     final Generator g = 
-      Doubles.finiteGenerator(dim,urp,feMax(dim));
+      Doubles.finiteGenerator(dim/2,urp,feMax(dim));
 
     final double[][] x = new double[n][];
     for (int i=0;i<n;i++) { x[i] = sampleDoubles(g,urp); }
     return x; }
 
-  //--------------------------------------------------------------
+  private static final int DIM = 1024*1024;
 
-  private static final int DIM = 1*1024;
+  private static final int TRYS = 32;
 
-  double[] x0;
-  double[] x1;
-  double trueDot;
+  public static final void main (final String[] args) 
+    throws InterruptedException {
+    final double[] x0 = sampleDoubles(DIM,1)[0];
+ 
+    final Accumulator a = ERationalSum.make();
+      Thread.sleep(16*1024);
+  final long t = System.nanoTime();
+  for (int i=0;i<TRYS;i++) {
+    a.clear();
+    a.addAll(x0);
+    if (2.0*Math.ulp(1.0) > a.doubleValue()) {
+      System.out.println("false"); } } 
+  System.out.printf("total secs: %8.2f\n",
+    Double.valueOf((System.nanoTime()-t)*1.0e-9)); 
+  Thread.sleep(16*1024); }
 
-  @Param({
-    "BigDecimalSum",
-    "BigFractionSum",
-    "DoubleSum",
-    "DoubleFmaSum",
-    "EFloatSum",
-    "ERationalSum",
-    //    "FloatSum",
-    //    "FloatFmaSum",
-    "RatioSum",
-    "MutableRationalSum",
-    "RationalSum",
-  })
-  String className;
-  Accumulator a;
-
-  @Setup(Level.Trial)  
-  public final void setup () 
-    throws ClassNotFoundException, 
-    IllegalAccessException, 
-    IllegalArgumentException, 
-    InvocationTargetException, 
-    NoSuchMethodException, 
-    SecurityException {
-    x0 = sampleDoubles(DIM,1)[0];
-    x1 = sampleDoubles(DIM,1)[0];
-    final Accumulator a0 = ERationalSum.make();
-    a0.addProducts(x0,x1);
-    trueDot = a0.doubleValue(); 
-    final Class c = 
-      Class.forName("xfp.java.accumulators." + className);
-    //System.out.println(c); 
-    final Method m = c.getMethod("make");
-    a = (Accumulator) m.invoke(null); }  
-
-  //--------------------------------------------------------------
-
-  @Benchmark
-  public final double dot () { 
-    a.addProducts(x0,x1);
-    return Math.abs(trueDot - a.doubleValue()); }
-
-  //--------------------------------------------------------------
+//--------------------------------------------------------------
 }
 //--------------------------------------------------------------

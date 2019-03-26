@@ -18,11 +18,11 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
 import xfp.java.accumulators.Accumulator;
-import xfp.java.accumulators.ERationalSum;
 import xfp.java.linear.Dn;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
+import xfp.jmh.accumulators.ERationalSum;
 
 // java -ea --illegal-access=warn -jar target/benchmarks.jar
 

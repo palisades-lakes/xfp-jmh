@@ -17,12 +17,12 @@ import xfp.java.algebra.Sets;
 import xfp.java.algebra.Structure;
 import xfp.java.algebra.TwoSetsOneOperation;
 import xfp.java.linear.BigDecimalsN;
-import xfp.java.linear.BigFractionsN;
+import xfp.jmh.linear.BigFractionsN;
 import xfp.java.linear.Dn;
-import xfp.java.linear.ERationalsN;
+import xfp.jmh.linear.ERationalsN;
 import xfp.java.linear.Fn;
 import xfp.java.linear.Qn;
-import xfp.java.linear.RatiosN;
+import xfp.jmh.linear.RatiosN;
 import xfp.java.prng.PRNG;
 
 // java -ea --illegal-access=warn -jar target/benchmarks.jar NaiveSum
