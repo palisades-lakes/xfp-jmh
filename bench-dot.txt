@@ -89,7 +89,7 @@ Dot.dot    MutableRationalSum  avgt   25    270.776 ±    5.199  ms/op
 Dot.dot           RationalSum  avgt   25    271.930 ±    3.205  ms/op
 
 2019-03-26 
-dim = 1024 RationalRational independent of numbers-java
+dim = 1024 Rational independent of numbers-java
 Benchmark                               (className)  Mode  Cnt      Score      Error  Units
 Dot.dot         xfp.java.accumulators.BigDecimalSum  avgt   25     17.132 ±    0.050  ms/op
 Dot.dot         xfp.jmh.accumulators.BigFractionSum  avgt   25    282.712 ±    3.369  ms/op
@@ -100,3 +100,19 @@ Dot.dot           xfp.jmh.accumulators.ERationalSum  avgt   25  58394.800 ± 760
 Dot.dot               xfp.jmh.accumulators.RatioSum  avgt   25    284.017 ±    2.611  ms/op
 Dot.dot    xfp.java.accumulators.MutableRationalSum  avgt   25    273.651 ±    1.135  ms/op
 Dot.dot           xfp.java.accumulators.RationalSum  avgt   25    268.853 ±    2.580  ms/op
+
+2019-03-27
+dim = 1024 Rational add and addProduct don't create more than 1 new Rational
+Benchmark                                     (className)  Mode  Cnt      Score      Error  Units
+Dot.dot               xfp.java.accumulators.BigDecimalSum  avgt   25     16.857 ±    0.074  ms/op
+Dot.dot               xfp.jmh.accumulators.BigFractionSum  avgt   25    279.682 ±    2.303  ms/op
+Dot.dot                   xfp.java.accumulators.DoubleSum  avgt   25      0.006 ±    0.001  ms/op
+Dot.dot                xfp.java.accumulators.DoubleFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Dot.dot                    xfp.jmh.accumulators.EFloatSum  avgt   25      0.885 ±    0.003  ms/op
+Dot.dot                 xfp.jmh.accumulators.ERationalSum  avgt   25  58301.593 ± 7552.355  ms/op
+Dot.dot                     xfp.jmh.accumulators.RatioSum  avgt   25    283.061 ±    2.535  ms/op
+Dot.dot          xfp.java.accumulators.MutableRationalSum  avgt   25    274.583 ±    2.994  ms/op
+Dot.dot                 xfp.java.accumulators.RationalSum  avgt   25    269.998 ±    6.112  ms/op
+Dot.dot                xfp.java.accumulators.Rational0Sum  avgt   25    270.891 ±    2.076  ms/op
+
+

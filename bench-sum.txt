@@ -106,4 +106,19 @@ Sum.sum           xfp.jmh.accumulators.ERationalSum  avgt   25  27841.838 ± 327
 Sum.sum               xfp.jmh.accumulators.RatioSum  avgt   25     83.800 ±    0.589  ms/op
 Sum.sum    xfp.java.accumulators.MutableRationalSum  avgt   25     82.123 ±    1.135  ms/op
 Sum.sum           xfp.java.accumulators.RationalSum  avgt   25     84.274 ±    0.887  ms/op
+
+2019-03-27
+dim = 1024 Rational add and addProduct don't create more than 1 new Rational
+Benchmark                                     (className)  Mode  Cnt      Score      Error  Units
+Sum.sum               xfp.java.accumulators.BigDecimalSum  avgt   25      5.946 ±    0.017  ms/op
+Sum.sum               xfp.jmh.accumulators.BigFractionSum  avgt   25     83.169 ±    0.555  ms/op
+Sum.sum                   xfp.java.accumulators.DoubleSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum                xfp.java.accumulators.DoubleFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum                    xfp.jmh.accumulators.EFloatSum  avgt   25      0.620 ±    0.007  ms/op
+Sum.sum                 xfp.jmh.accumulators.ERationalSum  avgt   25  27905.309 ± 3240.894  ms/op
+Sum.sum                     xfp.jmh.accumulators.RatioSum  avgt   25     83.896 ±    0.484  ms/op
+Sum.sum          xfp.java.accumulators.MutableRationalSum  avgt   25     83.126 ±    0.279  ms/op
+Sum.sum                 xfp.java.accumulators.RationalSum  avgt   25     82.217 ±    0.337  ms/op
+Sum.sum                xfp.java.accumulators.Rational0Sum  avgt   25     83.546 ±    0.645  ms/op
+
  
