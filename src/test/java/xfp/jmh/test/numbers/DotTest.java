@@ -32,7 +32,7 @@ import xfp.jmh.accumulators.RatioSum;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-22
+ * @version 2019-03-26
  */
 
 //no actual tests here (yet)
@@ -92,7 +92,7 @@ public final class DotTest {
     return x; }
 
   private static final int DIM = 1 * 1024;
-  private static final int N = 8;
+  private static final int N = 4;
 
   //--------------------------------------------------------------
 
