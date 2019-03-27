@@ -1,4 +1,4 @@
-package xfp.jmh.test.numbers;
+package xfp.jmh.test.accumulators;
 
 import static java.lang.Double.toHexString;
 
@@ -14,6 +14,7 @@ import xfp.java.accumulators.BigDecimalSum;
 import xfp.java.accumulators.DoubleFmaSum;
 import xfp.java.accumulators.DoubleSum;
 import xfp.java.accumulators.MutableRationalSum;
+import xfp.java.accumulators.Rational0Sum;
 import xfp.java.accumulators.RationalSum;
 import xfp.java.linear.Dn;
 import xfp.java.numbers.Doubles;
@@ -133,6 +134,7 @@ public final class DotTest {
      RatioSum.make(),
      MutableRationalSum.make(),
      RationalSum.make(),
+     Rational0Sum.make(),
     };
 
     for (final Accumulator a : accumulators) {
