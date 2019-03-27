@@ -32,7 +32,7 @@ import xfp.jmh.accumulators.ERationalSum;
  * java -ea -jar target\benchmarks.jar Sum
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-25
+ * @version 2019-03-26
  */
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
@@ -110,6 +110,7 @@ public class Sum {
     "xfp.jmh.accumulators.RatioSum",
     "xfp.java.accumulators.MutableRationalSum",
     "xfp.java.accumulators.RationalSum",
+    "xfp.java.accumulators.Rational0Sum",
   })
   String className;
   Accumulator a;
