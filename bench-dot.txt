@@ -115,4 +115,19 @@ Dot.dot          xfp.java.accumulators.MutableRationalSum  avgt   25    274.583 
 Dot.dot                 xfp.java.accumulators.RationalSum  avgt   25    269.998 ±    6.112  ms/op
 Dot.dot                xfp.java.accumulators.Rational0Sum  avgt   25    270.891 ±    2.076  ms/op
 
+2019-03-28
+dim = 1024 RationalBinaryFloat
+Benchmark                                         (className)  Mode  Cnt      Score      Error  Units
+Dot.dot                   xfp.java.accumulators.BigDecimalSum  avgt   25     16.928 ±    0.109  ms/op
+Dot.dot                   xfp.jmh.accumulators.BigFractionSum  avgt   25    282.212 ±    2.681  ms/op
+Dot.dot                       xfp.java.accumulators.DoubleSum  avgt   25      0.006 ±    0.001  ms/op
+Dot.dot                    xfp.java.accumulators.DoubleFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Dot.dot                        xfp.jmh.accumulators.EFloatSum  avgt   25      0.904 ±    0.021  ms/op
+Dot.dot                     xfp.jmh.accumulators.ERationalSum  avgt   25  58534.047 ± 7649.169  ms/op
+Dot.dot                         xfp.jmh.accumulators.RatioSum  avgt   25      1.217 ±    0.031  ms/op
+Dot.dot              xfp.java.accumulators.MutableRationalSum  avgt   25    273.839 ±    4.596  ms/op
+Dot.dot                    xfp.java.accumulators.Rational0Sum  avgt   25    269.238 ±    3.372  ms/op
+Dot.dot                     xfp.java.accumulators.RationalSum  avgt   25    267.607 ±    1.902  ms/op
+Dot.dot          xfp.java.accumulators.RationalBinaryFloatSum  avgt   25    269.126 ±    6.192  ms/op
+
 
