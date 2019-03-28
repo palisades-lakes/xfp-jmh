@@ -27,10 +27,10 @@ import xfp.jmh.accumulators.ERationalSum;
 /** Benchmark double dot products
  * 
  * <pre>
- * java -ea -jar target\benchmarks.jar Dot
+ * java -ea -jar target\benchmarks.jar RationalDot
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-26
+ * @version 2019-03-27
  */
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
@@ -110,6 +110,7 @@ public class RationalDot {
 //    "xfp.java.accumulators.MutableRationalSum",
     "xfp.java.accumulators.Rational0Sum",
     "xfp.java.accumulators.RationalSum",
+    "xfp.java.accumulators.RationalBinaryFloatSum",
   })
   String className;
   Accumulator a;

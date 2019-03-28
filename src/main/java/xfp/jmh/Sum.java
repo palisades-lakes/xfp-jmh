@@ -32,7 +32,7 @@ import xfp.jmh.accumulators.ERationalSum;
  * java -ea -jar target\benchmarks.jar Sum
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-26
+ * @version 2019-03-27
  */
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
@@ -109,8 +109,9 @@ public class Sum {
 //    "xfp.java.accumulators.FloatFmaSum",
     "xfp.jmh.accumulators.RatioSum",
     "xfp.java.accumulators.MutableRationalSum",
-    "xfp.java.accumulators.RationalSum",
     "xfp.java.accumulators.Rational0Sum",
+    "xfp.java.accumulators.RationalSum",
+    "xfp.java.accumulators.RationalBinaryFloatSum",
   })
   String className;
   Accumulator a;
