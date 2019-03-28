@@ -12,7 +12,8 @@ set THRUPUT=-server -Xbatch -XX:+UseFMA
 ::set THRUPUT=-server -Xbatch 
 
 ::set XMX=-Xms29g -Xmx29g -Xmn11g 
-set XMX=-Xms12g -Xmx12g -Xmn5g 
+::set XMX=-Xms12g -Xmx12g -Xmn5g 
+set XMX=-Xms12g -Xmx12g
 
 ::set PROF=
 set PROF=-agentpath:"C:\Program Files\YourKit Java Profiler 2018.04-b88\bin\win64\yjpagent.dll=_no_java_version_check"

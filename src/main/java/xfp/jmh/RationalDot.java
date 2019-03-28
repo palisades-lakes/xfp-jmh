@@ -18,11 +18,11 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
 import xfp.java.accumulators.Accumulator;
+import xfp.java.accumulators.RationalSum;
 import xfp.java.linear.Dn;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
-import xfp.jmh.accumulators.ERationalSum;
 
 /** Benchmark double dot products
  * 
@@ -30,7 +30,7 @@ import xfp.jmh.accumulators.ERationalSum;
  * java -ea -jar target\benchmarks.jar RationalDot
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-27
+ * @version 2019-03-28
  */
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
@@ -91,7 +91,7 @@ public class RationalDot {
 
   //--------------------------------------------------------------
 
-  private static final int DIM = 1*1024;
+  private static final int DIM = 256 * 1024;
 
   double[] x0;
   double[] x1;
@@ -102,14 +102,13 @@ public class RationalDot {
 //    "xfp.jmh.accumulators.BigFractionSum",
 //    "xfp.java.accumulators.DoubleSum",
 //    "xfp.java.accumulators.DoubleFmaSum",
-//    "xfp.jmh.accumulators.EFloatSum",
+    "xfp.jmh.accumulators.EFloatSum",
 //    "xfp.jmh.accumulators.ERationalSum",
 //    "xfp.java.accumulators.FloatSum",
 //    "xfp.java.accumulators.FloatFmaSum",
 //    "xfp.jmh.accumulators.RatioSum",
 //    "xfp.java.accumulators.MutableRationalSum",
-    "xfp.java.accumulators.Rational0Sum",
-    "xfp.java.accumulators.RationalSum",
+//    "xfp.java.accumulators.RationalSum",
     "xfp.java.accumulators.RationalBinaryFloatSum",
   })
   String className;
@@ -125,7 +124,7 @@ public class RationalDot {
     SecurityException {
     x0 = sampleDoubles(DIM,1)[0];
     x1 = sampleDoubles(DIM,1)[0];
-    final Accumulator a0 = ERationalSum.make();
+    final Accumulator a0 = RationalSum.make();
     a0.addProducts(x0,x1);
     trueDot = a0.doubleValue(); 
     final Class c = Class.forName(className);

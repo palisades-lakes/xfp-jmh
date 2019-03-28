@@ -108,7 +108,6 @@ public class Dot {
 //    "xfp.java.accumulators.FloatFmaSum",
     "xfp.jmh.accumulators.RatioSum",
     "xfp.java.accumulators.MutableRationalSum",
-    "xfp.java.accumulators.Rational0Sum",
     "xfp.java.accumulators.RationalSum",
     "xfp.java.accumulators.RationalBinaryFloatSum",
   })

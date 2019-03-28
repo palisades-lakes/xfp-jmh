@@ -130,4 +130,10 @@ Dot.dot                    xfp.java.accumulators.Rational0Sum  avgt   25    269.
 Dot.dot                     xfp.java.accumulators.RationalSum  avgt   25    267.607 ±    1.902  ms/op
 Dot.dot          xfp.java.accumulators.RationalBinaryFloatSum  avgt   25    269.126 ±    6.192  ms/op
 
+2019-03-28
+RationalDotSum
+dim= 64* 1024 fix RationalBinaryFloat and RationalBinaryFloatSum
+Benchmark                                         (className)  Mode  Cnt   Score   Error  Units
+RationalDot.dot                xfp.jmh.accumulators.EFloatSum  avgt   25  56.332 ± 0.587  ms/op
+RationalDot.dot  xfp.java.accumulators.RationalBinaryFloatSum  avgt   25  32.105 ± 0.537  ms/op
 
