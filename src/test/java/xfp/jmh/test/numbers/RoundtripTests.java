@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 import com.upokecenter.numbers.EFloat;
 import com.upokecenter.numbers.ERational;
 
-import xfp.java.accumulators.MutableRationalAccumulator;
 import xfp.java.numbers.Doubles;
 import xfp.java.numbers.Rational;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
 import xfp.jmh.accumulators.EFloatAccumulator;
+import xfp.jmh.accumulators.MutableRationalAccumulator;
 
 //----------------------------------------------------------------
 /** Test number conversions expected to be lossless. 
