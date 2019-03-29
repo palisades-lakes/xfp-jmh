@@ -10,20 +10,20 @@ import org.junit.jupiter.api.Test;
 
 import xfp.java.Classes;
 import xfp.java.accumulators.Accumulator;
-import xfp.java.accumulators.BigDecimalSum;
-import xfp.java.accumulators.DoubleFmaSum;
-import xfp.java.accumulators.DoubleSum;
-import xfp.java.accumulators.MutableRationalSum;
-import xfp.java.accumulators.RationalBinaryFloatSum;
-import xfp.java.accumulators.RationalSum;
+import xfp.java.accumulators.BigDecimalAccumulator;
+import xfp.java.accumulators.DoubleFmaAccumulator;
+import xfp.java.accumulators.DoubleAccumulator;
+import xfp.java.accumulators.MutableRationalAccumulator;
+import xfp.java.accumulators.RBFAccumulator;
+import xfp.java.accumulators.RationalAccumulator;
 import xfp.java.linear.Dn;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
-import xfp.jmh.accumulators.BigFractionSum;
-import xfp.jmh.accumulators.EFloatSum;
-import xfp.jmh.accumulators.ERationalSum;
-import xfp.jmh.accumulators.RatioSum;
+import xfp.jmh.accumulators.BigFractionAccumulator;
+import xfp.jmh.accumulators.EFloatAccumulator;
+import xfp.jmh.accumulators.ERationalAccumulator;
+import xfp.jmh.accumulators.RatioAccumulator;
 
 //----------------------------------------------------------------
 /** Test summation algorithms. 
@@ -110,7 +110,7 @@ public final class DotTest {
     // assuming ERational is correct!!!
     for (int i=0;i<N;i++) { 
       truth[i] = 
-        EFloatSum.make().addProducts(x0[i],x1[i]).doubleValue(); }
+        EFloatAccumulator.make().addProducts(x0[i],x1[i]).doubleValue(); }
 
     for (int i=0;i<N;i++) { 
       System.out.println(
@@ -123,18 +123,18 @@ public final class DotTest {
     System.out.println();
     final Accumulator[] accumulators = 
     {
-     BigDecimalSum.make(),
-     BigFractionSum.make(),
-     DoubleSum.make(),
-     DoubleFmaSum.make(),
-     EFloatSum.make(),
-     ERationalSum.make(),
-//     FloatSum.make(),
-//     FloatFmaSum.make(),
-     RatioSum.make(),
-     MutableRationalSum.make(),
-     RationalSum.make(),
-     RationalBinaryFloatSum.make(),
+     BigDecimalAccumulator.make(),
+     BigFractionAccumulator.make(),
+     DoubleAccumulator.make(),
+     DoubleFmaAccumulator.make(),
+     EFloatAccumulator.make(),
+     ERationalAccumulator.make(),
+//     FloatAccumulator.make(),
+//     FloatFmaAccumulator.make(),
+     RatioAccumulator.make(),
+     MutableRationalAccumulator.make(),
+     RationalAccumulator.make(),
+     RBFAccumulator.make(),
     };
 
     for (final Accumulator a : accumulators) {

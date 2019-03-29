@@ -12,16 +12,18 @@ import xfp.java.accumulators.Accumulator;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-27
+ * @version 2019-03-29
  */
-public final class RatioSum implements Accumulator<RatioSum> {
+public final class RatioAccumulator 
+
+implements Accumulator<RatioAccumulator> {
 
   private static final Ratio add (final Ratio q0, 
                                   final Ratio q1) {
     return toRatio(Numbers.add(q0,q1)); } 
 
   private static final Ratio multiply (final Ratio q0, 
-                                  final Ratio q1) {
+                                       final Ratio q1) {
     return toRatio(Numbers.multiply(q0,q1)); } 
 
   private static final Ratio ZERO = 
@@ -38,16 +40,16 @@ public final class RatioSum implements Accumulator<RatioSum> {
     return _sum.doubleValue(); }
 
   @Override
-  public final RatioSum clear () { _sum = ZERO; return this; }
+  public final RatioAccumulator clear () { 
+    _sum = ZERO; return this; }
 
   @Override
-  public final RatioSum add (final double z) { 
-    _sum = add(_sum,toRatio(Double.valueOf(z)));
-    return this; }
+  public final RatioAccumulator add (final double z) { 
+    _sum = add(_sum,toRatio(Double.valueOf(z))); return this; }
 
   @Override
-  public final RatioSum addProduct (final double z0,
-                                       final double z1) { 
+  public final RatioAccumulator addProduct (final double z0,
+                                            final double z1) { 
     _sum = add(
       _sum,
       multiply(
@@ -59,9 +61,9 @@ public final class RatioSum implements Accumulator<RatioSum> {
   // construction
   //--------------------------------------------------------------
 
-  private RatioSum () { super(); clear(); }
+  private RatioAccumulator () { super(); clear(); }
 
-  public static final RatioSum make () { return new RatioSum(); }
+  public static final RatioAccumulator make () { return new RatioAccumulator(); }
 
   //--------------------------------------------------------------
 }

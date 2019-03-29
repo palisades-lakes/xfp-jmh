@@ -10,7 +10,7 @@ import xfp.java.linear.Dn;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
-import xfp.jmh.accumulators.ERationalSum;
+import xfp.jmh.accumulators.ERationalAccumulator;
 
 // java -ea --illegal-access=warn -jar target/benchmarks.jar
 
@@ -84,7 +84,7 @@ public final class Sum {
     throws InterruptedException {
     final double[] x0 = sampleDoubles(DIM,1)[0];
  
-    final Accumulator a = ERationalSum.make();
+    final Accumulator a = ERationalAccumulator.make();
       Thread.sleep(16*1024);
   final long t = System.nanoTime();
   for (int i=0;i<TRYS;i++) {

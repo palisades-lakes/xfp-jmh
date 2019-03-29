@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 import com.upokecenter.numbers.EFloat;
 import com.upokecenter.numbers.ERational;
 
-import xfp.java.accumulators.MutableRationalSum;
+import xfp.java.accumulators.MutableRationalAccumulator;
 import xfp.java.numbers.Doubles;
 import xfp.java.numbers.Rational;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
-import xfp.jmh.accumulators.EFloatSum;
+import xfp.jmh.accumulators.EFloatAccumulator;
 
 //----------------------------------------------------------------
 /** Test number conversions expected to be lossless. 
@@ -383,7 +383,7 @@ public final class RoundtripTests {
           Double.toHexString(x) + "\n" +
           Double.toHexString(xf) + "\n\n" +
           f + "\n" +
-          EFloatSum.toHexString(f) + "\n" );
+          EFloatAccumulator.toHexString(f) + "\n" );
         return false; } }
     return true; }
 
@@ -440,7 +440,7 @@ public final class RoundtripTests {
     return true; }
 
   //--------------------------------------------------------------
-  /** RationalSum should be able to represent any double exactly.
+  /** RationalAccumulator should be able to represent any double exactly.
    */
 
   private static final boolean double2RationalSum2Double () {
@@ -450,12 +450,12 @@ public final class RoundtripTests {
     //subnormalDoubles();
     for (int i=0;i<TRYS;i++) {
       final double x = g.nextDouble();
-      final MutableRationalSum f = MutableRationalSum.make().add(x);
+      final MutableRationalAccumulator f = MutableRationalAccumulator.make().add(x);
       final double xf = f.doubleValue();
       final ERational xe = ERational.FromDouble(x);
       if (x != xf) { 
         System.out.println("\n\n" + 
-          "RationalSum: isNormal=" + Doubles.isNormal(x) +"\n" 
+          "RationalAccumulator: isNormal=" + Doubles.isNormal(x) +"\n" 
           + x + "\n"
           + xf + "\n\n"
           + Double.toHexString(x) + "\n" 

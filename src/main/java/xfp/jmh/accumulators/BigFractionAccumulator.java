@@ -8,9 +8,11 @@ import xfp.java.accumulators.Accumulator;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-07
+ * @version 2019-03-29
  */
-public final class BigFractionSum implements Accumulator<BigFractionSum> {
+public final class BigFractionAccumulator 
+
+implements Accumulator<BigFractionAccumulator> {
 
   private BigFraction _sum;
 
@@ -22,23 +24,23 @@ public final class BigFractionSum implements Accumulator<BigFractionSum> {
     return _sum.doubleValue(); }
 
   @Override
-  public final BigFractionSum clear () { 
+  public final BigFractionAccumulator clear () { 
     _sum = BigFraction.ZERO;
     return this; }
 
   @Override
-  public final BigFractionSum add (final double z) { 
+  public final BigFractionAccumulator add (final double z) { 
     _sum = _sum.add(new BigFraction(z));
     return this; }
 
 //  @Override
-//  public final BigFractionSum addAll (final double[] z)  {
+//  public final BigFractionAccumulator addAll (final double[] z)  {
 //    for (final double zi : z) { 
 //      _sum = _sum.add(new BigFraction(zi)); }
 //    return this; } 
 
   @Override
-  public final BigFractionSum addProduct (final double z0,
+  public final BigFractionAccumulator addProduct (final double z0,
                                        final double z1) { 
     _sum = _sum.add(
       new BigFraction(z0)
@@ -50,10 +52,10 @@ public final class BigFractionSum implements Accumulator<BigFractionSum> {
   // construction
   //--------------------------------------------------------------
 
-  private BigFractionSum () { super(); clear(); }
+  private BigFractionAccumulator () { super(); clear(); }
 
-  public static final BigFractionSum make () {
-    return new BigFractionSum(); }
+  public static final BigFractionAccumulator make () {
+    return new BigFractionAccumulator(); }
 
   //--------------------------------------------------------------
 }

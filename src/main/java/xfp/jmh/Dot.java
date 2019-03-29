@@ -22,7 +22,7 @@ import xfp.java.linear.Dn;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
-import xfp.jmh.accumulators.ERationalSum;
+import xfp.jmh.accumulators.ERationalAccumulator;
 
 /** Benchmark double dot products
  * 
@@ -30,7 +30,7 @@ import xfp.jmh.accumulators.ERationalSum;
  * java -ea -jar target\benchmarks.jar Dot
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-27
+ * @version 2019-03-29
  */
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
@@ -91,25 +91,25 @@ public class Dot {
 
   //--------------------------------------------------------------
 
-  private static final int DIM = 1*1024;
+  private static final int DIM = 1024*1024;
 
   double[] x0;
   double[] x1;
   double trueDot;
 
   @Param({
-    "xfp.java.accumulators.BigDecimalSum",
-    "xfp.jmh.accumulators.BigFractionSum",
-    "xfp.java.accumulators.DoubleSum",
-    "xfp.java.accumulators.DoubleFmaSum",
-    "xfp.jmh.accumulators.EFloatSum",
-    "xfp.jmh.accumulators.ERationalSum",
-//    "xfp.java.accumulators.FloatSum",
-//    "xfp.java.accumulators.FloatFmaSum",
-    "xfp.jmh.accumulators.RatioSum",
-    "xfp.java.accumulators.MutableRationalSum",
-    "xfp.java.accumulators.RationalSum",
-    "xfp.java.accumulators.RationalBinaryFloatSum",
+//    "xfp.java.accumulators.BigDecimalAccumulator",
+//    "xfp.jmh.accumulators.BigFractionAccumulator",
+    "xfp.java.accumulators.DoubleAccumulator",
+    "xfp.java.accumulators.DoubleFmaAccumulator",
+    "xfp.jmh.accumulators.EFloatAccumulator",
+//    "xfp.jmh.accumulators.ERationalAccumulator",
+//    "xfp.java.accumulators.FloatAccumulator",
+//    "xfp.java.accumulators.FloatFmaAccumulator",
+//    "xfp.jmh.accumulators.RatioAccumulator",
+//    "xfp.java.accumulators.MutableRationalAccumulator",
+//    "xfp.java.accumulators.RationalAccumulator",
+    "xfp.java.accumulators.RBFAccumulator",
   })
   String className;
   Accumulator a;
@@ -124,7 +124,7 @@ public class Dot {
     SecurityException {
     x0 = sampleDoubles(DIM,1)[0];
     x1 = sampleDoubles(DIM,1)[0];
-    final Accumulator a0 = ERationalSum.make();
+    final Accumulator a0 = ERationalAccumulator.make();
     a0.addProducts(x0,x1);
     trueDot = a0.doubleValue(); 
     final Class c = Class.forName(className);
