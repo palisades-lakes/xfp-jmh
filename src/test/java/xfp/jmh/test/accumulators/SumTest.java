@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import xfp.java.Classes;
 import xfp.java.accumulators.Accumulator;
 import xfp.java.accumulators.DoubleAccumulator;
+import xfp.java.accumulators.DoubleFmaAccumulator;
 import xfp.java.accumulators.RBFAccumulator;
 import xfp.java.accumulators.RationalAccumulator;
 import xfp.java.linear.Dn;
@@ -18,11 +19,8 @@ import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
 import xfp.jmh.accumulators.BigDecimalAccumulator;
-import xfp.jmh.accumulators.BigFractionAccumulator;
 import xfp.jmh.accumulators.EFloatAccumulator;
-import xfp.jmh.accumulators.ERationalAccumulator;
-import xfp.jmh.accumulators.MutableRationalAccumulator;
-import xfp.jmh.accumulators.RatioAccumulator;
+import xfp.jmh.accumulators.KahanAccumulator;
 
 //----------------------------------------------------------------
 /** Test summation algorithms. 
@@ -32,7 +30,7 @@ import xfp.jmh.accumulators.RatioAccumulator;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-28
+ * @version 2019-03-29
  */
 
 // no actual tests here (yet)
@@ -91,8 +89,8 @@ public final class SumTest {
     for (int i=0;i<n;i++) { x[i] = sampleDoubles(g,urp); }
     return x; }
 
-  private static final int DIM = 1 * 1024;
-  private static final int N = 4;
+  private static final int DIM = 16 * 1024;
+  private static final int N = 2;
 
   @SuppressWarnings({ "static-method" })
   @Test
@@ -106,7 +104,7 @@ public final class SumTest {
     // assuming ERational is correct!!!
     for (int i=0;i<N;i++) { 
       truth[i] =  EFloatAccumulator.make().addAll(x[i]).doubleValue(); }
-
+    System.out.println();
     for (int i=0;i<N;i++) { 
       System.out.println(
         i + " : " 
@@ -118,13 +116,15 @@ public final class SumTest {
     final Accumulator[] accumulators = 
     {
      BigDecimalAccumulator.make(),
-     BigFractionAccumulator.make(),
+//     BigFractionAccumulator.make(),
      DoubleAccumulator.make(),
+     DoubleFmaAccumulator.make(),
+     KahanAccumulator.make(),
      EFloatAccumulator.make(),
-     ERationalAccumulator.make(),
+//     ERationalAccumulator.make(),
 //     FloatAccumulator.make(),
-     RatioAccumulator.make(),
-     MutableRationalAccumulator.make(),
+//     RatioAccumulator.make(),
+//     MutableRationalAccumulator.make(),
      RationalAccumulator.make(),
      RBFAccumulator.make(),
     };

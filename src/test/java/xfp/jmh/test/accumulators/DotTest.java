@@ -2,16 +2,13 @@ package xfp.jmh.test.accumulators;
 
 import static java.lang.Double.toHexString;
 
-import java.util.Arrays;
-
 import org.apache.commons.rng.UniformRandomProvider;
-import org.apache.commons.rng.sampling.ListSampler;
 import org.junit.jupiter.api.Test;
 
 import xfp.java.Classes;
 import xfp.java.accumulators.Accumulator;
-import xfp.java.accumulators.DoubleFmaAccumulator;
 import xfp.java.accumulators.DoubleAccumulator;
+import xfp.java.accumulators.DoubleFmaAccumulator;
 import xfp.java.accumulators.RBFAccumulator;
 import xfp.java.accumulators.RationalAccumulator;
 import xfp.java.linear.Dn;
@@ -19,11 +16,8 @@ import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
 import xfp.jmh.accumulators.BigDecimalAccumulator;
-import xfp.jmh.accumulators.BigFractionAccumulator;
 import xfp.jmh.accumulators.EFloatAccumulator;
-import xfp.jmh.accumulators.ERationalAccumulator;
-import xfp.jmh.accumulators.MutableRationalAccumulator;
-import xfp.jmh.accumulators.RatioAccumulator;
+import xfp.jmh.accumulators.KahanAccumulator;
 
 //----------------------------------------------------------------
 /** Test summation algorithms. 
@@ -33,7 +27,7 @@ import xfp.jmh.accumulators.RatioAccumulator;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-28
+ * @version 2019-03-29
  */
 
 //no actual tests here (yet)
@@ -41,26 +35,9 @@ import xfp.jmh.accumulators.RatioAccumulator;
 public final class DotTest {
 
   //--------------------------------------------------------------
-  //  /** See {@link Integer#numberOfLeadingZeros(int)}. */
-  //  private static final int floorLog2 (final int k) {
-  //    return Integer.SIZE - 1- Integer.numberOfLeadingZeros(k); }
-
   /** See {@link Integer#numberOfLeadingZeros(int)}. */
   private static final int ceilLog2 (final int k) {
     return Integer.SIZE - Integer.numberOfLeadingZeros(k-1); }
-
-  // TODO: more efficient via bits?
-  private static final boolean isEven (final int k) {
-    return k == 2*(k/2); }
-
-  /** Maximum exponent for double generation such that the sum 
-   * of <code>dim</code> <code>double</code>s will be finite
-   * (with high enough probability).
-   */
-  //  private static final int deMax (final int dim) { 
-  //    final int d = Doubles.MAXIMUM_EXPONENT - ceilLog2(dim);
-  //    System.out.println("emax=" + d);
-  //    return d; }
 
   /** Maximum exponent for double generation such that a float sum 
    * of <code>dim</code> <code>double</code>s will be finite
@@ -71,29 +48,14 @@ public final class DotTest {
     //System.out.println("emax=" + d);
     return d; }
 
-  // exact sum is 0.0
-  private static double[] sampleDoubles (final Generator g,
-                                         final UniformRandomProvider urp) {
-    double[] x = (double[]) g.next();
-    x = Dn.concatenate(x,Dn.minus(x));
-    ListSampler.shuffle(urp,Arrays.asList(x));
-    return x; }
-
-
-  private static double[][] sampleDoubles (final int dim,
+  private static double[][] sampleDoubles (final Generator g,
                                            final int n) {
-    assert isEven(dim);
-    final UniformRandomProvider urp = 
-      PRNG.well44497b("seeds/Well44497b-2019-01-05.txt");
-    final Generator g = 
-      Doubles.finiteGenerator(dim/2,urp,feMax(dim));
-
     final double[][] x = new double[n][];
-    for (int i=0;i<n;i++) { x[i] = sampleDoubles(g,urp); }
+    for (int i=0;i<n;i++) { x[i] = (double[]) g.next(); }
     return x; }
 
-  private static final int DIM = 1 * 1024;
-  private static final int N = 4;
+  private static final int DIM = 16 * 1024;
+  private static final int N = 2;
 
   //--------------------------------------------------------------
 
@@ -101,17 +63,21 @@ public final class DotTest {
   @Test
   public final void dotTest () {
 
-    final double[][] x0 = sampleDoubles(DIM,N);
-    final double[][] x1 = sampleDoubles(DIM,N);
+    final UniformRandomProvider urp = 
+      PRNG.well44497b("seeds/Well44497b-2019-01-05.txt");
+    final Generator g = 
+      Doubles.finiteGenerator(DIM,urp,feMax(DIM));
 
-    // should be zero with current construction
+    final double[][] x0 = sampleDoubles(g,N);
+    final double[][] x1 = sampleDoubles(g,N);
+
     final double[] truth = new double[N];
     final double[] pred = new double[N];
-    // assuming ERational is correct!!!
+
     for (int i=0;i<N;i++) { 
       truth[i] = 
         EFloatAccumulator.make().addProducts(x0[i],x1[i]).doubleValue(); }
-
+    System.out.println();
     for (int i=0;i<N;i++) { 
       System.out.println(
         i + " : " 
@@ -124,15 +90,16 @@ public final class DotTest {
     final Accumulator[] accumulators = 
     {
      BigDecimalAccumulator.make(),
-     BigFractionAccumulator.make(),
+//     BigFractionAccumulator.make(),
      DoubleAccumulator.make(),
      DoubleFmaAccumulator.make(),
+     KahanAccumulator.make(),
      EFloatAccumulator.make(),
-     ERationalAccumulator.make(),
+//     ERationalAccumulator.make(),
 //     FloatAccumulator.make(),
 //     FloatFmaAccumulator.make(),
-     RatioAccumulator.make(),
-     MutableRationalAccumulator.make(),
+//     RatioAccumulator.make(),
+//     MutableRationalAccumulator.make(),
      RationalAccumulator.make(),
      RBFAccumulator.make(),
     };

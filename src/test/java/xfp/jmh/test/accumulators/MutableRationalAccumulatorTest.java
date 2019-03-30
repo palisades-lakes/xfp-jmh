@@ -23,7 +23,7 @@ import xfp.jmh.accumulators.MutableRationalAccumulator;
  * @version 2019-03-26
  */
 
-public final class MutableRationalSumTest {
+public final class MutableRationalAccumulatorTest {
 
   //--------------------------------------------------------------
 

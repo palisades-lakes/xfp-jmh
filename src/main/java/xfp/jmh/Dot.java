@@ -23,6 +23,7 @@ import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
 import xfp.jmh.accumulators.ERationalAccumulator;
+import xfp.jmh.accumulators.KahanAccumulator;
 
 /** Benchmark double dot products
  * 
@@ -98,17 +99,18 @@ public class Dot {
   double trueDot;
 
   @Param({
-//    "xfp.java.accumulators.BigDecimalAccumulator",
-//    "xfp.jmh.accumulators.BigFractionAccumulator",
+    //    "xfp.java.accumulators.BigDecimalAccumulator",
+    //    "xfp.jmh.accumulators.BigFractionAccumulator",
     "xfp.java.accumulators.DoubleAccumulator",
     "xfp.java.accumulators.DoubleFmaAccumulator",
+    "xfp.jmh.accumulators.KahanAccumulator",
     "xfp.jmh.accumulators.EFloatAccumulator",
-//    "xfp.jmh.accumulators.ERationalAccumulator",
-//    "xfp.java.accumulators.FloatAccumulator",
-//    "xfp.java.accumulators.FloatFmaAccumulator",
-//    "xfp.jmh.accumulators.RatioAccumulator",
-//    "xfp.java.accumulators.MutableRationalAccumulator",
-//    "xfp.java.accumulators.RationalAccumulator",
+    //    "xfp.jmh.accumulators.ERationalAccumulator",
+    //    "xfp.java.accumulators.FloatAccumulator",
+    //    "xfp.java.accumulators.FloatFmaAccumulator",
+    //    "xfp.jmh.accumulators.RatioAccumulator",
+    //    "xfp.java.accumulators.MutableRationalAccumulator",
+    //    "xfp.java.accumulators.RationalAccumulator",
     "xfp.java.accumulators.RBFAccumulator",
   })
   String className;

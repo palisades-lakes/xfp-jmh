@@ -103,6 +103,7 @@ public class Sum {
 //    "xfp.jmh.accumulators.BigFractionAccumulator",
     "xfp.java.accumulators.DoubleAccumulator",
     "xfp.java.accumulators.DoubleFmaAccumulator",
+    "xfp.jmh.accumulators.KahanAccumulator",
     "xfp.jmh.accumulators.EFloatAccumulator",
 //    "xfp.jmh.accumulators.ERationalAccumulator",
 //    "xfp.java.accumulators.FloatAccumulator",
