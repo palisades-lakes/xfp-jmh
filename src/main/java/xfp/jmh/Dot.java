@@ -23,7 +23,6 @@ import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
 import xfp.jmh.accumulators.ERationalAccumulator;
-import xfp.jmh.accumulators.KahanAccumulator;
 
 /** Benchmark double dot products
  * 
@@ -31,7 +30,7 @@ import xfp.jmh.accumulators.KahanAccumulator;
  * java -ea -jar target\benchmarks.jar Dot
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-29
+ * @version 2019-04-02
  */
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)

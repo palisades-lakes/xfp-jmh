@@ -16,7 +16,7 @@ import xfp.java.numbers.Rational;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-30
+ * @version 2019-04-02
  */
 public final class MutableRationalAccumulator 
 
@@ -131,7 +131,8 @@ Comparable<MutableRationalAccumulator> {
   //--------------------------------------------------------------
   // Accumulator interface
   //--------------------------------------------------------------
-  // start with only immediate needs
+  @Override
+  public final boolean isExact () { return true; }
 
   @Override
   public final double doubleValue () { 
@@ -157,11 +158,11 @@ Comparable<MutableRationalAccumulator> {
       .reduce()
       ; }
 
-  //  @Override
-  //  public final RationalAccumulator addAll (final double[] z)  {
-  //    for (final double zi : z) { 
-  //      _sum = _sum.add(Rational.valueOf(zi)); }
-  //    return this; }
+  @Override
+  public final MutableRationalAccumulator add2 (final double z) { 
+    final BigInteger[] nd = toRatio(z);
+    return 
+      add(nd[0].multiply(nd[0]),nd[1].multiply(nd[1])).reduce(); }
 
   @Override
   public final MutableRationalAccumulator addProduct (final double z0,
@@ -173,17 +174,6 @@ Comparable<MutableRationalAccumulator> {
       nd0[1].multiply(nd1[1]))
       .reduce()
       ; }
-
-  //@Override
-  //public final RationalAccumulator addProducts (final double[] z0,
-  //                                      final double[] z1)  {
-  //    final int n = z0.length;
-  //    assert n == z1.length;
-  //    for (int i=0;i<n;i++) { 
-  //      sum = _sum.Add(
-  //        Rational.valueOf(z0[i])
-  //        .multiply(Rational.valueOf(z1[i])));}
-  //    return this; }
 
   //--------------------------------------------------------------
   // Comparable methods

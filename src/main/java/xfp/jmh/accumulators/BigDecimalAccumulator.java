@@ -8,17 +8,20 @@ import xfp.java.accumulators.Accumulator;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-29
+ * @version 2019-04-02
  */
 public final class BigDecimalAccumulator 
 
 implements Accumulator<BigDecimalAccumulator> {
 
   private BigDecimal _sum;
-  
+
   //--------------------------------------------------------------
+  @Override
+  public final boolean isExact () { return true; }
+
   // start with only immediate needs
-  
+
   @Override
   public final BigDecimalAccumulator clear () { 
     _sum = BigDecimal.ZERO;
@@ -32,39 +35,45 @@ implements Accumulator<BigDecimalAccumulator> {
   public final BigDecimalAccumulator add (final double z) { 
     _sum = _sum.add(new BigDecimal(z));
     return this; }
-  
-//  @Override
-//  public final BigDecimalAccumulator addAll (final double[] z)  {
-//    for (final double zi : z) { 
-//      _sum = _sum.add(new BigDecimal(zi)); }
-//    return this; }
+
+  //  @Override
+  //  public final BigDecimalAccumulator addAll (final double[] z)  {
+  //    for (final double zi : z) { 
+  //      _sum = _sum.add(new BigDecimal(zi)); }
+  //    return this; }
+
+  @Override
+  public final BigDecimalAccumulator add2 (final double z) { 
+    final BigDecimal bd = new BigDecimal(z);
+    _sum = _sum.add(bd.multiply(bd));
+    return this; }
 
   @Override
   public final BigDecimalAccumulator addProduct (final double z0,
-                                       final double z1) { 
+                                                 final double z1) { 
     _sum = _sum.add(
       new BigDecimal(z0)
       .multiply(
         new BigDecimal(z1)));
     return this; }
-  
-//  @Override
-//  public final BigDecimalAccumulator addProducts (final double[] z0,
-//                                        final double[] z1)  {
-//    final int n = z0.length;
-//    assert n == z1.length;
-//    for (int i=0;i<n;i++) { addProduct(z0[i],z1[i]); }
-//    return this; }
+
+  //  @Override
+  //  public final BigDecimalAccumulator addProducts (final double[] z0,
+  //                                        final double[] z1)  {
+  //    final int n = z0.length;
+  //    assert n == z1.length;
+  //    for (int i=0;i<n;i++) { addProduct(z0[i],z1[i]); }
+  //    return this; }
 
   //--------------------------------------------------------------
   // construction
   //--------------------------------------------------------------
-  
+
   private BigDecimalAccumulator () { super(); clear(); }
-  
+
   public static final BigDecimalAccumulator make () {
     return new BigDecimalAccumulator(); }
-  
+
   //--------------------------------------------------------------
 }
 //--------------------------------------------------------------

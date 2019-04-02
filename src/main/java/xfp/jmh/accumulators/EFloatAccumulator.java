@@ -9,7 +9,7 @@ import xfp.java.accumulators.Accumulator;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-29
+ * @version 2019-04-02
  */
 public final class EFloatAccumulator 
 
@@ -43,7 +43,9 @@ implements Accumulator<EFloatAccumulator> {
   //--------------------------------------------------------------
   // Accumulator methods
   //--------------------------------------------------------------
-  // start with only immediate needs
+  @Override
+  public final boolean isExact () { return true; }
+
 
   @Override
   public final double doubleValue () { 
@@ -57,6 +59,12 @@ implements Accumulator<EFloatAccumulator> {
   @Override
   public final EFloatAccumulator add (final double z) { 
     _sum = _sum.Add(EFloat.FromDouble(z));
+    return this; }
+
+  @Override
+  public final EFloatAccumulator add2 (final double z) { 
+    final EFloat zz = EFloat.FromDouble(z);
+    _sum = _sum.Add(zz.Multiply(zz));
     return this; }
 
   @Override

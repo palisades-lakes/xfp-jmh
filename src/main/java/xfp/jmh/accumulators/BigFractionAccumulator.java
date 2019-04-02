@@ -8,7 +8,7 @@ import xfp.java.accumulators.Accumulator;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-29
+ * @version 2019-04-02
  */
 public final class BigFractionAccumulator 
 
@@ -17,7 +17,9 @@ implements Accumulator<BigFractionAccumulator> {
   private BigFraction _sum;
 
   //--------------------------------------------------------------
-  // start with only immediate needs
+  @Override
+  public final boolean isExact () { return true; }
+
 
   @Override
   public final double doubleValue () { 
@@ -33,21 +35,21 @@ implements Accumulator<BigFractionAccumulator> {
     _sum = _sum.add(new BigFraction(z));
     return this; }
 
-//  @Override
-//  public final BigFractionAccumulator addAll (final double[] z)  {
-//    for (final double zi : z) { 
-//      _sum = _sum.add(new BigFraction(zi)); }
-//    return this; } 
+  @Override
+  public final BigFractionAccumulator add2 (final double z) { 
+    final BigFraction zz = new BigFraction(z);
+    _sum = _sum.add(zz.multiply(zz));
+    return this; }
 
   @Override
   public final BigFractionAccumulator addProduct (final double z0,
-                                       final double z1) { 
+                                                  final double z1) { 
     _sum = _sum.add(
       new BigFraction(z0)
       .multiply(
         new BigFraction(z1)));
     return this; }
-  
+
   //--------------------------------------------------------------
   // construction
   //--------------------------------------------------------------

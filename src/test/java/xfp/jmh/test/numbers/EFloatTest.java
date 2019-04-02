@@ -8,10 +8,10 @@ import com.upokecenter.numbers.EFloat;
 import com.upokecenter.numbers.EInteger;
 
 import xfp.java.numbers.Doubles;
-import xfp.jmh.numbers.ERationals;
 import xfp.java.prng.Generator;
 import xfp.java.prng.Generators;
 import xfp.java.prng.PRNG;
+import xfp.jmh.numbers.ERationals;
 
 //----------------------------------------------------------------
 /** Test desired properties of EFloat. 
@@ -21,7 +21,7 @@ import xfp.java.prng.PRNG;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-09
+ * @version 2019-04-02
  */
 
 public final class EFloatTest {
@@ -51,7 +51,7 @@ public final class EFloatTest {
 
   //--------------------------------------------------------------
 
-  private static final int TRYS = 32 * 1024;
+  private static final int TRYS = 16 * 1024;
 
   @SuppressWarnings({ "static-method" })
   @Test

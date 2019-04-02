@@ -12,7 +12,7 @@ import xfp.java.accumulators.Accumulator;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-29
+ * @version 2019-04-02
  */
 public final class RatioAccumulator 
 
@@ -34,6 +34,10 @@ implements Accumulator<RatioAccumulator> {
   private Ratio _sum;
 
   //--------------------------------------------------------------
+  // Should be true, but isn't!
+  
+  @Override
+  public final boolean isExact () { return false; }
 
   @Override
   public final double doubleValue () { 
@@ -46,6 +50,12 @@ implements Accumulator<RatioAccumulator> {
   @Override
   public final RatioAccumulator add (final double z) { 
     _sum = add(_sum,toRatio(Double.valueOf(z))); return this; }
+
+  @Override
+  public final RatioAccumulator add2 (final double z) { 
+    final Ratio zz = toRatio(Double.valueOf(z));
+    _sum = add(_sum,multiply(zz,zz));
+    return this; }
 
   @Override
   public final RatioAccumulator addProduct (final double z0,

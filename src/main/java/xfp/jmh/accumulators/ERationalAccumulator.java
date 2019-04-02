@@ -8,7 +8,7 @@ import xfp.java.accumulators.Accumulator;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-29
+ * @version 2019-04-02
  */
 public final class ERationalAccumulator 
 
@@ -17,7 +17,8 @@ implements Accumulator<ERationalAccumulator> {
   private ERational _sum;
 
   //--------------------------------------------------------------
-  // start with only immediate needs
+  @Override
+  public final boolean isExact () { return true; }
 
   @Override
   public final double doubleValue () { 
@@ -31,6 +32,12 @@ implements Accumulator<ERationalAccumulator> {
   @Override
   public final ERationalAccumulator add (final double z) { 
     _sum = _sum.Add(ERational.FromDouble(z));
+    return this; }
+
+  @Override
+  public final ERationalAccumulator add2 (final double z) {
+    final ERational zz = ERational.FromDouble(z);
+    _sum = _sum.Add(zz.Multiply(zz));
     return this; }
 
   @Override

@@ -18,7 +18,7 @@ import xfp.java.prng.PRNG;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-09
+ * @version 2019-04-02
  */
 
 public final class BigDecimalTest {
@@ -48,7 +48,7 @@ public final class BigDecimalTest {
 
   //--------------------------------------------------------------
 
-  private static final int TRYS = 32 * 1024;
+  private static final int TRYS = 16 * 1024;
 
 // Fails: BigDecimal can't represent all rationals  
 //  @SuppressWarnings({ "static-method" })
