@@ -21,6 +21,7 @@ import xfp.java.algebra.OneSetTwoOperations;
 import xfp.java.algebra.Set;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
+import xfp.java.prng.GeneratorBase;
 
 /** The set of rational numbers represented by 
  * <code>Ratio</code>.
@@ -197,7 +198,7 @@ public final class Ratios implements Set {
   public static final Generator 
   ratioGenerator (final int n,
                   final UniformRandomProvider urp) {
-    return new Generator () {
+    return new GeneratorBase ("ratioGenerator:" + n) {
       final Generator g = ratioGenerator(urp);
       @Override
       public final Object next () {
@@ -219,7 +220,7 @@ public final class Ratios implements Set {
   public static final Generator 
   ratioGenerator (final UniformRandomProvider urp) {
     final double dp = 0.9;
-    return new Generator () {
+    return new GeneratorBase ("ratioGenerator") {
       private final ContinuousSampler choose = 
         new ContinuousUniformSampler(urp,0.0,1.0);
       private final Generator fdg = Doubles.finiteGenerator(urp);

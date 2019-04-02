@@ -1,26 +1,20 @@
 package xfp.jmh.test.accumulators;
 
-import static java.lang.Double.toHexString;
-
-import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.rng.UniformRandomProvider;
-import org.apache.commons.rng.sampling.ListSampler;
 import org.junit.jupiter.api.Test;
+
+import com.google.common.collect.Streams;
 
 import xfp.java.Classes;
 import xfp.java.accumulators.Accumulator;
-import xfp.java.accumulators.DoubleAccumulator;
-import xfp.java.accumulators.DoubleFmaAccumulator;
 import xfp.java.accumulators.RBFAccumulator;
-import xfp.java.accumulators.RationalAccumulator;
-import xfp.java.linear.Dn;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
-import xfp.jmh.accumulators.BigDecimalAccumulator;
-import xfp.jmh.accumulators.EFloatAccumulator;
-import xfp.jmh.accumulators.KahanAccumulator;
+import xfp.java.test.Common;
 
 //----------------------------------------------------------------
 /** Test summation algorithms. 
@@ -30,114 +24,64 @@ import xfp.jmh.accumulators.KahanAccumulator;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-29
+ * @version 2019-04-01
  */
-
-// no actual tests here (yet)
 
 public final class SumTest {
 
-  //--------------------------------------------------------------
-  //  /** See {@link Integer#numberOfLeadingZeros(int)}. */
-  //  private static final int floorLog2 (final int k) {
-  //    return Integer.SIZE - 1- Integer.numberOfLeadingZeros(k); }
-
-  /** See {@link Integer#numberOfLeadingZeros(int)}. */
-  private static final int ceilLog2 (final int k) {
-    return Integer.SIZE - Integer.numberOfLeadingZeros(k-1); }
-
-  // TODO: more efficient via bits?
-  private static final boolean isEven (final int k) {
-    return k == 2*(k/2); }
-
-  /** Maximum exponent for double generation such that the sum 
-   * of <code>dim</code> <code>double</code>s will be finite
-   * (with high enough probability).
-   */
-  //  private static final int deMax (final int dim) { 
-  //    final int d = Doubles.MAXIMUM_EXPONENT - ceilLog2(dim);
-  //    System.out.println("emax=" + d);
-  //    return d; }
-
-  /** Maximum exponent for double generation such that a float sum 
-   * of <code>dim</code> <code>double</code>s will be finite
-   * (with high enough probability).
-   */
-  private static final int feMax (final int dim) { 
-    final int d = Float.MAX_EXPONENT - ceilLog2(dim);
-    //System.out.println("emax=" + d);
-    return d; }
-
-  // exact sum is 0.0
-  private static double[] sampleDoubles (final Generator g,
-                                         final UniformRandomProvider urp) {
-    double[] x = (double[]) g.next();
-    x = Dn.concatenate(x,Dn.minus(x));
-    ListSampler.shuffle(urp,Arrays.asList(x));
-    return x; }
-
-
-  private static double[][] sampleDoubles (final int dim,
-                                           final int n) {
-    assert isEven(dim);
-    final UniformRandomProvider urp = 
-      PRNG.well44497b("seeds/Well44497b-2019-01-05.txt");
-    final Generator g = 
-      Doubles.finiteGenerator(dim/2,urp,feMax(dim));
-
-    final double[][] x = new double[n][];
-    for (int i=0;i<n;i++) { x[i] = sampleDoubles(g,urp); }
-    return x; }
-
   private static final int DIM = 16 * 1024;
-  private static final int N = 2;
 
-  @SuppressWarnings({ "static-method" })
   @Test
-  public final void sumTest () {
-
-    final double[][] x = sampleDoubles(DIM,N);
-
-    // should be zero with current construction
-    final double[] truth = new double[N];
-    final double[] pred = new double[N];
-    // assuming ERational is correct!!!
-    for (int i=0;i<N;i++) { 
-      truth[i] =  EFloatAccumulator.make().addAll(x[i]).doubleValue(); }
+  public final void sumTests () {
     System.out.println();
-    for (int i=0;i<N;i++) { 
-      System.out.println(
-        i + " : " 
-          + Double.toHexString(truth[i]) 
-          + ", " 
-          + Double.toHexString(Dn.maxAbs(x[i]))); }
-    System.out.println();
+    System.out.println(Classes.className(this));
 
-    final Accumulator[] accumulators = 
-    {
-     BigDecimalAccumulator.make(),
-//     BigFractionAccumulator.make(),
-     DoubleAccumulator.make(),
-     DoubleFmaAccumulator.make(),
-     KahanAccumulator.make(),
-     EFloatAccumulator.make(),
-//     ERationalAccumulator.make(),
-//     FloatAccumulator.make(),
-//     RatioAccumulator.make(),
-//     MutableRationalAccumulator.make(),
-     RationalAccumulator.make(),
-     RBFAccumulator.make(),
-    };
+    final UniformRandomProvider urp0 = 
+      PRNG.well44497b("seeds/Well44497b-2019-01-05.txt");
+    final UniformRandomProvider urp1 = 
+      PRNG.well44497b("seeds/Well44497b-2019-01-07.txt");
+    final UniformRandomProvider urp2 = 
+      PRNG.well44497b("seeds/Well44497b-2019-01-09.txt");
+    final UniformRandomProvider urp3 = 
+      PRNG.well44497b("seeds/Well44497b-2019-01-11.txt");
+    final UniformRandomProvider urp4 = 
+      PRNG.well44497b("seeds/Well44497b-2019-04-01.txt");
+    
+    final double dmax = Common.dMax(DIM);
+    final List<Generator> gs0 =
+      List.of(
+        Doubles.finiteGenerator(DIM,urp0,Common.deMax(DIM)),
+        Doubles.gaussianGenerator(DIM,urp1,0.0,dmax),
+        Doubles.laplaceGenerator(DIM,urp2,0.0,dmax),
+        Doubles.uniformGenerator(DIM,urp3,-dmax,dmax));
+    final List<Generator> gs1 =
+      gs0.stream().map(Doubles::zeroSumGenerator)
+    .collect(Collectors.toUnmodifiableList());
+    final List<Generator> gs2 =
+      gs1.stream().map((g) -> Doubles.shuffledGenerator(g,urp4))
+    .collect(Collectors.toUnmodifiableList());
+    final List<Generator> gs =
+      Streams.concat(gs0.stream(),gs1.stream(), gs2.stream())
+      .collect(Collectors.toUnmodifiableList());
 
-    for (final Accumulator a : accumulators) {
-      long t;
-      t = System.nanoTime();
-      for (int i=0;i<N;i++) { 
-        pred[i] = a.clear().addAll(x[i]).doubleValue(); }
-      t = (System.nanoTime()-t);
-      System.out.println(toHexString(Dn.l1Dist(truth,pred)) + 
-        " in " + (t*1.0e-9) 
-        + " secs " + Classes.className(a)); } }
+    final List<Accumulator> accumulators = 
+      Common.makeAccumulators(new String[] 
+        {
+         "xfp.jmh.accumulators.BigDecimalAccumulator",
+         "xfp.jmh.accumulators.BigFractionAccumulator",
+         "xfp.java.accumulators.DoubleAccumulator",
+         "xfp.java.accumulators.DoubleFmaAccumulator",
+         "xfp.jmh.accumulators.EFloatAccumulator",
+         "xfp.java.accumulators.FloatAccumulator",
+         "xfp.java.accumulators.FloatFmaAccumulator",
+         "xfp.jmh.accumulators.KahanAccumulator",
+         "xfp.jmh.accumulators.RatioAccumulator",
+         "xfp.jmh.accumulators.MutableRationalAccumulator",
+         "xfp.java.accumulators.RationalAccumulator",
+         "xfp.java.accumulators.RBFAccumulator",
+        });
+
+    Common.sumTests(gs,accumulators,RBFAccumulator.make()); }
 
   //--------------------------------------------------------------
 }

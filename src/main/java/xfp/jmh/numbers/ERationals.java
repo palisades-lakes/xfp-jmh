@@ -22,13 +22,14 @@ import xfp.java.algebra.Set;
 import xfp.java.exceptions.Exceptions;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
+import xfp.java.prng.GeneratorBase;
 import xfp.java.prng.Generators;
 
 /** The set of rational numbers represented by 
  * <code>ERational</code>
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-25
+ * @version 2019-04-01
  */
 @SuppressWarnings("unchecked")
 public final class ERationals implements Set {
@@ -370,7 +371,7 @@ public final class ERationals implements Set {
   public static final Generator 
   eRationalFromEintegerGenerator (final int n,
                                   final UniformRandomProvider urp) {
-    return new Generator () {
+    return new GeneratorBase ("eRationalFromEintegerGenerator:" + n) {
       final Generator g = eRationalFromEIntegerGenerator(urp);
       @Override
       public final Object next () {
@@ -381,7 +382,7 @@ public final class ERationals implements Set {
   public static final Generator 
   eRationalFromEIntegerGenerator (final UniformRandomProvider urp) {
     final double dp = 0.9;
-    return new Generator () {
+    return new GeneratorBase ("eRationalFromEIntegerGenerator") {
       private final ContinuousSampler choose = 
         new ContinuousUniformSampler(urp,0.0,1.0);
       final Generator gn = eIntegerGenerator(urp);
@@ -405,7 +406,7 @@ public final class ERationals implements Set {
   public static final Generator 
   eRationalFromDoubleGenerator (final int n,
                                 final UniformRandomProvider urp) {
-    return new Generator () {
+    return new GeneratorBase ("eRationalFromDoubleGenerator:" + n) {
       final Generator g = eRationalFromDoubleGenerator(urp);
       @Override
       public final Object next () {
@@ -425,7 +426,7 @@ public final class ERationals implements Set {
   public static final Generator 
   eRationalFromDoubleGenerator (final UniformRandomProvider urp) {
     final double dp = 0.9;
-    return new Generator () {
+    return new GeneratorBase ("eRationalFromDoubleGenerator") {
       private final ContinuousSampler choose = 
         new ContinuousUniformSampler(urp,0.0,1.0);
       private final Generator fdg = Doubles.finiteGenerator(urp);
@@ -445,7 +446,7 @@ public final class ERationals implements Set {
   public static final Generator 
   nonzeroEIntegerGenerator (final int n,
                             final UniformRandomProvider urp) {
-    return new Generator () {
+    return new GeneratorBase ("nonzeroEIntegerGenerator:" + n) {
       final Generator g = nonzeroEIntegerGenerator(urp);
       @Override
       public final Object next () {
@@ -461,7 +462,7 @@ public final class ERationals implements Set {
   public static final Generator 
   nonzeroEIntegerGenerator (final UniformRandomProvider urp) {
     final double dp = 0.99;
-    return new Generator () {
+    return new GeneratorBase ("nonzeroEIntegerGenerator") {
       private final ContinuousSampler choose = 
         new ContinuousUniformSampler(urp,0.0,1.0);
       private final CollectionSampler edgeCases = 
@@ -483,7 +484,7 @@ public final class ERationals implements Set {
   public static final Generator 
   eIntegerGenerator (final int n,
                      final UniformRandomProvider urp) {
-    return new Generator () {
+    return new GeneratorBase ("eIntegerGenerator:" + n) {
       final Generator g = eIntegerGenerator(urp);
       @Override
       public final Object next () {
@@ -499,7 +500,7 @@ public final class ERationals implements Set {
   public static final Generator 
   eIntegerGenerator (final UniformRandomProvider urp) {
     final double dp = 0.99;
-    return new Generator () {
+    return new GeneratorBase ("eIntegerGenerator") {
       private final ContinuousSampler choose = 
         new ContinuousUniformSampler(urp,0.0,1.0);
       private final CollectionSampler edgeCases = 

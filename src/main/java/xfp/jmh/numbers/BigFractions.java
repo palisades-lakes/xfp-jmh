@@ -22,12 +22,13 @@ import xfp.java.algebra.Set;
 import xfp.java.exceptions.Exceptions;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
+import xfp.java.prng.GeneratorBase;
 
 /** The set of rational numbers represented by 
  * <code>BigFraction</code>
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-25
+ * @version 2019-04-01
  */
 @SuppressWarnings("unchecked")
 public final class BigFractions implements Set {
@@ -351,7 +352,7 @@ public final class BigFractions implements Set {
   public static final Generator 
   bigFractionGenerator (final int n,
                         final UniformRandomProvider urp) {
-    return new Generator () {
+    return new GeneratorBase ("bigFractionGenerator:" + n) {
       final Generator g = bigFractionGenerator(urp);
       @Override
       public final Object next () {
@@ -371,7 +372,7 @@ public final class BigFractions implements Set {
   public static final Generator 
   bigFractionGenerator (final UniformRandomProvider urp) {
     final double dp = 0.9;
-    return new Generator () {
+    return new GeneratorBase ("bigFractionGenerator") {
       private final ContinuousSampler choose = 
         new ContinuousUniformSampler(urp,0.0,1.0);
       private final Generator fdg = Doubles.finiteGenerator(urp);
