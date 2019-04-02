@@ -51,7 +51,7 @@ public final class ERationalTest {
 
   //--------------------------------------------------------------
 
-  private static final int TRYS = 16 * 1024;
+  private static final int TRYS = 8 * 1024;
 
   @SuppressWarnings({ "static-method" })
   @Test

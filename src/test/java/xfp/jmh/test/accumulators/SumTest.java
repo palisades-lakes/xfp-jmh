@@ -6,6 +6,7 @@ import xfp.java.Classes;
 import xfp.java.Debug;
 import xfp.java.accumulators.RBFAccumulator;
 import xfp.java.test.Common;
+import xfp.jmh.Shared;
 
 //----------------------------------------------------------------
 /** Test summation algorithms. 

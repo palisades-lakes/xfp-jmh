@@ -1,4 +1,4 @@
-package xfp.jmh.test.accumulators;
+package xfp.jmh;
 
 import java.util.List;
 

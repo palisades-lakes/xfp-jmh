@@ -30,8 +30,8 @@ import xfp.jmh.numbers.Ratios;
 @SuppressWarnings("unchecked")
 public final class AlgebraicStructureTests {
 
-  private static final int TRYS = 8;
-  static final int SPACE_TRYS = 4;
+  private static final int TRYS = 7;
+  static final int SPACE_TRYS = 3;
 
   //--------------------------------------------------------------
 
@@ -67,7 +67,7 @@ public final class AlgebraicStructureTests {
     structureTests(Ratios.MULTIPLICATIVE_MAGMA,TRYS); 
     structureTests(Ratios.FIELD,TRYS); 
 
-    for (final int n : new int[] { 1, 3, 255}) {
+    for (final int n : new int[] { 1, 3, 127}) {
       structureTests(ERationalsN.group(n),SPACE_TRYS); 
       structureTests(ERationalsN.space(n),SPACE_TRYS); 
 
