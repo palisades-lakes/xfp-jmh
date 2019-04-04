@@ -39,7 +39,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-03
+ * @version 2019-04-04
  */
 
 @SuppressWarnings("unchecked")
@@ -135,20 +135,21 @@ public abstract class Base {
     //System.out.println("teardownTrial");
     final int n = truth.size();
     assert n == est.size(); 
-    final File parent = 
-      new File("output/" + Classes.className(this));
+    final String aname = Classes.className(a);
+    final String bname = 
+      Classes.className(this).replace("_jmhType","");
+    final File parent = new File("output/" + bname);
     parent.mkdirs();
     final File f = new File(parent,
-      Classes.className(a) 
-      + "-" + dim
-      + "-" + now() + ".txt");
+      aname + "-" + dim + "-" + now() + ".csv");
     PrintWriter pw = null;
     try {
       pw = new PrintWriter(f);
-      pw.println("dim truth est");
+      pw.println("benchmark,algorithm,dim,truthest");
       for (int i=0;i<n;i++) {
         pw.println(
-          dim + " " + truth.get(i) + " " + est.get(i)); } }
+          bname + "," + aname + "," + dim + "," 
+        + truth.get(i) + "," + est.get(i)); } }
     catch (final FileNotFoundException e) {
       throw new RuntimeException(e); } 
     finally { if (null != pw) { pw.close(); } } }
