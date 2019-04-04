@@ -11,16 +11,18 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.rng.UniformRandomProvider;
 import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Mode;
-import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.TearDown;
-import org.openjdk.jmh.annotations.Threads;
+import org.openjdk.jmh.results.format.ResultFormatType;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.RunnerException;
+import org.openjdk.jmh.runner.options.Options;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import xfp.java.Classes;
 import xfp.java.accumulators.Accumulator;
@@ -33,7 +35,8 @@ import xfp.java.test.Common;
 /** Benchmark <code>double[]</code> sums.
  * 
  * <pre>
- * java -ea -jar target\benchmarks.jar "Dot|L2|Sum" -rf csv  -rrf output\Sums.csv
+ * java -ea -jar target\benchmarks.jar "Dot|L2|Sum" -rf csv  -rff output\Sums.csv
+ * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
  * @version 2019-04-03
@@ -41,38 +44,40 @@ import xfp.java.test.Common;
 
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
-@Threads(value=4)
-@BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
+//@Threads(value=4)
+//@BenchmarkMode(Mode.All)
+///@OutputTimeUnit(TimeUnit.MILLISECONDS)
 public abstract class Base {
 
   //--------------------------------------------------------------
+
   private static final UniformRandomProvider URP = 
     PRNG.well44497b("seeds/Well44497b-2019-01-05.txt");
 
   public static final void save (final double x, 
                                  final List data) {
     data.add(Double.valueOf(x)); }
-  
+
   private static final DateTimeFormatter DTF = 
     DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
-  
+
   private static final String now () {
     return LocalDateTime.now().format(DTF); }
+  
   //--------------------------------------------------------------
 
   @Param({
     "65536",
-//    "262144",
-//    "1048576",
-//    "4194304",
-//    "16777216",
+    "262144",
+    "1048576",
+    "4194304",
+    "16777216",
   })
   int dim;
   Generator g;
   double[] x0;
   double[] x1;
-  
+
   Accumulator exact;
   List<Double> truth;
 
@@ -81,7 +86,7 @@ public abstract class Base {
     //"xfp.jmh.accumulators.BigFractionAccumulator",
     "xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.DoubleFmaAccumulator",
-//    "xfp.jmh.accumulators.KahanAccumulator",
+    "xfp.jmh.accumulators.KahanAccumulator",
     "xfp.jmh.accumulators.KahanFmaAccumulator",
     //"xfp.jmh.accumulators.EFloatAccumulator",
     //"xfp.jmh.accumulators.ERationalAccumulator",
@@ -90,7 +95,7 @@ public abstract class Base {
     //"xfp.jmh.accumulators.RatioAccumulator",
     //"xfp.java.accumulators.MutableRationalAccumulator",
     //"xfp.java.accumulators.RationalAccumulator",
-//    "xfp.java.accumulators.RBFAccumulator",
+    "xfp.java.accumulators.RBFAccumulator",
   })
   String className;
   Accumulator a;
@@ -154,6 +159,26 @@ public abstract class Base {
     save(pred,est);
     return pred; }
 
+  //--------------------------------------------------------------
+
+  public static void main (final String[] args) 
+    throws RunnerException {
+    final Options opt = 
+      new OptionsBuilder()
+      //.mode(Mode.All)
+      .mode(Mode.AverageTime)
+      .timeUnit(TimeUnit.MILLISECONDS)
+      .include("Dot|L2|Sum")
+      //.include("Sum")
+      //.resultFormat(ResultFormatType.JSON)
+      //.result("output/Sums" + "-" + now() + ".json")
+      .resultFormat(ResultFormatType.CSV)
+      .result("output/Sums" + "-" + now() + ".csv")
+      //.threads(4)
+      .shouldFailOnError(true)
+      .build();
+    new Runner(opt).run(); }
+  
   //--------------------------------------------------------------
 }
 //--------------------------------------------------------------
