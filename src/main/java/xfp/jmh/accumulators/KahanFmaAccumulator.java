@@ -20,9 +20,9 @@ import xfp.java.accumulators.Accumulator;
  * @version 2019-04-02
  */
 
-public final class KahanAccumulator 
+public final class KahanFmaAccumulator 
 
-implements Accumulator<KahanAccumulator> {
+implements Accumulator<KahanFmaAccumulator> {
 
   private double s = 0.0;
   private double c = 0.0;
@@ -35,11 +35,11 @@ implements Accumulator<KahanAccumulator> {
   public final double doubleValue () { return s; }
 
   @Override
-  public final KahanAccumulator clear () { 
+  public final KahanFmaAccumulator clear () { 
     s = 0.0; c = 0.0; return this; }
 
   @Override
-  public final KahanAccumulator add (final double z) {
+  public final KahanFmaAccumulator add (final double z) {
     final double zz = z - c;
     final double ss = s + zz;
     c = (ss - s) - zz;
@@ -47,7 +47,7 @@ implements Accumulator<KahanAccumulator> {
     return this; }
 
   @Override
-  public final KahanAccumulator addAll (final double[] z) { 
+  public final KahanFmaAccumulator addAll (final double[] z) { 
     for (final double zi : z) { 
       final double zz = zi - c;
       final double ss = s + zz;
@@ -56,38 +56,38 @@ implements Accumulator<KahanAccumulator> {
     return this; }
 
   @Override
-  public final KahanAccumulator add2 (final double z) {
-    final double zz = (z*z) - c;
+  public final KahanFmaAccumulator add2 (final double z) {
+    final double zz = Math.fma(z,z,-c);
     final double ss = s + zz;
     c = (ss - s) - zz;
     s = ss; 
     return this; }
 
   @Override
-  public final KahanAccumulator add2All (final double[] z) { 
+  public final KahanFmaAccumulator add2All (final double[] z) { 
     for (final double zi : z) { 
-      final double zz = (zi*zi) -c;
+      final double zz = Math.fma(zi,zi,-c);
       final double ss = s + zz;
       c = (ss - s) - zz;
       s = ss; } 
     return this; }
 
   @Override
-  public final KahanAccumulator addProduct (final double z0,
+  public final KahanFmaAccumulator addProduct (final double z0,
                                             final double z1) {
-    final double zz = (z0*z1) - c;
+    final double zz = Math.fma(z0,z1,-c);
     final double ss = s + zz;
     c = (ss - s) - zz;
     s = ss; 
     return this; }
 
   @Override
-  public final KahanAccumulator addProducts (final double[] z0,
+  public final KahanFmaAccumulator addProducts (final double[] z0,
                                              final double[] z1) { 
     final int n = z0.length;
     assert n == z1.length;
     for (int i=0;i<n;i++) {     
-      final double zz = (z0[i]*z1[i]) - c;
+      final double zz = Math.fma(z0[i],z1[i],-c);
       final double ss = s + zz;
       c = (ss - s) - zz;
       s = ss; 
@@ -98,10 +98,10 @@ implements Accumulator<KahanAccumulator> {
   // construction
   //--------------------------------------------------------------
 
-  private KahanAccumulator () { }
+  private KahanFmaAccumulator () { }
 
-  public static final KahanAccumulator make () { 
-    return new KahanAccumulator(); }
+  public static final KahanFmaAccumulator make () { 
+    return new KahanFmaAccumulator(); }
 
   //--------------------------------------------------------------
 } // end of class

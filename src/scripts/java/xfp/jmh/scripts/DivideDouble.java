@@ -6,7 +6,6 @@ import static xfp.java.numbers.Doubles.*;
 
 import java.math.BigInteger;
 
-import xfp.jmh.Debug;
 import xfp.java.numbers.Doubles;
 import xfp.java.numbers.Rational;
 import xfp.java.prng.Generator;

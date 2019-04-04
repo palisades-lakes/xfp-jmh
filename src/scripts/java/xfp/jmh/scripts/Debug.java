@@ -1,4 +1,4 @@
-package xfp.jmh;
+package xfp.jmh.scripts;
 
 import java.io.PrintStream;
 import java.math.BigInteger;

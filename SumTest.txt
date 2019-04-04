@@ -1,0 +1,501 @@
+
+l2
+finiteGenerator(56):16384
+           BigDecimalAccumulator   254.65ms 0x0.0p0 / 0x1.673d38fa75019p115 = 0.00e+00
+               DoubleAccumulator     1.48ms 0x1.0p65 / 0x1.673d38fa75019p115 = 6.33e-16
+            DoubleFmaAccumulator     1.21ms 0x1.0p65 / 0x1.673d38fa75019p115 = 6.33e-16
+               EFloatAccumulator    64.72ms 0x0.0p0 / 0x1.673d38fa75019p115 = 0.00e+00
+                FloatAccumulator     1.13ms 0x1.1f4ea032p94 / 0x1.673d38fa75019p115 = 3.81e-07
+             FloatFmaAccumulator     0.59ms 0x1.1f4ea032p94 / 0x1.673d38fa75019p115 = 3.81e-07
+                KahanAccumulator     0.92ms 0x0.0p0 / 0x1.673d38fa75019p115 = 0.00e+00
+             KahanFmaAccumulator     0.95ms 0x0.0p0 / 0x1.673d38fa75019p115 = 0.00e+00
+                RatioAccumulator   982.15ms 0x0.0p0 / 0x1.673d38fa75019p115 = 0.00e+00
+                  RBFAccumulator    14.98ms 0x0.0p0 / 0x1.673d38fa75019p115 = 0.00e+00
+gaussianGenerator(0.0,1.6777216E7):16384
+           BigDecimalAccumulator    15.82ms 0x0.0p0 / 0x1.003275345b6c8p62 = 0.00e+00
+               DoubleAccumulator     0.64ms 0x1.6p13 / 0x1.003275345b6c8p62 = 2.44e-15
+            DoubleFmaAccumulator     0.74ms 0x1.6p13 / 0x1.003275345b6c8p62 = 2.44e-15
+               EFloatAccumulator     7.85ms 0x0.0p0 / 0x1.003275345b6c8p62 = 0.00e+00
+                FloatAccumulator     0.23ms 0x1.cd16db2p40 / 0x1.003275345b6c8p62 = 4.29e-07
+             FloatFmaAccumulator     0.34ms 0x1.cd16db2p40 / 0x1.003275345b6c8p62 = 4.29e-07
+                KahanAccumulator     1.10ms 0x0.0p0 / 0x1.003275345b6c8p62 = 0.00e+00
+             KahanFmaAccumulator     1.65ms 0x0.0p0 / 0x1.003275345b6c8p62 = 0.00e+00
+                RatioAccumulator    68.73ms 0x1.98684c4p37 / 0x1.003275345b6c8p62 = 4.75e-08
+                  RBFAccumulator     4.21ms 0x0.0p0 / 0x1.003275345b6c8p62 = 0.00e+00
+exponentialGenerator(0.0,1.6777216E7):16384
+           BigDecimalAccumulator    11.23ms 0x0.0p0 / 0x1.00617595d75c4p62 = 0.00e+00
+               DoubleAccumulator     0.42ms 0x1.2p14 / 0x1.00617595d75c4p62 = 3.99e-15
+            DoubleFmaAccumulator     0.60ms 0x1.3p14 / 0x1.00617595d75c4p62 = 4.21e-15
+               EFloatAccumulator    11.57ms 0x0.0p0 / 0x1.00617595d75c4p62 = 0.00e+00
+                FloatAccumulator     0.17ms 0x1.06a28a3cp42 / 0x1.00617595d75c4p62 = 9.77e-07
+             FloatFmaAccumulator     0.19ms 0x1.26a28a3cp42 / 0x1.00617595d75c4p62 = 1.10e-06
+                KahanAccumulator     2.93ms 0x0.0p0 / 0x1.00617595d75c4p62 = 0.00e+00
+             KahanFmaAccumulator     0.84ms 0x0.0p0 / 0x1.00617595d75c4p62 = 0.00e+00
+                RatioAccumulator    54.33ms 0x1.7c59346p37 / 0x1.00617595d75c4p62 = 4.42e-08
+                  RBFAccumulator     7.14ms 0x0.0p0 / 0x1.00617595d75c4p62 = 0.00e+00
+laplaceGenerator(0.0,1.6777216E7):16384
+           BigDecimalAccumulator    12.41ms 0x0.0p0 / 0x1.0128128bd129ap63 = 0.00e+00
+               DoubleAccumulator     0.58ms 0x1.1p15 / 0x1.0128128bd129ap63 = 3.76e-15
+            DoubleFmaAccumulator     0.61ms 0x1.1p15 / 0x1.0128128bd129ap63 = 3.76e-15
+               EFloatAccumulator    12.76ms 0x0.0p0 / 0x1.0128128bd129ap63 = 0.00e+00
+                FloatAccumulator     0.34ms 0x1.d17a2534p42 / 0x1.0128128bd129ap63 = 8.63e-07
+             FloatFmaAccumulator     0.33ms 0x1.917a2534p42 / 0x1.0128128bd129ap63 = 7.44e-07
+                KahanAccumulator     1.06ms 0x0.0p0 / 0x1.0128128bd129ap63 = 0.00e+00
+             KahanFmaAccumulator     1.24ms 0x0.0p0 / 0x1.0128128bd129ap63 = 0.00e+00
+                RatioAccumulator    54.65ms 0x1.fb29bd4p37 / 0x1.0128128bd129ap63 = 2.94e-08
+                  RBFAccumulator     4.03ms 0x0.0p0 / 0x1.0128128bd129ap63 = 0.00e+00
+uniformGenerator[-1.6777216E7,1.6777216E7]:16384
+           BigDecimalAccumulator    10.47ms 0x0.0p0 / 0x1.5658f9a961c09p60 = 0.00e+00
+               DoubleAccumulator     0.14ms 0x1.8p10 / 0x1.5658f9a961c09p60 = 9.96e-16
+            DoubleFmaAccumulator     6.55ms 0x1.8p10 / 0x1.5658f9a961c09p60 = 9.96e-16
+               EFloatAccumulator     8.66ms 0x0.0p0 / 0x1.5658f9a961c09p60 = 0.00e+00
+                FloatAccumulator     0.18ms 0x1.f2b4f1fb8p41 / 0x1.5658f9a961c09p60 = 2.78e-06
+             FloatFmaAccumulator     0.28ms 0x1.e2b4f1fb8p41 / 0x1.5658f9a961c09p60 = 2.69e-06
+                KahanAccumulator     0.15ms 0x0.0p0 / 0x1.5658f9a961c09p60 = 0.00e+00
+             KahanFmaAccumulator     0.15ms 0x0.0p0 / 0x1.5658f9a961c09p60 = 0.00e+00
+                RatioAccumulator    46.23ms 0x1.014c7b1p37 / 0x1.5658f9a961c09p60 = 8.96e-08
+                  RBFAccumulator     5.59ms 0x0.0p0 / 0x1.5658f9a961c09p60 = 0.00e+00
+zeroSum(finiteGenerator(56):16384)
+           BigDecimalAccumulator   638.98ms 0x0.0p0 / 0x1.23c7aff5136dfp116 = 0.00e+00
+               DoubleAccumulator     0.24ms 0x1.8p66 / 0x1.23c7aff5136dfp116 = 1.17e-15
+            DoubleFmaAccumulator     0.18ms 0x1.8p66 / 0x1.23c7aff5136dfp116 = 1.17e-15
+               EFloatAccumulator    49.34ms 0x0.0p0 / 0x1.23c7aff5136dfp116 = 0.00e+00
+                FloatAccumulator     0.17ms 0x1.fa89b6f8p93 / 0x1.23c7aff5136dfp116 = 2.07e-07
+             FloatFmaAccumulator     0.26ms 0x1.fa89b6f8p93 / 0x1.23c7aff5136dfp116 = 2.07e-07
+                KahanAccumulator     0.33ms 0x0.0p0 / 0x1.23c7aff5136dfp116 = 0.00e+00
+             KahanFmaAccumulator     0.31ms 0x0.0p0 / 0x1.23c7aff5136dfp116 = 0.00e+00
+                RatioAccumulator    48.34ms 0x0.0p0 / 0x1.23c7aff5136dfp116 = 0.00e+00
+                  RBFAccumulator    22.86ms 0x0.0p0 / 0x1.23c7aff5136dfp116 = 0.00e+00
+zeroSum(gaussianGenerator(0.0,1.6777216E7):16384)
+           BigDecimalAccumulator    36.21ms 0x0.0p0 / 0x1.ffe3aad0e60efp62 = 0.00e+00
+               DoubleAccumulator     0.14ms 0x1.6p13 / 0x1.ffe3aad0e60efp62 = 1.22e-15
+            DoubleFmaAccumulator     0.17ms 0x1.ap13 / 0x1.ffe3aad0e60efp62 = 1.44e-15
+               EFloatAccumulator    23.88ms 0x0.0p0 / 0x1.ffe3aad0e60efp62 = 0.00e+00
+                FloatAccumulator     0.42ms 0x1.0da1cc1dep45 / 0x1.ffe3aad0e60efp62 = 4.02e-06
+             FloatFmaAccumulator     0.45ms 0x1.0da1cc1dep45 / 0x1.ffe3aad0e60efp62 = 4.02e-06
+                KahanAccumulator     0.29ms 0x0.0p0 / 0x1.ffe3aad0e60efp62 = 0.00e+00
+             KahanFmaAccumulator     0.31ms 0x0.0p0 / 0x1.ffe3aad0e60efp62 = 0.00e+00
+                RatioAccumulator    80.34ms 0x1.98dd0c4p38 / 0x1.ffe3aad0e60efp62 = 4.76e-08
+                  RBFAccumulator     6.64ms 0x0.0p0 / 0x1.ffe3aad0e60efp62 = 0.00e+00
+zeroSum(exponentialGenerator(0.0,1.6777216E7):16384)
+           BigDecimalAccumulator    14.21ms 0x0.0p0 / 0x1.f2b6ce103eac6p62 = 0.00e+00
+               DoubleAccumulator     0.13ms 0x1.08p15 / 0x1.f2b6ce103eac6p62 = 3.76e-15
+            DoubleFmaAccumulator     0.14ms 0x1.0p15 / 0x1.f2b6ce103eac6p62 = 3.65e-15
+               EFloatAccumulator    10.30ms 0x0.0p0 / 0x1.f2b6ce103eac6p62 = 0.00e+00
+                FloatAccumulator     0.17ms 0x1.30207d58cp45 / 0x1.f2b6ce103eac6p62 = 4.65e-06
+             FloatFmaAccumulator     0.20ms 0x1.34207d58cp45 / 0x1.f2b6ce103eac6p62 = 4.71e-06
+                KahanAccumulator     0.33ms 0x0.0p0 / 0x1.f2b6ce103eac6p62 = 0.00e+00
+             KahanFmaAccumulator     0.38ms 0x0.0p0 / 0x1.f2b6ce103eac6p62 = 0.00e+00
+                RatioAccumulator    48.14ms 0x1.7621ce2p38 / 0x1.f2b6ce103eac6p62 = 4.47e-08
+                  RBFAccumulator     4.31ms 0x0.0p0 / 0x1.f2b6ce103eac6p62 = 0.00e+00
+zeroSum(laplaceGenerator(0.0,1.6777216E7):16384)
+           BigDecimalAccumulator    15.89ms 0x0.0p0 / 0x1.f0bd0eaba3dacp63 = 0.00e+00
+               DoubleAccumulator     0.06ms 0x1.6p15 / 0x1.f0bd0eaba3dacp63 = 2.52e-15
+            DoubleFmaAccumulator     0.05ms 0x1.7p15 / 0x1.f0bd0eaba3dacp63 = 2.63e-15
+               EFloatAccumulator     9.29ms 0x0.0p0 / 0x1.f0bd0eaba3dacp63 = 0.00e+00
+                FloatAccumulator     0.19ms 0x1.6d5747b58p46 / 0x1.f0bd0eaba3dacp63 = 5.61e-06
+             FloatFmaAccumulator     0.17ms 0x1.6d5747b58p46 / 0x1.f0bd0eaba3dacp63 = 5.61e-06
+                KahanAccumulator     0.30ms 0x0.0p0 / 0x1.f0bd0eaba3dacp63 = 0.00e+00
+             KahanFmaAccumulator     0.24ms 0x0.0p0 / 0x1.f0bd0eaba3dacp63 = 0.00e+00
+                RatioAccumulator    54.04ms 0x1.f57e0fcp38 / 0x1.f0bd0eaba3dacp63 = 3.01e-08
+                  RBFAccumulator     9.27ms 0x0.0p0 / 0x1.f0bd0eaba3dacp63 = 0.00e+00
+zeroSum(uniformGenerator[-1.6777216E7,1.6777216E7]:16384)
+           BigDecimalAccumulator    31.70ms 0x0.0p0 / 0x1.555f342e44bc3p61 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.e8p14 / 0x1.555f342e44bc3p61 = 1.02e-14
+            DoubleFmaAccumulator     0.06ms 0x1.e8p14 / 0x1.555f342e44bc3p61 = 1.02e-14
+               EFloatAccumulator    16.98ms 0x0.0p0 / 0x1.555f342e44bc3p61 = 0.00e+00
+                FloatAccumulator     0.17ms 0x1.1d1bb43dp41 / 0x1.555f342e44bc3p61 = 7.96e-07
+             FloatFmaAccumulator     0.17ms 0x1.fa37687ap40 / 0x1.555f342e44bc3p61 = 7.07e-07
+                KahanAccumulator     0.20ms 0x0.0p0 / 0x1.555f342e44bc3p61 = 0.00e+00
+             KahanFmaAccumulator     0.24ms 0x0.0p0 / 0x1.555f342e44bc3p61 = 0.00e+00
+                RatioAccumulator    78.74ms 0x1.fee6633p37 / 0x1.555f342e44bc3p61 = 8.92e-08
+                  RBFAccumulator    11.18ms 0x0.0p0 / 0x1.555f342e44bc3p61 = 0.00e+00
+shuffled(zeroSum(finiteGenerator(56):16384))
+           BigDecimalAccumulator   286.20ms 0x0.0p0 / 0x1.57fb25b7f2e39p116 = 0.00e+00
+               DoubleAccumulator     0.10ms 0x1.4p66 / 0x1.57fb25b7f2e39p116 = 8.26e-16
+            DoubleFmaAccumulator     0.05ms 0x1.8p66 / 0x1.57fb25b7f2e39p116 = 9.92e-16
+               EFloatAccumulator    16.73ms 0x0.0p0 / 0x1.57fb25b7f2e39p116 = 0.00e+00
+                FloatAccumulator     0.19ms 0x1.f6fe5c72p95 / 0x1.57fb25b7f2e39p116 = 6.97e-07
+             FloatFmaAccumulator     0.21ms 0x1.b6fe5c72p95 / 0x1.57fb25b7f2e39p116 = 6.09e-07
+                KahanAccumulator     0.25ms 0x1.0p64 / 0x1.57fb25b7f2e39p116 = 1.65e-16
+             KahanFmaAccumulator     0.25ms 0x0.0p0 / 0x1.57fb25b7f2e39p116 = 0.00e+00
+                RatioAccumulator    23.40ms 0x1.0p65 / 0x1.57fb25b7f2e39p116 = 3.31e-16
+                  RBFAccumulator     8.29ms 0x0.0p0 / 0x1.57fb25b7f2e39p116 = 0.00e+00
+shuffled(zeroSum(gaussianGenerator(0.0,1.6777216E7):16384))
+           BigDecimalAccumulator    15.54ms 0x0.0p0 / 0x1.f7ec94fce096dp62 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.5p15 / 0x1.f7ec94fce096dp62 = 4.74e-15
+            DoubleFmaAccumulator     0.06ms 0x1.5p15 / 0x1.f7ec94fce096dp62 = 4.74e-15
+               EFloatAccumulator     8.98ms 0x0.0p0 / 0x1.f7ec94fce096dp62 = 0.00e+00
+                FloatAccumulator     0.17ms 0x1.83f3825b4p44 / 0x1.f7ec94fce096dp62 = 2.94e-06
+             FloatFmaAccumulator     0.16ms 0x1.83f3825b4p44 / 0x1.f7ec94fce096dp62 = 2.94e-06
+                KahanAccumulator     0.20ms 0x0.0p0 / 0x1.f7ec94fce096dp62 = 0.00e+00
+             KahanFmaAccumulator     0.24ms 0x0.0p0 / 0x1.f7ec94fce096dp62 = 0.00e+00
+                RatioAccumulator    48.07ms 0x1.984f2f1p38 / 0x1.f7ec94fce096dp62 = 4.83e-08
+                  RBFAccumulator     4.00ms 0x0.0p0 / 0x1.f7ec94fce096dp62 = 0.00e+00
+shuffled(zeroSum(exponentialGenerator(0.0,1.6777216E7):16384))
+           BigDecimalAccumulator    14.07ms 0x0.0p0 / 0x1.07665c65eec12p63 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.dp15 / 0x1.07665c65eec12p63 = 6.26e-15
+            DoubleFmaAccumulator     0.05ms 0x1.dp15 / 0x1.07665c65eec12p63 = 6.26e-15
+               EFloatAccumulator    10.93ms 0x0.0p0 / 0x1.07665c65eec12p63 = 0.00e+00
+                FloatAccumulator     0.16ms 0x1.4197bb048p45 / 0x1.07665c65eec12p63 = 4.66e-06
+             FloatFmaAccumulator     0.16ms 0x1.4197bb048p45 / 0x1.07665c65eec12p63 = 4.66e-06
+                KahanAccumulator     0.20ms 0x0.0p0 / 0x1.07665c65eec12p63 = 0.00e+00
+             KahanFmaAccumulator     0.24ms 0x0.0p0 / 0x1.07665c65eec12p63 = 0.00e+00
+                RatioAccumulator    48.57ms 0x1.7d32d72p38 / 0x1.07665c65eec12p63 = 4.31e-08
+                  RBFAccumulator     4.45ms 0x0.0p0 / 0x1.07665c65eec12p63 = 0.00e+00
+shuffled(zeroSum(laplaceGenerator(0.0,1.6777216E7):16384))
+           BigDecimalAccumulator    16.22ms 0x0.0p0 / 0x1.f6fdf396cf8ddp63 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.8p15 / 0x1.f6fdf396cf8ddp63 = 2.71e-15
+            DoubleFmaAccumulator     0.05ms 0x1.8p15 / 0x1.f6fdf396cf8ddp63 = 2.71e-15
+               EFloatAccumulator     9.21ms 0x0.0p0 / 0x1.f6fdf396cf8ddp63 = 0.00e+00
+                FloatAccumulator     0.16ms 0x1.172d9f1bap46 / 0x1.f6fdf396cf8ddp63 = 4.23e-06
+             FloatFmaAccumulator     0.19ms 0x1.172d9f1bap46 / 0x1.f6fdf396cf8ddp63 = 4.23e-06
+                KahanAccumulator     0.21ms 0x0.0p0 / 0x1.f6fdf396cf8ddp63 = 0.00e+00
+             KahanFmaAccumulator     0.25ms 0x0.0p0 / 0x1.f6fdf396cf8ddp63 = 0.00e+00
+                RatioAccumulator    49.29ms 0x1.ff413dp38 / 0x1.f6fdf396cf8ddp63 = 3.03e-08
+                  RBFAccumulator     4.03ms 0x0.0p0 / 0x1.f6fdf396cf8ddp63 = 0.00e+00
+shuffled(zeroSum(uniformGenerator[-1.6777216E7,1.6777216E7]:16384))
+           BigDecimalAccumulator    22.14ms 0x0.0p0 / 0x1.5599be17291d7p61 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.8p14 / 0x1.5599be17291d7p61 = 7.99e-15
+            DoubleFmaAccumulator     0.05ms 0x1.8p14 / 0x1.5599be17291d7p61 = 7.99e-15
+               EFloatAccumulator    11.14ms 0x0.0p0 / 0x1.5599be17291d7p61 = 0.00e+00
+                FloatAccumulator     0.16ms 0x1.d0b948eb8p42 / 0x1.5599be17291d7p61 = 2.59e-06
+             FloatFmaAccumulator     0.16ms 0x1.d0b948eb8p42 / 0x1.5599be17291d7p61 = 2.59e-06
+                KahanAccumulator     0.20ms 0x0.0p0 / 0x1.5599be17291d7p61 = 0.00e+00
+             KahanFmaAccumulator     0.24ms 0x0.0p0 / 0x1.5599be17291d7p61 = 0.00e+00
+                RatioAccumulator    46.74ms 0x1.01d862a8p38 / 0x1.5599be17291d7p61 = 9.00e-08
+                  RBFAccumulator     4.56ms 0x0.0p0 / 0x1.5599be17291d7p61 = 0.00e+00
+
+dot
+finiteGenerator(56):16384
+           BigDecimalAccumulator   297.79ms 0x0.0p0 / 0x1.8fe0bb5f284ccp106 = 0.00e+00
+               DoubleAccumulator     0.66ms 0x1.0p55 / 0x1.8fe0bb5f284ccp106 = 2.84e-16
+            DoubleFmaAccumulator     0.70ms 0x1.0p54 / 0x1.8fe0bb5f284ccp106 = 1.42e-16
+               EFloatAccumulator    44.86ms 0x0.0p0 / 0x1.8fe0bb5f284ccp106 = 0.00e+00
+                FloatAccumulator     1.59ms 0x1.af94266p83 / 0x1.8fe0bb5f284ccp106 = 1.29e-07
+             FloatFmaAccumulator     0.51ms 0x1.af94266p83 / 0x1.8fe0bb5f284ccp106 = 1.29e-07
+                KahanAccumulator     0.83ms 0x1.0p54 / 0x1.8fe0bb5f284ccp106 = 1.42e-16
+             KahanFmaAccumulator     0.89ms 0x1.0p54 / 0x1.8fe0bb5f284ccp106 = 1.42e-16
+                RatioAccumulator    18.09ms 0x1.0p55 / 0x1.8fe0bb5f284ccp106 = 2.84e-16
+                  RBFAccumulator     7.77ms 0x0.0p0 / 0x1.8fe0bb5f284ccp106 = 0.00e+00
+gaussianGenerator(0.0,1.6777216E7):16384
+           BigDecimalAccumulator    15.75ms 0x0.0p0 / 0x1.404551e14cbe4p55 = 0.00e+00
+               DoubleAccumulator     0.48ms 0x1.0p6 / 0x1.404551e14cbe4p55 = 1.42e-15
+            DoubleFmaAccumulator     0.54ms 0x1.0p5 / 0x1.404551e14cbe4p55 = 7.10e-16
+               EFloatAccumulator    11.53ms 0x0.0p0 / 0x1.404551e14cbe4p55 = 0.00e+00
+                FloatAccumulator     0.24ms 0x1.83d66838p34 / 0x1.404551e14cbe4p55 = 5.77e-07
+             FloatFmaAccumulator     0.27ms 0x1.41eb341cp35 / 0x1.404551e14cbe4p55 = 9.59e-07
+                KahanAccumulator     0.79ms 0x0.0p0 / 0x1.404551e14cbe4p55 = 0.00e+00
+             KahanFmaAccumulator     0.88ms 0x0.0p0 / 0x1.404551e14cbe4p55 = 0.00e+00
+                RatioAccumulator    28.18ms 0x1.a80ff55p31 / 0x1.404551e14cbe4p55 = 7.89e-08
+                  RBFAccumulator     4.46ms 0x0.0p0 / 0x1.404551e14cbe4p55 = 0.00e+00
+exponentialGenerator(0.0,1.6777216E7):16384
+           BigDecimalAccumulator    17.78ms 0x0.0p0 / 0x1.745b3456c1ec2p56 = 0.00e+00
+               DoubleAccumulator     0.65ms 0x1.3p8 / 0x1.745b3456c1ec2p56 = 2.90e-15
+            DoubleFmaAccumulator     0.67ms 0x1.2p8 / 0x1.745b3456c1ec2p56 = 2.75e-15
+               EFloatAccumulator    18.95ms 0x0.0p0 / 0x1.745b3456c1ec2p56 = 0.00e+00
+                FloatAccumulator     0.36ms 0x1.d2b60f61p37 / 0x1.745b3456c1ec2p56 = 2.39e-06
+             FloatFmaAccumulator     0.31ms 0x1.215b07b08p38 / 0x1.745b3456c1ec2p56 = 2.96e-06
+                KahanAccumulator     2.74ms 0x0.0p0 / 0x1.745b3456c1ec2p56 = 0.00e+00
+             KahanFmaAccumulator     4.26ms 0x0.0p0 / 0x1.745b3456c1ec2p56 = 0.00e+00
+                RatioAccumulator    38.73ms 0x1.8b05272p31 / 0x1.745b3456c1ec2p56 = 3.16e-08
+                  RBFAccumulator     7.14ms 0x0.0p0 / 0x1.745b3456c1ec2p56 = 0.00e+00
+laplaceGenerator(0.0,1.6777216E7):16384
+           BigDecimalAccumulator    23.73ms 0x0.0p0 / 0x1.eda55541e4bfbp54 = 0.00e+00
+               DoubleAccumulator     0.54ms 0x1.4p5 / 0x1.eda55541e4bfbp54 = 1.15e-15
+            DoubleFmaAccumulator     0.74ms 0x0.0p0 / 0x1.eda55541e4bfbp54 = 0.00e+00
+               EFloatAccumulator    18.05ms 0x0.0p0 / 0x1.eda55541e4bfbp54 = 0.00e+00
+                FloatAccumulator     0.30ms 0x1.2a0f25fd8p35 / 0x1.eda55541e4bfbp54 = 1.15e-06
+             FloatFmaAccumulator     0.33ms 0x1.6a0f25fd8p35 / 0x1.eda55541e4bfbp54 = 1.40e-06
+                KahanAccumulator     1.75ms 0x0.0p0 / 0x1.eda55541e4bfbp54 = 0.00e+00
+             KahanFmaAccumulator     1.28ms 0x1.0p2 / 0x1.eda55541e4bfbp54 = 1.15e-16
+                RatioAccumulator    38.77ms 0x1.0a5e5788p31 / 0x1.eda55541e4bfbp54 = 6.43e-08
+                  RBFAccumulator     5.17ms 0x0.0p0 / 0x1.eda55541e4bfbp54 = 0.00e+00
+uniformGenerator[-1.6777216E7,1.6777216E7]:16384
+           BigDecimalAccumulator    15.65ms 0x0.0p0 / 0x1.5b42713d06f6cp53 = 0.00e+00
+               DoubleAccumulator     0.14ms 0x1.ap4 / 0x1.5b42713d06f6cp53 = 2.13e-15
+            DoubleFmaAccumulator     0.12ms 0x1.cp4 / 0x1.5b42713d06f6cp53 = 2.29e-15
+               EFloatAccumulator    13.67ms 0x0.0p0 / 0x1.5b42713d06f6cp53 = 0.00e+00
+                FloatAccumulator     0.30ms 0x1.13d06f6cp33 / 0x1.5b42713d06f6cp53 = 7.57e-07
+             FloatFmaAccumulator     0.39ms 0x1.33d06f6cp33 / 0x1.5b42713d06f6cp53 = 8.45e-07
+                KahanAccumulator     0.27ms 0x0.0p0 / 0x1.5b42713d06f6cp53 = 0.00e+00
+             KahanFmaAccumulator     0.85ms 0x1.0p1 / 0x1.5b42713d06f6cp53 = 1.64e-16
+                RatioAccumulator    31.26ms 0x1.610e654p28 / 0x1.5b42713d06f6cp53 = 3.03e-08
+                  RBFAccumulator     5.69ms 0x0.0p0 / 0x1.5b42713d06f6cp53 = 0.00e+00
+zeroSum(finiteGenerator(56):16384)
+           BigDecimalAccumulator   333.42ms 0x0.0p0 / 0x1.5a6e23ab37323p101 = 0.00e+00
+               DoubleAccumulator     0.26ms 0x1.0p50 / 0x1.5a6e23ab37323p101 = 3.28e-16
+            DoubleFmaAccumulator     0.16ms 0x1.0p49 / 0x1.5a6e23ab37323p101 = 1.64e-16
+               EFloatAccumulator    29.49ms 0x0.0p0 / 0x1.5a6e23ab37323p101 = 0.00e+00
+                FloatAccumulator     0.51ms 0x1.ab37323p77 / 0x1.5a6e23ab37323p101 = 7.35e-08
+             FloatFmaAccumulator     0.46ms 0x1.ab37323p77 / 0x1.5a6e23ab37323p101 = 7.35e-08
+                KahanAccumulator     0.39ms 0x1.0p49 / 0x1.5a6e23ab37323p101 = 1.64e-16
+             KahanFmaAccumulator     0.30ms 0x1.0p49 / 0x1.5a6e23ab37323p101 = 1.64e-16
+                RatioAccumulator    25.39ms 0x1.2p52 / 0x1.5a6e23ab37323p101 = 1.48e-15
+                  RBFAccumulator     9.12ms 0x0.0p0 / 0x1.5a6e23ab37323p101 = 0.00e+00
+zeroSum(gaussianGenerator(0.0,1.6777216E7):16384)
+           BigDecimalAccumulator    25.72ms 0x0.0p0 / 0x1.fda89fff672a1p49 = 0.00e+00
+               DoubleAccumulator     0.16ms 0x1.1dp5 / 0x1.fda89fff672a1p49 = 3.18e-14
+            DoubleFmaAccumulator     0.20ms 0x1.4bp5 / 0x1.fda89fff672a1p49 = 3.69e-14
+               EFloatAccumulator    16.15ms 0x0.0p0 / 0x1.fda89fff672a1p49 = 0.00e+00
+                FloatAccumulator     0.32ms 0x1.feffb39508p34 / 0x1.fda89fff672a1p49 = 3.06e-05
+             FloatFmaAccumulator     0.26ms 0x1.adff672a1p33 / 0x1.fda89fff672a1p49 = 1.29e-05
+                KahanAccumulator     0.27ms 0x1.c8p2 / 0x1.fda89fff672a1p49 = 6.36e-15
+             KahanFmaAccumulator     0.30ms 0x1.4p1 / 0x1.fda89fff672a1p49 = 2.23e-15
+                RatioAccumulator    50.49ms 0x1.05d5c4478p30 / 0x1.fda89fff672a1p49 = 9.80e-07
+                  RBFAccumulator     4.74ms 0x0.0p0 / 0x1.fda89fff672a1p49 = 0.00e+00
+zeroSum(exponentialGenerator(0.0,1.6777216E7):16384)
+           BigDecimalAccumulator    23.77ms 0x0.0p0 / 0x1.0aa077901e048p52 = 0.00e+00
+               DoubleAccumulator     0.18ms 0x1.7ap7 / 0x1.0aa077901e048p52 = 4.03e-14
+            DoubleFmaAccumulator     0.22ms 0x1.4cp7 / 0x1.0aa077901e048p52 = 3.54e-14
+               EFloatAccumulator    13.82ms 0x0.0p0 / 0x1.0aa077901e048p52 = 0.00e+00
+                FloatAccumulator     0.21ms 0x1.2cc80f024p37 / 0x1.0aa077901e048p52 = 3.44e-05
+             FloatFmaAccumulator     0.24ms 0x1.53c80f024p37 / 0x1.0aa077901e048p52 = 3.89e-05
+                KahanAccumulator     0.27ms 0x1.0p0 / 0x1.0aa077901e048p52 = 2.13e-16
+             KahanFmaAccumulator     0.30ms 0x1.8p1 / 0x1.0aa077901e048p52 = 6.40e-16
+                RatioAccumulator    52.00ms 0x1.ea7c665p30 / 0x1.0aa077901e048p52 = 4.39e-07
+                  RBFAccumulator     5.23ms 0x0.0p0 / 0x1.0aa077901e048p52 = 0.00e+00
+zeroSum(laplaceGenerator(0.0,1.6777216E7):16384)
+           BigDecimalAccumulator    27.10ms 0x0.0p0 / 0x1.c004580fe35a9p52 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.54p7 / 0x1.c004580fe35a9p52 = 2.16e-14
+            DoubleFmaAccumulator     0.18ms 0x1.84p7 / 0x1.c004580fe35a9p52 = 2.46e-14
+               EFloatAccumulator    12.68ms 0x0.0p0 / 0x1.c004580fe35a9p52 = 0.00e+00
+                FloatAccumulator     0.19ms 0x1.abe0394aep35 / 0x1.c004580fe35a9p52 = 7.29e-06
+             FloatFmaAccumulator     0.48ms 0x1.9be0394aep35 / 0x1.c004580fe35a9p52 = 7.01e-06
+                KahanAccumulator     0.31ms 0x1.cp3 / 0x1.c004580fe35a9p52 = 1.78e-15
+             KahanFmaAccumulator     0.35ms 0x1.8p2 / 0x1.c004580fe35a9p52 = 7.61e-16
+                RatioAccumulator    45.90ms 0x1.fea6378cp30 / 0x1.c004580fe35a9p52 = 2.72e-07
+                  RBFAccumulator     4.30ms 0x0.0p0 / 0x1.c004580fe35a9p52 = 0.00e+00
+zeroSum(uniformGenerator[-1.6777216E7,1.6777216E7]:16384)
+           BigDecimalAccumulator    23.26ms 0x0.0p0 / 0x1.c27b9dfd3454cp54 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.8p3 / 0x1.c27b9dfd3454cp54 = 3.79e-16
+            DoubleFmaAccumulator     0.05ms 0x1.0p3 / 0x1.c27b9dfd3454cp54 = 2.52e-16
+               EFloatAccumulator    12.70ms 0x0.0p0 / 0x1.c27b9dfd3454cp54 = 0.00e+00
+                FloatAccumulator     0.19ms 0x1.680b2eadp36 / 0x1.c27b9dfd3454cp54 = 3.05e-06
+             FloatFmaAccumulator     0.18ms 0x1.780b2eadp36 / 0x1.c27b9dfd3454cp54 = 3.18e-06
+                KahanAccumulator     0.20ms 0x0.0p0 / 0x1.c27b9dfd3454cp54 = 0.00e+00
+             KahanFmaAccumulator     0.25ms 0x1.0p2 / 0x1.c27b9dfd3454cp54 = 1.26e-16
+                RatioAccumulator    45.65ms 0x1.a78bf1p30 / 0x1.c27b9dfd3454cp54 = 5.60e-08
+                  RBFAccumulator     5.38ms 0x0.0p0 / 0x1.c27b9dfd3454cp54 = 0.00e+00
+shuffled(zeroSum(finiteGenerator(56):16384))
+           BigDecimalAccumulator   295.48ms 0x0.0p0 / 0x1.2166b1c45ee5cp96 = 0.00e+00
+               DoubleAccumulator     0.15ms 0x1.8p45 / 0x1.2166b1c45ee5cp96 = 5.89e-16
+            DoubleFmaAccumulator     0.05ms 0x1.8p45 / 0x1.2166b1c45ee5cp96 = 5.89e-16
+               EFloatAccumulator    16.35ms 0x0.0p0 / 0x1.2166b1c45ee5cp96 = 0.00e+00
+                FloatAccumulator     0.19ms 0x1.c45ee5cp72 / 0x1.2166b1c45ee5cp96 = 9.32e-08
+             FloatFmaAccumulator     0.19ms 0x1.dd08d2p69 / 0x1.2166b1c45ee5cp96 = 1.23e-08
+                KahanAccumulator     0.29ms 0x1.0p44 / 0x1.2166b1c45ee5cp96 = 1.96e-16
+             KahanFmaAccumulator     0.25ms 0x0.0p0 / 0x1.2166b1c45ee5cp96 = 0.00e+00
+                RatioAccumulator    17.86ms 0x1.98p49 / 0x1.2166b1c45ee5cp96 = 1.00e-14
+                  RBFAccumulator     8.52ms 0x0.0p0 / 0x1.2166b1c45ee5cp96 = 0.00e+00
+shuffled(zeroSum(gaussianGenerator(0.0,1.6777216E7):16384))
+           BigDecimalAccumulator    25.92ms 0x0.0p0 / 0x1.76956c2bac438p50 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.a68p7 / 0x1.76956c2bac438p50 = 1.28e-13
+            DoubleFmaAccumulator     0.07ms 0x1.1f8p7 / 0x1.76956c2bac438p50 = 8.73e-14
+               EFloatAccumulator    12.16ms 0x0.0p0 / 0x1.76956c2bac438p50 = 0.00e+00
+                FloatAccumulator     0.18ms 0x1.4c15d621cp35 / 0x1.76956c2bac438p50 = 2.71e-05
+             FloatFmaAccumulator     0.18ms 0x1.2c0aeb10ep36 / 0x1.76956c2bac438p50 = 4.89e-05
+                KahanAccumulator     0.20ms 0x1.bp2 / 0x1.76956c2bac438p50 = 4.10e-15
+             KahanFmaAccumulator     0.24ms 0x1.0p-1 / 0x1.76956c2bac438p50 = 3.04e-16
+                RatioAccumulator    46.29ms 0x1.ee59bb8p26 / 0x1.76956c2bac438p50 = 7.87e-08
+                  RBFAccumulator     4.31ms 0x0.0p0 / 0x1.76956c2bac438p50 = 0.00e+00
+shuffled(zeroSum(exponentialGenerator(0.0,1.6777216E7):16384))
+           BigDecimalAccumulator    24.06ms 0x0.0p0 / 0x1.413fd8d4b735fp54 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.28p7 / 0x1.413fd8d4b735fp54 = 6.55e-15
+            DoubleFmaAccumulator     0.05ms 0x1.18p7 / 0x1.413fd8d4b735fp54 = 6.19e-15
+               EFloatAccumulator    12.27ms 0x0.0p0 / 0x1.413fd8d4b735fp54 = 0.00e+00
+                FloatAccumulator     0.18ms 0x1.195a46508p35 / 0x1.413fd8d4b735fp54 = 1.67e-06
+             FloatFmaAccumulator     0.18ms 0x1.95a46508p31 / 0x1.413fd8d4b735fp54 = 1.51e-07
+                KahanAccumulator     0.20ms 0x1.0p2 / 0x1.413fd8d4b735fp54 = 1.77e-16
+             KahanFmaAccumulator     0.24ms 0x1.0p3 / 0x1.413fd8d4b735fp54 = 3.54e-16
+                RatioAccumulator    46.26ms 0x1.db5becep29 / 0x1.413fd8d4b735fp54 = 4.41e-08
+                  RBFAccumulator     5.40ms 0x0.0p0 / 0x1.413fd8d4b735fp54 = 0.00e+00
+shuffled(zeroSum(laplaceGenerator(0.0,1.6777216E7):16384))
+           BigDecimalAccumulator    25.11ms 0x0.0p0 / 0x1.01162bc9f2742p57 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.6p8 / 0x1.01162bc9f2742p57 = 2.43e-15
+            DoubleFmaAccumulator     0.05ms 0x1.cp7 / 0x1.01162bc9f2742p57 = 1.55e-15
+               EFloatAccumulator    12.24ms 0x0.0p0 / 0x1.01162bc9f2742p57 = 0.00e+00
+                FloatAccumulator     0.18ms 0x1.0793e4e84p40 / 0x1.01162bc9f2742p57 = 7.82e-06
+             FloatFmaAccumulator     0.18ms 0x1.f727c9d08p39 / 0x1.01162bc9f2742p57 = 7.47e-06
+                KahanAccumulator     0.20ms 0x0.0p0 / 0x1.01162bc9f2742p57 = 0.00e+00
+             KahanFmaAccumulator     0.25ms 0x0.0p0 / 0x1.01162bc9f2742p57 = 0.00e+00
+                RatioAccumulator    48.09ms 0x1.ea5fa4p28 / 0x1.01162bc9f2742p57 = 3.55e-09
+                  RBFAccumulator     4.40ms 0x0.0p0 / 0x1.01162bc9f2742p57 = 0.00e+00
+shuffled(zeroSum(uniformGenerator[-1.6777216E7,1.6777216E7]:16384))
+           BigDecimalAccumulator    29.62ms 0x0.0p0 / 0x1.ca2a370c7cdap53 = 0.00e+00
+               DoubleAccumulator     0.06ms 0x1.cp5 / 0x1.ca2a370c7cdap53 = 3.47e-15
+            DoubleFmaAccumulator     0.05ms 0x1.1p6 / 0x1.ca2a370c7cdap53 = 4.22e-15
+               EFloatAccumulator    12.16ms 0x0.0p0 / 0x1.ca2a370c7cdap53 = 0.00e+00
+                FloatAccumulator     0.18ms 0x1.a9e7064cp36 / 0x1.ca2a370c7cdap53 = 7.09e-06
+             FloatFmaAccumulator     0.18ms 0x1.c1e7064cp36 / 0x1.ca2a370c7cdap53 = 7.49e-06
+                KahanAccumulator     0.20ms 0x0.0p0 / 0x1.ca2a370c7cdap53 = 0.00e+00
+             KahanFmaAccumulator     0.24ms 0x0.0p0 / 0x1.ca2a370c7cdap53 = 0.00e+00
+                RatioAccumulator    45.71ms 0x1.6a66db6p29 / 0x1.ca2a370c7cdap53 = 4.71e-08
+                  RBFAccumulator     5.53ms 0x0.0p0 / 0x1.ca2a370c7cdap53 = 0.00e+00
+
+sum
+finiteGenerator(56):16384
+           BigDecimalAccumulator    53.29ms 0x0.0p0 / 0x1.8c8f76041f9bap56 = 0.00e+00
+               DoubleAccumulator     0.37ms 0x1.0p6 / 0x1.8c8f76041f9bap56 = 5.73e-16
+            DoubleFmaAccumulator     0.37ms 0x1.0p6 / 0x1.8c8f76041f9bap56 = 5.73e-16
+               EFloatAccumulator    18.50ms 0x0.0p0 / 0x1.8c8f76041f9bap56 = 0.00e+00
+                FloatAccumulator     0.72ms 0x1.0083f374p35 / 0x1.8c8f76041f9bap56 = 3.08e-07
+             FloatFmaAccumulator     0.40ms 0x1.0083f374p35 / 0x1.8c8f76041f9bap56 = 3.08e-07
+                KahanAccumulator     0.72ms 0x0.0p0 / 0x1.8c8f76041f9bap56 = 0.00e+00
+             KahanFmaAccumulator     0.72ms 0x0.0p0 / 0x1.8c8f76041f9bap56 = 0.00e+00
+                RatioAccumulator    17.88ms 0x0.0p0 / 0x1.8c8f76041f9bap56 = 0.00e+00
+                  RBFAccumulator     3.23ms 0x0.0p0 / 0x1.8c8f76041f9bap56 = 0.00e+00
+gaussianGenerator(0.0,1.6777216E7):16384
+           BigDecimalAccumulator     6.51ms 0x0.0p0 / 0x1.6a740c7a6313cp31 = 0.00e+00
+               DoubleAccumulator     0.37ms 0x1.3p-17 / 0x1.6a740c7a6313cp31 = 2.98e-15
+            DoubleFmaAccumulator     0.36ms 0x1.3p-17 / 0x1.6a740c7a6313cp31 = 2.98e-15
+               EFloatAccumulator     9.58ms 0x0.0p0 / 0x1.6a740c7a6313cp31 = 0.00e+00
+                FloatAccumulator     0.10ms 0x1.07a6313cp11 / 0x1.6a740c7a6313cp31 = 6.94e-07
+             FloatFmaAccumulator     0.08ms 0x1.07a6313cp11 / 0x1.6a740c7a6313cp31 = 6.94e-07
+                KahanAccumulator     0.76ms 0x0.0p0 / 0x1.6a740c7a6313cp31 = 0.00e+00
+             KahanFmaAccumulator     0.72ms 0x0.0p0 / 0x1.6a740c7a6313cp31 = 0.00e+00
+                RatioAccumulator     7.62ms 0x1.bcc6278p6 / 0x1.6a740c7a6313cp31 = 3.66e-08
+                  RBFAccumulator     1.50ms 0x0.0p0 / 0x1.6a740c7a6313cp31 = 0.00e+00
+exponentialGenerator(0.0,1.6777216E7):16384
+           BigDecimalAccumulator     6.28ms 0x0.0p0 / 0x1.92bb88958edeap29 = 0.00e+00
+               DoubleAccumulator     0.39ms 0x1.dcp-16 / 0x1.92bb88958edeap29 = 3.36e-14
+            DoubleFmaAccumulator     0.37ms 0x1.dcp-16 / 0x1.92bb88958edeap29 = 3.36e-14
+               EFloatAccumulator     6.44ms 0x0.0p0 / 0x1.92bb88958edeap29 = 0.00e+00
+                FloatAccumulator     0.08ms 0x1.bb53890bp10 / 0x1.92bb88958edeap29 = 2.10e-06
+             FloatFmaAccumulator     0.08ms 0x1.bb53890bp10 / 0x1.92bb88958edeap29 = 2.10e-06
+                KahanAccumulator     0.73ms 0x1.0p-23 / 0x1.92bb88958edeap29 = 1.41e-16
+             KahanFmaAccumulator     0.77ms 0x1.0p-23 / 0x1.92bb88958edeap29 = 1.41e-16
+                RatioAccumulator     7.22ms 0x1.11963b7a8p11 / 0x1.92bb88958edeap29 = 2.59e-06
+                  RBFAccumulator     2.09ms 0x0.0p0 / 0x1.92bb88958edeap29 = 0.00e+00
+laplaceGenerator(0.0,1.6777216E7):16384
+           BigDecimalAccumulator     6.68ms 0x0.0p0 / 0x1.28c72b1d16fa3p31 = 0.00e+00
+               DoubleAccumulator     0.39ms 0x1.7p-17 / 0x1.28c72b1d16fa3p31 = 4.41e-15
+            DoubleFmaAccumulator     0.37ms 0x1.7p-17 / 0x1.28c72b1d16fa3p31 = 4.41e-15
+               EFloatAccumulator     6.18ms 0x0.0p0 / 0x1.28c72b1d16fa3p31 = 0.00e+00
+                FloatAccumulator     0.08ms 0x1.c5d20bap6 / 0x1.28c72b1d16fa3p31 = 4.56e-08
+             FloatFmaAccumulator     0.08ms 0x1.c5d20bap6 / 0x1.28c72b1d16fa3p31 = 4.56e-08
+                KahanAccumulator     0.92ms 0x1.0p-21 / 0x1.28c72b1d16fa3p31 = 1.92e-16
+             KahanFmaAccumulator     0.73ms 0x1.0p-21 / 0x1.28c72b1d16fa3p31 = 1.92e-16
+                RatioAccumulator     7.25ms 0x1.9d20bap2 / 0x1.28c72b1d16fa3p31 = 2.59e-09
+                  RBFAccumulator     1.35ms 0x0.0p0 / 0x1.28c72b1d16fa3p31 = 0.00e+00
+uniformGenerator[-1.6777216E7,1.6777216E7]:16384
+           BigDecimalAccumulator     5.75ms 0x0.0p0 / 0x1.75ff456a22dd1p27 = 0.00e+00
+               DoubleAccumulator     0.07ms 0x1.98p-20 / 0x1.75ff456a22dd1p27 = 7.75e-15
+            DoubleFmaAccumulator     0.08ms 0x1.98p-20 / 0x1.75ff456a22dd1p27 = 7.75e-15
+               EFloatAccumulator     4.71ms 0x0.0p0 / 0x1.75ff456a22dd1p27 = 0.00e+00
+                FloatAccumulator     0.08ms 0x1.2ed445ba2p10 / 0x1.75ff456a22dd1p27 = 6.18e-06
+             FloatFmaAccumulator     0.08ms 0x1.2ed445ba2p10 / 0x1.75ff456a22dd1p27 = 6.18e-06
+                KahanAccumulator     0.17ms 0x0.0p0 / 0x1.75ff456a22dd1p27 = 0.00e+00
+             KahanFmaAccumulator     0.17ms 0x0.0p0 / 0x1.75ff456a22dd1p27 = 0.00e+00
+                RatioAccumulator     7.20ms 0x1.5116e88p0 / 0x1.75ff456a22dd1p27 = 6.72e-09
+                  RBFAccumulator     1.72ms 0x0.0p0 / 0x1.75ff456a22dd1p27 = 0.00e+00
+zeroSum(finiteGenerator(56):16384)
+           BigDecimalAccumulator   101.16ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+               DoubleAccumulator     0.14ms 0x1.4f4977fff9ddbp8 / 0x1.0p0 = 3.35e+02
+            DoubleFmaAccumulator     0.14ms 0x1.4f4977fff9ddbp8 / 0x1.0p0 = 3.35e+02
+               EFloatAccumulator    13.26ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                FloatAccumulator     0.16ms 0x1.a0f048p34 / 0x1.0p0 = 2.80e+10
+             FloatFmaAccumulator     0.16ms 0x1.a0f048p34 / 0x1.0p0 = 2.80e+10
+                KahanAccumulator     0.28ms 0x1.690e000c44a36p-1 / 0x1.0p0 = 7.05e-01
+             KahanFmaAccumulator     0.34ms 0x1.690e000c44a36p-1 / 0x1.0p0 = 7.05e-01
+                RatioAccumulator    26.43ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                  RBFAccumulator     6.91ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+zeroSum(gaussianGenerator(0.0,1.6777216E7):16384)
+           BigDecimalAccumulator    13.40ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+               DoubleAccumulator     0.14ms 0x1.043p-16 / 0x1.0p0 = 1.55e-05
+            DoubleFmaAccumulator     0.15ms 0x1.043p-16 / 0x1.0p0 = 1.55e-05
+               EFloatAccumulator    17.82ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                FloatAccumulator     0.21ms 0x1.63bp13 / 0x1.0p0 = 1.14e+04
+             FloatFmaAccumulator     0.16ms 0x1.63bp13 / 0x1.0p0 = 1.14e+04
+                KahanAccumulator     0.30ms 0x1.0p-27 / 0x1.0p0 = 7.45e-09
+             KahanFmaAccumulator     0.30ms 0x1.0p-27 / 0x1.0p0 = 7.45e-09
+                RatioAccumulator    20.64ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                  RBFAccumulator     3.50ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+zeroSum(exponentialGenerator(0.0,1.6777216E7):16384)
+           BigDecimalAccumulator    11.81ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.1d9p-16 / 0x1.0p0 = 1.70e-05
+            DoubleFmaAccumulator     0.05ms 0x1.1d9p-16 / 0x1.0p0 = 1.70e-05
+               EFloatAccumulator     6.83ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                FloatAccumulator     0.16ms 0x1.261p12 / 0x1.0p0 = 4.71e+03
+             FloatFmaAccumulator     0.16ms 0x1.261p12 / 0x1.0p0 = 4.71e+03
+                KahanAccumulator     0.20ms 0x1.ep-25 / 0x1.0p0 = 5.59e-08
+             KahanFmaAccumulator     0.20ms 0x1.ep-25 / 0x1.0p0 = 5.59e-08
+                RatioAccumulator    14.15ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                  RBFAccumulator     3.01ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+zeroSum(laplaceGenerator(0.0,1.6777216E7):16384)
+           BigDecimalAccumulator    22.47ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.ba4p-18 / 0x1.0p0 = 6.59e-06
+            DoubleFmaAccumulator     0.05ms 0x1.ba4p-18 / 0x1.0p0 = 6.59e-06
+               EFloatAccumulator    15.56ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                FloatAccumulator     0.29ms 0x1.8b5p10 / 0x1.0p0 = 1.58e+03
+             FloatFmaAccumulator     0.29ms 0x1.8b5p10 / 0x1.0p0 = 1.58e+03
+                KahanAccumulator     0.20ms 0x1.6p-24 / 0x1.0p0 = 8.20e-08
+             KahanFmaAccumulator     0.20ms 0x1.6p-24 / 0x1.0p0 = 8.20e-08
+                RatioAccumulator    22.91ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                  RBFAccumulator     2.85ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+zeroSum(uniformGenerator[-1.6777216E7,1.6777216E7]:16384)
+           BigDecimalAccumulator    11.78ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.71p-18 / 0x1.0p0 = 5.50e-06
+            DoubleFmaAccumulator     0.05ms 0x1.71p-18 / 0x1.0p0 = 5.50e-06
+               EFloatAccumulator     9.02ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                FloatAccumulator     0.19ms 0x1.dbp10 / 0x1.0p0 = 1.90e+03
+             FloatFmaAccumulator     0.27ms 0x1.dbp10 / 0x1.0p0 = 1.90e+03
+                KahanAccumulator     0.20ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+             KahanFmaAccumulator     0.20ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                RatioAccumulator    16.93ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                  RBFAccumulator     3.26ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+shuffled(zeroSum(finiteGenerator(56):16384))
+           BigDecimalAccumulator   106.05ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.f4432118db362p8 / 0x1.0p0 = 5.00e+02
+            DoubleFmaAccumulator     0.05ms 0x1.f4432118db362p8 / 0x1.0p0 = 5.00e+02
+               EFloatAccumulator    11.37ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                FloatAccumulator     0.16ms 0x1.4c6b8p36 / 0x1.0p0 = 8.92e+10
+             FloatFmaAccumulator     0.16ms 0x1.4c6b8p36 / 0x1.0p0 = 8.92e+10
+                KahanAccumulator     0.20ms 0x1.de8f739264fp1 / 0x1.0p0 = 3.74e+00
+             KahanFmaAccumulator     0.20ms 0x1.de8f739264fp1 / 0x1.0p0 = 3.74e+00
+                RatioAccumulator    25.74ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                  RBFAccumulator     5.45ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+shuffled(zeroSum(gaussianGenerator(0.0,1.6777216E7):16384))
+           BigDecimalAccumulator    12.50ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.1adp-16 / 0x1.0p0 = 1.69e-05
+            DoubleFmaAccumulator     0.05ms 0x1.1adp-16 / 0x1.0p0 = 1.69e-05
+               EFloatAccumulator     7.57ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                FloatAccumulator     0.16ms 0x1.421p11 / 0x1.0p0 = 2.58e+03
+             FloatFmaAccumulator     0.16ms 0x1.421p11 / 0x1.0p0 = 2.58e+03
+                KahanAccumulator     0.20ms 0x1.cp-26 / 0x1.0p0 = 2.61e-08
+             KahanFmaAccumulator     0.20ms 0x1.cp-26 / 0x1.0p0 = 2.61e-08
+                RatioAccumulator    14.27ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                  RBFAccumulator     2.80ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+shuffled(zeroSum(exponentialGenerator(0.0,1.6777216E7):16384))
+           BigDecimalAccumulator    11.80ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.a97p-16 / 0x1.0p0 = 2.54e-05
+            DoubleFmaAccumulator     0.05ms 0x1.a97p-16 / 0x1.0p0 = 2.54e-05
+               EFloatAccumulator     6.32ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                FloatAccumulator     0.16ms 0x1.1ccp8 / 0x1.0p0 = 2.85e+02
+             FloatFmaAccumulator     0.16ms 0x1.1ccp8 / 0x1.0p0 = 2.85e+02
+                KahanAccumulator     0.20ms 0x1.2p-25 / 0x1.0p0 = 3.35e-08
+             KahanFmaAccumulator     0.20ms 0x1.2p-25 / 0x1.0p0 = 3.35e-08
+                RatioAccumulator    20.76ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                  RBFAccumulator     3.03ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+shuffled(zeroSum(laplaceGenerator(0.0,1.6777216E7):16384))
+           BigDecimalAccumulator    12.60ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.1fp-18 / 0x1.0p0 = 4.28e-06
+            DoubleFmaAccumulator     0.05ms 0x1.1fp-18 / 0x1.0p0 = 4.28e-06
+               EFloatAccumulator     7.71ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                FloatAccumulator     0.16ms 0x1.2fep14 / 0x1.0p0 = 1.94e+04
+             FloatFmaAccumulator     0.16ms 0x1.2fep14 / 0x1.0p0 = 1.94e+04
+                KahanAccumulator     0.20ms 0x1.6p-23 / 0x1.0p0 = 1.64e-07
+             KahanFmaAccumulator     0.20ms 0x1.6p-23 / 0x1.0p0 = 1.64e-07
+                RatioAccumulator    14.47ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                  RBFAccumulator     2.62ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+shuffled(zeroSum(uniformGenerator[-1.6777216E7,1.6777216E7]:16384))
+           BigDecimalAccumulator    11.43ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+               DoubleAccumulator     0.05ms 0x1.088p-18 / 0x1.0p0 = 3.94e-06
+            DoubleFmaAccumulator     0.05ms 0x1.088p-18 / 0x1.0p0 = 3.94e-06
+               EFloatAccumulator     6.31ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                FloatAccumulator     0.16ms 0x1.5bp11 / 0x1.0p0 = 2.78e+03
+             FloatFmaAccumulator     0.16ms 0x1.5bp11 / 0x1.0p0 = 2.78e+03
+                KahanAccumulator     0.20ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+             KahanFmaAccumulator     0.20ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                RatioAccumulator    14.15ms 0x0.0p0 / 0x1.0p0 = 0.00e+00
+                  RBFAccumulator     3.27ms 0x0.0p0 / 0x1.0p0 = 0.00e+00

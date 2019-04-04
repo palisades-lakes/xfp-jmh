@@ -1,0 +1,193 @@
+2019-03-05 21:00
+DIM=1024
+Benchmark       Mode  Cnt     Score    Error  Units
+Sum.bfNaiveSum  avgt   25    85.873 ±  0.940  ms/op
+Sum.dnNaiveSum  avgt   25     0.003 ±  0.001  ms/op
+Sum.qnNaiveSum  avgt   25  1808.495 ± 18.273  ms/op
+DIM-=2048
+Benchmark       Mode  Cnt     Score    Error  Units
+Sum.bfNaiveSum  avgt   25   172.224 ±  1.222  ms/op
+Sum.dnNaiveSum  avgt   25     0.006 ±  0.001  ms/op
+Sum.qnNaiveSum  avgt   25  7096.222 ± 45.943  ms/op
+
+2019-03-06
+DIM=2048
+Benchmark           Mode  Cnt     Score    Error  Units
+Sum.bdNaiveSum      avgt   25    12.325 ±  0.106  ms/op
+Sum.bfNaiveSum      avgt   25   179.915 ±  1.025  ms/op
+Sum.dnNaiveSum      avgt   25     0.006 ±  0.001  ms/op
+Sum.ernNaiveSum     avgt   25  2566.167 ±  8.476  ms/op
+Sum.fnNaiveSum      avgt   25     0.006 ±  0.001  ms/op
+Sum.qnNaiveSum      avgt   25  2566.471 ±  8.282  ms/op
+Sum.rationNaiveSum  avgt   25   185.172 ±  0.801  ms/op
+
+2019-03-07
+DIM=16*1024
+Benchmark           Mode  Cnt   Score   Error  Units
+Sum.dnNaiveSum      avgt   25  27.454 ± 0.006  us/op
+Sum.doubleNaiveSum  avgt   25  27.463 ± 0.009  us/op
+
+DIM=1024
+
+Benchmark     (className)  Mode  Cnt         Score         Error  Units
+Sum.sum     BigDecimalSum  avgt   25      6111.547 ±      51.036  us/op
+Sum.sum    BigFractionSum  avgt   25     84043.052 ±     215.726  us/op
+Sum.sum    DoubleNaiveSum  avgt   25         3.053 ±       0.001  us/op
+Sum.sum      ERationalSum  avgt   25  28190554.220 ± 3289763.668  us/op
+Sum.sum     FloatNaiveSum  avgt   25        10.689 ±       0.011  us/op
+Sum.sum          RatioSum  avgt   25     83679.609 ±     856.089  us/op
+
+DIM = 1024; update Accumulator defaults for addAll
+Benchmark     (className)  Mode  Cnt         Score         Error  Units
+Sum.sum     BigDecimalSum  avgt   25      6031.120 ±      59.227  us/op
+Sum.sum    BigFractionSum  avgt   25     83662.211 ±     256.753  us/op
+Sum.sum         DoubleSum  avgt   25         3.054 ±       0.002  us/op
+Sum.sum      DoubleFmaSum  avgt   25         3.054 ±       0.002  us/op
+Sum.sum      ERationalSum  avgt   25  27844561.876 ± 3220382.007  us/op
+Sum.sum          FloatSum  avgt   25         3.058 ±       0.001  us/op
+Sum.sum       FloatFmaSum  avgt   25         3.057 ±       0.001  us/op
+Sum.sum          RatioSum  avgt   25     84384.019 ±     515.501  us/op
+
+2019-03-08 RationalSum accumulator
+dim=1024
+Benchmark     (className)  Mode  Cnt         Score         Error  Units
+Sum.sum    BigFractionSum  avgt   25     83734.923 ±     228.621  us/op
+Sum.sum      ERationalSum  avgt   25  27921924.052 ± 3251157.923  us/op
+Sum.sum       RationalSum  avgt   25    633233.829 ±    1752.393  us/op
+
+reduce on add
+Benchmark     (className)  Mode  Cnt         Score         Error  Units
+Sum.sum    BigFractionSum  avgt   25     83497.433 ±     708.835  us/op
+Sum.sum      ERationalSum  avgt   25  27979727.024 ± 3230333.148  us/op
+Sum.sum       RationalSum  avgt   25     84223.265 ±     646.197  us/op
+
+fixed subnormnal rounding by RationalAccumulator
+Benchmark     (className)  Mode  Cnt         Score         Error  Units
+Sum.sum    BigFractionSum  avgt   25     83343.560 ±     558.602  us/op
+Sum.sum      ERationalSum  avgt   25  27979744.332 ± 3236413.027  us/op
+Sum.sum       RationalSum  avgt   25     84281.462 ±    1187.323  us/op
+
+2019-03-09
+dim=1024 simplify RationalSum.doubleValue()
+Benchmark     (className)  Mode  Cnt      Score      Error  Units
+Sum.sum     BigDecimalSum  avgt   25      6.087 ±    0.124  ms/op
+Sum.sum    BigFractionSum  avgt   25     83.287 ±    0.387  ms/op
+Sum.sum         DoubleSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum      DoubleFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum         EFloatSum  avgt   25      0.623 ±    0.004  ms/op
+Sum.sum      ERationalSum  avgt   25  28157.847 ± 3339.282  ms/op
+Sum.sum          FloatSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum       FloatFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum          RatioSum  avgt   25     83.760 ±    0.669  ms/op
+Sum.sum       RationalSum  avgt   25     83.484 ±    0.399  ms/op
+ 
+ 2019-03-22 
+dim = 1024 RationalSum uses immutable Rational version 0 accumulator
+Benchmark         (className)  Mode  Cnt      Score      Error  Units
+Sum.sum         BigDecimalSum  avgt   25      6.010 ±    0.046  ms/op
+Sum.sum        BigFractionSum  avgt   25     83.211 ±    0.181  ms/op
+Sum.sum             DoubleSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum          DoubleFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum             EFloatSum  avgt   25      0.625 ±    0.008  ms/op
+Sum.sum          ERationalSum  avgt   25  27737.049 ± 3212.917  ms/op
+Sum.sum              RatioSum  avgt   25     84.467 ±    0.099  ms/op
+Sum.sum    MutableRationalSum  avgt   25     83.133 ±    0.407  ms/op
+Sum.sum           RationalSum  avgt   25     83.106 ±    0.343  ms/op
+
+ 2019-03-26 
+dim = 1024 RationalRational independent of numbers-java
+Benchmark                               (className)  Mode  Cnt      Score      Error  Units
+Sum.sum         xfp.java.accumulators.BigDecimalSum  avgt   25      6.009 ±    0.044  ms/op
+Sum.sum         xfp.jmh.accumulators.BigFractionSum  avgt   25     83.546 ±    0.189  ms/op
+Sum.sum             xfp.java.accumulators.DoubleSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum          xfp.java.accumulators.DoubleFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum              xfp.jmh.accumulators.EFloatSum  avgt   25      0.616 ±    0.008  ms/op
+Sum.sum           xfp.jmh.accumulators.ERationalSum  avgt   25  27841.838 ± 3270.521  ms/op
+Sum.sum               xfp.jmh.accumulators.RatioSum  avgt   25     83.800 ±    0.589  ms/op
+Sum.sum    xfp.java.accumulators.MutableRationalSum  avgt   25     82.123 ±    1.135  ms/op
+Sum.sum           xfp.java.accumulators.RationalSum  avgt   25     84.274 ±    0.887  ms/op
+
+2019-03-27
+dim = 1024 Rational add and addProduct don't create more than 1 new Rational
+Benchmark                                     (className)  Mode  Cnt      Score      Error  Units
+Sum.sum               xfp.java.accumulators.BigDecimalSum  avgt   25      5.946 ±    0.017  ms/op
+Sum.sum               xfp.jmh.accumulators.BigFractionSum  avgt   25     83.169 ±    0.555  ms/op
+Sum.sum                   xfp.java.accumulators.DoubleSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum                xfp.java.accumulators.DoubleFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum                    xfp.jmh.accumulators.EFloatSum  avgt   25      0.620 ±    0.007  ms/op
+Sum.sum                 xfp.jmh.accumulators.ERationalSum  avgt   25  27905.309 ± 3240.894  ms/op
+Sum.sum                     xfp.jmh.accumulators.RatioSum  avgt   25     83.896 ±    0.484  ms/op
+Sum.sum          xfp.java.accumulators.MutableRationalSum  avgt   25     83.126 ±    0.279  ms/op
+Sum.sum                 xfp.java.accumulators.RationalSum  avgt   25     82.217 ±    0.337  ms/op
+Sum.sum                xfp.java.accumulators.Rational0Sum  avgt   25     83.546 ±    0.645  ms/op
+
+2019-03-28
+dim = 1024 RationalBinaryFloat
+Benchmark                                         (className)  Mode  Cnt      Score      Error  Units
+Sum.sum                   xfp.java.accumulators.BigDecimalSum  avgt   25      5.979 ±    0.035  ms/op
+Sum.sum                   xfp.jmh.accumulators.BigFractionSum  avgt   25     83.276 ±    0.600  ms/op
+Sum.sum                       xfp.java.accumulators.DoubleSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum                    xfp.java.accumulators.DoubleFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum                        xfp.jmh.accumulators.EFloatSum  avgt   25      0.623 ±    0.007  ms/op
+Sum.sum                     xfp.jmh.accumulators.ERationalSum  avgt   25  27945.544 ± 3251.471  ms/op
+Sum.sum                         xfp.jmh.accumulators.RatioSum  avgt   25      0.931 ±    0.009  ms/op
+Sum.sum              xfp.java.accumulators.MutableRationalSum  avgt   25     83.742 ±    0.119  ms/op
+Sum.sum                    xfp.java.accumulators.Rational0Sum  avgt   25     82.965 ±    0.694  ms/op
+Sum.sum                     xfp.java.accumulators.RationalSum  avgt   25     82.162 ±    0.680  ms/op
+Sum.sum          xfp.java.accumulators.RationalBinaryFloatSum  avgt   25     82.063 ±    0.592  ms/op
+
+2019-03-29 
+dim = 1024 fix RationalBinaryFloat and RationalBinaryFloat
+Benchmark                                         (className)  Mode  Cnt      Score      Error  Units
+
+Sum.sum                   xfp.java.accumulators.BigDecimalSum  avgt   25      5.973 ±    0.039  ms/op
+Sum.sum                   xfp.jmh.accumulators.BigFractionSum  avgt   25     85.380 ±    2.863  ms/op
+Sum.sum                       xfp.java.accumulators.DoubleSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum                    xfp.java.accumulators.DoubleFmaSum  avgt   25      0.003 ±    0.001  ms/op
+Sum.sum                        xfp.jmh.accumulators.EFloatSum  avgt   25      0.620 ±    0.005  ms/op
+Sum.sum                     xfp.jmh.accumulators.ERationalSum  avgt   25  27815.567 ± 3225.352  ms/op
+Sum.sum                         xfp.jmh.accumulators.RatioSum  avgt   25      0.934 ±    0.006  ms/op
+Sum.sum              xfp.java.accumulators.MutableRationalSum  avgt   25     83.046 ±    0.637  ms/op
+Sum.sum                     xfp.java.accumulators.RationalSum  avgt   25     81.961 ±    0.701  ms/op
+Sum.sum          xfp.java.accumulators.RationalBinaryFloatSum  avgt   25      0.337 ±    0.001  ms/op 
+
+2019-04-02 
+dim = 1024 * 1024; exponentialGenerator
+Benchmark                              (className)  Mode  Cnt    Score   Error  Units
+L2.l2      xfp.java.accumulators.DoubleAccumulator  avgt   25    3.192 ± 0.006  ms/op
+L2.l2        xfp.jmh.accumulators.KahanAccumulator  avgt   25   12.531 ± 0.008  ms/op
+L2.l2         xfp.java.accumulators.RBFAccumulator  avgt   25  224.382 ± 0.456  ms/op
+
+2019-04-03
+sdim = 1024 * 1024; inline addAll, etc. in Double and Kahan accumulators; fma in Kahan products
+Benchmark                              (className)  Mode  Cnt    Score   Error  Units
+Sums.dot   xfp.java.accumulators.DoubleAccumulator  avgt   25    1.628 ± 0.001  ms/op
+Sums.dot     xfp.jmh.accumulators.KahanAccumulator  avgt   25    7.861 ± 0.003  ms/op
+Sums.dot      xfp.java.accumulators.RBFAccumulator  avgt   25  123.391 ± 0.659  ms/op
+
+Sums.l2    xfp.java.accumulators.DoubleAccumulator  avgt   25    3.159 ± 0.001  ms/op
+Sums.l2      xfp.jmh.accumulators.KahanAccumulator  avgt   25   15.493 ± 0.080  ms/op
+Sums.l2       xfp.java.accumulators.RBFAccumulator  avgt   25  223.185 ± 1.725  ms/op
+
+Sums.sum   xfp.java.accumulators.DoubleAccumulator  avgt   25    3.159 ± 0.003  ms/op
+Sums.sum     xfp.jmh.accumulators.KahanAccumulator  avgt   25   12.482 ± 0.004  ms/op
+Sums.sum      xfp.java.accumulators.RBFAccumulator  avgt   25  182.425 ± 3.716  ms/op
+
+2019-04-03
+sdim = 1024 * 1024; no fma in Kahan products
+
+Benchmark                              (className)  Mode  Cnt    Score    Error  Units
+Sums.dot   xfp.java.accumulators.DoubleAccumulator  avgt   25    1.635 ±  0.001  ms/op
+Sums.dot     xfp.jmh.accumulators.KahanAccumulator  avgt   25    6.265 ±  0.002  ms/op
+Sums.dot      xfp.java.accumulators.RBFAccumulator  avgt   25  124.243 ±  0.738  ms/op
+
+Sums.l2    xfp.java.accumulators.DoubleAccumulator  avgt   25    3.168 ±  0.008  ms/op
+Sums.l2      xfp.jmh.accumulators.KahanAccumulator  avgt   25   12.511 ±  0.004  ms/op
+Sums.l2       xfp.java.accumulators.RBFAccumulator  avgt   25  224.749 ±  1.584  ms/op
+
+Sums.sum   xfp.java.accumulators.DoubleAccumulator  avgt   25    3.155 ±  0.001  ms/op
+Sums.sum     xfp.jmh.accumulators.KahanAccumulator  avgt   25   12.493 ±  0.010  ms/op
+Sums.sum      xfp.java.accumulators.RBFAccumulator  avgt   25  183.781 ±  2.157  ms/op
+
+ 
+ 

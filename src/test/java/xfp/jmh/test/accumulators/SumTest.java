@@ -1,34 +1,61 @@
 package xfp.jmh.test.accumulators;
 
+import static xfp.java.test.Common.dotTests;
+import static xfp.java.test.Common.generators;
+import static xfp.java.test.Common.l2Tests;
+import static xfp.java.test.Common.makeAccumulators;
+import static xfp.java.test.Common.sumTests;
+import static xfp.jmh.test.accumulators.Shared.accumulators;
+
 import org.junit.jupiter.api.Test;
 
-import xfp.java.Classes;
 import xfp.java.Debug;
 import xfp.java.accumulators.RBFAccumulator;
-import xfp.java.test.Common;
-import xfp.jmh.Shared;
 
 //----------------------------------------------------------------
 /** Test summation algorithms. 
  * <p>
  * <pre>
- * mvn -q -Dtest=xfp/java/test/numbers/SumTest test > SumTest.txt
+ * mvn -q -Dtest=xfp/jmh/test/accumulators/SumTest test > SumTest.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-01
+ * @version 2019-04-03
  */
 
 public final class SumTest {
 
+  @SuppressWarnings("static-method")
   @Test
-  public final void sumTests () {
+  public final void sum () {
     Debug.DEBUG=false;
     Debug.println();
-    Debug.println(Classes.className(this));
-    Common.sumTests(
-      Common.generators(Shared.DIM),
-      Common.makeAccumulators(Shared.accumulators()),
+    Debug.println("sum");
+    sumTests(
+      generators(Shared.TEST_DIM),
+      makeAccumulators(accumulators()),
+      RBFAccumulator.make()); }
+
+  @SuppressWarnings("static-method")
+  @Test
+  public final void l2 () {
+    Debug.DEBUG = false;
+    Debug.println();
+    Debug.println("l2");
+    l2Tests(
+      generators(Shared.TEST_DIM),
+      makeAccumulators(accumulators()),
+      RBFAccumulator.make()); }
+
+  @SuppressWarnings("static-method")
+  @Test
+  public final void dot () {
+    Debug.DEBUG=false;
+    Debug.println();
+    Debug.println("dot");
+    dotTests(
+      generators(Shared.TEST_DIM),
+      makeAccumulators(accumulators()),
       RBFAccumulator.make()); }
 
   //--------------------------------------------------------------

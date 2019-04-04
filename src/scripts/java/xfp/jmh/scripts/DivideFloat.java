@@ -4,7 +4,6 @@ import static xfp.java.numbers.Numbers.description;
 
 import java.math.BigInteger;
 
-import xfp.jmh.Debug;
 import xfp.java.numbers.Floats;
 import xfp.java.numbers.Rational;
 import xfp.java.prng.Generator;

@@ -1,4 +1,4 @@
-package xfp.jmh;
+package xfp.jmh.test.accumulators;
 
 import java.util.List;
 
@@ -6,11 +6,11 @@ import java.util.List;
  * Not instantiable. Class slots/nethods only.
  * 
  * @author mcdonald dot john dot alan at gmail dot com
- * @version 2019-04-02
+ * @version 2019-04-03
  */
 public final class Shared {
 
-  public static final int DIM = 1 << 14;
+  public static final int TEST_DIM = 1 << 14;
   public static final List<String> accumulators () {
     return
       List.of(
@@ -28,6 +28,7 @@ public final class Shared {
         "xfp.java.accumulators.FloatAccumulator",
         "xfp.java.accumulators.FloatFmaAccumulator",
         "xfp.jmh.accumulators.KahanAccumulator",
+        "xfp.jmh.accumulators.KahanFmaAccumulator",
         // Too slow to keep testing
         //"xfp.jmh.accumulators.MutableRationalAccumulator",
         "xfp.jmh.accumulators.RatioAccumulator",
