@@ -1,6 +1,6 @@
 # xfp-jmh
 # palisades dot lakes at gmail dot com
-# version 2019-04-04
+# version 2019-04-05
 #-----------------------------------------------------------------
 if (file.exists('e:/porta/projects/xfp-jmh')) {
   setwd('e:/porta/projects/xfp-jmh')
@@ -11,13 +11,9 @@ if (file.exists('e:/porta/projects/xfp-jmh')) {
 }
 source('src/scripts/r/functions.r')
 #-----------------------------------------------------------------
-data.folder <- paste('output',sep='/')
-file.prefix <- 'Sums-20190403-225354'
+prefix <- 'Sums-20190404-192600'
 #-----------------------------------------------------------------
-data <- read.runtimes(prefix=file.prefix)
-summary(data)
+runtime <- read.runtimes(prefix=prefix)
+summary(runtime)
 #-----------------------------------------------------------------
-runtime.log.log.plot(
-  data=data, 
-  prefix=file.prefix,
-  plot.folder=data.folder) 
+runtime.log.log.plot(data=runtime,prefix=prefix) 

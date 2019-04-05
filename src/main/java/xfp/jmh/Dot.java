@@ -8,15 +8,15 @@ import xfp.java.accumulators.Accumulator;
  * java -ea -jar target\benchmarks.jar Dot
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-04
+ * @version 2019-04-05
  */
 
 public class Dot extends Base {
 
   @Override
-  public final double compute (final Accumulator ac,
-                               final double[] z0,
-                               final double[] z1) { 
+  public final double operation (final Accumulator ac,
+                                 final double[] z0,
+                                 final double[] z1) { 
     return ac.clear().addProducts(x0,x1).doubleValue(); }
 
   //--------------------------------------------------------------

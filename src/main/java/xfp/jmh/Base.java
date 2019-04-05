@@ -39,7 +39,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-04
+ * @version 2019-04-05
  */
 
 @SuppressWarnings("unchecked")
@@ -51,9 +51,6 @@ public abstract class Base {
 
   //--------------------------------------------------------------
 
-  private static final UniformRandomProvider URP = 
-    PRNG.well44497b("seeds/Well44497b-2019-01-05.txt");
-
   public static final void save (final double x, 
                                  final List data) {
     data.add(Double.valueOf(x)); }
@@ -63,7 +60,7 @@ public abstract class Base {
 
   private static final String now () {
     return LocalDateTime.now().format(DTF); }
-  
+
   //--------------------------------------------------------------
 
   @Param({
@@ -102,22 +99,30 @@ public abstract class Base {
   List<Double> est;
 
   //--------------------------------------------------------------
+  /** This is what is timed. */
 
-  public abstract double compute (final Accumulator ac,
-                                  final double[] z0,
-                                  final double[] z1);
+  public abstract double operation (final Accumulator ac,
+                                    final double[] z0,
+                                    final double[] z1);
 
   //--------------------------------------------------------------
 
+  /** Re-initialize the prngs with the same seeds for each
+   * <code>(accumulator,dim)</code> pair.
+   */
   @Setup(Level.Trial)  
   public final void trialSetup () {
+    final UniformRandomProvider urp0 = 
+      PRNG.well44497b("seeds/Well44497b-2019-01-05.txt");
+    final UniformRandomProvider urp1 = 
+      PRNG.well44497b("seeds/Well44497b-2019-01-07.txt");
     final int emax = Common.deMax(dim)/2;
     final double dmax = (1<<emax);
     g = 
       Doubles.shuffledGenerator(
         Doubles.zeroSumGenerator(
-          Doubles.exponentialGenerator(dim,URP,0.0,dmax)),
-        URP);
+          Doubles.exponentialGenerator(dim,urp0,0.0,dmax)),
+        urp1);
     truth = new ArrayList();
     est = new ArrayList();
     exact = RBFAccumulator.make();
@@ -128,7 +133,7 @@ public abstract class Base {
   public final void invocationSetup () {
     x0 = (double[]) g.next();
     x1 = (double[]) g.next();
-    save(compute(exact,x0,x1),truth); }  
+    save(operation(exact,x0,x1),truth); }  
 
   @TearDown(Level.Trial)  
   public final void teardownTrial () {
@@ -145,18 +150,18 @@ public abstract class Base {
     PrintWriter pw = null;
     try {
       pw = new PrintWriter(f);
-      pw.println("benchmark,algorithm,dim,truthest");
+      pw.println("benchmark,algorithm,dim,truth,est");
       for (int i=0;i<n;i++) {
         pw.println(
           bname + "," + aname + "," + dim + "," 
-        + truth.get(i) + "," + est.get(i)); } }
+            + truth.get(i) + "," + est.get(i)); } }
     catch (final FileNotFoundException e) {
       throw new RuntimeException(e); } 
     finally { if (null != pw) { pw.close(); } } }
 
   @Benchmark
   public final double bench () { 
-    final double pred = compute(a,x0,x1);
+    final double pred = operation(a,x0,x1);
     save(pred,est);
     return pred; }
 
@@ -179,7 +184,7 @@ public abstract class Base {
       .shouldFailOnError(true)
       .build();
     new Runner(opt).run(); }
-  
+
   //--------------------------------------------------------------
 }
 //--------------------------------------------------------------
