@@ -39,3 +39,5 @@
 /plots/
 /docs/
 /output/
+/.RData
+/.Rhistory

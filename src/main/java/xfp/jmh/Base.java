@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiFunction;
 
 import org.apache.commons.rng.UniformRandomProvider;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -76,7 +77,7 @@ public abstract class Base {
   double[] x1;
 
   Accumulator exact;
-  List<Double> truth;
+  List<Double> truth = new ArrayList<Double>();
 
   @Param({
     //"xfp.java.accumulators.BigDecimalAccumulator",
@@ -84,7 +85,7 @@ public abstract class Base {
     "xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.DoubleFmaAccumulator",
     "xfp.jmh.accumulators.KahanAccumulator",
-    "xfp.jmh.accumulators.KahanFmaAccumulator",
+    //"xfp.jmh.accumulators.KahanFmaAccumulator",
     //"xfp.jmh.accumulators.EFloatAccumulator",
     //"xfp.jmh.accumulators.ERationalAccumulator",
     //"xfp.java.accumulators.FloatAccumulator",
@@ -96,8 +97,77 @@ public abstract class Base {
   })
   String className;
   Accumulator a;
-  List<Double> est;
+  List<Double> est = new ArrayList<Double>();
 
+  //--------------------------------------------------------------
+
+  private static final 
+  List<BiFunction<UniformRandomProvider,Integer,Generator>> 
+  generators = 
+  List.of(
+    new BiFunction<UniformRandomProvider,Integer,Generator>() {
+      @Override
+      public final Generator apply (final UniformRandomProvider urp,
+                                    final Integer dim) {
+        final int emax = Common.deMax(dim.intValue())/2;
+        return 
+          Doubles.shuffledGenerator(
+            Doubles.zeroSumGenerator(
+              Doubles.finiteGenerator(dim.intValue(),urp,emax)),
+            urp); } 
+    },
+    new BiFunction<UniformRandomProvider,Integer,Generator>() {
+      @Override
+      public final Generator apply (final UniformRandomProvider urp,
+                                    final Integer dim) {
+        final int emax = Common.deMax(dim.intValue())/2;
+        final double dmax = (1<<emax);
+        return 
+          Doubles.shuffledGenerator(
+            Doubles.zeroSumGenerator(
+              Doubles.uniformGenerator(dim.intValue(),urp,-dmax,dmax)),
+            urp); } 
+    },
+//    new BiFunction<UniformRandomProvider,Integer,Generator>() {
+//      @Override
+//      public final Generator apply (final UniformRandomProvider urp,
+//                                    final Integer dim) {
+//        final int emax = Common.deMax(dim.intValue())/2;
+//        final double dmax = (1<<emax);
+//        return 
+//          Doubles.shuffledGenerator(
+//            Doubles.zeroSumGenerator(
+//              Doubles.gaussianGenerator(dim.intValue(),urp,0.0,dmax)),
+//            urp); } 
+//    },
+    new BiFunction<UniformRandomProvider,Integer,Generator>() {
+      @Override
+      public final Generator apply (final UniformRandomProvider urp,
+                                    final Integer dim) {
+        final int emax = Common.deMax(dim.intValue())/2;
+        final double dmax = (1<<emax);
+        return 
+          Doubles.shuffledGenerator(
+            Doubles.zeroSumGenerator(
+              Doubles.exponentialGenerator(dim.intValue(),urp,0.0,dmax)),
+            urp); } 
+//    },
+//    new BiFunction<UniformRandomProvider,Integer,Generator>() {
+//      @Override
+//      public final Generator apply (final UniformRandomProvider urp,
+//                                    final Integer dim) {
+//        final int emax = Common.deMax(dim.intValue())/2;
+//        final double dmax = (1<<emax);
+//        return 
+//          Doubles.shuffledGenerator(
+//            Doubles.zeroSumGenerator(
+//              Doubles.laplaceGenerator(dim.intValue(),urp,0.0,dmax)),
+//            urp); } 
+    });
+  
+  @Param({"0","1","2"})
+  int gi;
+  
   //--------------------------------------------------------------
   /** This is what is timed. */
 
@@ -112,19 +182,11 @@ public abstract class Base {
    */
   @Setup(Level.Trial)  
   public final void trialSetup () {
-    final UniformRandomProvider urp0 = 
+    final UniformRandomProvider urp = 
       PRNG.well44497b("seeds/Well44497b-2019-01-05.txt");
-    final UniformRandomProvider urp1 = 
-      PRNG.well44497b("seeds/Well44497b-2019-01-07.txt");
-    final int emax = Common.deMax(dim)/2;
-    final double dmax = (1<<emax);
-    g = 
-      Doubles.shuffledGenerator(
-        Doubles.zeroSumGenerator(
-          Doubles.exponentialGenerator(dim,urp0,0.0,dmax)),
-        urp1);
-    truth = new ArrayList();
-    est = new ArrayList();
+    g = generators.get(gi).apply(urp,Integer.valueOf(dim));
+    truth.clear();
+    est.clear();
     exact = RBFAccumulator.make();
     assert exact.isExact();
     a = Common.makeAccumulator(className); }  
@@ -143,17 +205,18 @@ public abstract class Base {
     final String aname = Classes.className(a);
     final String bname = 
       Classes.className(this).replace("_jmhType","");
+    final String gname = g.name();
     final File parent = new File("output/" + bname);
     parent.mkdirs();
     final File f = new File(parent,
-      aname + "-" + dim + "-" + now() + ".csv");
+      aname + "-" + gname + "-" + now() + ".csv");
     PrintWriter pw = null;
     try {
       pw = new PrintWriter(f);
-      pw.println("benchmark,algorithm,dim,truth,est");
+      pw.println("generator,benchmark,algorithm,dim,truth,est");
       for (int i=0;i<n;i++) {
         pw.println(
-          bname + "," + aname + "," + dim + "," 
+          gname + "," + bname + "," + aname + "," + dim + "," 
             + truth.get(i) + "," + est.get(i)); } }
     catch (final FileNotFoundException e) {
       throw new RuntimeException(e); } 
