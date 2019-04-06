@@ -16,11 +16,11 @@ import xfp.java.accumulators.RBFAccumulator;
 /** Test summation algorithms. 
  * <p>
  * <pre>
- * mvn -q -Dtest=xfp/jmh/test/accumulators/SumTest test > SumTest.txt
+ * mvn -Dtest=xfp/jmh/test/accumulators/SumTest test > SumTest.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-03
+ * @version 2019-04-06
  */
 
 public final class SumTest {

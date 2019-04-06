@@ -6,9 +6,10 @@ import xfp.java.accumulators.Accumulator;
  * 
  * <pre>
  * java -ea -jar target\benchmarks.jar Sum -rf csv  -rff output\Sums
+ * java -cp target\benchmarks.jar xfp.jmh.Sum
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-05
+ * @version 2019-04-06
  */
 
 public class Sum extends Base {
@@ -20,5 +21,6 @@ public class Sum extends Base {
     return ac.clear().addAll(x0).addAll(x1).doubleValue(); }
 
   //--------------------------------------------------------------
+
 }
 //--------------------------------------------------------------

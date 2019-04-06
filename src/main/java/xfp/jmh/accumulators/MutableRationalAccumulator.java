@@ -131,6 +131,7 @@ Comparable<MutableRationalAccumulator> {
   //--------------------------------------------------------------
   // Accumulator interface
   //--------------------------------------------------------------
+
   @Override
   public final boolean isExact () { return true; }
 
