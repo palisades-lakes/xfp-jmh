@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.IntFunction;
 
@@ -14,6 +15,7 @@ import org.apache.commons.rng.UniformRandomProvider;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
@@ -21,7 +23,7 @@ import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.ChainedOptionsBuilder;
+import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import xfp.java.Classes;
@@ -43,7 +45,7 @@ import xfp.java.test.Common;
  */
 
 @SuppressWarnings("unchecked")
-@State(Scope.Benchmark)
+@State(Scope.Thread)
 //@Threads(value=4)
 //@BenchmarkMode(Mode.All)
 ///@OutputTimeUnit(TimeUnit.MILLISECONDS)
@@ -58,124 +60,133 @@ public abstract class Base {
   private static final DateTimeFormatter DTF = 
     DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
 
-  public static final String now () {
+  private static final String now () {
     return LocalDateTime.now().format(DTF); }
 
   //--------------------------------------------------------------
-  // TODO: gather class slots into a 'state' object
-  
-  private static final Accumulator exact = RBFAccumulator.make();
 
-  public static final List<String> accumulators = 
-    List.of( 
-      "xfp.jmh.accumulators.ZhuHayesOnlineExactBranch",
-      "xfp.jmh.accumulators.ZhuHayesOnlineExactNoBranch",
-      //"xfp.java.accumulators.BigDecimalAccumulator",
-      //"xfp.jmh.accumulators.BigFractionAccumulator",
-      "xfp.java.accumulators.DoubleAccumulator",
-      //"xfp.java.accumulators.DoubleFmaAccumulator",
-      "xfp.jmh.accumulators.KahanAccumulator"
-      //"xfp.jmh.accumulators.KahanFmaAccumulator",
-      //"xfp.jmh.accumulators.EFloatAccumulator",
-      //"xfp.jmh.accumulators.ERationalAccumulator",
-      //"xfp.java.accumulators.FloatAccumulator",
-      //"xfp.java.accumulators.FloatFmaAccumulator",
-      //"xfp.jmh.accumulators.RatioAccumulator",
-      //"xfp.java.accumulators.MutableRationalAccumulator",
-      //"xfp.java.accumulators.RationalAccumulator",
-      //"xfp.java.accumulators.RBFAccumulator",
-      );
+  @Param({
+    //    "65536",
+    //    "262144",
+    "1048576",
+    //    "4194304",
+    //    "16777216",
+  })
+  int dim;
 
-  public static Accumulator accumulator;
+  double[] x0;
+  double[] x1;
 
-  public static final int[] dims = 
-  { 
-//    65536,
-//    262144,
-    1048576,
-//    4194304,
-//    16777216,
-  };
-  public static int dim;
+  Accumulator exact;
+  List<Double> truth = new ArrayList<Double>();
 
-  private static final String SEED = 
+  @Param({
+    "xfp.jmh.accumulators.ZhuHayesOnlineExactBranch",
+    "xfp.jmh.accumulators.ZhuHayesOnlineExactNoBranch",
+    //"xfp.java.accumulators.BigDecimalAccumulator",
+    //"xfp.jmh.accumulators.BigFractionAccumulator",
+    "xfp.java.accumulators.DoubleAccumulator",
+    //"xfp.java.accumulators.DoubleFmaAccumulator",
+    "xfp.jmh.accumulators.KahanAccumulator",
+    //"xfp.jmh.accumulators.KahanFmaAccumulator",
+    //"xfp.jmh.accumulators.EFloatAccumulator",
+    //"xfp.jmh.accumulators.ERationalAccumulator",
+    //"xfp.java.accumulators.FloatAccumulator",
+    //"xfp.java.accumulators.FloatFmaAccumulator",
+    //"xfp.jmh.accumulators.RatioAccumulator",
+    //"xfp.java.accumulators.MutableRationalAccumulator",
+    //"xfp.java.accumulators.RationalAccumulator",
+    //"xfp.java.accumulators.RBFAccumulator",
+  })
+  String accumulatorName;
+  Accumulator accumulator;
+  List<Double> est = new ArrayList<Double>();
+
+  //--------------------------------------------------------------
+
+  private static final String SEED0 = 
     "seeds/Well44497b-2019-01-05.txt";
 
-  public static final 
-  List<IntFunction<Generator>> 
-  generatorFactories = 
-  List.of(
-//    new IntFunction<Generator>() {
-//      @Override
-//      public final Generator apply (final int d) {
-//        final UniformRandomProvider urp = PRNG.well44497b(SEED);
-//        final int emax = Common.deMax(d)/2;
-//        return 
-//          Doubles.shuffledGenerator(
-//            Doubles.zeroSumGenerator(
-//              Doubles.finiteGenerator(d,urp,emax)),
-//            urp); } 
-//    },
-    // new IntFunction<Generator>() {
-    //   @Override
-    //   public final Generator apply (final int d) {
-    //     final UniformRandomProvider urp = PRNG.well44497b(SEED);
-    //     final int emax = Common.deMax(d)/2;
-    //     final double dmax = (1<<emax);
-    //     return 
-    //       Doubles.shuffledGenerator(
-    //         Doubles.zeroSumGenerator(
-    //           Doubles.uniformGenerator(d,urp,-dmax,dmax)),
-    //         urp); } 
-    // },
-    // new IntFunction<Generator>() {
-    //   @Override
-    //   public final Generator apply (final int dim) {
-    //     final UniformRandomProvider urp = PRNG.well44497b(SEED);
-    //     final int emax = Common.deMax(dim)/2;
-    //     final double dmax = (1<<emax);
-    //     return 
-    //       Doubles.shuffledGenerator(
-    //         Doubles.zeroSumGenerator(
-    //           Doubles.gaussianGenerator(dim,urp,0.0,dmax)),
-    //         urp); } 
-    // },
+  private static final String SEED1 = 
+    "seeds/Well44497b-2019-01-07.txt";
+
+  private static final 
+  Map<String,IntFunction<Generator>> 
+  factories = 
+  Map.of(
+    "uniform",
     new IntFunction<Generator>() {
       @Override
-      public final Generator apply (final int d) {
-        final UniformRandomProvider urp = PRNG.well44497b(SEED);
-        final int emax = Common.deMax(d)/2;
+      public final Generator apply (final int dim) {
+        final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
+        final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
+        final int emax = Common.deMax(dim)/2;
         final double dmax = (1<<emax);
         return 
           Doubles.shuffledGenerator(
             Doubles.zeroSumGenerator(
-              Doubles.exponentialGenerator(d,urp,0.0,dmax)),
-            urp); } 
-      // },
-      //   new IntFunction<Generator>() {
-      //     @Override
-      //     public final Generator apply (final int dim) {
-      //       final UniformRandomProvider urp = PRNG.well44497b(SEED);
-      //     final int emax = Common.deMax(dim)/2;
-      //     final double dmax = (1<<emax);
-      //     return 
-      //       Doubles.shuffledGenerator(
-      //         Doubles.zeroSumGenerator(
-      //           Doubles.laplaceGenerator(dim,urp,0.0,dmax)),
-      //         urp); } 
+              Doubles.uniformGenerator(dim,urp0,-dmax,dmax)),
+            urp1); } 
+    },
+    "finite",
+    new IntFunction<Generator>() {
+      @Override
+      public final Generator apply (final int dim) {
+        final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
+        final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
+        final int emax = Common.deMax(dim)/2;
+        return 
+          Doubles.shuffledGenerator(
+            Doubles.zeroSumGenerator(
+              Doubles.finiteGenerator(dim,urp0,emax)),
+            urp1); } 
+    },
+    "exponential",
+    new IntFunction<Generator>() {
+      @Override
+      public final Generator apply (final int dim) {
+        final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
+        final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
+        final int emax = Common.deMax(dim)/2;
+        final double dmax = (1<<emax);
+        return 
+          Doubles.shuffledGenerator(
+            Doubles.zeroSumGenerator(
+              Doubles.exponentialGenerator(dim,urp0,0.0,dmax)),
+            urp1); } 
+    },
+    "gaussian",
+    new IntFunction<Generator>() {
+      @Override
+      public final Generator apply (final int dim) {
+        final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
+        final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
+        final int emax = Common.deMax(dim)/2;
+        final double dmax = (1<<emax);
+        return 
+          Doubles.shuffledGenerator(
+            Doubles.zeroSumGenerator(
+              Doubles.gaussianGenerator(dim,urp0,0.0,dmax)),
+            urp1); } 
+    },
+    "laplace",
+    new IntFunction<Generator>() {
+      @Override
+      public final Generator apply (final int dim) {
+        final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
+        final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
+        final int emax = Common.deMax(dim)/2;
+        final double dmax = (1<<emax);
+        return 
+          Doubles.shuffledGenerator(
+            Doubles.zeroSumGenerator(
+              Doubles.laplaceGenerator(dim,urp0,0.0,dmax)),
+            urp1); } 
     });
 
-  public static Generator generator;
-
-  public static String folder; // for output
-
-  //--------------------------------------------------------------
-  // trial/invocation state
-
-  double[] x0;
-  double[] x1;
-  List<Double> truth;
-  List<Double> est;
+  @Param({"finite","uniform","exponential"})
+  String factoryKey;
+  Generator generator;
 
   //--------------------------------------------------------------
   /** This is what is timed. */
@@ -186,16 +197,20 @@ public abstract class Base {
 
   //--------------------------------------------------------------
 
+  /** Re-initialize the prngs with the same seeds for each
+   * <code>(accumulator,dim)</code> pair.
+   */
   @Setup(Level.Trial)  
   public final void trialSetup () {
-    truth = new ArrayList<Double>();
-    est = new ArrayList<Double>();
-    exact.clear();
-    accumulator.clear(); }  
+    generator = factories.get(factoryKey).apply(dim);
+    truth.clear();
+    est.clear();
+    exact = RBFAccumulator.make();
+    assert exact.isExact();
+    accumulator = Common.makeAccumulator(accumulatorName); }  
 
   @Setup(Level.Invocation)  
   public final void invocationSetup () {
-    // fresh data for each call
     x0 = (double[]) generator.next();
     x1 = (double[]) generator.next();
     save(operation(exact,x0,x1),truth); }  
@@ -208,18 +223,17 @@ public abstract class Base {
     final String aname = Classes.className(accumulator);
     final String bname = 
       Classes.className(this).replace("_jmhType","");
-    final String gname = generator.name();
-    final File parent = new File(folder + "/" + bname);
+    final File parent = new File("output/" + bname);
     parent.mkdirs();
     final File f = new File(parent,
-      aname + "-" + gname + "-" + now() + ".csv");
+      aname + "-" + factoryKey + "-" + now() + ".csv");
     PrintWriter pw = null;
     try {
       pw = new PrintWriter(f);
       pw.println("generator,benchmark,algorithm,dim,truth,est");
       for (int i=0;i<n;i++) {
         pw.println(
-          gname + "," + bname + "," + aname + "," + dim + "," 
+          factoryKey + "," + bname + "," + aname + "," + dim + "," 
             + truth.get(i) + "," + est.get(i)); } }
     catch (final FileNotFoundException e) {
       throw new RuntimeException(e); } 
@@ -235,35 +249,25 @@ public abstract class Base {
 
   public static void main (final String[] args) 
     throws RunnerException {
-    final ChainedOptionsBuilder b = 
+    final File parent = new File("output");
+    parent.mkdirs();
+    final File csv = 
+      new File(parent,"Sums" + "-" + now() + ".csv");
+    final Options opt = 
       new OptionsBuilder()
+      //.mode(Mode.All)
       .mode(Mode.AverageTime)
       .timeUnit(TimeUnit.MILLISECONDS)
       //.include("Dot|L2|Sum")
       .include("Sum")
+      //.resultFormat(ResultFormatType.JSON)
+      //.result("output/Sums" + "-" + now() + ".json")
       .resultFormat(ResultFormatType.CSV)
+      .result(csv.getPath())
       .threads(1)
-      .shouldFailOnError(true);
-    for (final String as : accumulators) {
-      accumulator = Common.makeAccumulator(as);
-      System.out.println(accumulator);
-      for (final int d : dims) {
-        dim = d;
-        System.out.println(dim);
-        for (final IntFunction<Generator> gf : generatorFactories) {
-          generator = gf.apply(dim);
-          System.out.println(generator.name());
-          folder = "output" 
-            + "/" + Classes.className(accumulator) 
-            + "/" + dim 
-            + "/" + generator.name();
-          System.out.println(folder);
-          new File(folder).mkdirs();
-          new Runner(
-            b
-            .result(folder + "/Sums" + "-" + now() + ".csv")
-            .build())
-          .run(); } } } }
+      .shouldFailOnError(true)
+      .build();
+    new Runner(opt).run(); }
 
   //--------------------------------------------------------------
 }
