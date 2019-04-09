@@ -61,11 +61,11 @@ extends ZhuHayes {
     // Step 4(5)
     // This addition is guaranteed not to overflow because the
     // next step ascertains that (at this point):
-    //assert (i < (NADDS/2)) : i + " < " + NADDS/2;
+    assert (i < (NADDS/2)) : i + " < " + NADDS/2;
     // and (for `f32` and `f64`) we have:
-    //assert ((NADDS/2) < Integer.MAX_VALUE);
+    assert ((NADDS/2) < Integer.MAX_VALUE);
     // thus we can assume:
-    //assert ((i+1) <= Integer.MAX_VALUE);
+    assert ((i+1) <= Integer.MAX_VALUE);
     i += 1;
 
     // Step 4(6)

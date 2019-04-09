@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import xfp.java.Debug;
 import xfp.java.accumulators.RBFAccumulator;
+import xfp.jmh.accumulators.ZhuHayes;
 
 //----------------------------------------------------------------
 /** Test summation algorithms. 
@@ -26,6 +27,8 @@ public final class SumTest {
   @SuppressWarnings("static-method")
   @Test
   public final void sum () {
+    System.out.println(ZhuHayes.NADDS / Shared.TEST_DIM);
+    System.out.println(ZhuHayes.NADDS % Shared.TEST_DIM);
     Debug.DEBUG=false;
     Debug.println();
     Debug.println("sum");
