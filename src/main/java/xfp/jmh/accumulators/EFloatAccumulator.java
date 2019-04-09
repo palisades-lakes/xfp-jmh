@@ -43,9 +43,12 @@ implements Accumulator<EFloatAccumulator> {
   //--------------------------------------------------------------
   // Accumulator methods
   //--------------------------------------------------------------
+  
   @Override
   public final boolean isExact () { return true; }
 
+  @Override
+  public final boolean noOverflow () { return true; }
 
   @Override
   public final double doubleValue () { 
@@ -58,11 +61,13 @@ implements Accumulator<EFloatAccumulator> {
 
   @Override
   public final EFloatAccumulator add (final double z) { 
+    assert Double.isFinite(z);
     _sum = _sum.Add(EFloat.FromDouble(z));
     return this; }
 
   @Override
   public final EFloatAccumulator add2 (final double z) { 
+    assert Double.isFinite(z);
     final EFloat zz = EFloat.FromDouble(z);
     _sum = _sum.Add(zz.Multiply(zz));
     return this; }
@@ -70,6 +75,8 @@ implements Accumulator<EFloatAccumulator> {
   @Override
   public final EFloatAccumulator addProduct (final double z0,
                                              final double z1) { 
+    assert Double.isFinite(z0);
+    assert Double.isFinite(z1);
     _sum = _sum.Add(
       EFloat.FromDouble(z0)
       .Multiply(

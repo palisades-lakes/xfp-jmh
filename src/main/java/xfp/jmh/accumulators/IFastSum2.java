@@ -50,21 +50,23 @@ import xfp.java.numbers.Doubles;
  * @version 2019-04-06
  */
 
-public final class IFastSum {
+public final class IFastSum2 {
 
   //--------------------------------------------------------------
 
   private static final double destructiveSum (final double[] x,
-                                              final int n,
+                                              final int[] n,
                                               final boolean recurse) {
-     // Step 1
+    // assert 1 == n.length;
+
+    // Step 1
     double s = 0.0;
     final Double2 add2 = new Double2();
 
     // Step 2
     // The following accesses are guaranteed to be inside bounds, because:
-    assert (n <= x.length);
-    for (int i=0;i<n; i++) {
+    //assert (n[0] <= x.length);
+    for (int i=0;i<n[0]; i++) {
       //      System.out.println(i + ": " + Double.toHexString(s) + ", "
       //        + Double.toHexString(x[i]));
       add2.zhuHayesNoBranch(s,x[i]); 
@@ -84,7 +86,7 @@ public final class IFastSum {
       // Step 3(2)
       // The following accesses are guaranteed to be inside bounds, because:
       //assert (n[0] <= x.length);
-      for (int i=0;i<n;i++) {
+      for (int i=0;i<n[0];i++) {
         // Step 3(2)(a)
         add2.zhuHayesNoBranch(st, x[i]);
         st = add2.z0;
@@ -118,7 +120,7 @@ public final class IFastSum {
       //assert (count < Integer.MAX_VALUE);
       // and thus:
       //debug_assert!(count.checked_add(1).is_some());
-      final int n0 = Math.addExact(count,1);
+      n[0] = Math.addExact(count,1);
       // Step 3(5)
       //      System.out.println("Step 3(5): "
       //      + "em=" + Double.toHexString(em)
@@ -148,7 +150,7 @@ public final class IFastSum {
           s = add2.z0;
           s1 = add2.z1;
           // Step 3(5)(d)(iii)
-          final double s2 = destructiveSum(x, n0, false);
+          final double s2 = destructiveSum(x, n, false);
           // Step 3(5)(d)(iv)
           s = Doubles.round3(s, s1, s2); }
         // Step 3(5)(e)
@@ -158,7 +160,9 @@ public final class IFastSum {
   //--------------------------------------------------------------
 
   public static final double destructiveSum (final double[] x) {
-    return destructiveSum(x,x.length,true); }
+    final int[] n = new int[1];
+    n[0] = x.length;
+    return destructiveSum(x,n,true); }
 
   //--------------------------------------------------------------
 
@@ -169,7 +173,7 @@ public final class IFastSum {
   // construction
   //--------------------------------------------------------------
 
-  private IFastSum () {
+  private IFastSum2 () {
     throw new UnsupportedOperationException("can't instantiate" +
       getClass()); }
 

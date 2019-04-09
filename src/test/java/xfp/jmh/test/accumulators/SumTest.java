@@ -1,15 +1,12 @@
 package xfp.jmh.test.accumulators;
 
-import static xfp.java.test.Common.generators;
-import static xfp.java.test.Common.makeAccumulators;
-import static xfp.java.test.Common.sumTests;
 import static xfp.jmh.test.accumulators.Shared.accumulators;
 
 import org.junit.jupiter.api.Test;
 
 import xfp.java.Debug;
 import xfp.java.accumulators.RBFAccumulator;
-import xfp.jmh.accumulators.ZhuHayes;
+import xfp.java.test.Common;
 
 //----------------------------------------------------------------
 /** Test summation algorithms. 
@@ -19,45 +16,80 @@ import xfp.jmh.accumulators.ZhuHayes;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-08
+ * @version 2019-04-09
  */
 
 public final class SumTest {
 
   @SuppressWarnings("static-method")
   @Test
-  public final void sum () {
-    System.out.println(ZhuHayes.NADDS / Shared.TEST_DIM);
-    System.out.println(ZhuHayes.NADDS % Shared.TEST_DIM);
+  public final void nanSum () {
     Debug.DEBUG=false;
     Debug.println();
+    Debug.println("infinite");
+    Common.nonFiniteTests(
+      Common.makeAccumulators(accumulators())); }
+
+  @SuppressWarnings("static-method")
+  @Test
+  public final void infiniteSum () {
+    Debug.DEBUG=false;
+    Debug.println();
+    Debug.println("infinite");
+    Common.infinityTests(
+      Common.makeAccumulators(accumulators())); }
+
+  @SuppressWarnings("static-method")
+  @Test
+  public final void overflowSum () {
+    Debug.DEBUG=false;
+    Debug.println();
+    Debug.println("overflow");
+    Common.overflowTests(
+      Common.makeAccumulators(accumulators())); }
+
+  @SuppressWarnings("static-method")
+  @Test
+  public final void zeroSum () {
+    Debug.DEBUG=true;
+    Debug.println();
+    Debug.println("zeroSum");
+    Common.zeroSumTests(
+      Common.zeroSumGenerators(Shared.TEST_DIM),
+      Common.makeAccumulators(accumulators())); }
+
+  @SuppressWarnings("static-method")
+  @Test
+  public final void sum () {
+    Debug.DEBUG=true;
+    Debug.println();
     Debug.println("sum");
-    sumTests(
-      generators(Shared.TEST_DIM),
-      makeAccumulators(accumulators()),
+    Common.sumTests(
+      Common.generators(Shared.TEST_DIM),
+      Common.makeAccumulators(accumulators()),
       RBFAccumulator.make()); }
 
-//  @SuppressWarnings("static-method")
-//  @Test
-//  public final void l2 () {
-//    Debug.DEBUG = false;
-//    Debug.println();
-//    Debug.println("l2");
-//    l2Tests(
-//      generators(Shared.TEST_DIM),
-//      makeAccumulators(accumulators()),
-//      RBFAccumulator.make()); }
-//
-//  @SuppressWarnings("static-method")
-//  @Test
-//  public final void dot () {
-//    Debug.DEBUG=false;
-//    Debug.println();
-//    Debug.println("dot");
-//    dotTests(
-//      generators(Shared.TEST_DIM),
-//      makeAccumulators(accumulators()),
-//      RBFAccumulator.make()); }
+  @SuppressWarnings("static-method")
+  @Test
+  public final void l2 () {
+    Debug.DEBUG = true;
+    Debug.println();
+    Debug.println("l2");
+    Common.l2Tests(
+      Common.generators(Shared.TEST_DIM),
+      Common.makeAccumulators(accumulators()),
+      RBFAccumulator.make()); }
+
+  @SuppressWarnings("static-method")
+  @Test
+  public final void dot () {
+    Debug.DEBUG=true;
+    Debug.println();
+    Debug.println("dot");
+    Common.dotTests(
+      Common.generators(Shared.TEST_DIM),
+      Common.makeAccumulators(accumulators()),
+      RBFAccumulator.make()); }
 
   //--------------------------------------------------------------
 }

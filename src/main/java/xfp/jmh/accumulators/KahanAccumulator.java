@@ -17,7 +17,7 @@ import xfp.java.accumulators.Accumulator;
  *      Graillat, Langlois, and Louvet, Accurate dot products with FMA"</a>
  *      
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-02
+ * @version 2019-04-09
  */
 
 public final class KahanAccumulator 
@@ -28,8 +28,12 @@ implements Accumulator<KahanAccumulator> {
   private double c = 0.0;
 
   //--------------------------------------------------------------
+
   @Override
   public final boolean isExact () { return false; }
+
+  @Override
+  public final boolean noOverflow () { return false; }
 
   @Override
   public final double doubleValue () { return s; }
@@ -40,6 +44,7 @@ implements Accumulator<KahanAccumulator> {
 
   @Override
   public final KahanAccumulator add (final double z) {
+    assert Double.isFinite(z);
     final double zz = z - c;
     final double ss = s + zz;
     c = (ss - s) - zz;
@@ -49,6 +54,7 @@ implements Accumulator<KahanAccumulator> {
   @Override
   public final KahanAccumulator addAll (final double[] z) { 
     for (final double zi : z) { 
+      assert Double.isFinite(zi);
       final double zz = zi - c;
       final double ss = s + zz;
       c = (ss - s) - zz;
@@ -57,6 +63,7 @@ implements Accumulator<KahanAccumulator> {
 
   @Override
   public final KahanAccumulator add2 (final double z) {
+    assert Double.isFinite(z);
     final double zz = (z*z) - c;
     final double ss = s + zz;
     c = (ss - s) - zz;
@@ -66,6 +73,7 @@ implements Accumulator<KahanAccumulator> {
   @Override
   public final KahanAccumulator add2All (final double[] z) { 
     for (final double zi : z) { 
+      assert Double.isFinite(zi);
       final double zz = (zi*zi) -c;
       final double ss = s + zz;
       c = (ss - s) - zz;
@@ -75,6 +83,8 @@ implements Accumulator<KahanAccumulator> {
   @Override
   public final KahanAccumulator addProduct (final double z0,
                                             final double z1) {
+    assert Double.isFinite(z0);
+    assert Double.isFinite(z1);
     final double zz = (z0*z1) - c;
     final double ss = s + zz;
     c = (ss - s) - zz;
@@ -87,6 +97,8 @@ implements Accumulator<KahanAccumulator> {
     final int n = z0.length;
     assert n == z1.length;
     for (int i=0;i<n;i++) {     
+      assert Double.isFinite(z0[i]);
+      assert Double.isFinite(z1[i]);
       final double zz = (z0[i]*z1[i]) - c;
       final double ss = s + zz;
       c = (ss - s) - zz;

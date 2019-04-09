@@ -16,7 +16,7 @@ import xfp.java.numbers.Rational;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-02
+ * @version 2019-04-09
  */
 public final class MutableRationalAccumulator 
 
@@ -136,6 +136,9 @@ Comparable<MutableRationalAccumulator> {
   public final boolean isExact () { return true; }
 
   @Override
+  public final boolean noOverflow () { return true; }
+
+  @Override
   public final double doubleValue () { 
     return 
       Rational.valueOf(numerator(),denominator()).doubleValue(); }
@@ -153,7 +156,8 @@ Comparable<MutableRationalAccumulator> {
 
   @Override
   public final MutableRationalAccumulator add (final double z) { 
-    // would be nice to have multiple value return...
+    assert Double.isFinite(z);
+   // would be nice to have multiple value return...
     final BigInteger[] nd = toRatio(z);
     return add(nd[0],nd[1])
       .reduce()
@@ -161,6 +165,7 @@ Comparable<MutableRationalAccumulator> {
 
   @Override
   public final MutableRationalAccumulator add2 (final double z) { 
+    assert Double.isFinite(z);
     final BigInteger[] nd = toRatio(z);
     return 
       add(nd[0].multiply(nd[0]),nd[1].multiply(nd[1])).reduce(); }
@@ -168,6 +173,8 @@ Comparable<MutableRationalAccumulator> {
   @Override
   public final MutableRationalAccumulator addProduct (final double z0,
                                                       final double z1) { 
+    assert Double.isFinite(z0);
+    assert Double.isFinite(z1);
     final BigInteger[] nd0 = toRatio(z0);
     final BigInteger[] nd1 = toRatio(z1);
     return add(

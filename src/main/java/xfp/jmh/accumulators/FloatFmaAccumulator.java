@@ -6,7 +6,7 @@ import xfp.java.accumulators.Accumulator;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-08
+ * @version 2019-04-09
  */
 public final class FloatFmaAccumulator 
 
@@ -15,8 +15,12 @@ implements Accumulator<FloatFmaAccumulator> {
   private float _sum;
 
   //--------------------------------------------------------------
+
   @Override
   public final boolean isExact () { return false; }
+
+  @Override
+  public final boolean noOverflow () { return false; }
 
   @Override
   public final double doubleValue () { return _sum; }
@@ -26,18 +30,22 @@ implements Accumulator<FloatFmaAccumulator> {
 
   @Override
   public final FloatFmaAccumulator add (final double z) { 
-    _sum += (float) z; 
+    assert Double.isFinite(z);
+        _sum += (float) z; 
     return this; }
 
   @Override
   public final FloatFmaAccumulator add2 (final double z) { 
-    _sum = Math.fma((float) z, (float) z, _sum);
+    assert Double.isFinite(z);
+        _sum = Math.fma((float) z, (float) z, _sum);
     return this; }
 
   @Override
   public final FloatFmaAccumulator addProduct (final double z0,
                                                final double z1) { 
-    _sum = Math.fma((float) z0, (float) z1, _sum);
+    assert Double.isFinite(z0);
+    assert Double.isFinite(z1);
+       _sum = Math.fma((float) z0, (float) z1, _sum);
     return this; }
 
   //--------------------------------------------------------------

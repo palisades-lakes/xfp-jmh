@@ -5,7 +5,7 @@ import xfp.java.accumulators.Accumulator;
 /** Naive sum of <code>double</code> values, using fma.
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-02
+ * @version 2019-04-09
  */
 strictfp
 public final class StrictDoubleFmaAccumulator 
@@ -14,8 +14,12 @@ implements Accumulator<StrictDoubleFmaAccumulator> {
   private double _sum;
 
   //--------------------------------------------------------------
+ 
   @Override
   public final boolean isExact () { return false; }
+
+  @Override
+  public final boolean noOverflow () { return false; }
 
   @Override
   public final double doubleValue () { return _sum; }
@@ -27,11 +31,13 @@ implements Accumulator<StrictDoubleFmaAccumulator> {
 
   @Override
   public final StrictDoubleFmaAccumulator add (final double z) { 
-    _sum += z; 
+    assert Double.isFinite(z);
+   _sum += z; 
     return this; }
 
   @Override
   public final StrictDoubleFmaAccumulator add2 (final double z) { 
+    assert Double.isFinite(z);
     _sum = StrictMath.fma(z,z,_sum);
     return this; }
 
@@ -39,6 +45,8 @@ implements Accumulator<StrictDoubleFmaAccumulator> {
   public final StrictDoubleFmaAccumulator 
   addProduct (final double z0,
               final double z1) { 
+    assert Double.isFinite(z0);
+    assert Double.isFinite(z1);
     _sum = StrictMath.fma(z0,z1,_sum);
     return this; }
 

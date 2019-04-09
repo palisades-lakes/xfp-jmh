@@ -8,7 +8,7 @@ import xfp.java.accumulators.Accumulator;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-02
+ * @version 2019-04-09
  */
 public final class BigDecimalAccumulator 
 
@@ -17,8 +17,12 @@ implements Accumulator<BigDecimalAccumulator> {
   private BigDecimal _sum;
 
   //--------------------------------------------------------------
+  
   @Override
   public final boolean isExact () { return true; }
+
+  @Override
+  public final boolean noOverflow () { return true; }
 
   // start with only immediate needs
 
@@ -33,7 +37,8 @@ implements Accumulator<BigDecimalAccumulator> {
 
   @Override
   public final BigDecimalAccumulator add (final double z) { 
-    _sum = _sum.add(new BigDecimal(z));
+    assert Double.isFinite(z);
+        _sum = _sum.add(new BigDecimal(z));
     return this; }
 
   //  @Override
@@ -44,14 +49,17 @@ implements Accumulator<BigDecimalAccumulator> {
 
   @Override
   public final BigDecimalAccumulator add2 (final double z) { 
-    final BigDecimal bd = new BigDecimal(z);
+    assert Double.isFinite(z);
+       final BigDecimal bd = new BigDecimal(z);
     _sum = _sum.add(bd.multiply(bd));
     return this; }
 
   @Override
   public final BigDecimalAccumulator addProduct (final double z0,
                                                  final double z1) { 
-    _sum = _sum.add(
+    assert Double.isFinite(z0);
+    assert Double.isFinite(z1);
+        _sum = _sum.add(
       new BigDecimal(z0)
       .multiply(
         new BigDecimal(z1)));

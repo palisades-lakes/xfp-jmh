@@ -3,7 +3,6 @@ package xfp.jmh.accumulators;
 import java.util.Arrays;
 
 import xfp.java.accumulators.Accumulator;
-import xfp.java.numbers.Double2;
 import xfp.java.numbers.Doubles;
 
 //----------------------------------------------------------------
@@ -57,47 +56,95 @@ implements Accumulator<ZhuHayes> {
   protected int i;
   protected double[] a1;
   protected double[] a2;
-  private double[] b1v;
-  private double[] b2v;
+  //  private double[] b1v;
+  //  private double[] b2v;
   private final double[] ifastinput;
-  protected final Double2 add2 = new Double2();
 
   //--------------------------------------------------------------
 
-  public final void compact () {
+  protected double sumTwo = Double.NaN;
+  protected double errTwo = Double.NaN;
+
+  /** Update {@link #sumTwo} and {@link #errTwo} so that
+   * <code>{@link #sumTwo} == x0 + x1</code> 
+   * (sum rounded to nearest double), and
+   * <code>rationalSum({@link #sumTwo},{@link #errTwo}) 
+   * == rationalSum(x0,x1)</code> 
+   * (exact sums, implemented, for example, with arbitrary
+   * precision rationals)
+   */
+
+  protected abstract void twoSum (final double x0,
+                                  final double x1);
+
+  //--------------------------------------------------------------
+
+  private final int compact () {
+    //    Debug.DEBUG = true;
+    //    Debug.println("compact: " + i);
+    //    final double v0 = doubleValue();
+    // Step 4(6)(a)
+
+    // new arrays
+    final double[] b1 = new double[NACCUMULATORS];
+    final double[] b2 = new double[NACCUMULATORS];
 
     // preallocated
-    // Step 4(6)(a)
-    //final double[] b1v = new double[NACCUMULATORS];
-    //final double[] b2v = new double[NACCUMULATORS];
+    //assert (b1v.length == NACCUMULATORS);
+    //assert (b2v.length == NACCUMULATORS);
+    //Arrays.fill(b1v,0.0);
+    //Arrays.fill(b2v,0.0);
 
     // Step 4(6)(b)
-    for (final double y : a2) {
+    for (final double x : a1) {
       // Step 4(6)(b)(i)
-      final int j = Doubles.biasedExponent(y);
-      // These accesses are guaranteed to be within bounds, because:
-      //assert (b1v.length == NACCUMULATORS);
-      //assert (b2v.length == NACCUMULATORS);
-      //assert (j < NACCUMULATORS);
+      final int j = Doubles.biasedExponent(x);
+      // These accesses are guaranteed to be within bounds,if:
+      assert (0 <= j);
+      assert (j < NACCUMULATORS);
       // Step 4(6)(b)(ii)
-      add2.zhuHayesBranch(b1v[j],y);
-      b1v[j] = add2.z0;
+      twoSum(b1[j],x);
+      b1[j] = sumTwo;
       // Step 4(6)(b)(iii)
-      b2v[j] += add2.z1; }
+      b2[j] += errTwo; }
+    for (final double x : a2) {
+      // Step 4(6)(b)(i)
+      final int j = Doubles.biasedExponent(x);
+      // These accesses are guaranteed to be within bounds,if:
+      assert (0 <= j);
+      assert (j < NACCUMULATORS);
+      // Step 4(6)(b)(ii)
+      twoSum(b1[j],x);
+      b1[j] = sumTwo;
+      // Step 4(6)(b)(iii)
+      b2[j] += errTwo; }
 
     // Step 4(6)(c)
+    // new arrays
+    a1 = b1;
+    a2 = b2;
+    // preallocated
     // swap instead of gc
-    final double[] tmp1 = a1;
-    final double[] tmp2 = a2;
-    a1 = b1v;
-    a2 = b2v;
-    b1v = tmp1;
-    b2v = tmp2;
-    Arrays.fill(b1v,0.0);
-    Arrays.fill(b2v,0.0);
+    //final double[] tmp1 = a1;
+    //final double[] tmp2 = a2;
+    //a1 = b1v;
+    //a2 = b2v;
+    //b1v = tmp1;
+    //b2v = tmp2;
+    //Arrays.fill(b1v,0.0);
+    //Arrays.fill(b2v,0.0);
+
+    //    Debug.DEBUG = false;
+    //    final double v1 = doubleValue();
+    //    assert v0 == v1 :
+    //      "compact changed value:"
+    //      + "\nbefore: " + Double.toHexString(v0)
+    //      + "\nafter:  " + Double.toHexString(v1);
+    //    Debug.println("\nbefore: " + Double.toHexString(v0));
+    //    Debug.println("\nafter:  " + Double.toHexString(v1));
 
     // Step 4(6)(d)
-    i = 2 * NACCUMULATORS; }
+    return 2 * NACCUMULATORS; }
 
   //--------------------------------------------------------------
   // Accumulator interface
@@ -106,7 +153,10 @@ implements Accumulator<ZhuHayes> {
   @Override
   public final boolean isExact () { return true; }
 
-  //--------------------------------------------------------------
+  @Override
+  public final boolean noOverflow () { return true; }
+
+ //--------------------------------------------------------------
   // aka zero()
 
   @Override
@@ -114,8 +164,9 @@ implements Accumulator<ZhuHayes> {
     i = 0;
     Arrays.fill(a1,0.0);
     Arrays.fill(a2,0.0);
-    Arrays.fill(b1v,0.0);
-    Arrays.fill(b2v,0.0); 
+    // preallocated
+    //Arrays.fill(b1v,0.0);
+    //Arrays.fill(b2v,0.0); 
     Arrays.fill(ifastinput,0.0);
     return this; }
 
@@ -128,33 +179,69 @@ implements Accumulator<ZhuHayes> {
     // TODO: is it worth dropping zeros?
     //a.retain(|&x| x != F::zero());
 
-    System.arraycopy(a1,0,ifastinput,0,NACCUMULATORS);
-    System.arraycopy(a2,0,ifastinput,NACCUMULATORS,NACCUMULATORS);
+    System.arraycopy(a1,0,ifastinput,0,a1.length);
+    System.arraycopy(a2,0,ifastinput,a1.length,a2.length);
 
     // Step 6
+    //return RBFAccumulator.make().addAll(ifastinput).doubleValue(); }
     return IFastSum.destructiveSum(ifastinput); }
 
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayes add2 (final double z) {
-    final double z2 = z*z;
-    final double e = Math.fma(z,z,-z2);
-    add(z2);
-    add(e); 
+  public final ZhuHayes add (final double x) {
+
+    assert Double.isFinite(x);
+
+    // Step 4(2)
+    final int j = Doubles.biasedExponent(x);
+    // These accesses are guaranteed to be within bounds, because:
+    assert (0 <= j);
+    assert (j < NACCUMULATORS);
+
+    // Step 4(3)
+    twoSum(a1[j],x);
+    a1[j] = sumTwo;
+
+    // Step 4(4)
+    a2[j] += errTwo;
+
+    // Step 4(5)
+    // This addition is guaranteed not to overflow because the
+    // next step ascertains that (at this point):
+    assert (i < NADDS) : i + " >= " + NADDS;
+    i += 1;
+
+    // Step 4(6)
+    if (i >= NADDS) { i = compact(); } 
     return this; }
-  
+
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayes addProduct (final double z0,
-                                               final double z1) {
-    final double z01 = z0*z1;
-    final double e = Math.fma(z0,z1,-z01);
-    add(z01);
+  public final ZhuHayes add2 (final double x) {
+    assert Double.isFinite(x);
+
+    final double x2 = x*x;
+    final double e = Math.fma(x,x,-x2);
+    add(x2);
     add(e); 
     return this; }
-  
+
+  //--------------------------------------------------------------
+
+  @Override
+  public final ZhuHayes addProduct (final double x0,
+                                    final double x1) {
+    assert Double.isFinite(x0);
+    assert Double.isFinite(x1);
+
+    final double x01 = x0*x1;
+    final double e = Math.fma(x0,x1,-x01);
+    add(x01);
+    add(e); 
+    return this; }
+
   //--------------------------------------------------------------
   // construction
   //--------------------------------------------------------------
@@ -163,13 +250,13 @@ implements Accumulator<ZhuHayes> {
     i = 0;
     a1 = new double[NACCUMULATORS];
     a2 = new double[NACCUMULATORS];
-    b1v = new double[NACCUMULATORS];
-    b2v = new double[NACCUMULATORS];
-    ifastinput = new double[2*NACCUMULATORS];
     Arrays.fill(a1,0.0);
     Arrays.fill(a2,0.0);
-    Arrays.fill(b1v,0.0);
-    Arrays.fill(b2v,0.0);
+    //    b1v = new double[NACCUMULATORS];
+    //    b2v = new double[NACCUMULATORS];
+    //    Arrays.fill(b1v,0.0);
+    //    Arrays.fill(b2v,0.0);
+    ifastinput = new double[2*NACCUMULATORS];
     Arrays.fill(ifastinput,0.0); }
 
   //--------------------------------------------------------------
