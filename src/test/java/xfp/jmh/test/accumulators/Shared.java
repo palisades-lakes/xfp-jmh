@@ -11,6 +11,7 @@ import java.util.List;
 public final class Shared {
 
   public static final int TEST_DIM = 32 * 1024 * 1024; //1 << 14;
+  
   public static final List<String> accumulators () {
     return
       List.of(
