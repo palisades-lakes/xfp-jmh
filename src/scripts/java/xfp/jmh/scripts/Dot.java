@@ -9,18 +9,19 @@ import org.apache.commons.rng.sampling.ListSampler;
 
 import xfp.java.Classes;
 import xfp.java.accumulators.Accumulator;
-import xfp.java.accumulators.DoubleFmaAccumulator;
 import xfp.java.accumulators.DoubleAccumulator;
-import xfp.java.accumulators.FloatFmaAccumulator;
-import xfp.java.accumulators.FloatAccumulator;
+import xfp.java.accumulators.DoubleFmaAccumulator;
 import xfp.java.linear.Dn;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
+import xfp.java.test.Common;
 import xfp.jmh.accumulators.BigDecimalAccumulator;
 import xfp.jmh.accumulators.BigFractionAccumulator;
 import xfp.jmh.accumulators.EFloatAccumulator;
 import xfp.jmh.accumulators.ERationalAccumulator;
+import xfp.jmh.accumulators.FloatAccumulator;
+import xfp.jmh.accumulators.FloatFmaAccumulator;
 import xfp.jmh.accumulators.RatioAccumulator;
 
 /** Benchmark double dot products.
@@ -47,24 +48,6 @@ public final class Dot {
   private static final boolean isEven (final int k) {
     return k == 2*(k/2); }
 
-  /** Maximum exponent for double generation such that the sum 
-   * of <code>dim</code> <code>double</code>s will be finite
-   * (with high enough probability).
-   */
-  //  private static final int deMax (final int dim) { 
-  //    final int d = Doubles.MAXIMUM_EXPONENT - ceilLog2(dim);
-  //    System.out.println("emax=" + d);
-  //    return d; }
-
-  /** Maximum exponent for double generation such that a float sum 
-   * of <code>dim</code> <code>double</code>s will be finite
-   * (with high enough probability).
-   */
-  private static final int feMax (final int dim) { 
-    final int d = Float.MAX_EXPONENT - ceilLog2(dim);
-    //System.out.println("emax=" + d);
-    return d; }
-
   // exact sum is 0.0
   private static double[] sampleDoubles (final Generator g,
                                          final UniformRandomProvider urp) {
@@ -80,7 +63,7 @@ public final class Dot {
     final UniformRandomProvider urp = 
       PRNG.well44497b("seeds/Well44497b-2019-01-05.txt");
     final Generator g = 
-      Doubles.finiteGenerator(dim/2,urp,feMax(dim));
+      Doubles.finiteGenerator(dim/2,urp,Common.deMax(dim));
 
     final double[][] x = new double[n][];
     for (int i=0;i<n;i++) { x[i] = sampleDoubles(g,urp); }

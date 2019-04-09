@@ -37,15 +37,15 @@ import xfp.java.numbers.Doubles;
  * @version 2019-04-06
  */
 
-public final class ZhuHayesOnlineExactNoBranch
-extends ZhuHayesOnlineExact {
+public final class ZhuHayesNoBranch
+extends ZhuHayes {
 
   //--------------------------------------------------------------
   // Accumulator interface
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayesOnlineExactNoBranch add (final double z) {
+  public final ZhuHayesNoBranch add (final double z) {
     // Step 4(2)
     final int j = Doubles.biasedExponent(z);
     // These accesses are guaranteed to be within bounds, because:
@@ -76,10 +76,10 @@ extends ZhuHayesOnlineExact {
   // construction
   //--------------------------------------------------------------
 
-  private ZhuHayesOnlineExactNoBranch () { super(); }
+  private ZhuHayesNoBranch () { super(); }
 
-  public static final ZhuHayesOnlineExactNoBranch make () {
-    return new ZhuHayesOnlineExactNoBranch(); }
+  public static final ZhuHayesNoBranch make () {
+    return new ZhuHayesNoBranch(); }
 
   //--------------------------------------------------------------
 } // end of class

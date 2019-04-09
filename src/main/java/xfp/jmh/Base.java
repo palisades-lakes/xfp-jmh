@@ -41,7 +41,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-06
+ * @version 2019-04-08
  */
 
 @SuppressWarnings("unchecked")
@@ -66,11 +66,11 @@ public abstract class Base {
   //--------------------------------------------------------------
 
   @Param({
-    //    "65536",
-    //    "262144",
+    "65536",
+    "262144",
     "1048576",
-    //    "4194304",
-    //    "16777216",
+    "4194304",
+    "16777216",
   })
   int dim;
 
@@ -81,25 +81,25 @@ public abstract class Base {
   List<Double> truth = new ArrayList<Double>();
 
   @Param({
-    "xfp.jmh.accumulators.ZhuHayesOnlineExactBranch",
-    "xfp.jmh.accumulators.ZhuHayesOnlineExactNoBranch",
+    "xfp.jmh.accumulators.ZhuHayesBranch",
+    "xfp.jmh.accumulators.ZhuHayesNoBranch",
     //"xfp.java.accumulators.BigDecimalAccumulator",
     //"xfp.jmh.accumulators.BigFractionAccumulator",
-    "xfp.java.accumulators.DoubleAccumulator",
+    //"xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.DoubleFmaAccumulator",
-    "xfp.jmh.accumulators.KahanAccumulator",
+    //"xfp.jmh.accumulators.KahanAccumulator",
     //"xfp.jmh.accumulators.KahanFmaAccumulator",
     //"xfp.jmh.accumulators.EFloatAccumulator",
     //"xfp.jmh.accumulators.ERationalAccumulator",
-    //"xfp.java.accumulators.FloatAccumulator",
-    //"xfp.java.accumulators.FloatFmaAccumulator",
+    //"xfp.jmh.accumulators.FloatAccumulator",
+    //"xfp.jmh.accumulators.FloatFmaAccumulator",
     //"xfp.jmh.accumulators.RatioAccumulator",
     //"xfp.java.accumulators.MutableRationalAccumulator",
     //"xfp.java.accumulators.RationalAccumulator",
     //"xfp.java.accumulators.RBFAccumulator",
   })
-  String accumulatorName;
-  Accumulator accumulator;
+  String accumulator;
+  Accumulator acc;
   List<Double> est = new ArrayList<Double>();
 
   //--------------------------------------------------------------
@@ -184,9 +184,10 @@ public abstract class Base {
             urp1); } 
     });
 
-  @Param({"finite","uniform","exponential"})
-  String factoryKey;
-  Generator generator;
+  //@Param({"finite","uniform","exponential","gaussian"})
+  @Param({"finite",})
+  String generator;
+  Generator gen;
 
   //--------------------------------------------------------------
   /** This is what is timed. */
@@ -202,17 +203,17 @@ public abstract class Base {
    */
   @Setup(Level.Trial)  
   public final void trialSetup () {
-    generator = factories.get(factoryKey).apply(dim);
+    gen = factories.get(generator).apply(dim);
     truth.clear();
     est.clear();
     exact = RBFAccumulator.make();
     assert exact.isExact();
-    accumulator = Common.makeAccumulator(accumulatorName); }  
+    acc = Common.makeAccumulator(accumulator); }  
 
   @Setup(Level.Invocation)  
   public final void invocationSetup () {
-    x0 = (double[]) generator.next();
-    x1 = (double[]) generator.next();
+    x0 = (double[]) gen.next();
+    x1 = (double[]) gen.next();
     save(operation(exact,x0,x1),truth); }  
 
   @TearDown(Level.Trial)  
@@ -220,20 +221,20 @@ public abstract class Base {
     //System.out.println("teardownTrial");
     final int n = truth.size();
     assert n == est.size(); 
-    final String aname = Classes.className(accumulator);
+    final String aname = Classes.className(acc);
     final String bname = 
       Classes.className(this).replace("_jmhType","");
     final File parent = new File("output/" + bname);
     parent.mkdirs();
     final File f = new File(parent,
-      aname + "-" + factoryKey + "-" + now() + ".csv");
+      aname + "-" + generator + "-" + dim + "-" + now() + ".csv");
     PrintWriter pw = null;
     try {
       pw = new PrintWriter(f);
-      pw.println("generator,benchmark,algorithm,dim,truth,est");
+      pw.println("generator,benchmark,accumulator,dim,truth,est");
       for (int i=0;i<n;i++) {
         pw.println(
-          factoryKey + "," + bname + "," + aname + "," + dim + "," 
+          generator + "," + bname + "," + aname + "," + dim + "," 
             + truth.get(i) + "," + est.get(i)); } }
     catch (final FileNotFoundException e) {
       throw new RuntimeException(e); } 
@@ -241,7 +242,7 @@ public abstract class Base {
 
   @Benchmark
   public final double bench () { 
-    final double pred = operation(accumulator,x0,x1);
+    final double pred = operation(acc,x0,x1);
     save(pred,est);
     return pred; }
 

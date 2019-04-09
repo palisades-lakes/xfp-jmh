@@ -41,8 +41,8 @@ import xfp.java.numbers.Doubles;
  * @version 2019-04-06
  */
 
-public abstract class ZhuHayesOnlineExact
-implements Accumulator<ZhuHayesOnlineExact> {
+public abstract class ZhuHayes
+implements Accumulator<ZhuHayes> {
 
   //--------------------------------------------------------------
 
@@ -65,6 +65,7 @@ implements Accumulator<ZhuHayesOnlineExact> {
   //--------------------------------------------------------------
 
   public final void compact () {
+
     // preallocated
     // Step 4(6)(a)
     //final double[] b1v = new double[NACCUMULATORS];
@@ -109,12 +110,13 @@ implements Accumulator<ZhuHayesOnlineExact> {
   // aka zero()
 
   @Override
-  public final ZhuHayesOnlineExact clear () {
+  public final ZhuHayes clear () {
     i = 0;
     Arrays.fill(a1,0.0);
     Arrays.fill(a2,0.0);
     Arrays.fill(b1v,0.0);
     Arrays.fill(b2v,0.0); 
+    Arrays.fill(ifastinput,0.0);
     return this; }
 
   //--------------------------------------------------------------
@@ -135,7 +137,7 @@ implements Accumulator<ZhuHayesOnlineExact> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayesOnlineExact add2 (final double z) {
+  public final ZhuHayes add2 (final double z) {
     final double z2 = z*z;
     final double e = Math.fma(z,z,-z2);
     add(z2);
@@ -145,7 +147,7 @@ implements Accumulator<ZhuHayesOnlineExact> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayesOnlineExact addProduct (final double z0,
+  public final ZhuHayes addProduct (final double z0,
                                                final double z1) {
     final double z01 = z0*z1;
     final double e = Math.fma(z0,z1,-z01);
@@ -157,7 +159,7 @@ implements Accumulator<ZhuHayesOnlineExact> {
   // construction
   //--------------------------------------------------------------
 
-  public ZhuHayesOnlineExact () {
+  public ZhuHayes () {
     i = 0;
     a1 = new double[NACCUMULATORS];
     a2 = new double[NACCUMULATORS];

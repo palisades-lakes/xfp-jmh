@@ -1,8 +1,6 @@
 package xfp.jmh.test.accumulators;
 
-import static xfp.java.test.Common.dotTests;
 import static xfp.java.test.Common.generators;
-import static xfp.java.test.Common.l2Tests;
 import static xfp.java.test.Common.makeAccumulators;
 import static xfp.java.test.Common.sumTests;
 import static xfp.jmh.test.accumulators.Shared.accumulators;
@@ -36,27 +34,27 @@ public final class SumTest {
       makeAccumulators(accumulators()),
       RBFAccumulator.make()); }
 
-  @SuppressWarnings("static-method")
-  @Test
-  public final void l2 () {
-    Debug.DEBUG = false;
-    Debug.println();
-    Debug.println("l2");
-    l2Tests(
-      generators(Shared.TEST_DIM),
-      makeAccumulators(accumulators()),
-      RBFAccumulator.make()); }
-
-  @SuppressWarnings("static-method")
-  @Test
-  public final void dot () {
-    Debug.DEBUG=false;
-    Debug.println();
-    Debug.println("dot");
-    dotTests(
-      generators(Shared.TEST_DIM),
-      makeAccumulators(accumulators()),
-      RBFAccumulator.make()); }
+//  @SuppressWarnings("static-method")
+//  @Test
+//  public final void l2 () {
+//    Debug.DEBUG = false;
+//    Debug.println();
+//    Debug.println("l2");
+//    l2Tests(
+//      generators(Shared.TEST_DIM),
+//      makeAccumulators(accumulators()),
+//      RBFAccumulator.make()); }
+//
+//  @SuppressWarnings("static-method")
+//  @Test
+//  public final void dot () {
+//    Debug.DEBUG=false;
+//    Debug.println();
+//    Debug.println("dot");
+//    dotTests(
+//      generators(Shared.TEST_DIM),
+//      makeAccumulators(accumulators()),
+//      RBFAccumulator.make()); }
 
   //--------------------------------------------------------------
 }
