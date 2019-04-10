@@ -40,8 +40,7 @@ import xfp.java.numbers.Doubles;
  * @version 2019-04-06
  */
 
-public abstract class ZhuHayes
-implements Accumulator<ZhuHayes> {
+public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
 
   //--------------------------------------------------------------
 
@@ -154,7 +153,7 @@ implements Accumulator<ZhuHayes> {
   public final boolean isExact () { return true; }
 
   @Override
-  public final boolean noOverflow () { return true; }
+  public final boolean noOverflow () { return false; }
 
  //--------------------------------------------------------------
   // aka zero()
@@ -184,7 +183,7 @@ implements Accumulator<ZhuHayes> {
 
     // Step 6
     //return RBFAccumulator.make().addAll(ifastinput).doubleValue(); }
-    return IFastSum.destructiveSum(ifastinput); }
+    return IFastSum.make().destructiveSum(ifastinput); }
 
   //--------------------------------------------------------------
 

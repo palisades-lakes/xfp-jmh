@@ -13,10 +13,11 @@ public final class ZhuHayesBranch extends ZhuHayes {
 
   @Override
   protected final void twoSum (final double x0, 
-                             final double x1) {
+                               final double x1) {
 
-    assert Double.isFinite(x0) && Double.isFinite(x1) :
-      Double.toHexString(x0) + " + " + Double.toHexString(x1);
+    // might get +/- Infinity due to overflow
+//    assert Double.isFinite(x0) && Double.isFinite(x1) :
+//      Double.toHexString(x0) + " + " + Double.toHexString(x1);
 
     sumTwo = x0 + x1;
     if (Doubles.biasedExponent(x0) > Doubles.biasedExponent(x1)) {
@@ -24,8 +25,13 @@ public final class ZhuHayesBranch extends ZhuHayes {
     else {
       errTwo = x0 - (sumTwo - x1); }
 
-    assert Double.isFinite(sumTwo) && Double.isFinite(errTwo) :
-      Double.toHexString(sumTwo) + " + " + Double.toHexString(errTwo); 
+    // overflow to infinite SumTwo is possible
+    // TODO: handle better
+//    assert Double.isFinite(sumTwo) && Double.isFinite(errTwo) :
+//      "\n" 
+//      + Double.toHexString(x0) + " + " + Double.toHexString(x1)
+//      + "\n=>\n"
+//      + Double.toHexString(sumTwo) + " + " + Double.toHexString(errTwo); 
   }
 
   //--------------------------------------------------------------

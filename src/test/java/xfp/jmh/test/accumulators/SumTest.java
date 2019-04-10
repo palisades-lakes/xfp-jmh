@@ -51,7 +51,7 @@ public final class SumTest {
   @SuppressWarnings("static-method")
   @Test
   public final void zeroSum () {
-    Debug.DEBUG=true;
+    Debug.DEBUG=false;
     Debug.println();
     Debug.println("zeroSum");
     Common.zeroSumTests(
@@ -61,7 +61,7 @@ public final class SumTest {
   @SuppressWarnings("static-method")
   @Test
   public final void sum () {
-    Debug.DEBUG=true;
+    Debug.DEBUG=false;
     Debug.println();
     Debug.println("sum");
     Common.sumTests(
@@ -72,7 +72,7 @@ public final class SumTest {
   @SuppressWarnings("static-method")
   @Test
   public final void l2 () {
-    Debug.DEBUG = true;
+    Debug.DEBUG = false;
     Debug.println();
     Debug.println("l2");
     Common.l2Tests(
@@ -83,7 +83,7 @@ public final class SumTest {
   @SuppressWarnings("static-method")
   @Test
   public final void dot () {
-    Debug.DEBUG=true;
+    Debug.DEBUG=false;
     Debug.println();
     Debug.println("dot");
     Common.dotTests(

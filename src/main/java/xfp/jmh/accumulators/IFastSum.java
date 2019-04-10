@@ -2,10 +2,11 @@ package xfp.jmh.accumulators;
 
 import java.util.Arrays;
 
-import xfp.java.numbers.Double2;
 import xfp.java.numbers.Doubles;
 
 //----------------------------------------------------------------
+// TODO: implement Accumulator, branch and no branch versions
+
 /** Iterative-refinement fast correctly rounded sums: exact real
  * sum rounded to nearest double.
  * <p>
@@ -47,31 +48,80 @@ import xfp.java.numbers.Doubles;
  * <p>
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-06
+ * @version 2019-04-09
  */
 
 public final class IFastSum {
 
+  private double twoSum = 0.0;
+  private double twoErr = 0.0;
+
   //--------------------------------------------------------------
 
-  private static final double destructiveSum (final double[] x,
-                                              final int n,
-                                              final boolean recurse) {
-     // Step 1
+  private final void noBranch (final double x0, 
+                               final double x1) {
+    // might get +/- Infinity due to overflow.
+    //    assert Double.isFinite(x0) && Double.isFinite(x1) :
+    // Double.toHexString(x0) + " + " + Double.toHexString(x1);
+
+    twoSum = x0 + x1;
+    final double z = twoSum - x0;
+    twoErr = (x0 - (twoSum - z)) + (x1 - z);
+
+    // overflow to infinite SumTwo is possible
+    // TODO: handle better
+    //    assert Double.isFinite(sumTwo) && Double.isFinite(errTwo) :
+    // "\n" 
+    // + Double.toHexString(x0) + " + " + Double.toHexString(x1)
+    // + "\n=>\n"
+    // + Double.toHexString(sumTwo) + " + " + Double.toHexString(errTwo); 
+  }
+
+  //--------------------------------------------------------------
+
+  //  private final void branch (final double x0, 
+  //                        final double x1) {
+  //
+  //    assert Double.isFinite(x0) && Double.isFinite(x1) :
+  // Double.toHexString(x0) + " + " + Double.toHexString(x1);
+  //
+  //    twoSum = x0 + x1;
+  //    if (Doubles.biasedExponent(x0) > Doubles.biasedExponent(x1)) {
+  // twoErr = x1 - (twoSum - x0); }
+  //    else {
+  // twoErr = x0 - (twoSum - x1); }
+  //
+  //    // overflow to infinite SumTwo is possible
+  //    // TODO: handle better
+  //    //    assert Double.isFinite(sumTwo) && Double.isFinite(errTwo) :
+  //    // "\n" 
+  //    // + Double.toHexString(x0) + " + " + Double.toHexString(x1)
+  //    // + "\n=>\n"
+  //    // + Double.toHexString(sumTwo) + " + " + Double.toHexString(errTwo); 
+  //  }
+
+  //--------------------------------------------------------------
+
+  private final double destructiveSum (final double[] x,
+                                       final int[] n,
+                                       final boolean recurse) {
+    // assert 1 == n.length;
+
+    // Step 1
     double s = 0.0;
-    final Double2 add2 = new Double2();
 
     // Step 2
     // The following accesses are guaranteed to be inside bounds, because:
-    assert (n <= x.length);
-    for (int i=0;i<n; i++) {
-      //      System.out.println(i + ": " + Double.toHexString(s) + ", "
-      //        + Double.toHexString(x[i]));
-      add2.zhuHayesNoBranch(s,x[i]); 
-      s = add2.z0; 
-      x[i] = add2.z1;
-      //      System.out.println(i + ": " + Double.toHexString(s) + ", "
-      //        + Double.toHexString(x[i]));
+    //assert (n[0] <= x.length);
+    for (int i=0;i<n[0]; i++) {
+      // System.out.println(i + ": " + Double.toHexString(s) + ", "
+      //   + Double.toHexString(x[i]));
+      noBranch(s,x[i]); 
+      s = twoSum; 
+      if (! Double.isFinite(s)) { return s; }
+      x[i] = twoErr;
+      // System.out.println(i + ": " + Double.toHexString(s) + ", "
+      //   + Double.toHexString(x[i]));
     }
     //System.out.println("step 2: " + s);
     // Step 3
@@ -83,12 +133,12 @@ public final class IFastSum {
       double sm = 0.0;
       // Step 3(2)
       // The following accesses are guaranteed to be inside bounds, because:
-      //assert (n[0] <= x.length);
-      for (int i=0;i<n;i++) {
+      assert (n[0] <= x.length);
+      for (int i=0;i<n[0];i++) {
         // Step 3(2)(a)
-        add2.zhuHayesNoBranch(st, x[i]);
-        st = add2.z0;
-        final double b = add2.z1;
+        noBranch(st, x[i]);
+        st = twoSum;
+        final double b = twoErr;
         // Step 3(2)(b)
         if (0.0 != b) {
           // The following access is guaranteed to be inside bounds, because:
@@ -101,41 +151,42 @@ public final class IFastSum {
           // Step 3(2)(b)(ii)
           sm = Math.max(sm,Math.abs(st)); } }
       // Step 3(3)
-      //      System.out.println("Step 3(3): " + iloop +
-      //                         ", count=" + count);
+      // System.out.println("Step 3(3): " + iloop +
+      //                    ", count=" + count);
       final double dcount = count;
       // test count exact as double
-      //assert count == (int) dcount;
+      assert count == (int) dcount;
       final double em = dcount * Doubles.halfUlp(sm);
       // Step 3(4)
-      add2.zhuHayesNoBranch(s, st);
-      s = add2.z0;
-      st = add2.z1;
+      noBranch(s, st);
+      s = twoSum;
+      if (! Double.isFinite(s)) { return s; }
+      st = twoErr;
       // The following access is guaranteed to be inside bounds, because:
-      //assert (count < x.length) : count + ">=" + x.length;
+      assert (count < x.length) : count + ">=" + x.length;
       x[count] = st;
       // The following addition is guaranteed not to overflow, because:
       //assert (count < Integer.MAX_VALUE);
       // and thus:
       //debug_assert!(count.checked_add(1).is_some());
-      final int n0 = Math.addExact(count,1);
+      n[0] = Math.addExact(count,1);
       // Step 3(5)
-      //      System.out.println("Step 3(5): "
-      //      + "em=" + Double.toHexString(em)
-      //      + ", s=" + Double.toHexString(s)
-      //      + ", halfUlp=" + Double.toHexString(Doubles.halfUlp(s)));
+      // System.out.println("Step 3(5): "
+      // + "em=" + Double.toHexString(em)
+      // + ", s=" + Double.toHexString(s)
+      // + ", halfUlp=" + Double.toHexString(Doubles.halfUlp(s)));
 
       if ((em == 0.0) || (em < Doubles.halfUlp(s))) {
         // Step 3(5)(a)
         if (! recurse) { return s; }
         // Step 3(5)(b)
-        add2.zhuHayesNoBranch(st, em);
-        final double w1 = add2.z0;
-        final double e1 = add2.z1;
+        noBranch(st, em);
+        final double w1 = twoSum;
+        final double e1 = twoErr;
         // Step 3(5)(c)
-        add2.zhuHayesNoBranch(st, -em);
-        final double w2 = add2.z0;
-        final double e2 = add2.z1;
+        noBranch(st, -em);
+        final double w2 = twoSum;
+        final double e2 = twoErr;
         // Step 3(5)(d)
         if (((w1 + s) != s)
           || ((w2 + s) != s)
@@ -144,34 +195,39 @@ public final class IFastSum {
           // Step 3(5)(d)(i)
           double s1 = destructiveSum(x, n, false);
           // Step 3(5)(d)(ii)
-          add2.zhuHayesNoBranch(s, s1);
-          s = add2.z0;
-          s1 = add2.z1;
+          noBranch(s, s1);
+          s = twoSum;
+          if (! Double.isFinite(s)) { return s; }
+          s1 = twoErr;
           // Step 3(5)(d)(iii)
-          final double s2 = destructiveSum(x, n0, false);
+          final double s2 = destructiveSum(x, n, false);
           // Step 3(5)(d)(iv)
-          s = Doubles.round3(s, s1, s2); }
+          s = Doubles.round3(s, s1, s2); 
+          if (! Double.isFinite(s)) { return s; }
+        }
         // Step 3(5)(e)
         // System.out.println("step 3(5)e: " + s);
         return s; } } }
 
   //--------------------------------------------------------------
 
-  public static final double destructiveSum (final double[] x) {
-    return destructiveSum(x,x.length,true); }
+  public final double destructiveSum (final double[] x) {
+    final int[] n = new int[1];
+    n[0] = x.length;
+    return destructiveSum(x,n,true); }
 
   //--------------------------------------------------------------
 
-  public static final double sum (final double[] x) {
+  public final double sum (final double[] x) {
     return destructiveSum(Arrays.copyOf(x,x.length)); }
 
   //--------------------------------------------------------------
   // construction
   //--------------------------------------------------------------
 
-  private IFastSum () {
-    throw new UnsupportedOperationException("can't instantiate" +
-      getClass()); }
+  private IFastSum () { }
+
+  public static final IFastSum make () { return new IFastSum(); }
 
   //--------------------------------------------------------------
 } // end of class
