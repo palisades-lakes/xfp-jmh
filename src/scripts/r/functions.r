@@ -10,12 +10,13 @@ require('knitr')
 require('kableExtra')
 #-----------------------------------------------------------------
 accumulator.colors <- c(
-  'KahanAccumulator'='#b6663888',
-  'KahanFmaAccumulator'='#a6a60088',
-  'ZhuHayesBranch'='#001dff88',
-  'ZhuHayesNoBranch'='#0f0fff88',
-  'RBFAccumulator'='#e41a1c88',
-  'DoubleAccumulator'='#1b888888'
+  'KahanAccumulator'='#a0430088',
+  'KahanFmaAccumulator'='#a0331088',
+  'ZhuHayesBranch'='#00669988',
+  'ZhuHayesNoBranch'='#0009dd88',
+  'RBFAccumulator'='#d31b1c88',
+  'DoubleAccumulator'='#c8000088',
+  'DoubleFmaAccumulator'='#c0040488'
 )
 #-----------------------------------------------------------------
 accuracy.files <- function (
@@ -55,7 +56,7 @@ read.accuracy <- function (
       tmp$residual <- tmp$truth - tmp$est
       tmp$fresidual <- tmp$residual / max(tmp$truth,1)
       raw <- rbind(raw,tmp) } }
-
+  
   raw$benchmark <- 
     factor(x=raw$benchmark,
       levels=sort(unique(raw$benchmark)),
@@ -136,7 +137,7 @@ accuracy.plot <- function(
   ylabel=NULL,
   xlabel='dim',
   width=36, 
-  height=12,
+  #height=12,
   plot.folder='output') {
   stopifnot(
     !is.null(data),
@@ -238,13 +239,13 @@ runtime.log.log.plot <- function(
   ymin='ms.min', 
   ymax='ms.max', 
   group='accumulator',
-  rows=vars(benchmark),
-  cols=vars(generator),
+  rows='benchmark',
+  cols='generator',
   colors=accumulator.colors,
   scales='fixed', #'free_y',
   ylabel='milliseconds',
   xlabel='dim',
-  width=30, 
+  #width=30, 
   height=15,
   plot.folder='output') {
   
@@ -256,6 +257,12 @@ runtime.log.log.plot <- function(
     #!is.null(facet),
     !is.null(colors))
   
+  nr <- length(unique(data[,rows]))
+  nc <- length(unique(data[,cols]))
+  width <- (height * nc) / nr
+  
+  print(width)
+  
   plot.file <- file.path(
     plot.folder,
     paste(prefix,'png',sep='.'))
@@ -265,7 +272,7 @@ runtime.log.log.plot <- function(
       aes_string(
         x=x, ymin=ymin, y=y, ymax=ymax, 
         group=group,fill=group,color=group))  +
-    facet_grid(rows=rows,cols=cols,scales=scales) +
+    facet_grid(facets=as.formula(paste(rows,'~',cols)),scales=scales) +
     theme_bw() +
     theme(plot.title = element_text(hjust = 0.5)) +
     #theme(
