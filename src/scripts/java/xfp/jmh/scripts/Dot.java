@@ -36,14 +36,6 @@ import xfp.jmh.accumulators.RatioAccumulator;
 public final class Dot {
 
   //--------------------------------------------------------------
-  //  /** See {@link Integer#numberOfLeadingZeros(int)}. */
-  //  private static final int floorLog2 (final int k) {
-  //    return Integer.SIZE - 1- Integer.numberOfLeadingZeros(k); }
-
-  /** See {@link Integer#numberOfLeadingZeros(int)}. */
-  private static final int ceilLog2 (final int k) {
-    return Integer.SIZE - Integer.numberOfLeadingZeros(k-1); }
-
   // TODO: more efficient via bits?
   private static final boolean isEven (final int k) {
     return k == 2*(k/2); }
