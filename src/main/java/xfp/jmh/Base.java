@@ -1,8 +1,6 @@
 package xfp.jmh;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,14 +17,12 @@ import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-import xfp.java.Classes;
 import xfp.java.accumulators.Accumulator;
 import xfp.java.accumulators.RBFAccumulator;
 import xfp.java.numbers.Doubles;
@@ -66,11 +62,11 @@ public abstract class Base {
   //--------------------------------------------------------------
 
   @Param({
-    "65536",
-    "262144",
-    "1048576",
+//    "65536",
+//    "262144",
+//    "1048576",
     "4194304",
-    "16777216",
+//    "16777216",
   })
   int dim;
 
@@ -185,7 +181,7 @@ public abstract class Base {
     });
 
   //@Param({"finite","uniform","exponential","gaussian"})
-  @Param({"finite",})
+  @Param({"exponential",})
   String generator;
   Generator gen;
 
@@ -216,29 +212,30 @@ public abstract class Base {
     x1 = (double[]) gen.next();
     save(operation(exact,x0,x1),truth); }  
 
-  @TearDown(Level.Trial)  
-  public final void teardownTrial () {
-    //System.out.println("teardownTrial");
-    final int n = truth.size();
-    assert n == est.size(); 
-    final String aname = Classes.className(acc);
-    final String bname = 
-      Classes.className(this).replace("_jmhType","");
-    final File parent = new File("output/" + bname);
-    parent.mkdirs();
-    final File f = new File(parent,
-      aname + "-" + generator + "-" + dim + "-" + now() + ".csv");
-    PrintWriter pw = null;
-    try {
-      pw = new PrintWriter(f);
-      pw.println("generator,benchmark,accumulator,dim,truth,est");
-      for (int i=0;i<n;i++) {
-        pw.println(
-          generator + "," + bname + "," + aname + "," + dim + "," 
-            + truth.get(i) + "," + est.get(i)); } }
-    catch (final FileNotFoundException e) {
-      throw new RuntimeException(e); } 
-    finally { if (null != pw) { pw.close(); } } }
+  // not needed while testing exact methods
+//  @TearDown(Level.Trial)  
+//  public final void teardownTrial () {
+//    //System.out.println("teardownTrial");
+//    final int n = truth.size();
+//    assert n == est.size(); 
+//    final String aname = Classes.className(acc);
+//    final String bname = 
+//      Classes.className(this).replace("_jmhType","");
+//    final File parent = new File("output/" + bname);
+//    parent.mkdirs();
+//    final File f = new File(parent,
+//      aname + "-" + generator + "-" + dim + "-" + now() + ".csv");
+//    PrintWriter pw = null;
+//    try {
+//      pw = new PrintWriter(f);
+//      pw.println("generator,benchmark,accumulator,dim,truth,est");
+//      for (int i=0;i<n;i++) {
+//        pw.println(
+//          generator + "," + bname + "," + aname + "," + dim + "," 
+//            + truth.get(i) + "," + est.get(i)); } }
+//    catch (final FileNotFoundException e) {
+//      throw new RuntimeException(e); } 
+//    finally { if (null != pw) { pw.close(); } } }
 
   @Benchmark
   public final double bench () { 
@@ -247,7 +244,8 @@ public abstract class Base {
     return pred; }
 
   //--------------------------------------------------------------
-
+  /** java -cp target\benchmarks.jar xfp.jmh.Base */
+  
   public static void main (final String[] args) 
     throws RunnerException {
     final File parent = new File("output");
@@ -267,6 +265,7 @@ public abstract class Base {
       .result(csv.getPath())
       .threads(1)
       .shouldFailOnError(true)
+      .shouldDoGC(true)
       .build();
     new Runner(opt).run(); }
 

@@ -40,7 +40,7 @@ import xfp.java.numbers.Doubles;
  * @version 2019-04-10
  */
 
-public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
+public abstract class ZhuHayesGC implements Accumulator<ZhuHayesGC> {
 
   //--------------------------------------------------------------
 
@@ -55,9 +55,7 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
   protected int i;
   protected double[] a1;
   protected double[] a2;
-  private double[] b1;
-  private double[] b2;
-  
+
   //--------------------------------------------------------------
 
   protected double sumTwo = Double.NaN;
@@ -138,7 +136,7 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
 
       // Step 2
       for (int ii=0;ii<n[0]; ii++) {
-        ZhuHayes.this.twoSum(s,x[ii]); 
+        ZhuHayesGC.this.twoSum(s,x[ii]); 
         s = sumTwo; 
         if (! Double.isFinite(s)) { return s; }
         x[ii] = errTwo; }
@@ -151,7 +149,7 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
         // Step 3(2)
         for (int ii=0;ii<n[0];ii++) {
           // Step 3(2)(a)
-          ZhuHayes.this.twoSum(st, x[ii]);
+          ZhuHayesGC.this.twoSum(st, x[ii]);
           st = sumTwo;
           final double b = errTwo;
           // Step 3(2)(b)
@@ -168,7 +166,7 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
         assert count == (int) dcount;
         final double em = dcount * halfUlp(sm);
         // Step 3(4)
-        ZhuHayes.this.twoSum(s, st);
+        ZhuHayesGC.this.twoSum(s, st);
         s = sumTwo;
         if (! Double.isFinite(s)) { return s; }
         st = errTwo;
@@ -180,11 +178,11 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
           // Step 3(5)(a)
           if (! recurse) { return s; }
           // Step 3(5)(b)
-          ZhuHayes.this.twoSum(st, em);
+          ZhuHayesGC.this.twoSum(st, em);
           final double w1 = sumTwo;
           final double e1 = errTwo;
           // Step 3(5)(c)
-          ZhuHayes.this.twoSum(st, -em);
+          ZhuHayesGC.this.twoSum(st, -em);
           final double w2 = sumTwo;
           final double e2 = errTwo;
           // Step 3(5)(d)
@@ -195,7 +193,7 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
             // Step 3(5)(d)(i)
             double s1 = destructiveSum(x, n, false);
             // Step 3(5)(d)(ii)
-            ZhuHayes.this.twoSum(s, s1);
+            ZhuHayesGC.this.twoSum(s, s1);
             s = sumTwo;
             if (! Double.isFinite(s)) { return s; }
             s1 = errTwo;
@@ -215,10 +213,8 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
 
   private final int compact () {
     // Step 4(6)(a)
-    assert (b1.length == NACCUMULATORS);
-    assert (b2.length == NACCUMULATORS);
-    Arrays.fill(b1,0.0);
-    Arrays.fill(b2,0.0);
+    final double[] b1 = new double[NACCUMULATORS];
+    final double[] b2 = new double[NACCUMULATORS];
 
     // Step 4(6)(b)
     for (final double x : a1) {
@@ -231,13 +227,8 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
       twoInc(b1,b2,x); }
 
     // Step 4(6)(c)
-    // swap 
-    final double[] tmp1 = a1;
-    final double[] tmp2 = a2;
     a1 = b1;
     a2 = b2;
-    b1 = tmp1;
-    b2 = tmp2;
 
     // Step 4(6)(d)
     return 2 * NACCUMULATORS; }
@@ -256,7 +247,7 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
   // aka zero()
 
   @Override
-  public final ZhuHayes clear () {
+  public final ZhuHayesGC clear () {
     i = 0;
     Arrays.fill(a1,0.0);
     Arrays.fill(a2,0.0);
@@ -280,7 +271,7 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayes add (final double x) {
+  public final ZhuHayesGC add (final double x) {
     assert Double.isFinite(x);
     // Step 4(2)
     // Step 4(3)
@@ -295,7 +286,7 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayes add2 (final double x) {
+  public final ZhuHayesGC add2 (final double x) {
     assert Double.isFinite(x);
 
     final double x2 = x*x;
@@ -307,8 +298,8 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayes addProduct (final double x0,
-                                    final double x1) {
+  public final ZhuHayesGC addProduct (final double x0,
+                                      final double x1) {
     assert Double.isFinite(x0);
     assert Double.isFinite(x1);
 
@@ -322,12 +313,10 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
   // construction
   //--------------------------------------------------------------
 
-  public ZhuHayes () {
+  public ZhuHayesGC () {
     i = 0;
     a1 = new double[NACCUMULATORS];
-    a2 = new double[NACCUMULATORS];
-    b1 = new double[NACCUMULATORS];
-    b2 = new double[NACCUMULATORS]; }
+    a2 = new double[NACCUMULATORS]; }
 
   //--------------------------------------------------------------
 } // end of class

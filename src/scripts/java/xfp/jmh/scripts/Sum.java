@@ -6,7 +6,6 @@ import java.util.function.IntFunction;
 import org.apache.commons.rng.UniformRandomProvider;
 
 import xfp.java.accumulators.Accumulator;
-import xfp.java.accumulators.RBFAccumulator;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
@@ -16,7 +15,7 @@ import xfp.jmh.accumulators.ZhuHayesNoBranch;
 /** Benchmark accumulators tests.
  * 
  * <pre>
- * jy --source 11 src/scripts/java/xfp/jmh/scripts/Sum.java
+ * jy --source 11 -ea src/scripts/java/xfp/jmh/scripts/Sum.java
  * </pre>
  * @author palisades dot lakes at gmail dot com
  * @version 2019-04-08
@@ -108,14 +107,15 @@ public final class Sum {
   //--------------------------------------------------------------
 
   public static final void main (final String[] args) 
-    throws InterruptedException {
+//    throws InterruptedException 
+  {
 
-    final int dim = 4*1024*1024;
+    final int dim = 64*1024*1024;
     final int trys = 128;
     final Generator g = factories.get("finite").apply(dim);
     final double[] x = (double[]) g.next();
-    final Accumulator exact = RBFAccumulator.make();
-    final double truth = exact.addAll(x).doubleValue();
+//    final Accumulator exact = RBFAccumulator.make();
+//    final double truth = exact.addAll(x).doubleValue();
     final Accumulator a = ZhuHayesNoBranch.make();
     assert a.isExact();
     //Thread.sleep(16*1024);
@@ -125,7 +125,7 @@ public final class Sum {
       a.addAll(x);
       final double z = a.doubleValue();
       if (0.0 != z) {
-        System.out.println(Double.toHexString(truth) 
+        System.out.println(Double.toHexString(0.0) 
           + " != " + Double.toHexString(z)); } } 
     System.out.printf("total secs: %8.2f\n",
       Double.valueOf((System.nanoTime()-t)*1.0e-9)); 
