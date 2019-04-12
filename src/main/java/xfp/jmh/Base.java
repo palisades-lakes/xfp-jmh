@@ -37,7 +37,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-10
+ * @version 2019-04-11
  */
 
 @SuppressWarnings("unchecked")
@@ -62,10 +62,10 @@ public abstract class Base {
   //--------------------------------------------------------------
 
   @Param({
-    "33554433",
+//    "33554433",
     "8388609",
-    "2097153",
-    "524289",
+//    "2097153",
+//    "524289",
   })
   int dim;
 
@@ -76,10 +76,12 @@ public abstract class Base {
   List<Double> truth = new ArrayList<Double>();
 
   @Param({
+    "xfp.java.accumulators.ZhuHayesGCAccumulator",
+    "xfp.java.accumulators.ZhuHayesNoGCAccumulator",
     "xfp.jmh.accumulators.ZhuHayesBranch",
     "xfp.jmh.accumulators.ZhuHayesNoBranch",
-    "xfp.java.accumulators.DoubleAccumulator",
-    "xfp.jmh.accumulators.KahanAccumulator",
+    //"xfp.java.accumulators.DoubleAccumulator",
+    //"xfp.jmh.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.BigDecimalAccumulator",
     //"xfp.jmh.accumulators.BigFractionAccumulator",
     //"xfp.java.accumulators.DoubleFmaAccumulator",
@@ -179,8 +181,8 @@ public abstract class Base {
             urp1); } 
     });
 
-  @Param({"finite","uniform","exponential","gaussian"})
-  //@Param({"exponential",})
+  //@Param({"finite","uniform","exponential","gaussian"})
+  @Param({"gaussian",})
   String generator;
   Generator gen;
 
@@ -243,7 +245,11 @@ public abstract class Base {
     return pred; }
 
   //--------------------------------------------------------------
-  /** java -cp target\benchmarks.jar xfp.jmh.Base */
+  /** 
+   * <pre>
+   * java -cp target\benchmarks.jar xfp.jmh.Base
+   * </pre> 
+   * */
   
   public static void main (final String[] args) 
     throws RunnerException {
