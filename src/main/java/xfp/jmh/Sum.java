@@ -9,7 +9,7 @@ import xfp.java.accumulators.Accumulator;
  * java -cp target\benchmarks.jar xfp.jmh.Sum
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-06
+ * @version 2019-04-12
  */
 
 public class Sum extends Base {
@@ -18,7 +18,7 @@ public class Sum extends Base {
   public final double operation (final Accumulator ac,
                                  final double[] z0,
                                  final double[] z1) { 
-    return ac.clear().addAll(x0).addAll(x1).doubleValue(); }
+    return ac.clear().addAll(z0).addAll(z1).doubleValue(); }
 
   //--------------------------------------------------------------
 

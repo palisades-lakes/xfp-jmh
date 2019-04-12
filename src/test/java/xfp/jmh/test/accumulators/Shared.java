@@ -6,7 +6,7 @@ import java.util.List;
  * Not instantiable. Class slots/methods only.
  * 
  * @author mcdonald dot john dot alan at gmail dot com
- * @version 2019-04-11
+ * @version 2019-04-12
  */
 public final class Shared {
 
@@ -16,9 +16,11 @@ public final class Shared {
   public static final List<String> accumulators () {
     return
       List.of(
-        "xfp.java.accumulators.ZhuHayesGCAccumulator"
+        "xfp.jmh.accumulators.IFastAccumulator"
         ,
         "xfp.java.accumulators.ZhuHayesNoGCAccumulator"
+        ,
+        "xfp.java.accumulators.ZhuHayesGCAccumulator"
         ,
         "xfp.jmh.accumulators.ZhuHayesBranch"
         ,

@@ -56,7 +56,7 @@ public abstract class Base {
   private static final DateTimeFormatter DTF = 
     DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
 
-  private static final String now () {
+  public static final String now () {
     return LocalDateTime.now().format(DTF); }
 
   //--------------------------------------------------------------
@@ -107,8 +107,7 @@ public abstract class Base {
   private static final String SEED1 = 
     "seeds/Well44497b-2019-01-07.txt";
 
-  private static final 
-  Map<String,IntFunction<Generator>> 
+  public static final Map<String,IntFunction<Generator>> 
   factories = 
   Map.of(
     "uniform",
@@ -181,6 +180,10 @@ public abstract class Base {
             urp1); } 
     });
 
+  public static final Generator makeGenerator (final String name,
+                                          final int dim) {
+    return factories.get(name).apply(dim); }
+  
   @Param({"finite","uniform","exponential","gaussian","laplace"})
   //@Param({"gaussian",})
   String generator;
@@ -200,7 +203,7 @@ public abstract class Base {
    */
   @Setup(Level.Trial)  
   public final void trialSetup () {
-    gen = factories.get(generator).apply(dim);
+    gen = makeGenerator(generator,dim);
     truth.clear();
     est.clear();
     exact = RBFAccumulator.make();
