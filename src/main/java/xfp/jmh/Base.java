@@ -62,10 +62,10 @@ public abstract class Base {
   //--------------------------------------------------------------
 
   @Param({
-//    "33554433",
+    "33554433",
     "8388609",
-//    "2097153",
-//    "524289",
+    "2097153",
+    "524289",
   })
   int dim;
 
@@ -80,8 +80,8 @@ public abstract class Base {
     "xfp.java.accumulators.ZhuHayesNoGCAccumulator",
     "xfp.jmh.accumulators.ZhuHayesBranch",
     "xfp.jmh.accumulators.ZhuHayesNoBranch",
-    //"xfp.java.accumulators.DoubleAccumulator",
-    //"xfp.jmh.accumulators.KahanAccumulator",
+    "xfp.java.accumulators.DoubleAccumulator",
+    "xfp.jmh.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.BigDecimalAccumulator",
     //"xfp.jmh.accumulators.BigFractionAccumulator",
     //"xfp.java.accumulators.DoubleFmaAccumulator",
@@ -181,8 +181,8 @@ public abstract class Base {
             urp1); } 
     });
 
-  //@Param({"finite","uniform","exponential","gaussian"})
-  @Param({"gaussian",})
+  @Param({"finite","uniform","exponential","gaussian","laplace"})
+  //@Param({"gaussian",})
   String generator;
   Generator gen;
 
@@ -262,8 +262,8 @@ public abstract class Base {
       //.mode(Mode.All)
       .mode(Mode.AverageTime)
       .timeUnit(TimeUnit.MILLISECONDS)
-      //.include("Dot|L2|Sum")
-      .include("Sum")
+      .include("Dot|L2|Sum")
+      //.include("Sum")
       //.resultFormat(ResultFormatType.JSON)
       //.result("output/Sums" + "-" + now() + ".json")
       .resultFormat(ResultFormatType.CSV)
