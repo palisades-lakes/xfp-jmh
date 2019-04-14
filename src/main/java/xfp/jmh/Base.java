@@ -181,10 +181,10 @@ public abstract class Base {
     });
 
   public static final Generator makeGenerator (final String name,
-                                          final int dim) {
+                                               final int dim) {
     return factories.get(name).apply(dim); }
-  
-  @Param({"finite","uniform","exponential","gaussian"})
+
+  @Param({"finite","uniform","gaussian"})
   //@Param({"gaussian",})
   String generator;
   Generator gen;
@@ -217,29 +217,29 @@ public abstract class Base {
     save(operation(exact,x0,x1),truth); }  
 
   // not needed while testing exact methods
-//  @TearDown(Level.Trial)  
-//  public final void teardownTrial () {
-//    //System.out.println("teardownTrial");
-//    final int n = truth.size();
-//    assert n == est.size(); 
-//    final String aname = Classes.className(acc);
-//    final String bname = 
-//      Classes.className(this).replace("_jmhType","");
-//    final File parent = new File("output/" + bname);
-//    parent.mkdirs();
-//    final File f = new File(parent,
-//      aname + "-" + generator + "-" + dim + "-" + now() + ".csv");
-//    PrintWriter pw = null;
-//    try {
-//      pw = new PrintWriter(f);
-//      pw.println("generator,benchmark,accumulator,dim,truth,est");
-//      for (int i=0;i<n;i++) {
-//        pw.println(
-//          generator + "," + bname + "," + aname + "," + dim + "," 
-//            + truth.get(i) + "," + est.get(i)); } }
-//    catch (final FileNotFoundException e) {
-//      throw new RuntimeException(e); } 
-//    finally { if (null != pw) { pw.close(); } } }
+  //  @TearDown(Level.Trial)  
+  //  public final void teardownTrial () {
+  //    //System.out.println("teardownTrial");
+  //    final int n = truth.size();
+  //    assert n == est.size(); 
+  //    final String aname = Classes.className(acc);
+  //    final String bname = 
+  //      Classes.className(this).replace("_jmhType","");
+  //    final File parent = new File("output/" + bname);
+  //    parent.mkdirs();
+  //    final File f = new File(parent,
+  //      aname + "-" + generator + "-" + dim + "-" + now() + ".csv");
+  //    PrintWriter pw = null;
+  //    try {
+  //      pw = new PrintWriter(f);
+  //      pw.println("generator,benchmark,accumulator,dim,truth,est");
+  //      for (int i=0;i<n;i++) {
+  //        pw.println(
+  //          generator + "," + bname + "," + aname + "," + dim + "," 
+  //            + truth.get(i) + "," + est.get(i)); } }
+  //    catch (final FileNotFoundException e) {
+  //      throw new RuntimeException(e); } 
+  //    finally { if (null != pw) { pw.close(); } } }
 
   @Benchmark
   public final double bench () { 
@@ -253,7 +253,7 @@ public abstract class Base {
    * java -cp target\benchmarks.jar xfp.jmh.Base
    * </pre> 
    * */
-  
+
   public static void main (final String[] args) 
     throws RunnerException {
     final File parent = new File("output");
