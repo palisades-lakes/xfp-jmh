@@ -1,5 +1,7 @@
 package xfp.jmh.accumulators;
 
+import static xfp.java.numbers.Doubles.biasedExponent;
+
 import java.util.Arrays;
 
 import xfp.java.accumulators.Accumulator;
@@ -8,6 +10,7 @@ import xfp.java.numbers.Doubles;
 //----------------------------------------------------------------
 /** Fast exact online summation. Basic idea is to use a separate
  * accumulator for each (biased) exponent value.
+ * This uses the 'no branch' version of 'twoSum'.
  * <p>
  * Primary reference:
  * <p>
@@ -37,53 +40,22 @@ import xfp.java.numbers.Doubles;
  * <em>NOT</em> thread safe!
  * <p>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-10
+ * @version 2019-04-14
  */
 
-public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
+public final class ZhuHayesNoGCBranch
+implements Accumulator<ZhuHayesNoGCBranch> {
 
   //--------------------------------------------------------------
 
-  public static final int NADDS =
+  private static final int NADDS =
     1 << (Doubles.SIGNIFICAND_BITS / 2);
 
-  public static final int NACCUMULATORS =
+  private static final int NACCUMULATORS =
     1 << Doubles.EXPONENT_BITS;
 
   //--------------------------------------------------------------
-
-  protected int i;
-  protected double[] a1;
-  protected double[] a2;
-  private double[] b1;
-  private double[] b2;
-  
-  //--------------------------------------------------------------
-
-  protected double sumTwo = Double.NaN;
-  protected double errTwo = Double.NaN;
-
-  /** Update {@link #sumTwo} and {@link #errTwo} so that
-   * <code>{@link #sumTwo} == x0 + x1</code> 
-   * (sum rounded to nearest double), and
-   * <code>rationalSum({@link #sumTwo},{@link #errTwo}) 
-   * == rationalSum(x0,x1)</code> 
-   * (exact sums, implemented, for example, with arbitrary
-   * precision rationals)
-   */
-
-  protected abstract void twoSum (final double x0,
-                                  final double x1);
-
-  /** Add <code>x</code> to <code>s[biasedExponent(x)]</code>.
-   * Add the roundoff error of that addition to 
-   * <code>e[biasedExponent(x)]</code>.
-   */
-
-  protected abstract void twoInc (final double[] s,
-                                  final double[] e,
-                                  final double x);
-
+  // IFastSum
   //--------------------------------------------------------------
 
   private static final boolean isHalfUlp (final double x) {
@@ -126,99 +98,149 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
 
   //--------------------------------------------------------------
 
-  private final class IFastSum {
+  private double sumTwo = Double.NaN;
+  private double errTwo = Double.NaN;
 
-    private final double destructiveSum (final double[] x,
-                                         final int[] n,
-                                         final boolean recurse) {
-      // assert 1 == n.length;
+  /** Update {@link #sumTwo} and {@link #errTwo} so that
+   * <code>{@link #sumTwo} == x0 + x1</code> 
+   * (sum rounded to nearest double), and
+   * <code>rationalSum({@link #sumTwo},{@link #errTwo}) 
+   * == rationalSum(x0,x1)</code> 
+   * (exact sums, implemented, for example, with arbitrary
+   * precision rationals)
+   */
 
-      // Step 1
-      double s = 0.0;
+  private final void twoSum (final double x0, 
+                             final double x1) {
+    // might get +/- Infinity due to overflow
+    sumTwo = x0 + x1;
+    if (Doubles.biasedExponent(x0) > Doubles.biasedExponent(x1)) {
+      errTwo = x1 - (sumTwo - x0); }
+    else {
+      errTwo = x0 - (sumTwo - x1); } }
 
-      // Step 2
-      for (int ii=0;ii<n[0]; ii++) {
-        ZhuHayes.this.twoSum(s,x[ii]); 
-        s = sumTwo; 
-        if (! Double.isFinite(s)) { return s; }
-        x[ii] = errTwo; }
-      // Step 3
-      for(;;) {
-        // Step 3(1)
-        int count = 0; // slices are indexed from 0
-        double st = 0.0;
-        double sm = 0.0;
-        // Step 3(2)
-        for (int ii=0;ii<n[0];ii++) {
-          // Step 3(2)(a)
-          ZhuHayes.this.twoSum(st, x[ii]);
-          st = sumTwo;
-          final double b = errTwo;
-          // Step 3(2)(b)
-          if (0.0 != b) {
-            x[count] = b;
-            // Step 3(2)(b)(i)
-            // throw exception on overflow:
-            count = Math.addExact(count,1);
-            // Step 3(2)(b)(ii)
-            sm = Math.max(sm,Math.abs(st)); } }
-        // Step 3(3)
-        // check count exact double
-        final double dcount = count;
-        assert count == (int) dcount;
-        final double em = dcount * halfUlp(sm);
-        // Step 3(4)
-        ZhuHayes.this.twoSum(s, st);
-        s = sumTwo;
-        if (! Double.isFinite(s)) { return s; }
-        st = errTwo;
-        x[count] = st;
-        n[0] = Math.addExact(count,1);
-        // Step 3(5)
-
-        if ((em == 0.0) || (em < halfUlp(s))) {
-          // Step 3(5)(a)
-          if (! recurse) { return s; }
-          // Step 3(5)(b)
-          ZhuHayes.this.twoSum(st, em);
-          final double w1 = sumTwo;
-          final double e1 = errTwo;
-          // Step 3(5)(c)
-          ZhuHayes.this.twoSum(st, -em);
-          final double w2 = sumTwo;
-          final double e2 = errTwo;
-          // Step 3(5)(d)
-          if (((w1 + s) != s)
-            || ((w2 + s) != s)
-            || (round3(s, w1, e1) != s)
-            || (round3(s, w2, e2) != s)) {
-            // Step 3(5)(d)(i)
-            double s1 = destructiveSum(x, n, false);
-            // Step 3(5)(d)(ii)
-            ZhuHayes.this.twoSum(s, s1);
-            s = sumTwo;
-            if (! Double.isFinite(s)) { return s; }
-            s1 = errTwo;
-            // Step 3(5)(d)(iii)
-            final double s2 = destructiveSum(x, n, false);
-            // Step 3(5)(d)(iv)
-            s = round3(s, s1, s2); 
-            if (! Double.isFinite(s)) { return s; } }
-          // Step 3(5)(e)
-          return s; } } }
-
-    //------------------------------------------------------------
-
-    private IFastSum () { } } 
-  
   //------------------------------------------------------------
+
+  private final double iFastSum (final double[] x,
+                                 final int[] n,
+                                 final boolean recurse) {
+    // Step 1
+    double s = 0.0;
+
+    // Step 2
+    for (int ii=0;ii<n[0]; ii++) {
+      twoSum(s,x[ii]); 
+      s = sumTwo; 
+      if (! Double.isFinite(s)) { return s; }
+      x[ii] = errTwo; }
+    // Step 3
+    for(;;) {
+      // Step 3(1)
+      int count = 0; // slices are indexed from 0
+      double st = 0.0;
+      double sm = 0.0;
+      // Step 3(2)
+      for (int ii=0;ii<n[0];ii++) {
+        // Step 3(2)(a)
+        twoSum(st, x[ii]);
+        st = sumTwo;
+        final double b = errTwo;
+        // Step 3(2)(b)
+        if (0.0 != b) {
+          x[count] = b;
+          // Step 3(2)(b)(i)
+          // throw exception on overflow:
+          count = Math.addExact(count,1);
+          // Step 3(2)(b)(ii)
+          sm = Math.max(sm,Math.abs(st)); } }
+      // Step 3(3)
+      // check count exact double
+      final double dcount = count;
+      assert count == (int) dcount;
+      final double em = dcount * halfUlp(sm);
+      // Step 3(4)
+      twoSum(s, st);
+      s = sumTwo;
+      if (! Double.isFinite(s)) { return s; }
+      st = errTwo;
+      x[count] = st;
+      n[0] = Math.addExact(count,1);
+      // Step 3(5)
+      if ((em == 0.0) || (em < halfUlp(s))) {
+        // Step 3(5)(a)
+        if (! recurse) { return s; }
+        // Step 3(5)(b)
+        twoSum(st, em);
+        final double w1 = sumTwo;
+        final double e1 = errTwo;
+        // Step 3(5)(c)
+        twoSum(st, -em);
+        final double w2 = sumTwo;
+        final double e2 = errTwo;
+        // Step 3(5)(d)
+        if (((w1 + s) != s)
+          || ((w2 + s) != s)
+          || (round3(s, w1, e1) != s)
+          || (round3(s, w2, e2) != s)) {
+          // Step 3(5)(d)(i)
+          double s1 = iFastSum(x, n, false);
+          // Step 3(5)(d)(ii)
+          twoSum(s, s1);
+          s = sumTwo;
+          if (! Double.isFinite(s)) { return s; }
+          s1 = errTwo;
+          // Step 3(5)(d)(iii)
+          final double s2 = iFastSum(x, n, false);
+          // Step 3(5)(d)(iv)
+          s = round3(s, s1, s2); 
+          if (! Double.isFinite(s)) { return s; } }
+        // Step 3(5)(e)
+        return s; } } }
+
+  //--------------------------------------------------------------
+  // Online Exact
+  //--------------------------------------------------------------
+
+  private int i;
+  private double[] a1;
+  private double[] a2;
+  private double[] b1;
+  private double[] b2;
+
+  //--------------------------------------------------------------
+
+  private static final void twoInc (final double[] s, 
+                                    final double[] e, 
+                                    final double x) {
+    // might get +/- Infinity due to overflow
+    final int j = biasedExponent(x);
+    final double sj = s[j];
+    s[j] = sj + x;
+    if (biasedExponent(sj) > biasedExponent(x)) {
+      e[j] += x - (s[j] - sj); }
+    else {
+      e[j] += sj - (s[j] - x); } }
+
+  //--------------------------------------------------------------
+
+  private final void zeroB () {
+    Arrays.fill(b1,0.0); 
+    Arrays.fill(b2,0.0); }
+
+  //  private final void zeroB () {
+  //    b1[0] = 0.0; 
+  //    b2[0] = 0.0; 
+  //    for (int j=1; j<NACCUMULATORS; j++) {
+  //      final int n_j = NACCUMULATORS-j;
+  //      final int n = (n_j<j) ? n_j : j;
+  //      System.arraycopy(b1,0,b1,j,n); 
+  //      System.arraycopy(b1,0,b2,j,n); } }
+
+  //--------------------------------------------------------------
 
   private final int compact () {
     // Step 4(6)(a)
-    assert (b1.length == NACCUMULATORS);
-    assert (b2.length == NACCUMULATORS);
-    Arrays.fill(b1,0.0);
-    Arrays.fill(b2,0.0);
+    zeroB();
 
     // Step 4(6)(b)
     for (final double x : a1) {
@@ -256,7 +278,7 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
   // aka zero()
 
   @Override
-  public final ZhuHayes clear () {
+  public final ZhuHayesNoGCBranch clear () {
     i = 0;
     Arrays.fill(a1,0.0);
     Arrays.fill(a2,0.0);
@@ -275,12 +297,12 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
     //return RBFAccumulator.make().addAll(x).doubleValue(); }
     final int[] n = new int[1];
     n[0] = x.length;
-    return new IFastSum().destructiveSum(x,n,true); }
+    return iFastSum(x,n,true); }
 
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayes add (final double x) {
+  public final ZhuHayesNoGCBranch add (final double x) {
     assert Double.isFinite(x);
     // Step 4(2)
     // Step 4(3)
@@ -295,7 +317,7 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayes add2 (final double x) {
+  public final ZhuHayesNoGCBranch add2 (final double x) {
     assert Double.isFinite(x);
 
     final double x2 = x*x;
@@ -307,8 +329,8 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayes addProduct (final double x0,
-                                    final double x1) {
+  public final ZhuHayesNoGCBranch addProduct (final double x0,
+                                                   final double x1) {
     assert Double.isFinite(x0);
     assert Double.isFinite(x1);
 
@@ -322,12 +344,16 @@ public abstract class ZhuHayes implements Accumulator<ZhuHayes> {
   // construction
   //--------------------------------------------------------------
 
-  public ZhuHayes () {
+  private ZhuHayesNoGCBranch () {
     i = 0;
     a1 = new double[NACCUMULATORS];
     a2 = new double[NACCUMULATORS];
     b1 = new double[NACCUMULATORS];
     b2 = new double[NACCUMULATORS]; }
+
+
+  public static final ZhuHayesNoGCBranch make () {
+    return new ZhuHayesNoGCBranch(); }
 
   //--------------------------------------------------------------
 } // end of class

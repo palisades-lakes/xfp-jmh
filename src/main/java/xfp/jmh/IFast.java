@@ -26,7 +26,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.IFast
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-12
+ * @version 2019-04-14
  */
 
 @SuppressWarnings("unchecked")
@@ -39,18 +39,24 @@ public class IFast {
     //"8193",
     "4097",
     "2049",
-    //"1537",
+    "1537",
     "1025",
     "513",
   })
   int dim;
-  double[] x;
+  double[] x0;
+  double[] x1;
 
   //--------------------------------------------------------------
 
   @Param({
     "xfp.jmh.accumulators.IFastAccumulator",
+    "xfp.java.accumulators.ZhuHayesGCAccumulator",
     "xfp.java.accumulators.ZhuHayesNoGCAccumulator",
+    "xfp.jmh.accumulators.ZhuHayesGCBranch",
+    "xfp.jmh.accumulators.ZhuHayesNoGCBranch",
+    "xfp.java.accumulators.DoubleAccumulator",
+    "xfp.jmh.accumulators.KahanAccumulator"
   })
   String accumulator;
   Accumulator acc;
@@ -71,11 +77,20 @@ public class IFast {
 
   @Setup(Level.Invocation)  
   public final void invocationSetup () {
-    x = (double[]) gen.next();  }  
+    x0 = (double[]) gen.next(); 
+    x1 = (double[]) gen.next(); }  
 
   @Benchmark
-  public final double bench () { 
-    return acc.clear().addAll(x).doubleValue(); }
+  public final double sum () { 
+    return acc.clear().addAll(x0).addAll(x1).doubleValue(); }
+
+  @Benchmark
+  public final double dot () { 
+    return acc.clear().addProducts(x0,x1).doubleValue(); }
+
+  @Benchmark
+  public final double l2 () { 
+    return acc.clear().add2All(x0).add2All(x1).doubleValue(); }
 
   //--------------------------------------------------------------
   // java -cp target\benchmarks.jar xfp.jmh.IFast
@@ -89,7 +104,7 @@ public class IFast {
       new OptionsBuilder()
       .mode(Mode.AverageTime)
       .timeUnit(TimeUnit.MICROSECONDS)
-      .include("IFast")
+      .include("dot|l2|sum")
       .resultFormat(ResultFormatType.CSV)
       .result(csv.getPath())
       .threads(1)

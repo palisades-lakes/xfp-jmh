@@ -10,7 +10,7 @@ import org.apache.commons.rng.sampling.ListSampler;
 import xfp.java.Classes;
 import xfp.java.accumulators.Accumulator;
 import xfp.java.accumulators.DoubleAccumulator;
-import xfp.java.accumulators.DoubleFmaAccumulator;
+import xfp.jmh.accumulators.DoubleFmaAccumulator;
 import xfp.java.linear.Dn;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
@@ -30,7 +30,7 @@ import xfp.jmh.accumulators.RatioAccumulator;
  * java -ea -jar target\benchmarks.jar Dot
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-21
+ * @version 2019-04-14
  */
 @SuppressWarnings("unchecked")
 public final class Dot {

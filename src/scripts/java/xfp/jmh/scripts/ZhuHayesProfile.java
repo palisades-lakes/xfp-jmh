@@ -3,7 +3,7 @@ package xfp.jmh.scripts;
 import xfp.java.accumulators.Accumulator;
 import xfp.java.prng.Generator;
 import xfp.java.test.Common;
-import xfp.jmh.accumulators.ZhuHayesNoBranch;
+import xfp.jmh.accumulators.ZhuHayesNoGCBranch;
 
 /** Profile accumulators.
  * 
@@ -11,7 +11,7 @@ import xfp.jmh.accumulators.ZhuHayesNoBranch;
  * jy --source 11 src/scripts/java/xfp/jmh/scripts/ZhuHayesProfile.java
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-10
+ * @version 2019-04-14
  */
 @SuppressWarnings("unchecked")
 public final class ZhuHayesProfile {
@@ -21,7 +21,7 @@ public final class ZhuHayesProfile {
   public static final void main (final String[] args) {
     final int dim = (32*1024*1024) + 1;
     final int trys = 128;
-    final Accumulator a = ZhuHayesNoBranch.make();
+    final Accumulator a = ZhuHayesNoGCBranch.make();
     assert a.isExact();
     for (final Generator g : Common.zeroSumGenerators(dim)) {
       System.out.println();

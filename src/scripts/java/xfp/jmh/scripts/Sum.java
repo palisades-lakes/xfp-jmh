@@ -10,7 +10,7 @@ import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
 import xfp.java.test.Common;
-import xfp.jmh.accumulators.ZhuHayesNoBranch;
+import xfp.jmh.accumulators.ZhuHayesNoGCBranch;
 
 /** Benchmark accumulators tests.
  * 
@@ -116,7 +116,7 @@ public final class Sum {
     final double[] x = (double[]) g.next();
 //    final Accumulator exact = RBFAccumulator.make();
 //    final double truth = exact.addAll(x).doubleValue();
-    final Accumulator a = ZhuHayesNoBranch.make();
+    final Accumulator a = ZhuHayesNoGCBranch.make();
     assert a.isExact();
     //Thread.sleep(16*1024);
     final long t = System.nanoTime();

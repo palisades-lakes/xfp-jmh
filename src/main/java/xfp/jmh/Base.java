@@ -37,7 +37,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-11
+ * @version 2019-04-14
  */
 
 @SuppressWarnings("unchecked")
@@ -78,22 +78,22 @@ public abstract class Base {
   @Param({
     "xfp.java.accumulators.ZhuHayesGCAccumulator",
     "xfp.java.accumulators.ZhuHayesNoGCAccumulator",
-    "xfp.jmh.accumulators.ZhuHayesBranch",
-    "xfp.jmh.accumulators.ZhuHayesNoBranch",
+    "xfp.jmh.accumulators.ZhuHayesGCBranch",
+    "xfp.jmh.accumulators.ZhuHayesNoGCBranch",
     "xfp.java.accumulators.DoubleAccumulator",
     "xfp.jmh.accumulators.KahanAccumulator",
-    //"xfp.java.accumulators.BigDecimalAccumulator",
+    //"xfp.java.accumulators.RBFAccumulator",
+    //"xfp.jmh.accumulators.BigDecimalAccumulator",
     //"xfp.jmh.accumulators.BigFractionAccumulator",
-    //"xfp.java.accumulators.DoubleFmaAccumulator",
+    //"xfp.jmh.accumulators.DoubleFmaAccumulator",
     //"xfp.jmh.accumulators.KahanFmaAccumulator",
     //"xfp.jmh.accumulators.EFloatAccumulator",
     //"xfp.jmh.accumulators.ERationalAccumulator",
     //"xfp.jmh.accumulators.FloatAccumulator",
     //"xfp.jmh.accumulators.FloatFmaAccumulator",
     //"xfp.jmh.accumulators.RatioAccumulator",
-    //"xfp.java.accumulators.MutableRationalAccumulator",
-    //"xfp.java.accumulators.RationalAccumulator",
-    //"xfp.java.accumulators.RBFAccumulator",
+    //"xfp.jmh.accumulators.MutableRationalAccumulator",
+    //"xfp.jmh.accumulators.RationalAccumulator",
   })
   String accumulator;
   Accumulator acc;
@@ -184,7 +184,7 @@ public abstract class Base {
                                           final int dim) {
     return factories.get(name).apply(dim); }
   
-  @Param({"finite","uniform","exponential","gaussian","laplace"})
+  @Param({"finite","uniform","exponential","gaussian"})
   //@Param({"gaussian",})
   String generator;
   Generator gen;
