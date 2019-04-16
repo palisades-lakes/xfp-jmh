@@ -12,8 +12,12 @@ require('kableExtra')
 accumulator.colors <- c(
   'KahanAccumulator'='#a0430088',
   'KahanFmaAccumulator'='#a0331088',
-  'ZhuHayesBranch'='#00669988',
-  'ZhuHayesNoBranch'='#0009dd88',
+  'ZhuHayesGCAccumulator'='#00bbcc88',
+  'ZhuHayesAccumulator'='#0088cc88',
+  'ZhuHayesNoGCAccumulator'='#0088cc88',
+  'ZhuHayesGCBranch'='#3355cc88',
+  'ZhuHayesBranch'='#3300cc88',
+  'ZhuHayesNoGCBranch'='#3300cc88',
   'RBFAccumulator'='#d31b1c88',
   'DoubleAccumulator'='#c8000088',
   'DoubleFmaAccumulator'='#c0040488'
@@ -246,7 +250,7 @@ runtime.log.log.plot <- function(
   ylabel='milliseconds',
   xlabel='dim',
   #width=30, 
-  height=15,
+  height=24,
   plot.folder='output') {
   
   stopifnot(
@@ -259,7 +263,7 @@ runtime.log.log.plot <- function(
   
   nr <- length(unique(data[,rows]))
   nc <- length(unique(data[,cols]))
-  width <- (height * nc) / nr
+  width <- 1.5* (height * nc) / nr
   
   print(width)
   

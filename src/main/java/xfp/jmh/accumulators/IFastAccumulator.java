@@ -11,7 +11,7 @@ import xfp.java.numbers.Doubles;
  * via {@link #addAll(double[])}.
  * <p>
  * <b>TODO:</b> measure cross-over size where this beats
- * {@link xfp.java.accumulators.ZhuHayesNoGCAccumulator}.
+ * {@link xfp.java.accumulators.ZhuHayesAccumulator}.
  * <p>
  * This uses the 'no branch' version of 'twoSum'.
  * <p>

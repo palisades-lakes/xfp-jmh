@@ -43,8 +43,8 @@ import xfp.java.numbers.Doubles;
  * @version 2019-04-14
  */
 
-public final class ZhuHayesNoGCBranch
-implements Accumulator<ZhuHayesNoGCBranch> {
+public final class ZhuHayesBranch
+implements Accumulator<ZhuHayesBranch> {
 
   //--------------------------------------------------------------
 
@@ -278,7 +278,7 @@ implements Accumulator<ZhuHayesNoGCBranch> {
   // aka zero()
 
   @Override
-  public final ZhuHayesNoGCBranch clear () {
+  public final ZhuHayesBranch clear () {
     i = 0;
     Arrays.fill(a1,0.0);
     Arrays.fill(a2,0.0);
@@ -302,7 +302,7 @@ implements Accumulator<ZhuHayesNoGCBranch> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayesNoGCBranch add (final double x) {
+  public final ZhuHayesBranch add (final double x) {
     assert Double.isFinite(x);
     // Step 4(2)
     // Step 4(3)
@@ -317,7 +317,7 @@ implements Accumulator<ZhuHayesNoGCBranch> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayesNoGCBranch add2 (final double x) {
+  public final ZhuHayesBranch add2 (final double x) {
     assert Double.isFinite(x);
 
     final double x2 = x*x;
@@ -329,7 +329,7 @@ implements Accumulator<ZhuHayesNoGCBranch> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayesNoGCBranch addProduct (final double x0,
+  public final ZhuHayesBranch addProduct (final double x0,
                                                    final double x1) {
     assert Double.isFinite(x0);
     assert Double.isFinite(x1);
@@ -344,7 +344,7 @@ implements Accumulator<ZhuHayesNoGCBranch> {
   // construction
   //--------------------------------------------------------------
 
-  private ZhuHayesNoGCBranch () {
+  private ZhuHayesBranch () {
     i = 0;
     a1 = new double[NACCUMULATORS];
     a2 = new double[NACCUMULATORS];
@@ -352,8 +352,8 @@ implements Accumulator<ZhuHayesNoGCBranch> {
     b2 = new double[NACCUMULATORS]; }
 
 
-  public static final ZhuHayesNoGCBranch make () {
-    return new ZhuHayesNoGCBranch(); }
+  public static final ZhuHayesBranch make () {
+    return new ZhuHayesBranch(); }
 
   //--------------------------------------------------------------
 } // end of class
