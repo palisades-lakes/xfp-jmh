@@ -51,11 +51,11 @@ public class IFast {
 
   @Param({
     "xfp.jmh.accumulators.IFastAccumulator",
-    "xfp.java.accumulators.ZhuHayesGCAccumulator",
+    "xfp.java.accumulators.DoubleAccumulator",
     "xfp.java.accumulators.ZhuHayesAccumulator",
+    "xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     "xfp.jmh.accumulators.ZhuHayesGCBranch",
     "xfp.jmh.accumulators.ZhuHayesBranch",
-    "xfp.java.accumulators.DoubleAccumulator",
     "xfp.jmh.accumulators.KahanAccumulator"
   })
   String accumulator;

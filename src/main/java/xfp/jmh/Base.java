@@ -24,7 +24,7 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import xfp.java.accumulators.Accumulator;
-import xfp.java.accumulators.RBFAccumulator;
+import xfp.java.accumulators.RationalFloatAccumulator;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
@@ -76,13 +76,13 @@ public abstract class Base {
   List<Double> truth = new ArrayList<Double>();
 
   @Param({
-    "xfp.java.accumulators.ZhuHayesGCAccumulator",
+    "xfp.java.accumulators.DoubleAccumulator",
     "xfp.java.accumulators.ZhuHayesAccumulator",
+    "xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     "xfp.jmh.accumulators.ZhuHayesGCBranch",
     "xfp.jmh.accumulators.ZhuHayesBranch",
-    "xfp.java.accumulators.DoubleAccumulator",
     "xfp.jmh.accumulators.KahanAccumulator",
-    //"xfp.java.accumulators.RBFAccumulator",
+    //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.jmh.accumulators.BigDecimalAccumulator",
     //"xfp.jmh.accumulators.BigFractionAccumulator",
     //"xfp.jmh.accumulators.DoubleFmaAccumulator",
@@ -206,7 +206,7 @@ public abstract class Base {
     gen = makeGenerator(generator,dim);
     truth.clear();
     est.clear();
-    exact = RBFAccumulator.make();
+    exact = RationalFloatAccumulator.make();
     assert exact.isExact();
     acc = Common.makeAccumulator(accumulator); }  
 

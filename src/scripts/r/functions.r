@@ -18,7 +18,7 @@ accumulator.colors <- c(
   'ZhuHayesGCBranch'='#3355cc88',
   'ZhuHayesBranch'='#3300cc88',
   'ZhuHayesNoGCBranch'='#3300cc88',
-  'RBFAccumulator'='#d31b1c88',
+  'RationalFloatAccumulator'='#d31b1c88',
   'DoubleAccumulator'='#c8000088',
   'DoubleFmaAccumulator'='#c0040488'
 )

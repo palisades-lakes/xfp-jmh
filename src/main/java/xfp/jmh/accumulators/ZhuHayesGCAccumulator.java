@@ -40,11 +40,11 @@ import xfp.java.numbers.Doubles;
  * <em>NOT</em> thread safe!
  * <p>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-14
+ * @version 2019-04-11
  */
 
-public final class ZhuHayesGCBranch
-implements Accumulator<ZhuHayesGCBranch> {
+public final class ZhuHayesGCAccumulator
+implements Accumulator<ZhuHayesGCAccumulator> {
 
   //--------------------------------------------------------------
 
@@ -114,10 +114,8 @@ implements Accumulator<ZhuHayesGCBranch> {
                              final double x1) {
     // might get +/- Infinity due to overflow
     sumTwo = x0 + x1;
-    if (Doubles.biasedExponent(x0) > Doubles.biasedExponent(x1)) {
-      errTwo = x1 - (sumTwo - x0); }
-    else {
-      errTwo = x0 - (sumTwo - x1); } }
+    final double z = sumTwo - x0;
+    errTwo = (x0 - (sumTwo - z)) + (x1 - z); }
 
   //------------------------------------------------------------
 
@@ -207,20 +205,18 @@ implements Accumulator<ZhuHayesGCBranch> {
 
   //--------------------------------------------------------------
 
-  private static final void twoInc (final double[] s, 
-                                    final double[] e, 
-                                    final double x) {
+  private static void twoInc (final double[] s, 
+                              final double[] e, 
+                              final double x) {
     // might get +/- Infinity due to overflow
     final int j = biasedExponent(x);
-    final double sj = s[j];
-    s[j] = sj + x;
-    if (biasedExponent(sj) > biasedExponent(x)) {
-      e[j] += x - (s[j] - sj); }
-    else {
-      e[j] += sj - (s[j] - x); } }
+    final double s0 = s[j];
+    final double s1 = s0 + x;
+    final double z = s1 - s0;
+    s[j] = s1;
+    e[j] += (s0 - (s1 - z)) + (x - z); }
 
-
-  //--------------------------------------------------------------
+  //------------------------------------------------------------
 
   private final int compact () {
     // Step 4(6)(a)
@@ -257,7 +253,7 @@ implements Accumulator<ZhuHayesGCBranch> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayesGCBranch clear () {
+  public final ZhuHayesGCAccumulator clear () {
     i = 0;
     Arrays.fill(a1,0.0);
     Arrays.fill(a2,0.0);
@@ -281,7 +277,7 @@ implements Accumulator<ZhuHayesGCBranch> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayesGCBranch add (final double x) {
+  public final ZhuHayesGCAccumulator add (final double x) {
     assert Double.isFinite(x);
     // Step 4(2)
     // Step 4(3)
@@ -296,7 +292,7 @@ implements Accumulator<ZhuHayesGCBranch> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayesGCBranch add2 (final double x) {
+  public final ZhuHayesGCAccumulator add2 (final double x) {
     assert Double.isFinite(x);
 
     final double x2 = x*x;
@@ -308,8 +304,8 @@ implements Accumulator<ZhuHayesGCBranch> {
   //--------------------------------------------------------------
 
   @Override
-  public final ZhuHayesGCBranch addProduct (final double x0,
-                                            final double x1) {
+  public final ZhuHayesGCAccumulator addProduct (final double x0,
+                                                 final double x1) {
     assert Double.isFinite(x0);
     assert Double.isFinite(x1);
 
@@ -323,14 +319,14 @@ implements Accumulator<ZhuHayesGCBranch> {
   // construction
   //--------------------------------------------------------------
 
-  private ZhuHayesGCBranch () {
+  private ZhuHayesGCAccumulator () {
     i = 0;
     a1 = new double[NACCUMULATORS];
     a2 = new double[NACCUMULATORS]; }
 
 
-  public static final ZhuHayesGCBranch make () {
-    return new ZhuHayesGCBranch(); }
+  public static final ZhuHayesGCAccumulator make () {
+    return new ZhuHayesGCAccumulator(); }
 
   //--------------------------------------------------------------
 } // end of class

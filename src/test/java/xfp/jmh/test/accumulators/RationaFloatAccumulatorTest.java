@@ -13,19 +13,19 @@ import xfp.java.test.Common;
 /** Test summation algorithms. 
  * <p>
  * <pre>
- * mvn test -Dtest=xfp/java/test/accumulators/RBFAccumulatorTest > RBFAccumulatorTest.txt
+ * mvn test -Dtest=xfp/java/test/accumulators/RationalFloatAccumulatorTest > RationalFloatAccumulatorTest.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-04-14
  */
 
-public final class RBFAccumulatorTest {
+public final class RationaFloatAccumulatorTest {
 
   //--------------------------------------------------------------
   private static final int DIM = 2 * 1024;
   private static final List<String> accumulators =
-    List.of("xfp.java.accumulators.RBFAccumulator");
+    List.of("xfp.java.accumulators.RationalFloatAccumulator");
   @Test
   public final void tests () {
     Debug.DEBUG = false;

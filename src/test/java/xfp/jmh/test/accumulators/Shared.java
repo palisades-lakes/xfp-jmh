@@ -16,15 +16,15 @@ public final class Shared {
   public static final List<String> accumulators () {
     return
       List.of(
-        "xfp.jmh.accumulators.IFastAccumulator",
-        "xfp.java.accumulators.ZhuHayesGCAccumulator",
+        "xfp.java.accumulators.DoubleAccumulator",
         "xfp.java.accumulators.ZhuHayesAccumulator",
+        "xfp.jmh.accumulators.IFastAccumulator",
+        "xfp.jmh.accumulators.ZhuHayesGCAccumulator",
         "xfp.jmh.accumulators.ZhuHayesGCBranch",
         "xfp.jmh.accumulators.ZhuHayesBranch",
-        "xfp.java.accumulators.DoubleAccumulator",
         "xfp.jmh.accumulators.KahanAccumulator"
         // ,
-        // "xfp.java.accumulators.RBFAccumulator"
+        // "xfp.java.accumulators.RationalFloatAccumulator"
         // ,
         // // Same as non-strict, just slower
         // "xfp.jmh.accumulators.StrictDoubleAccumulator",

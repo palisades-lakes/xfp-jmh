@@ -22,8 +22,8 @@ public final class ZhuHayesTest {
 
   private static final List<String> accumulators =
     List.of(
-      "xfp.java.accumulators.ZhuHayesGCAccumulator",
       "xfp.java.accumulators.ZhuHayesAccumulator",
+      "xfp.jmh.accumulators.ZhuHayesGCAccumulator",
       "xfp.jmh.accumulators.ZhuHayesGCBranch",
       "xfp.jmh.accumulators.ZhuHayesBranch");
 
@@ -48,7 +48,7 @@ public final class ZhuHayesTest {
   //    Common.sumTests(
   //      Common.generators(TEST_DIM),
   //      Common.makeAccumulators(accumulators),
-  //      RBFAccumulator.make()); }
+  //      RationalFloatAccumulator.make()); }
   //
   //  @SuppressWarnings("static-method")
   //  @Test
@@ -59,7 +59,7 @@ public final class ZhuHayesTest {
   //    Common.l2Tests(
   //      Common.generators(TEST_DIM),
   //      Common.makeAccumulators(accumulators),
-  //      RBFAccumulator.make()); }
+  //      RationalFloatAccumulator.make()); }
   //
   //  @SuppressWarnings("static-method")
   //  @Test
@@ -70,7 +70,7 @@ public final class ZhuHayesTest {
   //    Common.dotTests(
   //      Common.generators(TEST_DIM),
   //      Common.makeAccumulators(accumulators),
-  //      RBFAccumulator.make()); }
+  //      RationalFloatAccumulator.make()); }
   //
   //  @SuppressWarnings("static-method")
   //  @Test

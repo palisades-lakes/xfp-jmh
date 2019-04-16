@@ -13,7 +13,7 @@ import xfp.jmh.accumulators.ERationalAccumulator;
 /** Test summation algorithms. 
  * <p>
  * <pre>
- * mvn test -Dtest=xfp/java/test/accumulators/RBFAccumulatorTest > RBFAccumulatorTest.txt
+ * mvn test -Dtest=xfp/java/test/accumulators/RationalFloatAccumulatorTest > RationalFloatAccumulatorTest.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
