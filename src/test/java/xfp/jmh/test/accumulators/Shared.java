@@ -10,7 +10,7 @@ import java.util.List;
  */
 public final class Shared {
 
-  public static final int TEST_DIM = (1 * 1024 * 1024) - 1; 
+  public static final int TEST_DIM = (1 * 512 * 1024) - 1; 
   //1 << 14;
 
   public static final List<String> accumulators () {
