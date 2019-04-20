@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import xfp.java.Classes;
 import xfp.java.Debug;
-import xfp.jmh.accumulators.RationalAccumulator;
 import xfp.java.test.Common;
+import xfp.jmh.accumulators.ERationalAccumulator;
 
 //----------------------------------------------------------------
 /** Test summation algorithms. 
@@ -17,13 +17,13 @@ import xfp.java.test.Common;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-14
+ * @version 2019-04-20
  */
 
 public final class RationaFloatAccumulatorTest {
 
   //--------------------------------------------------------------
-  private static final int DIM = 2 * 1024;
+  private static final int DIM = 256;
   private static final List<String> accumulators =
     List.of("xfp.java.accumulators.RationalFloatAccumulator");
   @Test
@@ -34,15 +34,15 @@ public final class RationaFloatAccumulatorTest {
     Common.sumTests(
       Common.generators(DIM),
       Common.makeAccumulators(accumulators),
-      RationalAccumulator.make()); 
+      ERationalAccumulator.make()); 
     Common.l2Tests(
       Common.generators(DIM),
       Common.makeAccumulators(accumulators),
-      RationalAccumulator.make()); 
+      ERationalAccumulator.make()); 
     Common.dotTests(
       Common.generators(DIM),
       Common.makeAccumulators(accumulators),
-      RationalAccumulator.make()); }
+      ERationalAccumulator.make()); }
 
   //--------------------------------------------------------------
 }

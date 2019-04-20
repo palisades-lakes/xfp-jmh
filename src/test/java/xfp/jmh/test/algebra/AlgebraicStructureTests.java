@@ -24,13 +24,13 @@ import xfp.jmh.numbers.Ratios;
 /** Common code for testing sets. 
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-02
+ * @version 2019-04-20
  */
 
 @SuppressWarnings("unchecked")
 public final class AlgebraicStructureTests {
 
-  private static final int TRYS = 7;
+  private static final int TRYS = 4;
   static final int SPACE_TRYS = 3;
 
   //--------------------------------------------------------------
