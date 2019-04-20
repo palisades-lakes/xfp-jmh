@@ -28,10 +28,10 @@ import xfp.java.test.Common;
 /** Benchmark partial sums.
  * 
  * <pre>
- * java -cp target\benchmarks.jar xfp.jmh.PartialSum
+ * java -cp target\benchmarks.jar xfp.jmh.PartialSums
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-18
+ * @version 2019-04-20
  */
 
 @SuppressWarnings("unchecked")
@@ -55,13 +55,14 @@ public class PartialSums {
 
   @Param({
     //"xfp.jmh.accumulators.IFastAccumulator",
-    "xfp.java.accumulators.RationalFloatAccumulator",
     "xfp.java.accumulators.DoubleAccumulator",
+    "xfp.jmh.accumulators.KahanAccumulator",
+    "xfp.java.accumulators.BigFloatAccumulator",
+    //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.java.accumulators.ZhuHayesAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCBranch",
     //"xfp.jmh.accumulators.ZhuHayesBranch",
-    //"xfp.jmh.accumulators.KahanAccumulator"
   })
   String accumulator;
   Accumulator acc;
@@ -173,17 +174,17 @@ public class PartialSums {
     final File parent = new File("output");
     parent.mkdirs();
     final File csv = 
-      new File(parent,"MSSN" + "-" + Base.now() + ".csv");
+      new File(parent,"PartialSums" + "-" + Base.now() + ".csv");
     final Options opt = 
       new OptionsBuilder()
       .mode(Mode.AverageTime)
       .timeUnit(TimeUnit.MILLISECONDS)
-      .include("mssn")
+      .include("partialSums")
       .resultFormat(ResultFormatType.CSV)
       .result(csv.getPath())
       .threads(1)
       .shouldFailOnError(true)
-//      .shouldDoGC(true)
+      .shouldDoGC(true)
       .build();
     new Runner(opt).run(); }
 
