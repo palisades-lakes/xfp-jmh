@@ -13,7 +13,7 @@ import xfp.jmh.accumulators.ERationalAccumulator;
 /** Test summation algorithms. 
  * <p>
  * <pre>
- * mvn test -Dtest=xfp/jmh/test/accumulators/RationalAccumulatorTest > RationalAccumulatorTest.txt
+ * mvn -q clean test -Dtest=xfp/jmh/test/accumulators/RationalAccumulatorTest > RationalAccumulatorTest.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com

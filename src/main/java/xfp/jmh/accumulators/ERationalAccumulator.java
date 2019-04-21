@@ -78,13 +78,16 @@ implements Accumulator<ERationalAccumulator> {
   // Object methods
   //--------------------------------------------------------------
 
-  @Override
-  public final String toString () {
+  public static final String toString (final ERational q) {
     return 
-      _sum.getNumerator().ToRadixString(0x10) 
+      q.getNumerator().ToRadixString(0x10) 
       + " / "
 //      + "\n/\n"
-      + _sum.getDenominator().ToRadixString(0x10); }
+      + q.getDenominator().ToRadixString(0x10); }
+    
+  @Override
+  public final String toString () {
+    return toString(_sum); }
 
   //--------------------------------------------------------------
   // construction

@@ -7,44 +7,50 @@ import org.junit.jupiter.api.Test;
 import com.upokecenter.numbers.EInteger;
 import com.upokecenter.numbers.ERational;
 
+import xfp.java.Debug;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.Generators;
 import xfp.java.prng.PRNG;
+import xfp.jmh.accumulators.ERationalAccumulator;
 import xfp.jmh.numbers.ERationals;
 
 //----------------------------------------------------------------
 /** Test desired properties of ERational. 
  * <p>
  * <pre>
- * mvn -Dtest=xfp/java/test/numbers/ERationalTest test > ERationalTest.txt
+ * mvn -q clean -Dtest=xfp/jmh/test/numbers/ERationalTest test > ERationalTest.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-02
+ * @version 2019-04-20
  */
 
 public final class ERationalTest {
 
   //--------------------------------------------------------------
 
-  /** Conversion to and from BigInteger. 
-   */
   private static final boolean 
   correctRounding (final ERational f) {
     // TODO: this is necessary but not sufficient to ensure 
     // rounding was correct?
     final double x = f.ToDouble();
+    Debug.println("f=" + ERationalAccumulator.toString(f));
+    Debug.println("x=" + Double.toHexString(x));
     final ERational fx = ERational.FromDouble(x);
+    Debug.println("fx=" + ERationalAccumulator.toString(fx));
     final int r = f.compareTo(fx);
+    Debug.println("r=" + r);
     final boolean result;
-    if (r < 0) { // fx > f
+    if (r < 0) { // f < fx
       final double x1o = Math.nextDown(x);
       final ERational flo = ERational.FromDouble(x1o);
       result = flo.compareTo(f) < 0;}
-    else if (r > 0) { // fx < f
+    else if (r > 0) { // f > fx
       final double xhi = Math.nextUp(x);
+      Debug.println("xhi=" + Double.toHexString(xhi));
       final ERational fhi = ERational.FromDouble(xhi);
+      Debug.println("fhi=" + ERationalAccumulator.toString(fhi));
       result = f.compareTo(fhi) < 0; } 
     else { result = true; }
     return result; }
@@ -58,6 +64,18 @@ public final class ERationalTest {
   public final void roundingTest () {
     final ERational f = ERational.Create(13,11);
     assertTrue(correctRounding(f)); }
+
+  @SuppressWarnings({ "static-method" })
+  @Test
+  public final void anotherRoundingTest () {
+    Debug.DEBUG = true;
+    final ERational f = 
+      ERational.Create(
+        EInteger.FromInt64(-0x331c0c32d0072fL),
+        EInteger.FromInt64(0x1000000L));
+    assertTrue(correctRounding(f)); 
+    Debug.DEBUG = false; }
+
 
   @SuppressWarnings({ "static-method" })
   @Test
