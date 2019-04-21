@@ -13,7 +13,7 @@ import xfp.jmh.accumulators.ERationalAccumulator;
 /** Test summation algorithms. 
  * <p>
  * <pre>
- * mvn test -Dtest=xfp/java/test/accumulators/RationalAccumulatorTest > RationalAccumulatorTest.txt
+ * mvn test -Dtest=xfp/jmh/test/accumulators/RationalAccumulatorTest > RationalAccumulatorTest.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
@@ -28,21 +28,22 @@ public final class RationalAccumulatorTest {
     List.of("xfp.jmh.accumulators.RationalAccumulator");
   @Test
   public final void tests () {
-    Debug.DEBUG = false;
+    Debug.DEBUG = true;
     Debug.println();
     Debug.println(Classes.className(this));
     Common.sumTests(
       Common.generators(DIM),
       Common.makeAccumulators(accumulators),
       ERationalAccumulator.make()); 
-    Common.l2Tests(
-      Common.generators(DIM),
-      Common.makeAccumulators(accumulators),
-      ERationalAccumulator.make()); 
-    Common.dotTests(
-      Common.generators(DIM),
-      Common.makeAccumulators(accumulators),
-      ERationalAccumulator.make()); }
+//    Common.l2Tests(
+//      Common.generators(DIM),
+//      Common.makeAccumulators(accumulators),
+//      ERationalAccumulator.make()); 
+//    Common.dotTests(
+//      Common.generators(DIM),
+//      Common.makeAccumulators(accumulators),
+//      ERationalAccumulator.make());
+    }
 
   //--------------------------------------------------------------
 }

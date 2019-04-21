@@ -7,7 +7,7 @@ import xfp.java.numbers.Rational;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-09
+ * @version 2019-04-20
  */
 public final class RationalAccumulator 
 
@@ -15,6 +15,7 @@ implements Accumulator<RationalAccumulator> {
 
   private Rational _sum;
 
+  @Override
   public final Rational value () { return _sum; }
   
   //--------------------------------------------------------------
