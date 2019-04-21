@@ -29,7 +29,7 @@ import xfp.java.prng.Generators;
  * <code>ERational</code>
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-01
+ * @version 2019-04-20
  */
 @SuppressWarnings("unchecked")
 public final class ERationals implements Set {
@@ -46,6 +46,13 @@ public final class ERationals implements Set {
 //    final EInteger gcd = n.Gcd(d);
 //    return ERational.Create(n.Divide(gcd),d.Divide(gcd)); }
   
+  public static final String toString (final ERational q) {
+    return 
+      q.getNumerator().ToRadixString(0x10) 
+      + " / "
+//      + "\n/\n"
+      + q.getDenominator().ToRadixString(0x10); }
+    
   //--------------------------------------------------------------
   // convert representation to ERational[] as default.
   // higher performance methods use raw representation where

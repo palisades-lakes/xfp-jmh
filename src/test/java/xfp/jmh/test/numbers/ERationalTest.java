@@ -1,7 +1,6 @@
 package xfp.jmh.test.numbers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 
 import com.upokecenter.numbers.EInteger;
@@ -12,7 +11,6 @@ import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.Generators;
 import xfp.java.prng.PRNG;
-import xfp.jmh.accumulators.ERationalAccumulator;
 import xfp.jmh.numbers.ERationals;
 
 //----------------------------------------------------------------
@@ -35,10 +33,15 @@ public final class ERationalTest {
     // TODO: this is necessary but not sufficient to ensure 
     // rounding was correct?
     final double x = f.ToDouble();
-    Debug.println("f=" + ERationalAccumulator.toString(f));
+    Debug.println("f=" + ERationals.toString(f));
     Debug.println("x=" + Double.toHexString(x));
+ 
+    
+    
+ 
+    
     final ERational fx = ERational.FromDouble(x);
-    Debug.println("fx=" + ERationalAccumulator.toString(fx));
+    Debug.println("fx=" + ERationals.toString(fx));
     final int r = f.compareTo(fx);
     Debug.println("r=" + r);
     final boolean result;
@@ -50,7 +53,7 @@ public final class ERationalTest {
       final double xhi = Math.nextUp(x);
       Debug.println("xhi=" + Double.toHexString(xhi));
       final ERational fhi = ERational.FromDouble(xhi);
-      Debug.println("fhi=" + ERationalAccumulator.toString(fhi));
+      Debug.println("fhi=" + ERationals.toString(fhi));
       result = f.compareTo(fhi) < 0; } 
     else { result = true; }
     return result; }
