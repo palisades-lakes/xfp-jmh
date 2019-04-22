@@ -29,7 +29,7 @@ import xfp.java.prng.Generators;
  * <code>ERational</code>
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-20
+ * @version 2019-04-22
  */
 @SuppressWarnings("unchecked")
 public final class ERationals implements Set {
@@ -85,6 +85,12 @@ public final class ERationals implements Set {
   public static final ERational toERational (final BigInteger x) {
     return ERational.FromEInteger(
       EInteger.FromBytes(x.toByteArray(), false)); }
+
+  public static final ERational toERational (final BigInteger n,
+                                             final BigInteger d) {
+    return ERational.Create(
+      EInteger.FromBytes(n.toByteArray(), false),
+      EInteger.FromBytes(d.toByteArray(), false)); }
 
   public static final ERational toERational (final Object x) {
     if (x instanceof ERational) { return (ERational) x; }

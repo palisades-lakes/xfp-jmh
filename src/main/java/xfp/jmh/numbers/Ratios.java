@@ -27,13 +27,18 @@ import xfp.java.prng.GeneratorBase;
  * <code>Ratio</code>.
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-25
+ * @version 2019-04-22
  */
 @SuppressWarnings("unchecked")
 public final class Ratios implements Set {
 
   //--------------------------------------------------------------
   // operations for algebraic structures over Ratios.
+  //--------------------------------------------------------------
+  
+  public static final Ratio abs (final Ratio q) {
+    return new Ratio(q.numerator.abs(),q.denominator.abs()); }
+  
   //--------------------------------------------------------------
 
   // TODO: is consistency with other algebraic structure classes
@@ -166,46 +171,6 @@ public final class Ratios implements Set {
         return Ratios.this.equals(q0,q1); } }; }
 
   //--------------------------------------------------------------
-
-  @Override
-  public final Supplier generator (final Map options) {
-    final UniformRandomProvider urp = Set.urp(options);
-    final Generator bfs = Ratios.ratioGenerator(urp);
-    return 
-      new Supplier () {
-      @Override
-      public final Object get () { return bfs.next(); } }; }
-
-  //--------------------------------------------------------------
-  // Object methods
-  //--------------------------------------------------------------
-
-  @Override
-  public final int hashCode () { return 0; }
-
-  // singleton
-  @Override
-  public final boolean equals (final Object that) {
-    return that instanceof Ratios; }
-
-  @Override
-  public final String toString () { return "Ratios"; }
-
-  //--------------------------------------------------------------
-  // construction
-  //--------------------------------------------------------------
-
-  public static final Generator 
-  ratioGenerator (final int n,
-                  final UniformRandomProvider urp) {
-    return new GeneratorBase ("ratioGenerator:" + n) {
-      final Generator g = ratioGenerator(urp);
-      @Override
-      public final Object next () {
-        final Ratio[] z = new Ratio[n];
-        for (int i=0;i<n;i++) { z[i] = (Ratio) g.next(); }
-        return z; } }; }
-
   /** Intended primarily for testing. Sample a random double
    * (see {@link xfp.java.prng.DoubleSampler})
    * and convert to <code>BigDecimal</code>
@@ -247,6 +212,45 @@ public final class Ratios implements Set {
         if (edge) { return edgeCases.sample(); }
         return Numbers.toRatio(
           new BigDecimal(fdg.nextDouble())); } }; }
+
+  public static final Generator 
+  ratioGenerator (final int n,
+                  final UniformRandomProvider urp) {
+    return new GeneratorBase ("ratioGenerator:" + n) {
+      final Generator g = ratioGenerator(urp);
+      @Override
+      public final Object next () {
+        final Ratio[] z = new Ratio[n];
+        for (int i=0;i<n;i++) { z[i] = (Ratio) g.next(); }
+        return z; } }; }
+
+  @Override
+  public final Supplier generator (final Map options) {
+    final UniformRandomProvider urp = Set.urp(options);
+    final Generator bfs = Ratios.ratioGenerator(urp);
+    return 
+      new Supplier () {
+      @Override
+      public final Object get () { return bfs.next(); } }; }
+
+  //--------------------------------------------------------------
+  // Object methods
+  //--------------------------------------------------------------
+
+  @Override
+  public final int hashCode () { return 0; }
+
+  // singleton
+  @Override
+  public final boolean equals (final Object that) {
+    return that instanceof Ratios; }
+
+  @Override
+  public final String toString () { return "Ratios"; }
+
+  //--------------------------------------------------------------
+  // construction
+  //--------------------------------------------------------------
 
   private Ratios () { }
 

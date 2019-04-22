@@ -4,9 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.math.BigInteger;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
+import clojure.lang.Numbers;
 import clojure.lang.Ratio;
+import xfp.java.test.Common;
+import xfp.jmh.numbers.Ratios;
 
 //----------------------------------------------------------------
 /** Tests showing why I use <code>BigFraction</code> for 
@@ -17,7 +22,7 @@ import clojure.lang.Ratio;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-02-18
+ * @version 2019-04-22
  */
 
 public final class RatioTest {
@@ -26,7 +31,7 @@ public final class RatioTest {
   // not true if you call the public constructor
   //
   // (2) need clojure tests to demonstrate surprising coercions
-  
+
   @SuppressWarnings({ "static-method" })
   @Test
   public final void equivalenceFailure () {
@@ -34,6 +39,22 @@ public final class RatioTest {
     final Ratio q1 = new Ratio(BigInteger.TWO,BigInteger.TWO);
     // WRONG: this should be true, but clojure Ratio is broken.
     assertFalse(q0.equals(q1)); }
+
+  //--------------------------------------------------------------
+
+  @SuppressWarnings({ "static-method" })
+  @Test
+  public final void testRounding () {
+    Assertions.assertThrows(
+      AssertionFailedError.class,
+      () -> {
+        Common.doubleRoundingTests(
+          (i0,i1) -> new Ratio(i0,i1),
+          x -> Numbers.toRatio(Double.valueOf(x)),
+          q -> ((Ratio) q).doubleValue(),
+          (q0,q1) -> Ratios.abs((Ratio) Numbers.minus(q0,q1)),
+          Object::toString); },
+      "Ratio doesn't round correctly"); }
 
   //--------------------------------------------------------------
 }
