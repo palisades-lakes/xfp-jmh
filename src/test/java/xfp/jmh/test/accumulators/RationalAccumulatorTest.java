@@ -17,7 +17,7 @@ import xfp.jmh.accumulators.ERationalAccumulator;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-20
+ * @version 2019-04-22
  */
 
 public final class RationalAccumulatorTest {
@@ -28,7 +28,7 @@ public final class RationalAccumulatorTest {
     List.of("xfp.jmh.accumulators.RationalAccumulator");
   @Test
   public final void tests () {
-    Debug.DEBUG = true;
+    Debug.DEBUG = false;
     Debug.println();
     Debug.println(Classes.className(this));
     Common.sumTests(

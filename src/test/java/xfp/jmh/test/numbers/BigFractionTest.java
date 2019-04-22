@@ -34,6 +34,7 @@ public final class BigFractionTest {
   @SuppressWarnings({ "static-method" })
   @Test
   public final void testRounding () {
+
     Assertions.assertThrows(
       AssertionFailedError.class,
       () -> {
@@ -43,7 +44,20 @@ public final class BigFractionTest {
           Numbers::doubleValue,
           (q0,q1) -> ((BigFraction) q0).subtract((BigFraction) q1).abs(),
           Object::toString); },
-      "BigFraction doesn't round correctly"); }
+      "BigFraction doesn't round correctly"); 
+    
+    Assertions.assertThrows(
+      AssertionFailedError.class,
+      () -> {
+        Common.floatRoundingTests(
+          (i0,i1) -> new BigFraction(i0,i1),
+          x -> new BigFraction(x),
+          Numbers::floatValue,
+          (q0,q1) -> ((BigFraction) q0).subtract((BigFraction) q1).abs(),
+          Object::toString); },
+      "BigFraction doesn't round correctly"); 
+    
+  }
 
   //--------------------------------------------------------------
 }

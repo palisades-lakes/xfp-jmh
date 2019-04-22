@@ -45,6 +45,7 @@ public final class RatioTest {
   @SuppressWarnings({ "static-method" })
   @Test
   public final void testRounding () {
+
     Assertions.assertThrows(
       AssertionFailedError.class,
       () -> {
@@ -54,7 +55,20 @@ public final class RatioTest {
           q -> ((Ratio) q).doubleValue(),
           (q0,q1) -> Ratios.abs((Ratio) Numbers.minus(q0,q1)),
           Object::toString); },
-      "Ratio doesn't round correctly"); }
+      "Ratio doesn't round correctly"); 
+    
+    Assertions.assertThrows(
+      AssertionFailedError.class,
+      () -> {
+        Common.floatRoundingTests(
+          (i0,i1) -> new Ratio(i0,i1),
+          x -> Numbers.toRatio(Float.valueOf(x)),
+          q -> ((Ratio) q).floatValue(),
+          (q0,q1) -> Ratios.abs((Ratio) Numbers.minus(q0,q1)),
+          Object::toString); },
+      "Ratio doesn't round correctly"); 
+    
+  }
 
   //--------------------------------------------------------------
 }
