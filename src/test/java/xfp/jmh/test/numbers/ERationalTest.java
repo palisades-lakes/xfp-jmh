@@ -32,6 +32,7 @@ public final class ERationalTest {
     Common.doubleRoundingTest(
       ERational::FromDouble,
       q -> ((ERational) q).ToDouble(),
+      (q0,q1) -> ((ERational) q0).Subtract((ERational) q1).Abs(),
       f,
       q -> ERationals.toHexString((ERational) q)); }
 
