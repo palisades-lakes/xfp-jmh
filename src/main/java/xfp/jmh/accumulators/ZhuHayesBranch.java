@@ -287,6 +287,10 @@ implements Accumulator<ZhuHayesBranch> {
   //--------------------------------------------------------------
 
   @Override
+  public final Object value () { 
+    return Double.valueOf(doubleValue()); }
+
+  @Override
   public final double doubleValue () {
     // Step 5
     final double[] x = new double[a1.length+a2.length];

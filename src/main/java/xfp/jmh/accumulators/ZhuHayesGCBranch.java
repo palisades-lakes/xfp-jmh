@@ -40,7 +40,7 @@ import xfp.java.numbers.Doubles;
  * <em>NOT</em> thread safe!
  * <p>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-14
+ * @version 2019-04-21
  */
 
 public final class ZhuHayesGCBranch
@@ -277,6 +277,10 @@ implements Accumulator<ZhuHayesGCBranch> {
     final int[] n = new int[1];
     n[0] = x.length;
     return iFastSum(x,n,true); }
+
+  @Override
+  public final Object value () { 
+    return Double.valueOf(doubleValue()); }
 
   //--------------------------------------------------------------
 

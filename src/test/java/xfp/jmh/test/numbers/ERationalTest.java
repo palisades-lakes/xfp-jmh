@@ -1,6 +1,5 @@
 package xfp.jmh.test.numbers;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.upokecenter.numbers.EInteger;
@@ -11,6 +10,7 @@ import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.Generators;
 import xfp.java.prng.PRNG;
+import xfp.java.test.Common;
 import xfp.jmh.numbers.ERationals;
 
 //----------------------------------------------------------------
@@ -21,42 +21,19 @@ import xfp.jmh.numbers.ERationals;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-20
+ * @version 2019-04-21
  */
 
 public final class ERationalTest {
 
   //--------------------------------------------------------------
 
-  private static final boolean 
-  correctRounding (final ERational f) {
-    // TODO: this is necessary but not sufficient to ensure 
-    // rounding was correct?
-    final double x = f.ToDouble();
-    Debug.println("f=" + ERationals.toString(f));
-    Debug.println("x=" + Double.toHexString(x));
- 
-    
-    
- 
-    
-    final ERational fx = ERational.FromDouble(x);
-    Debug.println("fx=" + ERationals.toString(fx));
-    final int r = f.compareTo(fx);
-    Debug.println("r=" + r);
-    final boolean result;
-    if (r < 0) { // f < fx
-      final double x1o = Math.nextDown(x);
-      final ERational flo = ERational.FromDouble(x1o);
-      result = flo.compareTo(f) < 0;}
-    else if (r > 0) { // f > fx
-      final double xhi = Math.nextUp(x);
-      Debug.println("xhi=" + Double.toHexString(xhi));
-      final ERational fhi = ERational.FromDouble(xhi);
-      Debug.println("fhi=" + ERationals.toString(fhi));
-      result = f.compareTo(fhi) < 0; } 
-    else { result = true; }
-    return result; }
+  private static final void correctRounding (final ERational f) {
+    Common.doubleRoundingTest(
+      ERational::FromDouble,
+      q -> ((ERational) q).ToDouble(),
+      f,
+      q -> ERationals.toHexString((ERational) q)); }
 
   //--------------------------------------------------------------
 
@@ -66,7 +43,7 @@ public final class ERationalTest {
   @Test
   public final void roundingTest () {
     final ERational f = ERational.Create(13,11);
-    assertTrue(correctRounding(f)); }
+    correctRounding(f); }
 
   @SuppressWarnings({ "static-method" })
   @Test
@@ -76,7 +53,7 @@ public final class ERationalTest {
       ERational.Create(
         EInteger.FromInt64(-0x331c0c32d0072fL),
         EInteger.FromInt64(0x1000000L));
-    assertTrue(correctRounding(f)); 
+    correctRounding(f); 
     Debug.DEBUG = false; }
 
 
@@ -87,7 +64,7 @@ public final class ERationalTest {
       ERational.Create(
         EInteger.FromInt64(0x789f09858446ad92L),
         EInteger.FromInt64(0x19513ea5d70c32eL));
-    assertTrue(correctRounding(f)); }
+    correctRounding(f); }
 
   @SuppressWarnings({ "static-method" })
   @Test
@@ -103,7 +80,7 @@ public final class ERationalTest {
       final EInteger n = (EInteger) gn.next();
       final EInteger d = (EInteger) gd.next();
       final ERational f = ERational.Create(n,d);
-      assertTrue(correctRounding(f)); } }
+      correctRounding(f); } }
 
   @SuppressWarnings({ "static-method" })
   @Test
@@ -118,7 +95,7 @@ public final class ERationalTest {
       final ERational f = ERational.Create(
         EInteger.FromInt64(n),
         EInteger.FromInt64(d));
-      assertTrue(correctRounding(f)); } }
+      correctRounding(f); } }
 
   @SuppressWarnings({ "static-method" })
   @Test
@@ -129,7 +106,7 @@ public final class ERationalTest {
     for (int i=0;i<TRYS;i++) {
       final double x = g.nextDouble();
       final ERational f = ERational.FromDouble(x);
-      assertTrue(correctRounding(f)); } }
+      correctRounding(f); } }
 
   @SuppressWarnings({ "static-method" })
   @Test
@@ -140,7 +117,7 @@ public final class ERationalTest {
     for (int i=0;i<TRYS;i++) {
       final double x = g.nextDouble();
       final ERational f = ERational.FromDouble(x);
-      assertTrue(correctRounding(f)); } }
+      correctRounding(f); } }
 
   //--------------------------------------------------------------
 }

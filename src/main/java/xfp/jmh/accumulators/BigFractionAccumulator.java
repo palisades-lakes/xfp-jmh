@@ -8,7 +8,7 @@ import xfp.java.accumulators.Accumulator;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-09
+ * @version 2019-04-21
  */
 public final class BigFractionAccumulator 
 
@@ -23,6 +23,9 @@ implements Accumulator<BigFractionAccumulator> {
 
   @Override
   public final boolean noOverflow () { return true; }
+
+  @Override
+  public final Object value () { return _sum; }
 
   @Override
   public final double doubleValue () { 

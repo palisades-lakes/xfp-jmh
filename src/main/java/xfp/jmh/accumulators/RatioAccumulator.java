@@ -12,7 +12,7 @@ import xfp.java.accumulators.Accumulator;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-09
+ * @version 2019-04-21
  */
 public final class RatioAccumulator 
 
@@ -41,6 +41,9 @@ implements Accumulator<RatioAccumulator> {
 
   @Override
   public final boolean noOverflow () { return false; }
+
+  @Override
+  public final Object value () { return _sum; }
 
   @Override
   public final double doubleValue () { 

@@ -4,6 +4,7 @@ import com.upokecenter.numbers.EInteger;
 import com.upokecenter.numbers.ERational;
 
 import xfp.java.accumulators.Accumulator;
+import xfp.jmh.numbers.ERationals;
 
 /** Naive sum of <code>double</code> values with ERational 
  * accumulator (for testing).
@@ -78,16 +79,9 @@ implements Accumulator<ERationalAccumulator> {
   // Object methods
   //--------------------------------------------------------------
 
-  public static final String toString (final ERational q) {
-    return 
-      q.getNumerator().ToRadixString(0x10) 
-      + " / "
-//      + "\n/\n"
-      + q.getDenominator().ToRadixString(0x10); }
-    
   @Override
   public final String toString () {
-    return toString(_sum); }
+    return ERationals.toHexString(_sum); }
 
   //--------------------------------------------------------------
   // construction

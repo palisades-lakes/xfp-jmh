@@ -218,6 +218,10 @@ implements Accumulator<IFastAccumulator> {
   //--------------------------------------------------------------
 
   @Override
+  public final Object value () { 
+    return Double.valueOf(doubleValue()); }
+
+  @Override
   public final double doubleValue () {
     // TODO: is the state of z valid after iFastSum?
     // could we use it to accelerate the iteration after

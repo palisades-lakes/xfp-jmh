@@ -17,7 +17,7 @@ import xfp.java.accumulators.Accumulator;
  *      Graillat, Langlois, and Louvet, Accurate dot products with FMA"</a>
  *      
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-09
+ * @version 2019-04-21
  */
 
 public final class KahanAccumulator 
@@ -36,6 +36,10 @@ implements Accumulator<KahanAccumulator> {
   public final boolean noOverflow () { return false; }
 
   @Override
+  public final Object value () { 
+    return Double.valueOf(doubleValue()); }
+
+ @Override
   public final double doubleValue () { return s; }
 
   @Override

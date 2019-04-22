@@ -22,6 +22,10 @@ implements Accumulator<StrictDoubleFmaAccumulator> {
   public final boolean noOverflow () { return false; }
 
   @Override
+  public final Object value () { 
+    return Double.valueOf(doubleValue()); }
+
+  @Override
   public final double doubleValue () { return _sum; }
 
   @Override

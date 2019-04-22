@@ -5,7 +5,7 @@ import xfp.java.accumulators.Accumulator;
 /** Naive sum of <code>double</code> values.
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-09
+ * @version 2019-04-21
  */
 
 strictfp
@@ -20,6 +20,10 @@ implements Accumulator<StrictDoubleAccumulator> {
 
   @Override
   public final boolean noOverflow () { return false; }
+
+  @Override
+  public final Object value () { 
+    return Double.valueOf(doubleValue()); }
 
   @Override
   public final double doubleValue () { return _sum; }

@@ -16,7 +16,7 @@ import xfp.java.numbers.Rational;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-09
+ * @version 2019-04-21
  */
 public final class MutableRationalAccumulator 
 
@@ -137,6 +137,10 @@ Comparable<MutableRationalAccumulator> {
 
   @Override
   public final boolean noOverflow () { return true; }
+
+  @Override
+  public final Object value () { 
+    return Rational.valueOf(numerator(),denominator()); }
 
   @Override
   public final double doubleValue () { 

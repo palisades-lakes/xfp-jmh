@@ -37,6 +37,15 @@ public final class ERationals implements Set {
   //--------------------------------------------------------------
   // missing functions
   //--------------------------------------------------------------
+
+  public static final String toHexString (final ERational q) {
+    return 
+      "(" + q.getNumerator().ToRadixString(0x10) 
+      + " / "
+//      + "\n/\n"
+      + q.getDenominator().ToRadixString(0x10) + ")"; }
+    
+  //--------------------------------------------------------------
   /** Divide out gcd from numberator and denominator. */
 
   public static final ERational reduce (final ERational q) {
@@ -46,13 +55,6 @@ public final class ERationals implements Set {
 //    final EInteger gcd = n.Gcd(d);
 //    return ERational.Create(n.Divide(gcd),d.Divide(gcd)); }
   
-  public static final String toString (final ERational q) {
-    return 
-      q.getNumerator().ToRadixString(0x10) 
-      + " / "
-//      + "\n/\n"
-      + q.getDenominator().ToRadixString(0x10); }
-    
   //--------------------------------------------------------------
   // convert representation to ERational[] as default.
   // higher performance methods use raw representation where

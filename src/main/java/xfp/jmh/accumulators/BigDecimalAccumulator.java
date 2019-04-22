@@ -8,7 +8,7 @@ import xfp.java.accumulators.Accumulator;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-09
+ * @version 2019-04-21
  */
 public final class BigDecimalAccumulator 
 
@@ -30,6 +30,9 @@ implements Accumulator<BigDecimalAccumulator> {
   public final BigDecimalAccumulator clear () { 
     _sum = BigDecimal.ZERO;
     return this; }
+
+  @Override
+  public final Object value () { return _sum; }
 
   @Override
   public final double doubleValue () { 
