@@ -31,7 +31,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.PartialSums
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-22
+ * @version 2019-04-23
  */
 
 @SuppressWarnings("unchecked")
@@ -58,7 +58,7 @@ public class PartialSums {
     "xfp.java.accumulators.DoubleAccumulator",
     "xfp.jmh.accumulators.KahanAccumulator",
     "xfp.java.accumulators.BigFloatAccumulator",
-    //"xfp.java.accumulators.RationalFloatAccumulator",
+    "xfp.java.accumulators.RationalFloatAccumulator",
     "xfp.java.accumulators.ZhuHayesAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCBranch",
