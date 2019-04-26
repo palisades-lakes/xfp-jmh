@@ -26,12 +26,11 @@ import xfp.java.prng.PRNG;
 import xfp.java.test.Common;
 
 /** Benchmark partial sums.
- * 
  * <pre>
  * java -cp target\benchmarks.jar xfp.jmh.PartialSums
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-24
+ * @version 2019-04-25
  */
 
 @SuppressWarnings("unchecked")
@@ -41,9 +40,9 @@ public class PartialSums {
   //--------------------------------------------------------------
 
   @Param({
-//    "33554433",
-//    "8388609",
-//    "2097153",
+    //"33554433",
+    //"8388609",
+    //"2097153",
     "524289",
   })
   int dim;
@@ -66,7 +65,7 @@ public class PartialSums {
   })
   String accumulator;
   Accumulator acc;
-  
+
   //--------------------------------------------------------------
 
   //--------------------------------------------------------------
