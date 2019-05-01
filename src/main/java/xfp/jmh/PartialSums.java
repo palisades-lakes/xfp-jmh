@@ -54,7 +54,7 @@ public class PartialSums {
 
   @Param({
     //"xfp.jmh.accumulators.IFastAccumulator",
-    "xfp.java.accumulators.DoubleAccumulator",
+    //"xfp.java.accumulators.DoubleAccumulator",
     "xfp.jmh.accumulators.KahanAccumulator",
     "xfp.java.accumulators.DistilledAccumulator",
     "xfp.java.accumulators.BigFloatAccumulator",
