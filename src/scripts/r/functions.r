@@ -194,7 +194,8 @@ accuracy.plot <- function(
 #-----------------------------------------------------------------
 read.runtimes <- function (
   folder=paste('output',sep='/'),
-  prefix=NULL) {
+  prefix=NULL,
+  baseline='DoubleAccumulator') {
   data.file <- paste(folder,paste(prefix,'csv',sep='.'),sep='/')
   data <- read.csv(file=data.file,as.is=TRUE)
   
@@ -234,6 +235,15 @@ read.runtimes <- function (
       levels=sort(unique(data$generator)),
       ordered=TRUE)
   data <- subset(x=data,select=-c(Mode,Threads,Samples,Unit,delta))
+  
+  # add baseline accumulator column
+  tmp <- data[data$accumulator==baseline,]
+  data <- merge(data,tmp,
+    by=c('benchmark','generator','dim'),
+    suffixes=c('','.baseline'))
+  data$relative.ms.min <- data$ms.min / data$ms.min.baseline
+  data$relative.ms <- data$ms / data$ms.baseline
+  data$relative.ms.max <- data$ms.max / data$ms.max.baseline
   data }
 
 #-----------------------------------------------------------------
@@ -295,7 +305,7 @@ runtime.plot <- function(
     scale_color_manual(values=colors) +
     ylab(ylabel) +
     xlab(xlabel) +
-    ggtitle('99.9% intervals for runtime')
+    ggtitle(paste('99.9% intervals for runtime',y))
   if (! is.null(xscale)) { p <- p + xscale(); } 
   if (! is.null(yscale)) { p <- p + yscale(); } 
   #if (scale_y_log10 != yscale) { p <- p + expand_limits(y=0); }
