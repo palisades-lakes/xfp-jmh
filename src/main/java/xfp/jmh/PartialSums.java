@@ -30,7 +30,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.PartialSums
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-30
+ * @version 2019-05-01
  */
 
 @SuppressWarnings("unchecked")
@@ -40,7 +40,7 @@ public class PartialSums {
   //--------------------------------------------------------------
 
   @Param({
-    //"33554433",
+    "33554433",
     "8388609",
     "2097153",
     "524289",
@@ -54,10 +54,10 @@ public class PartialSums {
 
   @Param({
     //"xfp.jmh.accumulators.IFastAccumulator",
-    //"xfp.java.accumulators.DoubleAccumulator",
+    "xfp.java.accumulators.DoubleAccumulator",
     "xfp.jmh.accumulators.KahanAccumulator",
     "xfp.java.accumulators.DistilledAccumulator",
-    "xfp.java.accumulators.BigFloatAccumulator",
+    //"xfp.java.accumulators.BigFloatAccumulator",
     //"xfp.jmh.accumulators.BigDecimalAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.java.accumulators.ZhuHayesAccumulator",
@@ -142,8 +142,8 @@ public class PartialSums {
                                                final int dim) {
     return factories.get(name).apply(dim); }
 
-  @Param({"finite","uniform","exponential","gaussian"})
-  //@Param({"uniform",})
+  @Param({"finite","uniform","exponential","gaussian","laplace"})
+  //@Param({"finite",})
   String generator;
   Generator gen;
 

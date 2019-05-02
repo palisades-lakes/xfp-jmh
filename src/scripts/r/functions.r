@@ -1,6 +1,6 @@
 # xfp-jmh
 # palisades dot lakes at gmail dot com
-# version 2019-04-08
+# version 2019-05-01
 #-----------------------------------------------------------------
 # libraries
 #-----------------------------------------------------------------
@@ -18,8 +18,10 @@ accumulator.colors <- c(
   'ZhuHayesGCBranch'='#3355cc88',
   'ZhuHayesBranch'='#3300cc88',
   'ZhuHayesNoGCBranch'='#3300cc88',
+  'BigFloatAccumulator'='#d31b1c88',
   'RationalFloatAccumulator'='#d31b1c88',
   'DoubleAccumulator'='#c8000088',
+  'DistilledAccumulator'='#0055aa88',
   'DoubleFmaAccumulator'='#c0040488'
 )
 #-----------------------------------------------------------------
@@ -235,7 +237,7 @@ read.runtimes <- function (
   data }
 
 #-----------------------------------------------------------------
-runtime.log.log.plot <- function(
+runtime.plot <- function(
   data=NULL, 
   prefix=NULL,
   x='dim', 
@@ -250,8 +252,10 @@ runtime.log.log.plot <- function(
   ylabel='milliseconds',
   xlabel='dim',
   #width=30, 
-  height=24,
-  plot.folder='output') {
+  height=10,
+  plot.folder='output',
+  xscale=scale_x_log10,
+  yscale=scale_y_log10) {
   
   stopifnot(
     !is.null(data),
@@ -263,7 +267,7 @@ runtime.log.log.plot <- function(
   
   nr <- length(unique(data[,rows]))
   nc <- length(unique(data[,cols]))
-  width <- 1.5* (height * nc) / nr
+  width <- (height * nc) / nr
   
   print(width)
   
@@ -286,14 +290,15 @@ runtime.log.log.plot <- function(
     geom_line(aes_string(y = ymin)) + 
     geom_line(aes_string(y = y)) + 
     geom_line(aes_string(y = ymax)) +   
+    geom_point(aes_string(y = y)) + 
     scale_fill_manual(values=colors) +
     scale_color_manual(values=colors) +
-    scale_x_log10() + # breaks = (1000000*c(0.01,0.1,1,10))) + 
-    scale_y_log10() + #limits=c(0.10,NA)) +
     ylab(ylabel) +
     xlab(xlabel) +
     ggtitle('99.9% intervals for runtime')
-  #+ expand_limits(y=0)
+  if (! is.null(xscale)) { p <- p + xscale(); } 
+  if (! is.null(yscale)) { p <- p + yscale(); } 
+  #if (scale_y_log10 != yscale) { p <- p + expand_limits(y=0); }
   print(plot.file)
   ggsave(p , 
     device='png', 
