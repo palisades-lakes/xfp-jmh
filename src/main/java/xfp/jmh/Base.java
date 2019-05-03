@@ -24,7 +24,7 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import xfp.java.accumulators.Accumulator;
-import xfp.java.accumulators.RationalFloatAccumulator;
+import xfp.java.accumulators.BigFloatAccumulator;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
@@ -37,7 +37,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-16
+ * @version 2019-05-02
  */
 
 @SuppressWarnings("unchecked")
@@ -62,9 +62,9 @@ public abstract class Base {
   //--------------------------------------------------------------
 
   @Param({
-    "33554433",
-    "8388609",
-    "2097153",
+    //"33554433",
+    //"8388609",
+    //"2097153",
     "524289",
   })
   int dim;
@@ -76,12 +76,13 @@ public abstract class Base {
   List<Double> truth = new ArrayList<Double>();
 
   @Param({
-    "xfp.java.accumulators.DoubleAccumulator",
+    //"xfp.java.accumulators.DoubleAccumulator",
     "xfp.java.accumulators.ZhuHayesAccumulator",
-    "xfp.jmh.accumulators.ZhuHayesGCAccumulator",
-    "xfp.jmh.accumulators.ZhuHayesGCBranch",
-    "xfp.jmh.accumulators.ZhuHayesBranch",
-    "xfp.jmh.accumulators.KahanAccumulator",
+    "xfp.java.accumulators.ZhuHayesAccumulator0",
+    //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
+    //"xfp.jmh.accumulators.ZhuHayesGCBranch",
+    //"xfp.jmh.accumulators.ZhuHayesBranch",
+    //"xfp.jmh.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.jmh.accumulators.BigDecimalAccumulator",
     //"xfp.jmh.accumulators.BigFractionAccumulator",
@@ -184,8 +185,9 @@ public abstract class Base {
                                                final int dim) {
     return factories.get(name).apply(dim); }
 
-  @Param({"finite","uniform","gaussian"})
+  //@Param({"finite","uniform","exponential"})
   //@Param({"gaussian",})
+  @Param({"uniform",})
   String generator;
   Generator gen;
 
@@ -206,7 +208,7 @@ public abstract class Base {
     gen = makeGenerator(generator,dim);
     truth.clear();
     est.clear();
-    exact = RationalFloatAccumulator.make();
+    exact = BigFloatAccumulator.make();
     assert exact.isExact();
     acc = Common.makeAccumulator(accumulator); }  
 
@@ -265,8 +267,8 @@ public abstract class Base {
       //.mode(Mode.All)
       .mode(Mode.AverageTime)
       .timeUnit(TimeUnit.MILLISECONDS)
-      .include("Dot|L2|Sum")
-      //.include("Sum")
+      //.include("Dot|L2|Sum")
+      .include("Sum")
       //.resultFormat(ResultFormatType.JSON)
       //.result("output/Sums" + "-" + now() + ".json")
       .resultFormat(ResultFormatType.CSV)

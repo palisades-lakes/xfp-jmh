@@ -16,7 +16,7 @@ import xfp.java.test.Common;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-20
+ * @version 2019-05-02
  */
 
 public final class ZhuHayesTest {
@@ -73,14 +73,15 @@ public final class ZhuHayesTest {
       Common.makeAccumulators(accumulators),
       RationalFloatAccumulator.make()); }
 
-  @SuppressWarnings("static-method")
-  @Test
-  public final void nanSum () {
-    Debug.DEBUG=false;
-    Debug.println();
-    Debug.println("infinite");
-    Common.nonFiniteTests(
-      Common.makeAccumulators(accumulators)); }
+  // TODO: pick expected behavior for non-finite input
+//  @SuppressWarnings("static-method")
+//  @Test
+//  public final void nanSum () {
+//    Debug.DEBUG=false;
+//    Debug.println();
+//    Debug.println("infinite");
+//    Common.nonFiniteTests(
+//      Common.makeAccumulators(accumulators)); }
 
   @SuppressWarnings("static-method")
   @Test

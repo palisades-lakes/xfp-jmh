@@ -27,23 +27,23 @@ import xfp.java.test.Common;
 
 /** Benchmark partial sums.
  * <pre>
- * java -cp target\benchmarks.jar xfp.jmh.PartialSums
+ * java -cp target\benchmarks.jar xfp.jmh.Partials
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-01
+ * @version 2019-05-02
  */
 
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
-public class PartialSums {
+public class Partials {
 
   //--------------------------------------------------------------
 
   @Param({
-    "33554433",
+    //"33554433",
     "8388609",
-    "2097153",
-    "524289",
+    //"2097153",
+    //"524289",
   })
   int dim;
 
@@ -54,9 +54,12 @@ public class PartialSums {
 
   @Param({
     //"xfp.jmh.accumulators.IFastAccumulator",
-    "xfp.java.accumulators.DoubleAccumulator",
-    "xfp.jmh.accumulators.KahanAccumulator",
+    //"xfp.java.accumulators.DoubleAccumulator",
+    //"xfp.jmh.accumulators.KahanAccumulator",
     "xfp.java.accumulators.DistilledAccumulator",
+    "xfp.java.accumulators.DistilledAccumulator3",
+    "xfp.java.accumulators.DistilledAccumulator32",
+    "xfp.java.accumulators.DistilledAccumulator64",
     //"xfp.java.accumulators.BigFloatAccumulator",
     //"xfp.jmh.accumulators.BigDecimalAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator",
@@ -68,9 +71,7 @@ public class PartialSums {
   String accumulator;
   Accumulator acc;
 
-  //--------------------------------------------------------------
-
-  //--------------------------------------------------------------
+   //--------------------------------------------------------------
 
   private static final String SEED0 = 
     "seeds/Well44497b-2019-01-09.txt";
@@ -142,8 +143,8 @@ public class PartialSums {
                                                final int dim) {
     return factories.get(name).apply(dim); }
 
-  @Param({"finite","uniform","exponential","gaussian","laplace"})
-  //@Param({"finite",})
+  //@Param({"finite","uniform","exponential","gaussian","laplace"})
+  @Param({"finite",})
   String generator;
   Generator gen;
 
@@ -160,7 +161,7 @@ public class PartialSums {
     s = new double[x.length]; }  
 
   @Benchmark
-  public final double[] partialSums () { 
+  public final double[] partials () { 
     // must be that some split is better than no split?
     final int n = x.length;
     assert 1 < n;
@@ -169,18 +170,20 @@ public class PartialSums {
     return s; }
 
   //--------------------------------------------------------------
-  // java -cp target\benchmarks.jar xfp.jmh.PartialSums
+  // java -cp target\benchmarks.jar xfp.jmh.Partials
 
-  public static void main (final String[] args) throws RunnerException {
+  public static void main (final String[] args) 
+    throws RunnerException {
+    
     final File parent = new File("output");
     parent.mkdirs();
     final File csv = 
-      new File(parent,"PartialSums" + "-" + Base.now() + ".csv");
+      new File(parent,"Partials" + "-" + Base.now() + ".csv");
     final Options opt = 
       new OptionsBuilder()
       .mode(Mode.AverageTime)
       .timeUnit(TimeUnit.MILLISECONDS)
-      .include("partialSums")
+      .include("partials")
       .resultFormat(ResultFormatType.CSV)
       .result(csv.getPath())
       .threads(1)
