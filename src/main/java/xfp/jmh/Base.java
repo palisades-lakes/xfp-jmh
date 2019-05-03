@@ -76,13 +76,16 @@ public abstract class Base {
   List<Double> truth = new ArrayList<Double>();
 
   @Param({
+    //"xfp.java.accumulators.DistilledAccumulator",
+    "xfp.java.accumulators.BigFloatAccumulator2",
+    "xfp.java.accumulators.BigFloatAccumulator1",
+    //"xfp.java.accumulators.ZhuHayesAccumulator",
+    //"xfp.jmh.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.DoubleAccumulator",
-    "xfp.java.accumulators.ZhuHayesAccumulator",
-    "xfp.java.accumulators.ZhuHayesAccumulator0",
+    //"xfp.java.accumulators.ZhuHayesAccumulator0",
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCBranch",
     //"xfp.jmh.accumulators.ZhuHayesBranch",
-    //"xfp.jmh.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.jmh.accumulators.BigDecimalAccumulator",
     //"xfp.jmh.accumulators.BigFractionAccumulator",
@@ -185,9 +188,9 @@ public abstract class Base {
                                                final int dim) {
     return factories.get(name).apply(dim); }
 
-  //@Param({"finite","uniform","exponential"})
-  //@Param({"gaussian",})
-  @Param({"uniform",})
+  //@Param({"finite","uniform","exponential",})
+  @Param({"gaussian",})
+  //@Param({"uniform",})
   String generator;
   Generator gen;
 
@@ -250,11 +253,10 @@ public abstract class Base {
     return pred; }
 
   //--------------------------------------------------------------
-  /** 
-   * <pre>
+  /** <pre>
    * java -cp target\benchmarks.jar xfp.jmh.Base
    * </pre> 
-   * */
+   */
 
   public static void main (final String[] args) 
     throws RunnerException {
