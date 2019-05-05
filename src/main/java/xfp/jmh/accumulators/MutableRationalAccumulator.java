@@ -7,7 +7,7 @@ import static xfp.java.numbers.Doubles.SIGN_MASK;
 import static xfp.java.numbers.Doubles.STORED_SIGNIFICAND_BITS;
 import static xfp.java.numbers.Doubles.STORED_SIGNIFICAND_MASK;
 
-import java.math.BigInteger;
+import xfp.java.numbers.BigInteger;
 
 import xfp.java.accumulators.Accumulator;
 import xfp.java.numbers.Rational;

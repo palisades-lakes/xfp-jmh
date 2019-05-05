@@ -2,7 +2,7 @@ package xfp.jmh.scripts;
 
 import static xfp.java.numbers.Numbers.description;
 
-import java.math.BigInteger;
+import xfp.java.numbers.BigInteger;
 
 import xfp.java.numbers.Floats;
 import xfp.java.numbers.Rational;

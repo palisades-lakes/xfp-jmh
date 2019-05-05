@@ -1,7 +1,7 @@
 package xfp.jmh.scripts;
 
 import java.io.PrintStream;
-import java.math.BigInteger;
+import xfp.java.numbers.BigInteger;
 
 import com.upokecenter.numbers.EContext;
 import com.upokecenter.numbers.EFloat;

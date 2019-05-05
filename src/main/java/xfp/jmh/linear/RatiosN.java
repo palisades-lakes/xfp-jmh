@@ -15,8 +15,8 @@ import xfp.java.algebra.OneSetOneOperation;
 import xfp.java.algebra.Set;
 import xfp.java.algebra.TwoSetsOneOperation;
 import xfp.java.linear.LinearSpaceLike;
-import xfp.jmh.numbers.Ratios;
 import xfp.java.prng.Generator;
+import xfp.jmh.numbers.Ratios;
 
 /** The set of instances of <code>Ratio[dimension]</code>).
  * 

@@ -2,8 +2,6 @@ package xfp.jmh.test.numbers;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import java.math.BigInteger;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
@@ -35,8 +33,10 @@ public final class RatioTest {
   @SuppressWarnings({ "static-method" })
   @Test
   public final void equivalenceFailure () {
-    final Ratio q0 = new Ratio(BigInteger.ONE,BigInteger.ONE);
-    final Ratio q1 = new Ratio(BigInteger.TWO,BigInteger.TWO);
+    final Ratio q0 = new Ratio(
+      java.math.BigInteger.ONE,java.math.BigInteger.ONE);
+    final Ratio q1 = new Ratio(
+      java.math.BigInteger.TWO,java.math.BigInteger.TWO);
     // WRONG: this should be true, but clojure Ratio is broken.
     assertFalse(q0.equals(q1)); }
 
@@ -50,7 +50,9 @@ public final class RatioTest {
       AssertionFailedError.class,
       () -> {
         Common.doubleRoundingTests(
-          (i0,i1) -> new Ratio(i0,i1),
+          (i0,i1) -> new Ratio(
+            i0.jmBigIntegerValue(),
+            i1.jmBigIntegerValue()),
           x -> Numbers.toRatio(Double.valueOf(x)),
           q -> ((Ratio) q).doubleValue(),
           (q0,q1) -> Ratios.abs((Ratio) Numbers.minus(q0,q1)),
@@ -61,7 +63,9 @@ public final class RatioTest {
       AssertionFailedError.class,
       () -> {
         Common.floatRoundingTests(
-          (i0,i1) -> new Ratio(i0,i1),
+          (i0,i1) -> new Ratio(
+            i0.jmBigIntegerValue(),
+            i1.jmBigIntegerValue()),
           x -> Numbers.toRatio(Float.valueOf(x)),
           q -> ((Ratio) q).floatValue(),
           (q0,q1) -> Ratios.abs((Ratio) Numbers.minus(q0,q1)),

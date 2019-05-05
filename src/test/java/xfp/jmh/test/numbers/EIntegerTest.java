@@ -2,7 +2,7 @@ package xfp.jmh.test.numbers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.math.BigInteger;
+import xfp.java.numbers.BigInteger;
 
 import org.junit.jupiter.api.Test;
 

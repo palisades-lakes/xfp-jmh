@@ -4,7 +4,7 @@ import static java.lang.Double.isFinite;
 import static xfp.java.numbers.Numbers.description;
 import static xfp.java.numbers.Doubles.*;
 
-import java.math.BigInteger;
+import xfp.java.numbers.BigInteger;
 
 import xfp.java.numbers.Doubles;
 import xfp.java.numbers.Rational;

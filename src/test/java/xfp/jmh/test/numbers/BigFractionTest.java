@@ -22,7 +22,7 @@ import xfp.java.test.Common;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-22
+ * @version 2019-05-04
  */
 
 public final class BigFractionTest {
@@ -39,7 +39,9 @@ public final class BigFractionTest {
       AssertionFailedError.class,
       () -> {
         Common.doubleRoundingTests(
-          (i0,i1) -> new BigFraction(i0,i1),
+          (i0,i1) -> new BigFraction(
+            i0.jmBigIntegerValue(),
+            i1.jmBigIntegerValue()),
           x -> new BigFraction(x),
           Numbers::doubleValue,
           (q0,q1) -> ((BigFraction) q0).subtract((BigFraction) q1).abs(),
@@ -50,7 +52,9 @@ public final class BigFractionTest {
       AssertionFailedError.class,
       () -> {
         Common.floatRoundingTests(
-          (i0,i1) -> new BigFraction(i0,i1),
+          (i0,i1) -> new BigFraction(
+            i0.jmBigIntegerValue(),
+            i1.jmBigIntegerValue()),
           x -> new BigFraction(x),
           Numbers::floatValue,
           (q0,q1) -> ((BigFraction) q0).subtract((BigFraction) q1).abs(),
