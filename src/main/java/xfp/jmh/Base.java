@@ -33,11 +33,10 @@ import xfp.java.test.Common;
 /** Benchmark <code>double[]</code> sums.
  * 
  * <pre>
- * java -ea -jar target\benchmarks.jar "Dot|L2|Sum" -rf csv  -rff output\Sums.csv
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-06
+ * @version 2019-05-07
  */
 
 @SuppressWarnings("unchecked")
@@ -77,9 +76,10 @@ public abstract class Base {
 
   @Param({
     //"xfp.java.accumulators.DistilledAccumulator",
+    "xfp.java.accumulators.BigFloatAccumulator5",
     "xfp.java.accumulators.BigFloatAccumulator4",
-    "xfp.java.accumulators.BigFloatAccumulator3",
-    "xfp.java.accumulators.BigFloatAccumulator2",
+    //"xfp.java.accumulators.BigFloatAccumulator3",
+    //"xfp.java.accumulators.BigFloatAccumulator2",
     //"xfp.java.accumulators.BigFloatAccumulator1",
     //"xfp.java.accumulators.BigFloatAccumulator0",
     //"xfp.java.accumulators.ZhuHayesAccumulator",
@@ -280,7 +280,7 @@ public abstract class Base {
       .result(csv.getPath())
       .threads(1)
       .shouldFailOnError(true)
-      .shouldDoGC(true)
+      //.shouldDoGC(true)
       .build();
     new Runner(opt).run(); }
 
