@@ -36,7 +36,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-07
+ * @version 2019-05-08
  */
 
 @SuppressWarnings("unchecked")
@@ -280,7 +280,11 @@ public abstract class Base {
       .result(csv.getPath())
       .threads(1)
       .shouldFailOnError(true)
-      //.shouldDoGC(true)
+      .shouldDoGC(true)
+      .jvmArgs(
+        "-Xmx8g","-Xms8g","-Xmn3g",
+        "-XX:+UseFMA",
+        "-Xbatch","-server")
       .build();
     new Runner(opt).run(); }
 
