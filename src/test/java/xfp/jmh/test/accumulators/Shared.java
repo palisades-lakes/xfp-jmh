@@ -6,7 +6,7 @@ import java.util.List;
  * Not instantiable. Class slots/methods only.
  * 
  * @author mcdonald dot john dot alan at gmail dot com
- * @version 2019-04-16
+ * @version 2019-05-09
  */
 public final class Shared {
 
@@ -17,6 +17,9 @@ public final class Shared {
     return
       List.of(
         "xfp.java.accumulators.DoubleAccumulator",
+        "xfp.java.accumulators.BigFloatAccumulator",
+        "xfp.java.accumulators.BigFloatAccumulator5",
+        "xfp.java.accumulators.BigFloatNAccumulator",
         "xfp.java.accumulators.ZhuHayesAccumulator",
         "xfp.jmh.accumulators.IFastAccumulator",
         "xfp.jmh.accumulators.ZhuHayesGCAccumulator",
