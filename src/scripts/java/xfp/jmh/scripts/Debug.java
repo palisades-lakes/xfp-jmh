@@ -1,7 +1,7 @@
 package xfp.jmh.scripts;
 
 import java.io.PrintStream;
-import xfp.java.numbers.BigInteger;
+import java.math.BigInteger;
 
 import com.upokecenter.numbers.EContext;
 import com.upokecenter.numbers.EFloat;
@@ -16,7 +16,7 @@ import com.upokecenter.numbers.EInteger;
  * Static methods only; no state.
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-25
+ * @version 2019-05-11
  */
 
 public final class Debug {

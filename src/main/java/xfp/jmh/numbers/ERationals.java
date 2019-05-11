@@ -1,6 +1,6 @@
 package xfp.jmh.numbers;
 
-import xfp.java.numbers.BigInteger;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiPredicate;
@@ -29,7 +29,7 @@ import xfp.java.prng.Generators;
  * <code>ERational</code>
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-22
+ * @version 2019-05-111
  */
 @SuppressWarnings("unchecked")
 public final class ERationals implements Set {

@@ -20,7 +20,7 @@ import xfp.jmh.numbers.Ratios;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-22
+ * @version 2019-05-11
  */
 
 public final class RatioTest {
@@ -50,9 +50,7 @@ public final class RatioTest {
       AssertionFailedError.class,
       () -> {
         Common.doubleRoundingTests(
-          (i0,i1) -> new Ratio(
-            i0.jmBigIntegerValue(),
-            i1.jmBigIntegerValue()),
+          (i0,i1) -> new Ratio(i0,i1),
           x -> Numbers.toRatio(Double.valueOf(x)),
           q -> ((Ratio) q).doubleValue(),
           (q0,q1) -> Ratios.abs((Ratio) Numbers.minus(q0,q1)),
@@ -63,9 +61,7 @@ public final class RatioTest {
       AssertionFailedError.class,
       () -> {
         Common.floatRoundingTests(
-          (i0,i1) -> new Ratio(
-            i0.jmBigIntegerValue(),
-            i1.jmBigIntegerValue()),
+          (i0,i1) -> new Ratio(i0,i1),
           x -> Numbers.toRatio(Float.valueOf(x)),
           q -> ((Ratio) q).floatValue(),
           (q0,q1) -> Ratios.abs((Ratio) Numbers.minus(q0,q1)),

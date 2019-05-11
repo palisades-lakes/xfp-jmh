@@ -2,7 +2,7 @@ package xfp.jmh.scripts;
 
 import static xfp.java.numbers.Numbers.description;
 
-import xfp.java.numbers.BigInteger;
+import java.math.BigInteger;
 
 import xfp.java.numbers.Floats;
 import xfp.java.numbers.Rational;
@@ -20,7 +20,7 @@ import xfp.java.prng.PRNG;
  * jy --source 11 src/scripts/java/xfp/java/scripts/DivideFloat.java
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-25
+ * @version 2019-05-11
  */
 
 @SuppressWarnings("unchecked")

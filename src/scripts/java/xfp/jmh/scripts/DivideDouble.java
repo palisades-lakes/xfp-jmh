@@ -1,10 +1,14 @@
 package xfp.jmh.scripts;
 
 import static java.lang.Double.isFinite;
+import static xfp.java.numbers.Doubles.EXPONENT_MASK;
+import static xfp.java.numbers.Doubles.MINIMUM_SUBNORMAL_EXPONENT;
+import static xfp.java.numbers.Doubles.SIGN_MASK;
+import static xfp.java.numbers.Doubles.STORED_SIGNIFICAND_BITS;
+import static xfp.java.numbers.Doubles.STORED_SIGNIFICAND_MASK;
 import static xfp.java.numbers.Numbers.description;
-import static xfp.java.numbers.Doubles.*;
 
-import xfp.java.numbers.BigInteger;
+import java.math.BigInteger;
 
 import xfp.java.numbers.Doubles;
 import xfp.java.numbers.Rational;
@@ -22,7 +26,7 @@ import xfp.java.prng.PRNG;
  * jy --source 11 src/scripts/java/xfp/java/scripts/DivideDouble.java
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-30
+ * @version 2019-05-11
  */
 
 @SuppressWarnings("unchecked")

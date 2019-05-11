@@ -2,16 +2,16 @@ package xfp.jmh.test.numbers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import xfp.java.numbers.BigInteger;
+import java.math.BigInteger;
 
 import org.junit.jupiter.api.Test;
 
 import com.upokecenter.numbers.EInteger;
 
-import xfp.jmh.numbers.ERationals;
 import xfp.java.prng.Generator;
 import xfp.java.prng.Generators;
 import xfp.java.prng.PRNG;
+import xfp.jmh.numbers.ERationals;
 
 //----------------------------------------------------------------
 /** Test desired properties of EInteger. 
@@ -21,7 +21,7 @@ import xfp.java.prng.PRNG;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-05
+ * @version 2019-05-11
  */
 
 public final class EIntegerTest {

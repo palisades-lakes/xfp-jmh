@@ -27,7 +27,7 @@ import xfp.java.prng.GeneratorBase;
  * <code>Ratio</code>.
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-22
+ * @version 2019-05-11
  */
 @SuppressWarnings("unchecked")
 public final class Ratios implements Set {

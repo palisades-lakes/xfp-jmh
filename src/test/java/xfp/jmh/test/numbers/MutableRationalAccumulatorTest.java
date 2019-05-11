@@ -2,7 +2,7 @@ package xfp.jmh.test.numbers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import xfp.java.numbers.BigInteger;
+import java.math.BigInteger;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +21,7 @@ import xfp.jmh.accumulators.MutableRationalAccumulator;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-02
+ * @version 2019-05-11
  */
 
 public final class MutableRationalAccumulatorTest {

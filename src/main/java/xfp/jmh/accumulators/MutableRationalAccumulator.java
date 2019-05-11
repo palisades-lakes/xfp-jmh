@@ -7,7 +7,7 @@ import static xfp.java.numbers.Doubles.SIGN_MASK;
 import static xfp.java.numbers.Doubles.STORED_SIGNIFICAND_BITS;
 import static xfp.java.numbers.Doubles.STORED_SIGNIFICAND_MASK;
 
-import xfp.java.numbers.BigInteger;
+import java.math.BigInteger;
 
 import xfp.java.accumulators.Accumulator;
 import xfp.java.numbers.Rational;
@@ -16,7 +16,7 @@ import xfp.java.numbers.Rational;
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-21
+ * @version 2019-05-11
  */
 public final class MutableRationalAccumulator 
 
