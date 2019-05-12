@@ -36,7 +36,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-09
+ * @version 2019-05-11
  */
 
 @SuppressWarnings("unchecked")
@@ -76,15 +76,15 @@ public abstract class Base {
 
   @Param({
     //"xfp.java.accumulators.DistilledAccumulator",
-    "xfp.java.accumulators.BigFloatNAccumulator",
-    "xfp.java.accumulators.BigFloatAccumulator5",
-    //"xfp.java.accumulators.BigFloatAccumulator4",
-    //"xfp.java.accumulators.BigFloatAccumulator3",
-    //"xfp.java.accumulators.BigFloatAccumulator2",
-    //"xfp.java.accumulators.BigFloatAccumulator1",
-    //"xfp.java.accumulators.BigFloatAccumulator0",
+    "xfp.java.accumulators.BigFloatAccumulator",
+    //"xfp.jmh.accumulators.BigFloatAccumulator5",
+    //"xfp.jmh.accumulators.BigFloatAccumulator4",
+    //"xfp.jmh.accumulators.BigFloatAccumulator3",
+    //"xfp.jmh.accumulators.BigFloatAccumulator2",
+    //"xfp.jmh.accumulators.BigFloatAccumulator1",
+    //"xfp.jmh.accumulators.BigFloatAccumulator0",
     //"xfp.java.accumulators.ZhuHayesAccumulator",
-    //"xfp.jmh.accumulators.KahanAccumulator",
+    "xfp.jmh.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.ZhuHayesAccumulator0",
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
