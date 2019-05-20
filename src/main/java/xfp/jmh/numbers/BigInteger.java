@@ -6,11 +6,13 @@ import static xfp.java.numbers.Numbers.unsigned;
 
 import java.io.ObjectStreamField;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import xfp.java.numbers.Doubles;
 import xfp.java.numbers.Floats;
 import xfp.java.numbers.Numbers;
+import xfp.java.numbers.Ringlike;
 
 /** immutable arbitrary-precision integers for arbitrary precision 
  * floats.
@@ -18,12 +20,12 @@ import xfp.java.numbers.Numbers;
  * TODO: convert to purely non-negative numbers.
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-11
+ * @version 2019-05-19
  */
 
 @SuppressWarnings("hiding")
 public final class BigInteger extends Number
-implements Comparable<BigInteger> {
+implements Ringlike<BigInteger> {
 
   final int signum;
   final int[] mag;
@@ -715,6 +717,7 @@ implements Comparable<BigInteger> {
       return bigger; }
     return result; }
 
+  @Override
   public final BigInteger add (final BigInteger val) {
     if (val.signum == 0) { return this; }
     if (signum == 0) { return val; }
@@ -959,6 +962,7 @@ implements Comparable<BigInteger> {
     ////Debug.println("4result=\n" + Numbers.toHexString(r));
     return r; }
 
+  @Override
   public final BigInteger subtract (final BigInteger val) {
     if (val.signum == 0) { return this; }
     if (signum == 0) { return val.negate(); }
@@ -1650,6 +1654,7 @@ implements Comparable<BigInteger> {
    *          value to be multiplied by this BigInteger.
    * @return {@code this * val}
    */
+  @Override
   public BigInteger multiply (final BigInteger val) {
     return multiply(val,false);
   }
@@ -1951,6 +1956,7 @@ implements Comparable<BigInteger> {
    * @throws ArithmeticException
    *           if {@code val} is zero.
    */
+  @Override
   public BigInteger divide (final BigInteger val) {
     if ((val.mag.length < BURNIKEL_ZIEGLER_THRESHOLD)
       || ((mag.length
@@ -1998,13 +2004,14 @@ implements Comparable<BigInteger> {
    * @throws ArithmeticException
    *           if {@code val} is zero.
    */
-  public BigInteger[] divideAndRemainder (final BigInteger val) {
+  @Override
+  public List<BigInteger> divideAndRemainder (final BigInteger val) {
     if ((val.mag.length < BURNIKEL_ZIEGLER_THRESHOLD)
       || ((mag.length
         - val.mag.length) < BURNIKEL_ZIEGLER_OFFSET)) {
-      return divideAndRemainderKnuth(val);
+      return Arrays.asList(divideAndRemainderKnuth(val));
     }
-    return divideAndRemainderBurnikelZiegler(val);
+    return Arrays.asList(divideAndRemainderBurnikelZiegler(val));
   }
 
   /** Long division */
@@ -2358,6 +2365,7 @@ implements Comparable<BigInteger> {
    *
    * @return {@code abs(this)}
    */
+  @Override
   public BigInteger abs () {
     return (signum >= 0 ? this : this.negate());
   }
@@ -2367,6 +2375,7 @@ implements Comparable<BigInteger> {
    *
    * @return {@code -this}
    */
+  @Override
   public BigInteger negate () {
     return new BigInteger(this.mag,-this.signum);
   }
@@ -3204,6 +3213,7 @@ implements Comparable<BigInteger> {
    * @see Character#forDigit
    * @see #BigInteger(java.lang.String, int)
    */
+  @Override
   public final String toString (int radix) {
     if (signum == 0) { return "0"; }
     if ((radix < Character.MIN_RADIX)
@@ -3339,14 +3349,13 @@ implements Comparable<BigInteger> {
         (Math.log((b * LOG_TWO) / logCache[radix]) / LOG_TWO)
         - 1.0);
     final BigInteger v = getRadixConversionCache(radix,n);
-    BigInteger[] results;
-    results = u.divideAndRemainder(v);
+    List<BigInteger> results = u.divideAndRemainder(v);
 
     final int expectedDigits = 1 << n;
 
     // Now recursively build the two halves of each number.
-    toString(results[0],sb,radix,digits - expectedDigits);
-    toString(results[1],sb,radix,expectedDigits);
+    toString(results.get(0),sb,radix,digits - expectedDigits);
+    toString(results.get(1),sb,radix,expectedDigits);
   }
 
   /**
@@ -3471,6 +3480,10 @@ implements Comparable<BigInteger> {
   public final java.math.BigInteger jmBigIntegerValue () {
     return new java.math.BigInteger(toByteArray());
   }
+
+  public static final BigInteger valueOf (final java.math.BigInteger bi) {
+    return new BigInteger(bi.toByteArray()); }
+
 
   /**
    * Converts this BigInteger to a {@code long}. This
