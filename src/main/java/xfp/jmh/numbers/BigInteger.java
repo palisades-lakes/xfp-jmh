@@ -20,7 +20,7 @@ import xfp.java.numbers.Ringlike;
  * TODO: convert to purely non-negative numbers.
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-19
+ * @version 2019-05-21
  */
 
 @SuppressWarnings("hiding")
@@ -305,7 +305,7 @@ implements Ringlike<BigInteger> {
    * Character.digit}. The String may not contain any extraneous
    * characters (whitespace, for example).
    *
-   * @param val
+   * @param s
    *          String representation of BigInteger.
    * @param radix
    *          radix to be used in interpreting {@code val}.
@@ -318,96 +318,69 @@ implements Ringlike<BigInteger> {
    *           {@link Character#MAX_RADIX}, inclusive.
    * @see Character#digit
    */
-  public BigInteger (final String val, final int radix) {
-    int cursor = 0, numDigits;
-    final int len = val.length();
+  public BigInteger (final String s, 
+                     final int radix) {
+    //Debug.println("BigInteger");
+    //Debug.println("s=" + s);
+    //Debug.println("radix=" + radix);
+    final int len = s.length();
+    //Debug.println("len=" + len);
+    assert 0 < len;
+    assert Character.MIN_RADIX <= radix;
+    assert radix <= Character.MAX_RADIX;
 
-    if ((radix < Character.MIN_RADIX)
-      || (radix > Character.MAX_RADIX)) {
-      throw new NumberFormatException("Radix out of range");
-    }
-    if (len == 0) {
-      throw new NumberFormatException("Zero length BigInteger");
-    }
-
-    // Check for at most one leading sign
+    // leading sign
+    int cursor = 0;
     int sign = 1;
-    final int index1 = val.lastIndexOf('-');
-    final int index2 = val.lastIndexOf('+');
+    final int index1 = s.lastIndexOf('-');
+    final int index2 = s.lastIndexOf('+');
     if (index1 >= 0) {
       if ((index1 != 0) || (index2 >= 0)) {
-        throw new NumberFormatException(
-          "Illegal embedded sign character");
-      }
+        throw new NumberFormatException("embedded sign char"); }
       sign = -1;
-      cursor = 1;
-    }
+      cursor = 1; }
     else if (index2 >= 0) {
       if (index2 != 0) {
-        throw new NumberFormatException(
-          "Illegal embedded sign character");
-      }
-      cursor = 1;
-    }
-    if (cursor == len) {
-      throw new NumberFormatException("Zero length BigInteger");
-    }
+        throw new NumberFormatException("embedded sign char"); }
+      cursor = 1; }
+    assert (cursor != len) : "Zero length BigInteger"; 
 
-    // Skip leading zeros and compute number of digits in
-    // magnitude
     while ((cursor < len)
-      && (Character.digit(val.charAt(cursor),radix) == 0)) {
-      cursor++;
-    }
+      && (Character.digit(s.charAt(cursor),radix) == 0)) {
+      cursor++; }
+    if (cursor==len) { signum = 0; mag = ZERO.mag; return; }
 
-    if (cursor == len) {
-      signum = 0;
-      mag = ZERO.mag;
-      return;
-    }
-
-    numDigits = len - cursor;
+    final int numDigits = len-cursor;
+    //Debug.println("numDigits=" + numDigits);
     signum = sign;
 
     // Pre-allocate array of expected size. May be too large but
-    // can
-    // never be too small. Typically exact.
-    final long numBits =
-      ((numDigits * bitsPerDigit[radix]) >>> 10) + 1;
-    if ((numBits + 31) >= (1L << 32)) {
-      reportOverflow();
-    }
+    // can never be too small. Typically exact.
+    final long numBits = ((numDigits*bitsPerDigit[radix])>>>10)+1;
+    //Debug.println("numBits=" + numBits);
+    if ((numBits + 31) >= (1L << 32)) { reportOverflow(); }
     final int numWords = (int) (numBits + 31) >>> 5;
+    //Debug.println("numWords=" + numWords);
     final int[] magnitude = new int[numWords];
 
-    // Process first (potentially short) digit group
+    // first (potentially short) digit group
     int firstGroupLen = numDigits % digitsPerInt[radix];
-    if (firstGroupLen == 0) {
-      firstGroupLen = digitsPerInt[radix];
-    }
-    String group = val.substring(cursor,cursor += firstGroupLen);
-    magnitude[numWords - 1] = Integer.parseInt(group,radix);
-    if (magnitude[numWords - 1] < 0) {
-      throw new NumberFormatException("Illegal digit");
-    }
+    if (firstGroupLen == 0) { firstGroupLen = digitsPerInt[radix]; }
+    //Debug.println("firstGroupLen=" + firstGroupLen);
+    String group = s.substring(cursor,cursor += firstGroupLen);
+    magnitude[numWords-1] = Integer.parseInt(group,radix);
+    assert 0 <= magnitude[numWords-1] : "Illegal digit"; 
 
-    // Process remaining digit groups
     final int superRadix = intRadix[radix];
     int groupVal = 0;
     while (cursor < len) {
-      group = val.substring(cursor,cursor += digitsPerInt[radix]);
+      group = s.substring(cursor,cursor += digitsPerInt[radix]);
       groupVal = Integer.parseInt(group,radix);
-      if (groupVal < 0) {
-        throw new NumberFormatException("Illegal digit");
-      }
-      destructiveMulAdd(magnitude,superRadix,groupVal);
-    }
-    // Required for cases where the array was over allocated.
+      assert 0 <= groupVal : "Illegal digit"; 
+      destructiveMulAdd(magnitude,superRadix,groupVal); }
+
     mag = trustedStripLeadingZeroInts(magnitude);
-    if (mag.length >= MAX_MAG_LENGTH) {
-      checkRange();
-    }
-  }
+    if (mag.length >= MAX_MAG_LENGTH) { checkRange(); } }
 
   // bitsPerDigit in the given radix times 1024
   // Rounded up to avoid under-allocation.
@@ -969,6 +942,10 @@ implements Ringlike<BigInteger> {
     if (val.signum != signum) {
       return new BigInteger(add(mag,val.mag),signum); }
     final int cmp = compareMagnitude(val);
+//    assert 0 <= cmp :
+//      "\ncmp=" + cmp
+//      + "\nthis=" + toString(0x10)
+//      + "\nthat=" + val.toString(0x10);
     if (cmp == 0) { return ZERO; }
     int[] resultMag =
       (cmp > 0 ? subtract(mag,val.mag) : subtract(val.mag,mag));
@@ -1393,35 +1370,24 @@ implements Ringlike<BigInteger> {
 
   /**
    * Multiplies two BigIntegers using a 3-way Toom-Cook
-   * multiplication
-   * algorithm. This is a recursive divide-and-conquer algorithm
-   * which is
-   * more efficient for large numbers than what is commonly called
-   * the
-   * "grade-school" algorithm used in multiplyToLen. If the
-   * numbers to be
+   * multiplication algorithm. This is a recursive 
+   * divide-and-conquer algorithm which is more efficient for 
+   * large numbers than what is commonly called the "grade-school"
+   * algorithm used in multiplyToLen. If the numbers to be
    * multiplied have length n, the "grade-school" algorithm has an
    * asymptotic complexity of O(n^2). In contrast, 3-way Toom-Cook
-   * has a
-   * complexity of about O(n^1.465). It achieves this increased
-   * asymptotic
-   * performance by breaking each number into three parts and by
-   * doing 5
-   * multiplies instead of 9 when evaluating the product. Due to
-   * overhead
-   * (additions, shifts, and one division) in the Toom-Cook
-   * algorithm, it
-   * should only be used when both numbers are larger than a
-   * certain
-   * threshold (found experimentally). This threshold is generally
-   * larger
+   * has a complexity of about O(n^1.465). It achieves this 
+   * increased asymptotic performance by breaking each number into 
+   * three parts and by doing 5 multiplies instead of 9 when 
+   * evaluating the product. Due to overhead (additions, shifts, 
+   * and one division) in the Toom-Cook algorithm, it should only 
+   * be used when both numbers are larger than a certain threshold 
+   * (found experimentally). This threshold is generally larger
    * than that for Karatsuba multiplication, so this algorithm is
-   * generally
-   * only used when numbers become significantly larger.
+   * generally only used when numbers become significantly larger.
    *
    * The algorithm used is the "optimal" 3-way Toom-Cook algorithm
-   * outlined
-   * by Marco Bodrato.
+   * outlined by Marco Bodrato.
    *
    * See: http://bodrato.it/toom-cook/
    * http://bodrato.it/papers/#WAIFI2007
