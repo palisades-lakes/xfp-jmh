@@ -20,7 +20,7 @@ import xfp.java.numbers.Ringlike;
  * TODO: convert to purely non-negative numbers.
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-21
+ * @version 2019-05-22
  */
 
 @SuppressWarnings("hiding")
@@ -49,27 +49,18 @@ implements Ringlike<BigInteger> {
   //-------------------------------------------------------------
   // construction
   //-------------------------------------------------------------
-
-  /**
-   * Translates a byte sub-array containing the two's-complement
-   * binary
-   * representation of a BigInteger into a BigInteger. The
-   * sub-array is
-   * specified via an offset into the array and a length. The
-   * sub-array is
-   * assumed to be in <i>big-endian</i> byte-order: the most
-   * significant
-   * byte is the element at index {@code off}. The {@code val}
-   * array is
-   * assumed to be unchanged for the duration of the constructor
-   * call.
+  /** Translates a byte sub-array containing the two's-complement
+   * binary representation of a BigInteger into a BigInteger. The
+   * sub-array is specified via an offset into the array and a 
+   * length. The sub-array is assumed to be in <i>big-endian</i> 
+   * byte-order: the most significant byte is the element at index 
+   * {@code off}. The {@code val} array is assumed to be unchanged 
+   * for the duration of the constructor call.
    *
    * An {@code IndexOutOfBoundsException} is thrown if the length
-   * of the array
-   * {@code val} is non-zero and either {@code off} is negative,
-   * {@code len}
-   * is negative, or {@code off+len} is greater than the length of
-   * {@code val}.
+   * of the array {@code val} is non-zero and either {@code off} 
+   * is negative, {@code len} * is negative, or {@code off+len} is 
+   * greater than the length of {@code val}.
    *
    * @param val
    *          byte array containing a sub-array which is the
@@ -942,10 +933,10 @@ implements Ringlike<BigInteger> {
     if (val.signum != signum) {
       return new BigInteger(add(mag,val.mag),signum); }
     final int cmp = compareMagnitude(val);
-//    assert 0 <= cmp :
-//      "\ncmp=" + cmp
-//      + "\nthis=" + toString(0x10)
-//      + "\nthat=" + val.toString(0x10);
+    //    assert 0 <= cmp :
+    //      "\ncmp=" + cmp
+    //      + "\nthis=" + toString(0x10)
+    //      + "\nthat=" + val.toString(0x10);
     if (cmp == 0) { return ZERO; }
     int[] resultMag =
       (cmp > 0 ? subtract(mag,val.mag) : subtract(val.mag,mag));
@@ -1203,14 +1194,14 @@ implements Ringlike<BigInteger> {
    * significand information is only available from
    * {@code intVal}.
    */
-  static final long INFLATED = Long.MIN_VALUE;
+  public static final long INFLATED = Long.MIN_VALUE;
 
   /**
    * Package private methods used by BigDecimal code to multiply a
    * BigInteger
    * with a long. Assumes v is not equal to INFLATED.
    */
-  BigInteger multiply (long v) {
+  public final BigInteger multiply (long v) {
     if ((v == 0) || (signum == 0)) { return ZERO; }
     if (v == INFLATED) { return multiply(BigInteger.valueOf(v)); }
     final int rsign = (v > 0 ? signum : -signum);
@@ -1897,176 +1888,97 @@ implements Ringlike<BigInteger> {
   // Division
   //--------------------------------------------------------------
 
-  /** The threshold value for using Burnikel-Ziegler division. If
-   * the number of ints in the divisor are larger than this value,
-   * Burnikel-Ziegler division may be used. This value is found 
-   * experimentally to work well.
-   */
   public static final int BURNIKEL_ZIEGLER_THRESHOLD = 80;
-
-  /** The offset value for using Burnikel-Ziegler division. If the
-   * number of ints in the divisor exceeds the Burnikel-Ziegler
-   * threshold, and the number of ints in the dividend is greater 
-   * than the number of ints in the divisor plus this value, 
-   * Burnikel-Ziegler division will be used. This
-   * value is found experimentally to work well.
-   */
   public static final int BURNIKEL_ZIEGLER_OFFSET = 40;
 
-  /**
-   * Returns a BigInteger whose value is {@code (this / val)}.
-   *
-   * @param val
-   *          value by which this BigInteger is to be divided.
-   * @return {@code this / val}
-   * @throws ArithmeticException
-   *           if {@code val} is zero.
-   */
-  @Override
-  public BigInteger divide (final BigInteger val) {
-    if ((val.mag.length < BURNIKEL_ZIEGLER_THRESHOLD)
-      || ((mag.length
-        - val.mag.length) < BURNIKEL_ZIEGLER_OFFSET)) {
-      return divideKnuth(val);
-    }
-    return divideBurnikelZiegler(val);
-  }
+  private static final boolean 
+  useKnuthDivision (final BigInteger num,
+                    final BigInteger den) {
+    final int nn = num.mag.length;
+    final int nd = den.mag.length;
+    return 
+      (nd < BURNIKEL_ZIEGLER_THRESHOLD)
+      || 
+      ((nn-nd) < BURNIKEL_ZIEGLER_OFFSET); }
+  
+  //--------------------------------------------------------------
+  // Knuth algorithm
+  //--------------------------------------------------------------
 
-  /**
-   * Returns a BigInteger whose value is {@code (this / val)}
-   * using an O(n^2) algorithm from Knuth.
-   *
-   * @param val
-   *          value by which this BigInteger is to be divided.
-   * @return {@code this / val}
-   * @throws ArithmeticException
-   *           if {@code val} is zero.
-   * @see MutableBigInteger#divideKnuth(MutableBigInteger,
-   *      MutableBigInteger, boolean)
-   */
-  private BigInteger divideKnuth (final BigInteger val) {
-    final MutableBigInteger q = new MutableBigInteger(),
-      a = new MutableBigInteger(this.mag),
-      b = new MutableBigInteger(val.mag);
-
-    a.divideKnuth(b,q,false);
-    return q.toBigInteger(this.signum * val.signum);
-  }
-
-  /**
-   * Returns an array of two BigIntegers containing
-   * {@code (this / val)}
-   * followed by {@code (this % val)}.
-   *
-   * @param val
-   *          value by which this BigInteger is to be divided, and
-   *          the
-   *          remainder computed.
-   * @return an array of two BigIntegers: the quotient
-   *         {@code (this / val)}
-   *         is the initial element, and the remainder
-   *         {@code (this % val)}
-   *         is the final element.
-   * @throws ArithmeticException
-   *           if {@code val} is zero.
-   */
-  @Override
-  public List<BigInteger> divideAndRemainder (final BigInteger val) {
-    if ((val.mag.length < BURNIKEL_ZIEGLER_THRESHOLD)
-      || ((mag.length
-        - val.mag.length) < BURNIKEL_ZIEGLER_OFFSET)) {
-      return Arrays.asList(divideAndRemainderKnuth(val));
-    }
-    return Arrays.asList(divideAndRemainderBurnikelZiegler(val));
-  }
-
-  /** Long division */
-  private BigInteger[] divideAndRemainderKnuth (final BigInteger val) {
-    final BigInteger[] result = new BigInteger[2];
-    final MutableBigInteger q = new MutableBigInteger(),
-      a = new MutableBigInteger(this.mag),
-      b = new MutableBigInteger(val.mag);
-    final MutableBigInteger r = a.divideKnuth(b,q);
-    result[0] =
-      q.toBigInteger(this.signum == val.signum ? 1 : -1);
-    result[1] = r.toBigInteger(this.signum);
-    return result;
-  }
-
-  /**
-   * Returns a BigInteger whose value is {@code (this % val)}.
-   *
-   * @param val
-   *          value by which this BigInteger is to be divided, and
-   *          the
-   *          remainder computed.
-   * @return {@code this % val}
-   * @throws ArithmeticException
-   *           if {@code val} is zero.
-   */
-  public BigInteger remainder (final BigInteger val) {
-    if ((val.mag.length < BURNIKEL_ZIEGLER_THRESHOLD)
-      || ((mag.length
-        - val.mag.length) < BURNIKEL_ZIEGLER_OFFSET)) {
-      return remainderKnuth(val);
-    }
-    return remainderBurnikelZiegler(val);
-  }
-
-  /** Long division */
-  private BigInteger remainderKnuth (final BigInteger val) {
-    final MutableBigInteger q = new MutableBigInteger(),
-      a = new MutableBigInteger(this.mag),
-      b = new MutableBigInteger(val.mag);
-
-    return a.divideKnuth(b,q).toBigInteger(this.signum);
-  }
-
-  /**
-   * Calculates {@code this / val} using the Burnikel-Ziegler
-   * algorithm.
-   * 
-   * @param val
-   *          the divisor
-   * @return {@code this / val}
-   */
-  private BigInteger divideBurnikelZiegler (final BigInteger val) {
-    return divideAndRemainderBurnikelZiegler(val)[0];
-  }
-
-  /**
-   * Calculates {@code this % val} using the Burnikel-Ziegler
-   * algorithm.
-   * 
-   * @param val
-   *          the divisor
-   * @return {@code this % val}
-   */
-  private BigInteger remainderBurnikelZiegler (final BigInteger val) {
-    return divideAndRemainderBurnikelZiegler(val)[1];
-  }
-
-  /**
-   * Computes {@code this / val} and {@code this % val} using the
-   * Burnikel-Ziegler algorithm.
-   * 
-   * @param val
-   *          the divisor
-   * @return an array containing the quotient and remainder
-   */
-  private BigInteger[] divideAndRemainderBurnikelZiegler (final BigInteger val) {
+  private final BigInteger 
+  divideKnuth (final BigInteger that) {
     final MutableBigInteger q = new MutableBigInteger();
+    final MutableBigInteger a = new MutableBigInteger(this.mag);
+    final MutableBigInteger b = new MutableBigInteger(that.mag);
+    a.divideKnuth(b,q,false);
+    return q.toBigInteger(this.signum * that.signum); }
+
+  /** Long division */
+  private final BigInteger[] 
+    divideAndRemainderKnuth (final BigInteger that) {
+    final MutableBigInteger q = new MutableBigInteger();
+    final MutableBigInteger a = new MutableBigInteger(this.mag);
+    final MutableBigInteger b = new MutableBigInteger(that.mag);
+    final MutableBigInteger r = a.divideKnuth(b,q);
+    return new BigInteger[] 
+      { q.toBigInteger(this.signum * that.signum),
+        r.toBigInteger(this.signum), }; }
+
+  private final BigInteger remainderKnuth (final BigInteger that) {
+    final MutableBigInteger q = new MutableBigInteger();
+    final MutableBigInteger a = new MutableBigInteger(this.mag);
+    final MutableBigInteger b = new MutableBigInteger(that.mag);
+    final MutableBigInteger r = a.divideKnuth(b,q);
+    return r.toBigInteger(this.signum); }
+
+  //--------------------------------------------------------------
+
+  private final BigInteger[] 
+    divideAndRemainderBurnikelZiegler (final BigInteger that) {
+    final MutableBigInteger q = new MutableBigInteger();
+    final MutableBigInteger num = new MutableBigInteger(this);
+    final MutableBigInteger den = new MutableBigInteger(that);
     final MutableBigInteger r =
-      new MutableBigInteger(this)
-      .divideAndRemainderBurnikelZiegler(
-        new MutableBigInteger(val),q);
+      num.divideAndRemainderBurnikelZiegler(den,q);
     final BigInteger qBigInt =
-      q.isZero() ? ZERO : q.toBigInteger(signum * val.signum);
+      q.isZero() ? ZERO : q.toBigInteger(signum * that.signum);
     final BigInteger rBigInt =
       r.isZero() ? ZERO : r.toBigInteger(signum);
-    return new BigInteger[] { qBigInt, rBigInt };
-  }
+    return new BigInteger[] { qBigInt, rBigInt }; }
 
+  private final BigInteger 
+  divideBurnikelZiegler (final BigInteger that) {
+    return divideAndRemainderBurnikelZiegler(that)[0]; }
+
+  private final BigInteger 
+  remainderBurnikelZiegler (final BigInteger that) {
+    return divideAndRemainderBurnikelZiegler(that)[1]; }
+
+  //--------------------------------------------------------------
+  // division Ringlike api
+  //--------------------------------------------------------------
+
+  @Override
+  public final BigInteger 
+  divide (final BigInteger that) {
+    if (useKnuthDivision(this,that)) { return divideKnuth(that); }
+    return divideBurnikelZiegler(that); }
+
+  @Override
+  public List<BigInteger> 
+  divideAndRemainder (final BigInteger that) {
+    if (useKnuthDivision(this,that)) {
+      return Arrays.asList(divideAndRemainderKnuth(that)); }
+    return 
+      Arrays.asList(divideAndRemainderBurnikelZiegler(that)); }
+
+  @Override
+  public final BigInteger remainder (final BigInteger that) {
+    if (useKnuthDivision(this,that)) {
+      return remainderKnuth(that); }
+    return remainderBurnikelZiegler(that); }
+
+  //--------------------------------------------------------------
   /**
    * Returns a BigInteger whose value is
    * <code>(this<sup>exponent</sup>)</code>.

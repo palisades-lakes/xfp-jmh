@@ -6,7 +6,7 @@ import xfp.java.numbers.Numbers;
 
 class MutableBigInteger {
   /**
-   * Holds the magnitude of this MutableBigInteger in big endian order.
+   * Holds the magnitude of this MutableUnNatural in big endian order.
    * The magnitude may start at an offset into the value array, and it may
    * end before the length of the value array.
    */
@@ -14,20 +14,20 @@ class MutableBigInteger {
 
   /**
    * The number of ints of the value array that are currently used
-   * to hold the magnitude of this MutableBigInteger. The magnitude starts
+   * to hold the magnitude of this MutableUnNatural. The magnitude starts
    * at an offset and offset + intLen may be less than value.length.
    */
   int intLen;
 
   /**
    * The offset into the value array where the magnitude of this
-   * MutableBigInteger begins.
+   * MutableUnNatural begins.
    */
   int offset = 0;
 
   // Constants
   /**
-   * MutableBigInteger with one element value array with the value 1. Used by
+   * MutableUnNatural with one element value array with the value 1. Used by
    * BigDecimal divideAndRound to increment the quotient. Use this constant
    * only when the method is not going to modify this object.
    */
@@ -54,7 +54,7 @@ class MutableBigInteger {
   // Constructors
 
   /**
-   * The default constructor. An empty MutableBigInteger is created with
+   * The default constructor. An empty MutableUnNatural is created with
    * a one word capacity.
    */
   MutableBigInteger() {
@@ -63,7 +63,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Construct a new MutableBigInteger with a magnitude specified by
+   * Construct a new MutableUnNatural with a magnitude specified by
    * the int val.
    */
   MutableBigInteger(final int val) {
@@ -73,7 +73,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Construct a new MutableBigInteger with the specified value array
+   * Construct a new MutableUnNatural with the specified value array
    * up to the length of the array supplied.
    */
   MutableBigInteger(final int[] val) {
@@ -82,7 +82,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Construct a new MutableBigInteger with a magnitude equal to the
+   * Construct a new MutableUnNatural with a magnitude equal to the
    * specified BigInteger.
    */
   MutableBigInteger(final BigInteger b) {
@@ -91,10 +91,10 @@ class MutableBigInteger {
   }
 
   /**
-   * Construct a new MutableBigInteger with a magnitude equal to the
-   * specified MutableBigInteger.
+   * Construct a new MutableUnNatural with a magnitude equal to the
+   * specified MutableUnNatural.
    */
-  MutableBigInteger(final MutableBigInteger val) {
+  private MutableBigInteger(final MutableBigInteger val) {
     intLen = val.intLen;
     value = Arrays.copyOfRange(val.value, val.offset, val.offset + intLen);
   }
@@ -125,21 +125,17 @@ class MutableBigInteger {
     return value;
   }
 
-  /**
-   * Convert this MutableBigInteger to a long value. The caller has to make
-   * sure this MutableBigInteger can be fit into long.
-   */
-  private long toLong() {
-    assert (intLen <= 2) : "this MutableBigInteger exceeds the range of long";
-    if (intLen == 0) {
-      return 0;
-    }
-    final long d = value[offset] & Numbers.UNSIGNED_MASK;
-    return (intLen == 2) ? (d << 32) | (value[offset + 1] & Numbers.UNSIGNED_MASK) : d;
-  }
+  //  private final long toLong() {
+  //    assert (intLen <= 2) : "this MutableUnNatural exceeds the range of long";
+  //    if (intLen == 0) { return 0; }
+  //    final long d = value[offset] & Numbers.UNSIGNED_MASK;
+  //    return 
+  //      ((intLen == 2) 
+  //        ? (d << 32) | (value[offset + 1] & Numbers.UNSIGNED_MASK) 
+  //          : d); }
 
   /**
-   * Convert this MutableBigInteger to a BigInteger object.
+   * Convert this MutableUnNatural to a BigInteger object.
    */
   BigInteger toBigInteger(final int sign) {
     if ((intLen == 0) || (sign == 0)) {
@@ -159,7 +155,7 @@ class MutableBigInteger {
 
 
   /**
-   * This is for internal use in converting from a MutableBigInteger
+   * This is for internal use in converting from a MutableUnNatural
    * object into a long value given a specified sign.
    * returns INFLATED if value is not fit into long
    */
@@ -170,7 +166,7 @@ class MutableBigInteger {
     final int[] mag = getMagnitudeArray();
     final int len = mag.length;
     final int d = mag[0];
-    // If this MutableBigInteger can not be fitted into long, we need to
+    // If this MutableUnNatural can not be fitted into long, we need to
     // make a BigInteger object for the resultant BigDecimal object.
     if ((len > 2) || ((d < 0) && (len == 2))) {
       return BigInteger.INFLATED;
@@ -182,7 +178,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Clear out a MutableBigInteger for reuse.
+   * Clear out a MutableUnNatural for reuse.
    */
   void clear() {
     offset = intLen = 0;
@@ -192,7 +188,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Set a MutableBigInteger to zero, removing its offset.
+   * Set a MutableUnNatural to zero, removing its offset.
    */
   void reset() {
     offset = intLen = 0;
@@ -200,7 +196,7 @@ class MutableBigInteger {
 
   /**
    * Compare the magnitude of two MutableBigIntegers. Returns -1, 0 or 1
-   * as this MutableBigInteger is numerically less than, equal to, or
+   * as this MutableUnNatural is numerically less than, equal to, or
    * greater than {@code b}.
    */
   final int compare(final MutableBigInteger b) {
@@ -259,7 +255,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Compare this against half of a MutableBigInteger object (Needed for
+   * Compare this against half of a MutableUnNatural object (Needed for
    * remainder tests).
    * Assumes no leading unnecessary zeros, which holds for results
    * from divide().
@@ -305,8 +301,8 @@ class MutableBigInteger {
   }
 
   /**
-   * Return the index of the lowest set bit in this MutableBigInteger. If the
-   * magnitude of this MutableBigInteger is zero, -1 is returned.
+   * Return the index of the lowest set bit in this MutableUnNatural. If the
+   * magnitude of this MutableUnNatural is zero, -1 is returned.
    */
   private final int getLowestSetBit() {
     if (intLen == 0) {
@@ -322,7 +318,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Ensure that the MutableBigInteger is in normal form, specifically
+   * Ensure that the MutableUnNatural is in normal form, specifically
    * making sure that there are no leading zeros, and that if the
    * magnitude is zero, then intLen is zero.
    */
@@ -348,8 +344,8 @@ class MutableBigInteger {
   }
 
   /**
-   * Convert this MutableBigInteger into an int array with no leading
-   * zeros, of a length that is equal to this MutableBigInteger's intLen.
+   * Convert this MutableUnNatural into an int array with no leading
+   * zeros, of a length that is equal to this MutableUnNatural's intLen.
    */
   int[] toIntArray() {
     final int[] result = new int[intLen];
@@ -360,7 +356,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Sets the int at index+offset in this MutableBigInteger to val.
+   * Sets the int at index+offset in this MutableUnNatural to val.
    * This does not get inlined on all platforms so it is not used
    * as often as originally intended.
    */
@@ -369,7 +365,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Sets this MutableBigInteger's value array to the specified array.
+   * Sets this MutableUnNatural's value array to the specified array.
    * The intLen is set to the specified length.
    */
   void setValue(final int[] val, final int length) {
@@ -379,7 +375,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Sets this MutableBigInteger's value array to a copy of the specified
+   * Sets this MutableUnNatural's value array to a copy of the specified
    * array. The intLen is set to the length of the new array.
    */
   void copyValue(final MutableBigInteger src) {
@@ -393,7 +389,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Sets this MutableBigInteger's value array to a copy of the specified
+   * Sets this MutableUnNatural's value array to a copy of the specified
    * array. The intLen is set to the length of the specified array.
    */
   void copyValue(final int[] val) {
@@ -407,36 +403,36 @@ class MutableBigInteger {
   }
 
   /**
-   * Returns true iff this MutableBigInteger has a value of one.
+   * Returns true iff this MutableUnNatural has a value of one.
    */
   boolean isOne() {
     return (intLen == 1) && (value[offset] == 1);
   }
 
   /**
-   * Returns true iff this MutableBigInteger has a value of zero.
+   * Returns true iff this MutableUnNatural has a value of zero.
    */
   boolean isZero() {
     return (intLen == 0);
   }
 
   /**
-   * Returns true iff this MutableBigInteger is even.
+   * Returns true iff this MutableUnNatural is even.
    */
   boolean isEven() {
     return (intLen == 0) || ((value[(offset + intLen) - 1] & 1) == 0);
   }
 
   /**
-   * Returns true iff this MutableBigInteger is odd.
+   * Returns true iff this MutableUnNatural is odd.
    */
   boolean isOdd() {
     return isZero() ? false : ((value[(offset + intLen) - 1] & 1) == 1);
   }
 
   /**
-   * Returns true iff this MutableBigInteger is in normal form. A
-   * MutableBigInteger is in normal form if it has no leading zeros
+   * Returns true iff this MutableUnNatural is in normal form. A
+   * MutableUnNatural is in normal form if it has no leading zeros
    * after the offset, and intLen + offset <= value.length.
    */
   boolean isNormal() {
@@ -450,7 +446,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Returns a String representation of this MutableBigInteger in radix 10.
+   * Returns a String representation of this MutableUnNatural in radix 10.
    */
   @Override
   public String toString() {
@@ -470,7 +466,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Right shift this MutableBigInteger n bits. The MutableBigInteger is left
+   * Right shift this MutableUnNatural n bits. The MutableUnNatural is left
    * in normal form.
    */
   void rightShift(final int n) {
@@ -502,11 +498,11 @@ class MutableBigInteger {
   }
 
   /**
-   * Left shift this MutableBigInteger n bits.
+   * Left shift this MutableUnNatural n bits.
    */
   void leftShift(final int n) {
     /*
-     * If there is enough storage space in this MutableBigInteger already
+     * If there is enough storage space in this MutableUnNatural already
      * the available space will be used. Space to the right of the used
      * ints in the value array is faster to utilize, so the extra space
      * will be taken from the right if possible.
@@ -619,7 +615,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Right shift this MutableBigInteger n bits, where n is
+   * Right shift this MutableUnNatural n bits, where n is
    * less than 32.
    * Assumes that intLen > 0, n > 0 for speed
    */
@@ -635,7 +631,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Left shift this MutableBigInteger n bits, where n is
+   * Left shift this MutableUnNatural n bits, where n is
    * less than 32.
    * Assumes that intLen > 0, n > 0 for speed
    */
@@ -681,8 +677,8 @@ class MutableBigInteger {
   }
 
   /**
-   * Adds the contents of two MutableBigInteger objects.The result
-   * is placed within this MutableBigInteger.
+   * Adds the contents of two MutableUnNatural objects.The result
+   * is placed within this MutableUnNatural.
    * The contents of the addend are not changed.
    */
   void add(final MutableBigInteger addend) {
@@ -807,7 +803,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Like {@link #addShifted(MutableBigInteger, int)} but {@code this.intLen} must
+   * Like {@link #addShifted(MutableUnNatural, int)} but {@code this.intLen} must
    * not be greater than {@code n}. In other words, concatenates {@code this}
    * and {@code addend}.
    */
@@ -863,7 +859,7 @@ class MutableBigInteger {
 
   /**
    * Subtracts the smaller of this and b from the larger and places the
-   * result into this MutableBigInteger.
+   * result into this MutableUnNatural.
    */
   int subtract(MutableBigInteger b) {
     MutableBigInteger a = this;
@@ -953,8 +949,8 @@ class MutableBigInteger {
   }
 
   /**
-   * Multiply the contents of two MutableBigInteger objects. The result is
-   * placed into MutableBigInteger z. The contents of y are not changed.
+   * Multiply the contents of two MutableUnNatural objects. The result is
+   * placed into MutableUnNatural z. The contents of y are not changed.
    */
   void multiply(final MutableBigInteger y, final MutableBigInteger z) {
     final int xLen = intLen;
@@ -996,7 +992,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Multiply the contents of this MutableBigInteger by the word y. The
+   * Multiply the contents of this MutableUnNatural by the word y. The
    * result is placed into z.
    */
   void mul(final int y, final MutableBigInteger z) {
@@ -1099,7 +1095,7 @@ class MutableBigInteger {
 
   /**
    * Calculates the quotient of this div b and places the quotient in the
-   * provided MutableBigInteger objects and the remainder object is returned.
+   * provided MutableUnNatural objects and the remainder object is returned.
    *
    */
   MutableBigInteger divide(final MutableBigInteger b, final MutableBigInteger quotient) {
@@ -1115,76 +1111,70 @@ class MutableBigInteger {
   }
 
   /**
-   * @see #divideKnuth(MutableBigInteger, MutableBigInteger, boolean)
+   * @see #divideKnuth(MutableUnNatural, MutableUnNatural, boolean)
    */
   MutableBigInteger divideKnuth(final MutableBigInteger b, final MutableBigInteger quotient) {
     return divideKnuth(b,quotient,true);
   }
 
-  /**
-   * Calculates the quotient of this div b and places the quotient in the
-   * provided MutableBigInteger objects and the remainder object is returned.
+  /** Calculates the quotient of this div b and places the 
+   * quotient in the provided MutableUnNatural objects and the 
+   * remainder object is returned.
    *
    * Uses Algorithm D in Knuth section 4.3.1.
-   * Many optimizations to that algorithm have been adapted from the Colin
-   * Plumb C library.
-   * It special cases one word divisors for speed. The content of b is not
-   * changed.
-   *
+   * Many optimizations to that algorithm have been adapted from 
+   * the Colin Plumb C library.
+   * It special cases one word divisors for speed. The content of 
+   * b is not changed.
    */
-  MutableBigInteger divideKnuth(MutableBigInteger b, final MutableBigInteger quotient, final boolean needRemainder) {
-    if (b.intLen == 0) {
-      throw new ArithmeticException("BigInteger divide by zero");
-    }
-
+  public final MutableBigInteger 
+  divideKnuth (final MutableBigInteger b, 
+                                              final MutableBigInteger quotient, 
+                                              final boolean needRemainder) {
+    assert 0 != b.intLen;
     // Dividend is zero
     if (intLen == 0) {
-      quotient.intLen = quotient.offset = 0;
-      return needRemainder ? new MutableBigInteger() : null;
-    }
+      quotient.intLen = 0;
+      quotient.offset = 0;
+      return needRemainder ? new MutableBigInteger() : null; }
 
     final int cmp = compare(b);
     // Dividend less than divisor
     if (cmp < 0) {
-      quotient.intLen = quotient.offset = 0;
-      return needRemainder ? new MutableBigInteger(this) : null;
-    }
+      quotient.intLen = 0;
+      quotient.offset = 0;
+      return needRemainder ? new MutableBigInteger(this) : null; }
     // Dividend equal to divisor
     if (cmp == 0) {
-      quotient.value[0] = quotient.intLen = 1;
+      quotient.value[0] = 1;
+      quotient.intLen = 1;
       quotient.offset = 0;
-      return needRemainder ? new MutableBigInteger() : null;
-    }
+      return needRemainder ? new MutableBigInteger() : null; }
 
     quotient.clear();
     // Special case one word divisor
     if (b.intLen == 1) {
       final int r = divideOneWord(b.value[b.offset], quotient);
       if(needRemainder) {
-        if (r == 0) {
-          return new MutableBigInteger();
-        }
-        return new MutableBigInteger(r);
-      }
-      return null;
-    }
+        if (r == 0) { return new MutableBigInteger(); }
+        return new MutableBigInteger(r); }
+      return null; }
 
-    // Cancel common powers of two if we're above the KNUTH_POW2_* thresholds
+    // Cancel common powers of two if we're above the 
+    // KNUTH_POW2_* thresholds
     if (intLen >= KNUTH_POW2_THRESH_LEN) {
-      final int trailingZeroBits = Math.min(getLowestSetBit(), b.getLowestSetBit());
+      final int trailingZeroBits = 
+        Math.min(getLowestSetBit(), b.getLowestSetBit());
       if (trailingZeroBits >= (KNUTH_POW2_THRESH_ZEROS*32)) {
-        final MutableBigInteger a = new MutableBigInteger(this);
-        b = new MutableBigInteger(b);
-        a.rightShift(trailingZeroBits);
-        b.rightShift(trailingZeroBits);
-        final MutableBigInteger r = a.divideKnuth(b, quotient);
+        final MutableBigInteger aa = new MutableBigInteger(this);
+        final MutableBigInteger bb = new MutableBigInteger(b);
+        aa.rightShift(trailingZeroBits);
+        bb.rightShift(trailingZeroBits);
+        final MutableBigInteger r = aa.divideKnuth(bb, quotient);
         r.leftShift(trailingZeroBits);
-        return r;
-      }
-    }
+        return r; } }
 
-    return divideMagnitude(b, quotient, needRemainder);
-  }
+    return divideMagnitude(b, quotient, needRemainder); }
 
   /**
    * Computes {@code this/b} and {@code this%b} using the
@@ -1197,7 +1187,9 @@ class MutableBigInteger {
    * @param quotient output parameter for {@code this/b}
    * @return the remainder
    */
-  MutableBigInteger divideAndRemainderBurnikelZiegler(final MutableBigInteger b, final MutableBigInteger quotient) {
+  public final MutableBigInteger 
+  divideAndRemainderBurnikelZiegler (final MutableBigInteger b, 
+                                     final MutableBigInteger quotient) {
     final int r = intLen;
     final int s = b.intLen;
 
@@ -1297,7 +1289,8 @@ class MutableBigInteger {
    * @param quotient output parameter for {@code this/b}
    * @return {@code this%b}
    */
-  private MutableBigInteger divide3n2n(final MutableBigInteger b, final MutableBigInteger quotient) {
+  private MutableBigInteger divide3n2n (final MutableBigInteger b, 
+                                        final MutableBigInteger quotient) {
     final int n = b.intLen / 2;   // half the length of b in ints
 
     // step 1: view this as [a1,a2,a3] where each ai is n ints or less; let a12=[a1,a2]
@@ -1347,7 +1340,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Returns a {@code MutableBigInteger} containing {@code blockLength} ints from
+   * Returns a {@code MutableUnNatural} containing {@code blockLength} ints from
    * {@code this} number, starting at {@code index*blockLength}.<br/>
    * Used by Burnikel-Ziegler division.
    * @param index the block index
@@ -1371,67 +1364,61 @@ class MutableBigInteger {
       return new MutableBigInteger();
     }
 
-    final int[] newVal = Arrays.copyOfRange(value, (offset+intLen)-blockEnd, (offset+intLen)-blockStart);
+    final int[] newVal = 
+      Arrays.copyOfRange(
+        value, 
+        (offset+intLen)-blockEnd, 
+        (offset+intLen)-blockStart);
     return new MutableBigInteger(newVal);
   }
 
   /** @see BigInteger#bitLength() */
-  long bitLength() {
-    if (intLen == 0) {
-      return 0;
-    }
-    return (intLen*32L) - Integer.numberOfLeadingZeros(value[offset]);
-  }
+  private final long bitLength() {
+    if (intLen == 0) { return 0; }
+    return (intLen*32L) - Integer.numberOfLeadingZeros(value[offset]); }
 
-  /**
-   * Internally used  to calculate the quotient of this div v and places the
-   * quotient in the provided MutableBigInteger object and the remainder is
-   * returned.
-   *
-   * @return the remainder of the division will be returned.
-   */
-  long divide(long v, final MutableBigInteger quotient) {
-    if (v == 0) {
-      throw new ArithmeticException("BigInteger divide by zero");
-    }
+  //  /** Internally used  to calculate the quotient of this div v and
+  //   * places the quotient in the provided MutableUnNatural object 
+  //   * and the remainder is returned.
+  //   *
+  //   * @return the remainder of the division will be returned.
+  //   */
+  //  private final long divide (long v, final MutableUnNatural quotient) {
+  //    assert 0 != v;
+  //    if (intLen == 0) {
+  //      quotient.intLen = quotient.offset = 0;
+  //      return 0; }
+  //    if (v < 0) { v = -v; }
+  //
+  //    final int d = (int) (v >>> 32);
+  //    quotient.clear();
+  //    // Special case on word divisor
+  //    if (d == 0) {
+  //      return 
+  //        divideOneWord((int)v, quotient) & Numbers.UNSIGNED_MASK; }
+  //    return divideLongMagnitude(v, quotient).toLong(); }
 
-    // Dividend is zero
-    if (intLen == 0) {
-      quotient.intLen = quotient.offset = 0;
-      return 0;
-    }
-    if (v < 0) {
-      v = -v;
-    }
-
-    final int d = (int)(v >>> 32);
-    quotient.clear();
-    // Special case on word divisor
-    if (d == 0) {
-      return divideOneWord((int)v, quotient) & Numbers.UNSIGNED_MASK;
-    }
-    return divideLongMagnitude(v, quotient).toLong();
-  }
-
-  private static void copyAndShift(final int[] src, int srcFrom, final int srcLen, final int[] dst, final int dstFrom, final int shift) {
+  private static final void copyAndShift (final int[] src, 
+                                          int srcFrom, 
+                                          final int srcLen, 
+                                          final int[] dst, 
+                                          final int dstFrom, 
+                                          final int shift) {
     final int n2 = 32 - shift;
     int c=src[srcFrom];
     for (int i=0; i < (srcLen-1); i++) {
       final int b = c;
       c = src[++srcFrom];
-      dst[dstFrom+i] = (b << shift) | (c >>> n2);
-    }
-    dst[(dstFrom+srcLen)-1] = c << shift;
-  }
+      dst[dstFrom+i] = (b << shift) | (c >>> n2); }
+    dst[(dstFrom+srcLen)-1] = c << shift; }
 
-  /**
-   * Divide this MutableBigInteger by the divisor.
-   * The quotient will be placed into the provided quotient object &
-   * the remainder object is returned.
+  /** Divide this MutableUnNatural by the divisor.
+   * The quotient will be placed into the provided quotient object
+   * and the remainder object is returned.
    */
-  private MutableBigInteger divideMagnitude(final MutableBigInteger div,
-                                            final MutableBigInteger quotient,
-                                            final boolean needRemainder ) {
+  private final MutableBigInteger divideMagnitude (final MutableBigInteger div,
+                                                   final MutableBigInteger quotient,
+                                                   final boolean needRemainder ) {
     // assert div.intLen > 1
     // D1 normalize the divisor
     final int shift = Integer.numberOfLeadingZeros(div.value[div.offset]);
@@ -1557,6 +1544,7 @@ class MutableBigInteger {
       // Store the quotient digit
       q[j] = qhat;
     } // D7 loop on j
+
     // D3 Calculate qhat
     // estimate qhat
     int qhat = 0;
@@ -1636,174 +1624,170 @@ class MutableBigInteger {
     return needRemainder ? rem : null;
   }
 
-  /**
-   * Divide this MutableBigInteger by the divisor represented by positive long
-   * value. The quotient will be placed into the provided quotient object &
-   * the remainder object is returned.
-   */
-  private MutableBigInteger divideLongMagnitude(long ldivisor, final MutableBigInteger quotient) {
-    // Remainder starts as dividend with space for a leading zero
-    final MutableBigInteger rem = new MutableBigInteger(new int[intLen + 1]);
-    System.arraycopy(value, offset, rem.value, 1, intLen);
-    rem.intLen = intLen;
-    rem.offset = 1;
+  //  /** Divide this MutableUnNatural by the divisor represented by 
+  //   * positive long value. The quotient will be placed into the 
+  //   * provided quotient object & the remainder object is returned.
+  //   */
+  //  private final MutableUnNatural 
+  //  divideLongMagnitude (long ldivisor, 
+  //                       final MutableUnNatural quotient) {
+  //    // Remainder starts as dividend with space for a leading zero
+  //    final MutableUnNatural rem = new MutableUnNatural(new int[intLen + 1]);
+  //    System.arraycopy(value, offset, rem.value, 1, intLen);
+  //    rem.intLen = intLen;
+  //    rem.offset = 1;
+  //
+  //    final int nlen = rem.intLen;
+  //
+  //    final int limit = (nlen - 2) + 1;
+  //    if (quotient.value.length < limit) {
+  //      quotient.value = new int[limit];
+  //      quotient.offset = 0;
+  //    }
+  //    quotient.intLen = limit;
+  //    final int[] q = quotient.value;
+  //
+  //    // D1 normalize the divisor
+  //    final int shift = Long.numberOfLeadingZeros(ldivisor);
+  //    if (shift > 0) {
+  //      ldivisor<<=shift;
+  //      rem.leftShift(shift);
+  //    }
+  //
+  //    // Must insert leading 0 in rem if its length did not change
+  //    if (rem.intLen == nlen) {
+  //      rem.offset = 0;
+  //      rem.value[0] = 0;
+  //      rem.intLen++;
+  //    }
+  //
+  //    final int dh = (int)(ldivisor >>> 32);
+  //    final long dhLong = dh & Numbers.UNSIGNED_MASK;
+  //    final int dl = (int)(ldivisor & Numbers.UNSIGNED_MASK);
+  //
+  //    // D2 Initialize j
+  //    for (int j = 0; j < limit; j++) {
+  //      // D3 Calculate qhat
+  //      // estimate qhat
+  //      int qhat = 0;
+  //      int qrem = 0;
+  //      boolean skipCorrection = false;
+  //      final int nh = rem.value[j + rem.offset];
+  //      final int nh2 = nh + 0x80000000;
+  //      final int nm = rem.value[j + 1 + rem.offset];
+  //
+  //      if (nh == dh) {
+  //        qhat = ~0;
+  //        qrem = nh + nm;
+  //        skipCorrection = (qrem + 0x80000000) < nh2;
+  //      } else {
+  //        final long nChunk = (((long) nh) << 32) | (nm & Numbers.UNSIGNED_MASK);
+  //        if (nChunk >= 0) {
+  //          qhat = (int) (nChunk / dhLong);
+  //          qrem = (int) (nChunk - (qhat * dhLong));
+  //        } else {
+  //          final long tmp = divWord(nChunk, dh);
+  //          qhat =(int)(tmp & Numbers.UNSIGNED_MASK);
+  //          qrem = (int)(tmp>>>32);
+  //        }
+  //      }
+  //
+  //      if (qhat == 0) {
+  //        continue;
+  //      }
+  //
+  //      if (!skipCorrection) { // Correct qhat
+  //        final long nl = rem.value[j + 2 + rem.offset] & Numbers.UNSIGNED_MASK;
+  //        long rs = ((qrem & Numbers.UNSIGNED_MASK) << 32) | nl;
+  //        long estProduct = (dl & Numbers.UNSIGNED_MASK) * (qhat & Numbers.UNSIGNED_MASK);
+  //
+  //        if (unsignedLongCompare(estProduct, rs)) {
+  //          qhat--;
+  //          qrem = (int) ((qrem & Numbers.UNSIGNED_MASK) + dhLong);
+  //          if ((qrem & Numbers.UNSIGNED_MASK) >= dhLong) {
+  //            estProduct -= (dl & Numbers.UNSIGNED_MASK);
+  //            rs = ((qrem & Numbers.UNSIGNED_MASK) << 32) | nl;
+  //            if (unsignedLongCompare(estProduct, rs)) {
+  //              qhat--;
+  //            }
+  //          }
+  //        }
+  //      }
+  //
+  //      // D4 Multiply and subtract
+  //      rem.value[j + rem.offset] = 0;
+  //      final int borrow = mulsubLong(rem.value, dh, dl, qhat,  j + rem.offset);
+  //
+  //      // D5 Test remainder
+  //      if ((borrow + 0x80000000) > nh2) {
+  //        // D6 Add back
+  //        divaddLong(dh,dl, rem.value, j + 1 + rem.offset);
+  //        qhat--;
+  //      }
+  //
+  //      // Store the quotient digit
+  //      q[j] = qhat;
+  //    } // D7 loop on j
+  //
+  //    // D8 Unnormalize
+  //    if (shift > 0) {
+  //      rem.rightShift(shift);
+  //    }
+  //
+  //    quotient.normalize();
+  //    rem.normalize();
+  //    return rem;
+  //  }
 
-    final int nlen = rem.intLen;
+  //  /** A primitive used for division by long.
+  //   * Specialized version of the method divadd.
+  //   * dh is a high part of the divisor, dl is a low part
+  //   */
+  //  private static final int divaddLong(final int dh, 
+  //                                      final int dl, 
+  //                                      final int[] result, 
+  //                                      final int offset) {
+  //    long carry = 0;
+  //
+  //    long sum = (dl & Numbers.UNSIGNED_MASK) + (result[1+offset] & Numbers.UNSIGNED_MASK);
+  //    result[1+offset] = (int)sum;
+  //
+  //    sum = (dh & Numbers.UNSIGNED_MASK) + (result[offset] & Numbers.UNSIGNED_MASK) + carry;
+  //    result[offset] = (int)sum;
+  //    carry = (sum >>> 32);
+  //    return (int)carry; }
 
-    final int limit = (nlen - 2) + 1;
-    if (quotient.value.length < limit) {
-      quotient.value = new int[limit];
-      quotient.offset = 0;
-    }
-    quotient.intLen = limit;
-    final int[] q = quotient.value;
+  //  /** This method is used for division by long.
+  //   * Specialized version of the method sulsub.
+  //   * dh is a high part of the divisor, dl is a low part
+  //   */
+  //  private static final int mulsubLong(final int[] q, 
+  //                                      final int dh, 
+  //                                      final int dl, 
+  //                                      final int x, 
+  //                                      int offset1) {
+  //    final long xLong = x & Numbers.UNSIGNED_MASK;
+  //    offset1 += 2;
+  //    long product = (dl & Numbers.UNSIGNED_MASK) * xLong;
+  //    long difference = q[offset1] - product;
+  //    q[offset1--] = (int)difference;
+  //    long carry = (product >>> 32)
+  //      + (((difference & Numbers.UNSIGNED_MASK) >
+  //      (((~(int)product) & Numbers.UNSIGNED_MASK))) ? 1:0);
+  //    product = ((dh & Numbers.UNSIGNED_MASK) * xLong) + carry;
+  //    difference = q[offset1] - product;
+  //    q[offset1--] = (int)difference;
+  //    carry = (product >>> 32)
+  //      + (((difference & Numbers.UNSIGNED_MASK) >
+  //      (((~(int)product) & Numbers.UNSIGNED_MASK))) ? 1:0);
+  //    return (int)carry; }
 
-    // D1 normalize the divisor
-    final int shift = Long.numberOfLeadingZeros(ldivisor);
-    if (shift > 0) {
-      ldivisor<<=shift;
-      rem.leftShift(shift);
-    }
-
-    // Must insert leading 0 in rem if its length did not change
-    if (rem.intLen == nlen) {
-      rem.offset = 0;
-      rem.value[0] = 0;
-      rem.intLen++;
-    }
-
-    final int dh = (int)(ldivisor >>> 32);
-    final long dhLong = dh & Numbers.UNSIGNED_MASK;
-    final int dl = (int)(ldivisor & Numbers.UNSIGNED_MASK);
-
-    // D2 Initialize j
-    for (int j = 0; j < limit; j++) {
-      // D3 Calculate qhat
-      // estimate qhat
-      int qhat = 0;
-      int qrem = 0;
-      boolean skipCorrection = false;
-      final int nh = rem.value[j + rem.offset];
-      final int nh2 = nh + 0x80000000;
-      final int nm = rem.value[j + 1 + rem.offset];
-
-      if (nh == dh) {
-        qhat = ~0;
-        qrem = nh + nm;
-        skipCorrection = (qrem + 0x80000000) < nh2;
-      } else {
-        final long nChunk = (((long) nh) << 32) | (nm & Numbers.UNSIGNED_MASK);
-        if (nChunk >= 0) {
-          qhat = (int) (nChunk / dhLong);
-          qrem = (int) (nChunk - (qhat * dhLong));
-        } else {
-          final long tmp = divWord(nChunk, dh);
-          qhat =(int)(tmp & Numbers.UNSIGNED_MASK);
-          qrem = (int)(tmp>>>32);
-        }
-      }
-
-      if (qhat == 0) {
-        continue;
-      }
-
-      if (!skipCorrection) { // Correct qhat
-        final long nl = rem.value[j + 2 + rem.offset] & Numbers.UNSIGNED_MASK;
-        long rs = ((qrem & Numbers.UNSIGNED_MASK) << 32) | nl;
-        long estProduct = (dl & Numbers.UNSIGNED_MASK) * (qhat & Numbers.UNSIGNED_MASK);
-
-        if (unsignedLongCompare(estProduct, rs)) {
-          qhat--;
-          qrem = (int) ((qrem & Numbers.UNSIGNED_MASK) + dhLong);
-          if ((qrem & Numbers.UNSIGNED_MASK) >= dhLong) {
-            estProduct -= (dl & Numbers.UNSIGNED_MASK);
-            rs = ((qrem & Numbers.UNSIGNED_MASK) << 32) | nl;
-            if (unsignedLongCompare(estProduct, rs)) {
-              qhat--;
-            }
-          }
-        }
-      }
-
-      // D4 Multiply and subtract
-      rem.value[j + rem.offset] = 0;
-      final int borrow = mulsubLong(rem.value, dh, dl, qhat,  j + rem.offset);
-
-      // D5 Test remainder
-      if ((borrow + 0x80000000) > nh2) {
-        // D6 Add back
-        divaddLong(dh,dl, rem.value, j + 1 + rem.offset);
-        qhat--;
-      }
-
-      // Store the quotient digit
-      q[j] = qhat;
-    } // D7 loop on j
-
-    // D8 Unnormalize
-    if (shift > 0) {
-      rem.rightShift(shift);
-    }
-
-    quotient.normalize();
-    rem.normalize();
-    return rem;
-  }
-
-  /**
-   * A primitive used for division by long.
-   * Specialized version of the method divadd.
-   * dh is a high part of the divisor, dl is a low part
-   */
-  private static int divaddLong(final int dh, 
-                         final int dl, 
-                         final int[] result, 
-                         final int offset) {
-    long carry = 0;
-
-    long sum = (dl & Numbers.UNSIGNED_MASK) + (result[1+offset] & Numbers.UNSIGNED_MASK);
-    result[1+offset] = (int)sum;
-
-    sum = (dh & Numbers.UNSIGNED_MASK) + (result[offset] & Numbers.UNSIGNED_MASK) + carry;
-    result[offset] = (int)sum;
-    carry = sum >>> 32;
-        return (int)carry;
-  }
-
-  /**
-   * This method is used for division by long.
-   * Specialized version of the method sulsub.
-   * dh is a high part of the divisor, dl is a low part
-   */
-  private static int mulsubLong(final int[] q, 
-                         final int dh, 
-                         final int dl, 
-                         final int x, 
-                         int offset1) {
-    final long xLong = x & Numbers.UNSIGNED_MASK;
-    offset1 += 2;
-    long product = (dl & Numbers.UNSIGNED_MASK) * xLong;
-    long difference = q[offset1] - product;
-    q[offset1--] = (int)difference;
-    long carry = (product >>> 32)
-      + (((difference & Numbers.UNSIGNED_MASK) >
-      (((~(int)product) & Numbers.UNSIGNED_MASK))) ? 1:0);
-    product = ((dh & Numbers.UNSIGNED_MASK) * xLong) + carry;
-    difference = q[offset1] - product;
-    q[offset1--] = (int)difference;
-    carry = (product >>> 32)
-      + (((difference & Numbers.UNSIGNED_MASK) >
-      (((~(int)product) & Numbers.UNSIGNED_MASK))) ? 1:0);
-    return (int)carry;
-  }
-
-  /**
-   * Compare two longs as if they were unsigned.
+  /** Compare two longs as if they were unsigned.
    * Returns true iff one is bigger than two.
    */
-  private static boolean unsignedLongCompare(final long one, final long two) {
-    return (one+Long.MIN_VALUE) > (two+Long.MIN_VALUE);
-  }
+  private static final boolean unsignedLongCompare (final long one, 
+                                                    final long two) {
+    return (one+Long.MIN_VALUE) > (two+Long.MIN_VALUE); }
 
   /**
    * This method divides a long quantity by an int to estimate
@@ -1812,7 +1796,7 @@ class MutableBigInteger {
    * Returns long value where high 32 bits contain remainder value and
    * low 32 bits contain quotient value.
    */
-  static long divWord(final long n, final int d) {
+  private static final long divWord(final long n, final int d) {
     final long dLong = d & Numbers.UNSIGNED_MASK;
     long r;
     long q;
