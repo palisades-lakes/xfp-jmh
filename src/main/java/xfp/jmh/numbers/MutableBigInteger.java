@@ -2,6 +2,7 @@ package xfp.jmh.numbers;
 
 import java.util.Arrays;
 
+import xfp.java.numbers.MutableUnNatural;
 import xfp.java.numbers.Numbers;
 
 class MutableBigInteger {
@@ -952,7 +953,8 @@ class MutableBigInteger {
    * Multiply the contents of two MutableUnNatural objects. The result is
    * placed into MutableUnNatural z. The contents of y are not changed.
    */
-  void multiply(final MutableBigInteger y, final MutableBigInteger z) {
+  private final void multiply (final MutableBigInteger y, 
+                               final MutableBigInteger z) {
     final int xLen = intLen;
     final int yLen = y.intLen;
     final int newLen = xLen + yLen;
@@ -1102,7 +1104,8 @@ class MutableBigInteger {
     return divide(b,quotient,true);
   }
 
-  MutableBigInteger divide(final MutableBigInteger b, final MutableBigInteger quotient, final boolean needRemainder) {
+  MutableBigInteger divide(final MutableBigInteger b, 
+                           final MutableBigInteger quotient, final boolean needRemainder) {
     if ((b.intLen < BigInteger.BURNIKEL_ZIEGLER_THRESHOLD) ||
       ((intLen - b.intLen) < BigInteger.BURNIKEL_ZIEGLER_OFFSET)) {
       return divideKnuth(b, quotient, needRemainder);

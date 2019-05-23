@@ -20,7 +20,7 @@ import xfp.java.numbers.Ringlike;
  * TODO: convert to purely non-negative numbers.
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-22
+ * @version 2019-05-23
  */
 
 @SuppressWarnings("hiding")
@@ -2177,7 +2177,7 @@ implements Ringlike<BigInteger> {
    *          value with which the GCD is to be computed.
    * @return {@code GCD(abs(this), abs(val))}
    */
-  public BigInteger gcd (final BigInteger val) {
+  public final BigInteger gcd (final BigInteger val) {
     if (val.signum == 0) {
       return this.abs();
     }
