@@ -2167,29 +2167,14 @@ implements Ringlike<BigInteger> {
     return new BigInteger[] { s, r };
   }
 
-  /**
-   * Returns a BigInteger whose value is the greatest common
-   * divisor of
-   * {@code abs(this)} and {@code abs(val)}. Returns 0 if
-   * {@code this == 0 && val == 0}.
-   *
-   * @param val
-   *          value with which the GCD is to be computed.
-   * @return {@code GCD(abs(this), abs(val))}
-   */
+  @Override
   public final BigInteger gcd (final BigInteger val) {
-    if (val.signum == 0) {
-      return this.abs();
-    }
+    if (val.signum == 0) { return this.abs(); }
     else if (this.signum == 0) { return val.abs(); }
-
     final MutableBigInteger a = new MutableBigInteger(this);
     final MutableBigInteger b = new MutableBigInteger(val);
-
     final MutableBigInteger result = a.hybridGCD(b);
-
-    return result.toBigInteger(1);
-  }
+    return result.toBigInteger(1); }
 
   /**
    * Package private method to return bit length for an integer.
