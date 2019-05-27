@@ -36,7 +36,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-23
+ * @version 2019-05-27
  */
 
 @SuppressWarnings("unchecked")
@@ -79,8 +79,8 @@ public abstract class Base {
     //"xfp.java.accumulators.DistilledAccumulator",
     "xfp.java.accumulators.BigFloatAccumulator",
     "xfp.java.accumulators.RationalFloatAccumulator",
-    "xfp.java.accumulators.RationalFloat0Accumulator",
-    "xfp.java.accumulators.RationalFloatBIAccumulator",
+    //"xfp.java.accumulators.RationalFloat0Accumulator",
+    //"xfp.java.accumulators.RationalFloatBIAccumulator",
     //"xfp.java.accumulators.BigFloatAccumulator6",
     //"xfp.jmh.accumulators.BigFloatAccumulator5",
     //"xfp.jmh.accumulators.BigFloatAccumulator4",
@@ -95,7 +95,6 @@ public abstract class Base {
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCBranch",
     //"xfp.jmh.accumulators.ZhuHayesBranch",
-    //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.jmh.accumulators.BigDecimalAccumulator",
     //"xfp.jmh.accumulators.BigFractionAccumulator",
     //"xfp.jmh.accumulators.DoubleFmaAccumulator",
@@ -106,7 +105,7 @@ public abstract class Base {
     //"xfp.jmh.accumulators.FloatFmaAccumulator",
     //"xfp.jmh.accumulators.RatioAccumulator",
     //"xfp.jmh.accumulators.MutableRationalAccumulator",
-    //"xfp.jmh.accumulators.RationalAccumulator",
+    "xfp.jmh.accumulators.RationalAccumulator",
   })
   String accumulator;
   Accumulator acc;
