@@ -16,17 +16,19 @@ import xfp.java.test.Common;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-02
+ * @version 2019-05-28
  */
 
 public final class ZhuHayesTest {
 
   private static final List<String> accumulators =
     List.of(
-      "xfp.java.accumulators.ZhuHayesAccumulator",
-      "xfp.jmh.accumulators.ZhuHayesGCAccumulator",
-      "xfp.jmh.accumulators.ZhuHayesGCBranch",
-      "xfp.jmh.accumulators.ZhuHayesBranch");
+      "xfp.java.accumulators.ZhuHayesAccumulator"
+      //,
+//      "xfp.jmh.accumulators.ZhuHayesGCAccumulator",
+//      "xfp.jmh.accumulators.ZhuHayesGCBranch",
+//      "xfp.jmh.accumulators.ZhuHayesBranch"
+      );
 
   private static final int TEST_DIM = (1 * 64 * 1024) + 1; 
 

@@ -31,7 +31,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.MSSN
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-16
+ * @version 2019-05-28
  */
 
 @SuppressWarnings("unchecked")
@@ -60,7 +60,7 @@ public class MSSN {
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCBranch",
     //"xfp.jmh.accumulators.ZhuHayesBranch",
-    //"xfp.jmh.accumulators.KahanAccumulator"
+    //"xfp.java.accumulators.KahanAccumulator"
   })
   String accumulator;
   Accumulator a0;

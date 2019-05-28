@@ -22,9 +22,7 @@
  <artifactId>xfp-jmh</artifactId>
  <version>1.0</version>
  <packaging>jar</packaging>
- <name>JMH benchmark sample: Java</name>
- <!-- This is the demo/sample template build script for building Java benchmarks 
-  with JMH. Edit as needed. -->
+ <name>XFP benchmarks via JMH</name>
  <dependencies>
   <dependency>
    <groupId>org.openjdk.jmh</groupId>

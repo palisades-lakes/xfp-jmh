@@ -6,7 +6,7 @@ import java.util.List;
  * Not instantiable. Class slots/methods only.
  * 
  * @author mcdonald dot john dot alan at gmail dot com
- * @version 2019-05-11
+ * @version 2019-05-28
  */
 public final class Shared {
 
@@ -16,20 +16,20 @@ public final class Shared {
   public static final List<String> accumulators () {
     return
       List.of(
-        "xfp.java.accumulators.DoubleAccumulator",
-        "xfp.java.accumulators.BigFloatAccumulator",
-        "xfp.java.accumulators.ZhuHayesAccumulator",
+        //"xfp.java.accumulators.DoubleAccumulator",
+        //"xfp.java.accumulators.KahanAccumulator"
+        //"xfp.java.accumulators.BigFloatAccumulator",
+        //"xfp.java.accumulators.ZhuHayesAccumulator",
         //"xfp.jmh.accumulators.BigFloatAccumulator0",
         //"xfp.jmh.accumulators.BigFloatAccumulator1",
         //"xfp.jmh.accumulators.BigFloatAccumulator2",
         //"xfp.jmh.accumulators.BigFloatAccumulator3",
         //"xfp.jmh.accumulators.BigFloatAccumulator4",
         //"xfp.jmh.accumulators.BigFloatAccumulator5",
-        "xfp.jmh.accumulators.IFastAccumulator",
-        "xfp.jmh.accumulators.ZhuHayesGCAccumulator",
-        "xfp.jmh.accumulators.ZhuHayesGCBranch",
-        "xfp.jmh.accumulators.ZhuHayesBranch",
-        "xfp.jmh.accumulators.KahanAccumulator"
+        //"xfp.jmh.accumulators.IFastAccumulator",
+        //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
+        //"xfp.jmh.accumulators.ZhuHayesGCBranch",
+        //"xfp.jmh.accumulators.ZhuHayesBranch"
         // ,
         // "xfp.java.accumulators.RationalFloatAccumulator"
         // ,
@@ -43,7 +43,8 @@ public final class Shared {
         // "xfp.jmh.accumulators.BigDecimalAccumulator",
         // "xfp.jmh.accumulators.BigFractionAccumulator",
         // "xfp.java.accumulators.DoubleFmaAccumulator",
-        // "xfp.jmh.accumulators.EFloatAccumulator",
+        //"xfp.jmh.accumulators.EFloatAccumulator"
+        //,
         // "xfp.jmh.accumulators.ERationalAccumulator",
         // "xfp.jmh.accumulators.KahanFmaAccumulator",
         // "xfp.jmh.accumulators.MutableRationalAccumulator",

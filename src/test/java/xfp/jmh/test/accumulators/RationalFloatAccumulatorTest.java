@@ -20,7 +20,7 @@ import xfp.jmh.accumulators.ERationalAccumulator;
  * @version 2019-04-20
  */
 
-public final class RationaFloatAccumulatorTest {
+public final class RationalFloatAccumulatorTest {
 
   //--------------------------------------------------------------
   private static final int DIM = 256;

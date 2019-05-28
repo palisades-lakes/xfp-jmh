@@ -26,7 +26,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.IFast
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-16
+ * @version 2019-05-28
  */
 
 @SuppressWarnings("unchecked")
@@ -52,11 +52,11 @@ public class IFast {
   @Param({
     "xfp.jmh.accumulators.IFastAccumulator",
     "xfp.java.accumulators.DoubleAccumulator",
+    "xfp.java.accumulators.KahanAccumulator",
     "xfp.java.accumulators.ZhuHayesAccumulator",
     "xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     "xfp.jmh.accumulators.ZhuHayesGCBranch",
     "xfp.jmh.accumulators.ZhuHayesBranch",
-    "xfp.jmh.accumulators.KahanAccumulator"
   })
   String accumulator;
   Accumulator acc;
