@@ -77,7 +77,7 @@ public abstract class Base {
 
   @Param({
     //"xfp.java.accumulators.DistilledAccumulator",
-    "xfp.jmh.accumulators.RationalAccumulator",
+    "xfp.java.accumulators.RationalAccumulator",
     "xfp.java.accumulators.RationalFloatAccumulator",
     "xfp.java.accumulators.BigFloatAccumulator",
     "xfp.java.accumulators.KahanAccumulator",
@@ -287,7 +287,7 @@ public abstract class Base {
       .shouldFailOnError(true)
       .shouldDoGC(true)
       .jvmArgs(
-        "-Xmx8g","-Xms8g","-Xmn3g",
+        "-Xmx4g","-Xms4g","-Xmn2g",
         "-XX:+UseFMA",
         "-Xbatch","-server")
       .build();
