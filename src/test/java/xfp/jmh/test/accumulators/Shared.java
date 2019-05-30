@@ -16,6 +16,8 @@ public final class Shared {
   public static final List<String> accumulators () {
     return
       List.of(
+        //"xfp.jmh.accumulators.RationalFloat0Accumulator",
+        //"xfp.jmh.accumulators.RationalFloatBIAccumulator",
         //"xfp.java.accumulators.DoubleAccumulator",
         //"xfp.java.accumulators.KahanAccumulator"
         //"xfp.java.accumulators.BigFloatAccumulator",
