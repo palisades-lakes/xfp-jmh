@@ -214,7 +214,7 @@ public final class DivideDouble {
 
   public static final void main (final String[] args) {
     final long t = System.nanoTime();
-    Debug.DEBUG = false;
+    Debug.DEBUG=false;
     // test numbers outside double range
     final BigInteger[] nd = 
       toRatio(Double.MAX_VALUE);

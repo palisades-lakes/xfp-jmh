@@ -137,7 +137,7 @@ public final class DivideFloat {
 
   public static final void main (final String[] args) {
     final long t = System.nanoTime();
-    Debug.DEBUG = false;
+    Debug.DEBUG=false;
     // test numbers outside float range
     final BigInteger[] nd = 
       Floats.toRatio(Float.MAX_VALUE);

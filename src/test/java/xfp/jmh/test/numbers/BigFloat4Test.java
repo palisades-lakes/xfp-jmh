@@ -4,6 +4,7 @@ import java.util.function.BinaryOperator;
 
 import org.junit.jupiter.api.Test;
 
+import xfp.java.Debug;
 import xfp.java.numbers.Numbers;
 import xfp.java.test.Common;
 import xfp.jmh.numbers.BigFloat4;
@@ -28,7 +29,7 @@ public final class BigFloat4Test {
   @SuppressWarnings({ "static-method" })
   @Test
   public final void testRounding () {
-    //Debug.DEBUG = true;
+    Debug.DEBUG=false;
     final BigFloat4[] f = 
     { 
       BigFloat4.valueOf(
@@ -50,7 +51,7 @@ public final class BigFloat4Test {
       Common.floatRoundingTest(
         BigFloat4::valueOf,Numbers::floatValue,dist,
         Object::toString,fi);  }
-    //Debug.DEBUG = false;
+    Debug.DEBUG=false;
 
     Common.doubleRoundingTests(
       null,BigFloat4::valueOf,Numbers::doubleValue,dist,
@@ -59,7 +60,8 @@ public final class BigFloat4Test {
     Common.floatRoundingTests(
       null,BigFloat4::valueOf,Numbers::floatValue,dist,
       Object::toString); 
-  }
+    Debug.DEBUG=false;
+     }
 
   //--------------------------------------------------------------
 }

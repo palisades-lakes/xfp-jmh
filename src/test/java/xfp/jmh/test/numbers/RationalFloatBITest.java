@@ -29,7 +29,7 @@ public final class RationalFloatBITest {
   @SuppressWarnings({ "static-method" })
   @Test
   public final void testRounding () {
-    Debug.DEBUG = false;
+    Debug.DEBUG=false;
     final RationalFloatBI[] f =
     {
      RationalFloatBI.valueOf(
@@ -54,7 +54,7 @@ public final class RationalFloatBITest {
       Common.floatRoundingTest(
         RationalFloatBI::valueOf, Numbers::floatValue, dist,
         Object::toString, fi);  }
-    Debug.DEBUG = false;
+    Debug.DEBUG=false;
 
     Common.doubleRoundingTests(
       RationalFloatBI::valueOf, RationalFloatBI::valueOf,

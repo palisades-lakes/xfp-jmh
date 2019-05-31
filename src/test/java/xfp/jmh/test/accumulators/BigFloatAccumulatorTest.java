@@ -28,7 +28,7 @@ public final class BigFloatAccumulatorTest {
     List.of("xfp.java.accumulators.BigFloatAccumulator");
   @Test
   public final void tests () {
-    Debug.DEBUG = false;
+    Debug.DEBUG=false;
     Debug.println();
     Debug.println(Classes.className(this));
     Common.sumTests(

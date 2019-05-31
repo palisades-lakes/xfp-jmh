@@ -29,7 +29,7 @@ public final class RationalFloat0Test {
   @SuppressWarnings({ "static-method" })
   @Test
   public final void testRounding () {
-    Debug.DEBUG = false;
+    Debug.DEBUG=false;
     final RationalFloat0[] f =
     {
      RationalFloat0.valueOf(
@@ -54,7 +54,7 @@ public final class RationalFloat0Test {
       Common.floatRoundingTest(
         RationalFloat0::valueOf, Numbers::floatValue, dist,
         Object::toString, fi);  }
-    Debug.DEBUG = false;
+    Debug.DEBUG=false;
 
     Common.doubleRoundingTests(
       RationalFloat0::valueOf, RationalFloat0::valueOf,
