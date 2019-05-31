@@ -47,7 +47,7 @@ public final class RationalFloat0Test {
      RationalFloat0.valueOf(
        true,UnNatural0.valueOf("2c94d1dcb123a56b9c1",0x10),-43), };
     for (final RationalFloat0 fi : f) {
-      Debug.println(fi.toString());
+      //Debug.println(fi.toString());
       Common.doubleRoundingTest(
         RationalFloat0::valueOf, Numbers::doubleValue, dist,
         Object::toString, fi);

@@ -26,8 +26,8 @@ public final class SumTest {
 //  @Test
 //  public final void nanSum () {
 //    Debug.DEBUG=false;
-//    Debug.println();
-//    Debug.println("infinite");
+//    //Debug.println();
+//    //Debug.println("infinite");
 //    Common.nonFiniteTests(
 //      Common.makeAccumulators(accumulators())); }
 
@@ -35,8 +35,8 @@ public final class SumTest {
   @Test
   public final void infiniteSum () {
     Debug.DEBUG=false;
-    Debug.println();
-    Debug.println("infinite");
+    //Debug.println();
+    //Debug.println("infinite");
     Common.infinityTests(
       Common.makeAccumulators(accumulators())); }
 
@@ -44,8 +44,8 @@ public final class SumTest {
   @Test
   public final void overflowSum () {
     Debug.DEBUG=false;
-    Debug.println();
-    Debug.println("overflow");
+    //Debug.println();
+    //Debug.println("overflow");
     Common.overflowTests(
       Common.makeAccumulators(accumulators())); }
 
@@ -53,8 +53,8 @@ public final class SumTest {
   @Test
   public final void zeroSum () {
     Debug.DEBUG=false;
-    Debug.println();
-    Debug.println("zeroSum");
+    //Debug.println();
+    //Debug.println("zeroSum");
     Common.zeroSumTests(
       Common.zeroSumGenerators(Shared.TEST_DIM),
       Common.makeAccumulators(accumulators())); }
@@ -63,8 +63,8 @@ public final class SumTest {
   @Test
   public final void sum () {
     Debug.DEBUG=false;
-    Debug.println();
-    Debug.println("sum");
+    //Debug.println();
+    //Debug.println("sum");
     Common.sumTests(
       Common.generators(Shared.TEST_DIM),
       Common.makeAccumulators(accumulators()),
@@ -74,8 +74,8 @@ public final class SumTest {
   @Test
   public final void l2 () {
     Debug.DEBUG=false;
-    Debug.println();
-    Debug.println("l2");
+    //Debug.println();
+    //Debug.println("l2");
     Common.l2Tests(
       Common.generators(Shared.TEST_DIM),
       Common.makeAccumulators(accumulators()),
@@ -85,8 +85,8 @@ public final class SumTest {
   @Test
   public final void dot () {
     Debug.DEBUG=false;
-    Debug.println();
-    Debug.println("dot");
+    //Debug.println();
+    //Debug.println("dot");
     Common.dotTests(
       Common.generators(Shared.TEST_DIM),
       Common.makeAccumulators(accumulators()),

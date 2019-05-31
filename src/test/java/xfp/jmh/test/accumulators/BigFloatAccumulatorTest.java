@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import xfp.java.Classes;
 import xfp.java.Debug;
 import xfp.java.test.Common;
 import xfp.jmh.accumulators.ERationalAccumulator;
@@ -26,11 +25,12 @@ public final class BigFloatAccumulatorTest {
   private static final int DIM = 256;
   private static final List<String> accumulators =
     List.of("xfp.java.accumulators.BigFloatAccumulator");
+  @SuppressWarnings("static-method")
   @Test
   public final void tests () {
     Debug.DEBUG=false;
-    Debug.println();
-    Debug.println(Classes.className(this));
+    //Debug.println();
+    //Debug.println(Classes.className(this));
     Common.sumTests(
       Common.generators(DIM),
       Common.makeAccumulators(accumulators),

@@ -121,11 +121,11 @@ public final class Debug {
     final EFloat df = EFloat.FromEInteger(di); 
     final EFloat f = nf.Divide(df, EContext.Binary64);
     final double ze = f.ToDouble(); 
-    //    Debug.println();
-    //    Debug.println("ToDouble(BigInteger,BigInteger,int,int)");
-    //    Debug.println(description("n",n));
-    //    Debug.println(description("d",d));
-    //    Debug.println("-> " + Double.toHexString(ze));
+    //    //Debug.println();
+    //    //Debug.println("ToDouble(BigInteger,BigInteger,int,int)");
+    //    //Debug.println(description("n",n));
+    //    //Debug.println(description("d",d));
+    //    //Debug.println("-> " + Double.toHexString(ze));
     return ze;}
 
     public static final float ToFloat (final long n,
@@ -166,11 +166,11 @@ public final class Debug {
       final EFloat df = EFloat.FromEInteger(di); 
       final EFloat f = nf.Divide(df, EContext.Binary32);
       final float ze = f.ToSingle(); 
-      //    Debug.println();
-      //    Debug.println("ToFloat(BigInteger,BigInteger,int,int)");
-      //    Debug.println(description("n",n));
-      //    Debug.println(description("d",d));
-      //    Debug.println("-> " + Float.toHexString(ze));
+      //    //Debug.println();
+      //    //Debug.println("ToFloat(BigInteger,BigInteger,int,int)");
+      //    //Debug.println(description("n",n));
+      //    //Debug.println(description("d",d));
+      //    //Debug.println("-> " + Float.toHexString(ze));
       return ze;}
 
   //--------------------------------------------------------------

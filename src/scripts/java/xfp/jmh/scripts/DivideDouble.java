@@ -110,7 +110,7 @@ public final class DivideDouble {
                                            final BigInteger d) {
     try {
       final double z = Rational.valueOf(n,d).doubleValue();
-      Debug.println(Double.toHexString(z) + " :D");
+      //Debug.println(Double.toHexString(z) + " :D");
       final double ze = Debug.ToDouble(n,d);
       assert ze == z : 
         "\n" 
@@ -131,17 +131,17 @@ public final class DivideDouble {
     return z; } 
 
   public static final double roundingTest (final double x) {
-    //    Debug.println();
-    //    Debug.println("roundingTest(" 
+    //    //Debug.println();
+    //    //Debug.println("roundingTest(" 
     //      + Double.toHexString(x) + ")");
-    //    Debug.println("signBit=" + signBit(x));
-    //    Debug.println("significand=" 
+    //    //Debug.println("signBit=" + signBit(x));
+    //    //Debug.println("significand=" 
     //      + Long.toHexString(fullSignificand(x)));
-    //    Debug.println("significand=" 
+    //    //Debug.println("significand=" 
     //      + Long.toBinaryString(fullSignificand(x)));
-    //    Debug.println("significand=" 
+    //    //Debug.println("significand=" 
     //      + Long.toBinaryString(SIGNIFICAND_MASK));
-    //    Debug.println("unbiasedExp=" 
+    //    //Debug.println("unbiasedExp=" 
     //      + Doubles.unbiasedExponent(x));
     final BigInteger[] nd = toRatio(x);
     final BigInteger n = nd[0];
@@ -234,7 +234,7 @@ public final class DivideDouble {
     roundingTest(a10.negate(),b);
     roundingTest(b,a10);
     roundingTest(b.negate(),a10);
-    //DEBUG=true;
+    //DEBUG=false;
     roundingTest(0x0.0000000000001p-1022);
     roundingTest(0x0.1000000000001p-1022);
     roundingTest(0x0.1000000000000p-1022);

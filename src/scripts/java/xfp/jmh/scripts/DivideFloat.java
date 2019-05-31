@@ -31,10 +31,10 @@ public final class DivideFloat {
   public static final float roundingTest (final BigInteger n,
                                           final BigInteger d) {
     final float ze = Debug.ToFloat(n,d);
-    Debug.println(Float.toHexString(ze) + " :E");
+    //Debug.println(Float.toHexString(ze) + " :E");
     try {
       final float z = Rational.valueOf(n,d).floatValue();
-      Debug.println(Float.toHexString(z) + " :D");
+      //Debug.println(Float.toHexString(z) + " :D");
       assert ze == z : 
         "\n" 
         + Float.toHexString(ze) + " :E\n"
@@ -54,17 +54,17 @@ public final class DivideFloat {
     return z; } 
 
   public static final float roundingTest (final float x) {
-    //    Debug.println();
-    //    Debug.println("roundingTest(" 
+    //    //Debug.println();
+    //    //Debug.println("roundingTest(" 
     //      + Float.toHexString(x) + ")");
-    //    Debug.println("signBit=" + signBit(x));
-    //    Debug.println("significand=" 
+    //    //Debug.println("signBit=" + signBit(x));
+    //    //Debug.println("significand=" 
     //      + Long.toHexString(fullSignificand(x)));
-    //    Debug.println("significand=" 
+    //    //Debug.println("significand=" 
     //      + Long.toBinaryString(fullSignificand(x)));
-    //    Debug.println("significand=" 
+    //    //Debug.println("significand=" 
     //      + Long.toBinaryString(SIGNIFICAND_MASK));
-    //    Debug.println("unbiasedExp=" 
+    //    //Debug.println("unbiasedExp=" 
     //      + Floats.unbiasedExponent(x));
     final BigInteger[] nd = Floats.toRatio(x);
     final BigInteger n = nd[0];
@@ -157,7 +157,7 @@ public final class DivideFloat {
     roundingTest(a10.negate(),b);
     roundingTest(b,a10);
     roundingTest(b.negate(),a10);
-    //DEBUG=true;
+    //DEBUG=false;
     //    roundingTest(0x0.0000000000001p-1022);
     //    roundingTest(0x0.1000000000001p-1022);
     //    roundingTest(0x0.1000000000000p-1022);

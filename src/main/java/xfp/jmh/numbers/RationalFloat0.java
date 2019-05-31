@@ -6,11 +6,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Objects;
 
-import xfp.java.Debug;
 import xfp.java.exceptions.Exceptions;
 import xfp.java.numbers.Doubles;
 import xfp.java.numbers.Floats;
-import xfp.java.numbers.Numbers;
 import xfp.java.numbers.Ringlike;
 
 /** Representing a rational number as a ratio of
@@ -428,21 +426,21 @@ implements Ringlike<RationalFloat0> {
 
     final int e4 = e3 - Doubles.STORED_SIGNIFICAND_BITS;
 
-    Debug.println("num=" + n3.toString(0x10));
-    Debug.println("den=" + d3.toString(0x10));
+    //Debug.println("num=" + n3.toString(0x10));
+    //Debug.println("den=" + d3.toString(0x10));
 
     final UnNatural0[] qr = n3.divideAndRemainder(d3).toArray(new UnNatural0[0]);
 
-    Debug.println("quo=" + qr[0].toString(0x10));
+    //Debug.println("quo=" + qr[0].toString(0x10));
     //Debug.println("quo=" + Long.toHexString(qr[0].longValue()));
-    Debug.println("rem=" + qr[1].toString(0x10));
+    //Debug.println("rem=" + qr[1].toString(0x10));
 
     // round down or up?
     // want to know if remainder/denominator is more or less than 1/2
     // comparing 2*remainder to denominator
     // TODO: faster way to do this?
     final int c = qr[1].shiftLeft(1).compareTo(d3);
-    Debug.println("c=" + c);
+    //Debug.println("c=" + c);
     final long q4 = qr[0].longValue();
     final boolean even = (0x0L == (q4 & 0x1L));
     final boolean down = (c < 0) || ((c == 0) && even);
@@ -457,9 +455,9 @@ implements Ringlike<RationalFloat0> {
       final boolean carry = (hiBit(q5) > Doubles.SIGNIFICAND_BITS);
       q = (carry ? q5 >>> 1 : q5);
       e = (sub ? (carry ? e4 : e4 - 1) : (carry ? e4 + 1 : e4)); }
-    Debug.println("neg=" + neg);
-    Debug.println("q=" + Long.toHexString(q));
-    Debug.println("e=" + e);
+    //Debug.println("neg=" + neg);
+    //Debug.println("q=" + Long.toHexString(q));
+    //Debug.println("e=" + e);
     return Doubles.makeDouble(neg,e,q); }
 
   //--------------------------------------------------------------
