@@ -36,7 +36,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-28
+ * @version 2019-06-01
  */
 
 @SuppressWarnings("unchecked")
@@ -80,8 +80,8 @@ public abstract class Base {
     "xfp.java.accumulators.RationalAccumulator",
     "xfp.java.accumulators.RationalFloatAccumulator",
     "xfp.java.accumulators.BigFloatAccumulator",
-    "xfp.java.accumulators.KahanAccumulator",
-    "xfp.java.accumulators.DoubleAccumulator",
+    //"xfp.java.accumulators.KahanAccumulator",
+    //"xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.RationalFloat0Accumulator",
     //"xfp.java.accumulators.RationalFloatBIAccumulator",
     //"xfp.java.accumulators.BigFloatAccumulator6",
