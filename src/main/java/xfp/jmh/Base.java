@@ -36,7 +36,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-01
+ * @version 2019-06-02
  */
 
 @SuppressWarnings("unchecked")
@@ -77,10 +77,10 @@ public abstract class Base {
 
   @Param({
     //"xfp.java.accumulators.DistilledAccumulator",
-    "xfp.java.accumulators.RationalAccumulator",
+    //"xfp.java.accumulators.RationalAccumulator",
     "xfp.java.accumulators.RationalFloatAccumulator",
     "xfp.java.accumulators.BigFloatAccumulator",
-    //"xfp.java.accumulators.KahanAccumulator",
+    "xfp.java.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.RationalFloat0Accumulator",
     //"xfp.java.accumulators.RationalFloatBIAccumulator",
@@ -277,8 +277,8 @@ public abstract class Base {
       //.mode(Mode.All)
       .mode(Mode.AverageTime)
       .timeUnit(TimeUnit.MILLISECONDS)
-      //.include("Dot|L2|Sum")
-      .include("Sum")
+      .include("Dot|L2|Sum")
+      //.include("Sum")
       //.resultFormat(ResultFormatType.JSON)
       //.result("output/Sums" + "-" + now() + ".json")
       .resultFormat(ResultFormatType.CSV)

@@ -28,7 +28,7 @@ implements Accumulator<KahanFmaAccumulator> {
   private double c = 0.0;
 
   //--------------------------------------------------------------
-  
+
   @Override
   public final boolean isExact () { return false; }
 
@@ -39,7 +39,7 @@ implements Accumulator<KahanFmaAccumulator> {
   public final Object value () { 
     return Double.valueOf(doubleValue()); }
 
- @Override
+  @Override
   public final double doubleValue () { return s; }
 
   @Override
@@ -49,7 +49,7 @@ implements Accumulator<KahanFmaAccumulator> {
   @Override
   public final KahanFmaAccumulator add (final double z) {
     assert Double.isFinite(z);
-   final double zz = z - c;
+    final double zz = z - c;
     final double ss = s + zz;
     c = (ss - s) - zz;
     s = ss; 
@@ -86,7 +86,7 @@ implements Accumulator<KahanFmaAccumulator> {
 
   @Override
   public final KahanFmaAccumulator addProduct (final double z0,
-                                            final double z1) {
+                                               final double z1) {
     assert Double.isFinite(z0);
     assert Double.isFinite(z1);
     final double zz = Math.fma(z0,z1,-c);
@@ -97,7 +97,7 @@ implements Accumulator<KahanFmaAccumulator> {
 
   @Override
   public final KahanFmaAccumulator addProducts (final double[] z0,
-                                             final double[] z1) { 
+                                                final double[] z1) { 
     final int n = z0.length;
     assert n == z1.length;
     for (int i=0;i<n;i++) {     
