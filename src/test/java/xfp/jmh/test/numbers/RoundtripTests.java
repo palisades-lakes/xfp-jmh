@@ -14,7 +14,6 @@ import xfp.java.numbers.Rational;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
 import xfp.jmh.accumulators.EFloatAccumulator;
-import xfp.jmh.accumulators.MutableRationalAccumulator;
 
 //----------------------------------------------------------------
 /** Test number conversions expected to be lossless. 
@@ -24,7 +23,7 @@ import xfp.jmh.accumulators.MutableRationalAccumulator;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-22
+ * @version 2019-06-03
  */
 
 public final class RoundtripTests {
@@ -440,39 +439,6 @@ public final class RoundtripTests {
     return true; }
 
   //--------------------------------------------------------------
-  /** RationalAccumulator should be able to represent any double exactly.
-   */
-
-  private static final boolean double2RationalSum2Double () {
-    final Generator g = 
-      finiteDoubles();
-    //normalDoubles();
-    //subnormalDoubles();
-    for (int i=0;i<TRYS;i++) {
-      final double x = g.nextDouble();
-      final MutableRationalAccumulator f = MutableRationalAccumulator.make().add(x);
-      final double xf = f.doubleValue();
-      final ERational xe = ERational.FromDouble(x);
-      if (x != xf) { 
-        System.out.println("\n\n" + 
-          "RationalAccumulator: isNormal=" + Doubles.isNormal(x) +"\n" 
-          + x + "\n"
-          + xf + "\n\n"
-          + Double.toHexString(x) + "\n" 
-          + Double.toHexString(xf) + "\n\n"
-          + f.numerator().toString(16).toUpperCase() + "\n" 
-          + xe.getNumerator().ToRadixString(16) + "\n\n"
-          + f.denominator().toString(16) + "\n" 
-          + xe.getDenominator().ToRadixString(16) + "\n\n"
-//          f.getNumerator() + "\n" +
-//          f.getDenominator() + "\n\n" +
-//          f.getNumerator().ToRadixString(16) + "\n" +
-//          f.getDenominator().ToRadixString(16)
-        );
-        return false; } }
-    return true; }
-
-  //--------------------------------------------------------------
   /** check for round trip consistency:
    * double -&gt; rational -&gt; double
    * should be an identity transform.
@@ -483,7 +449,6 @@ public final class RoundtripTests {
 
     assertTrue(double2Rational2Double());
     assertTrue(double2BigDecimal2Double());
-    assertTrue(double2RationalSum2Double());
     assertTrue(double2ERational2Double());
     assertTrue(double2EFloat2Double());
     //assertTrue(double2BigFraction2Double());

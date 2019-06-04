@@ -36,7 +36,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-02
+ * @version 2019-06-03
  */
 
 @SuppressWarnings("unchecked")
@@ -76,27 +76,17 @@ public abstract class Base {
   List<Double> truth = new ArrayList<Double>();
 
   @Param({
-    //"xfp.java.accumulators.DistilledAccumulator",
-    //"xfp.java.accumulators.RationalAccumulator",
-    "xfp.java.accumulators.RationalFloatAccumulator",
-    "xfp.java.accumulators.BigFloatAccumulator",
+    "xfp.java.accumulators.DoubleAccumulator",
     "xfp.java.accumulators.KahanAccumulator",
-    //"xfp.java.accumulators.DoubleAccumulator",
-    //"xfp.java.accumulators.RationalFloat0Accumulator",
-    //"xfp.java.accumulators.RationalFloatBIAccumulator",
-    //"xfp.java.accumulators.BigFloatAccumulator6",
-    //"xfp.jmh.accumulators.BigFloatAccumulator5",
-    //"xfp.jmh.accumulators.BigFloatAccumulator4",
-    //"xfp.jmh.accumulators.BigFloatAccumulator3",
-    //"xfp.jmh.accumulators.BigFloatAccumulator2",
-    //"xfp.jmh.accumulators.BigFloatAccumulator1",
-    //"xfp.jmh.accumulators.BigFloatAccumulator0",
-    //"xfp.java.accumulators.ZhuHayesAccumulator",
-    //"xfp.java.accumulators.ZhuHayesAccumulator0",
+    "xfp.java.accumulators.BigFloatAccumulator",
+    "xfp.java.accumulators.RationalFloatAccumulator",
+    //"xfp.java.accumulators.RationalAccumulator",
+    "xfp.java.accumulators.DistilledAccumulator",
+    "xfp.java.accumulators.ZhuHayesAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCBranch",
     //"xfp.jmh.accumulators.ZhuHayesBranch",
-    //"xfp.jmh.accumulators.BigDecimalAccumulator",
+    "xfp.jmh.accumulators.BigDecimalAccumulator",
     //"xfp.jmh.accumulators.BigFractionAccumulator",
     //"xfp.jmh.accumulators.DoubleFmaAccumulator",
     //"xfp.jmh.accumulators.KahanFmaAccumulator",
@@ -105,7 +95,6 @@ public abstract class Base {
     //"xfp.jmh.accumulators.FloatAccumulator",
     //"xfp.jmh.accumulators.FloatFmaAccumulator",
     //"xfp.jmh.accumulators.RatioAccumulator",
-    //"xfp.jmh.accumulators.MutableRationalAccumulator",
   })
   String accumulator;
   Accumulator acc;
