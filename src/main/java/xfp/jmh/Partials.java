@@ -54,14 +54,13 @@ public class Partials {
   //--------------------------------------------------------------
 
   @Param({
-    //"xfp.java.accumulators.DoubleAccumulator",
-    //"xfp.java.accumulators.KahanAccumulator",
-    //"xfp.java.accumulators.BigFloatAccumulator",
-    //"xfp.java.accumulators.RationalFloatAccumulator",
+    "xfp.java.accumulators.DoubleAccumulator",
+    "xfp.java.accumulators.KahanAccumulator",
+    "xfp.java.accumulators.BigFloatAccumulator",
+    "xfp.java.accumulators.RationalFloatAccumulator",
     "xfp.java.accumulators.DistilledAccumulator",
-    "xfp.java.accumulators.DistilledAccumulator2",
     //"xfp.java.accumulators.RationalAccumulator",
-    //"xfp.java.accumulators.ZhuHayesAccumulator",
+    "xfp.java.accumulators.ZhuHayesAccumulator",
     //"xfp.jmh.accumulators.BigDecimalAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCBranch",
@@ -143,7 +142,8 @@ public class Partials {
     return factories.get(name).apply(dim); }
 
   //@Param({"finite","uniform","exponential","gaussian","laplace"})
-  @Param({"finite",})
+  //@Param({"finite",})
+  @Param({"finite","exponential",})
   String generator;
   Generator gen;
 
