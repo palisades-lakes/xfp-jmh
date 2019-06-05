@@ -30,7 +30,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Partials
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-03
+ * @version 2019-06-04
  */
 
 @SuppressWarnings("unchecked")
@@ -41,9 +41,9 @@ public class Partials {
 
   @Param({
     //"33554433",
-    //"8388609",
+    "8388609",
     //"2097153",
-    "524289",
+    //"524289",
     //"131071",
       })
   int dim;
@@ -54,14 +54,15 @@ public class Partials {
   //--------------------------------------------------------------
 
   @Param({
-    "xfp.java.accumulators.DoubleAccumulator",
-    "xfp.java.accumulators.KahanAccumulator",
-    "xfp.java.accumulators.BigFloatAccumulator",
-    "xfp.java.accumulators.RationalFloatAccumulator",
+    //"xfp.java.accumulators.DoubleAccumulator",
+    //"xfp.java.accumulators.KahanAccumulator",
+    //"xfp.java.accumulators.BigFloatAccumulator",
+    //"xfp.java.accumulators.RationalFloatAccumulator",
     "xfp.java.accumulators.DistilledAccumulator",
+    "xfp.java.accumulators.DistilledAccumulator2",
     //"xfp.java.accumulators.RationalAccumulator",
-    "xfp.java.accumulators.ZhuHayesAccumulator",
-    "xfp.jmh.accumulators.BigDecimalAccumulator",
+    //"xfp.java.accumulators.ZhuHayesAccumulator",
+    //"xfp.jmh.accumulators.BigDecimalAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCBranch",
     //"xfp.jmh.accumulators.ZhuHayesBranch",
@@ -160,7 +161,6 @@ public class Partials {
 
   @Benchmark
   public final double[] partials () { 
-    // must be that some split is better than no split?
     final int n = x.length;
     assert 1 < n;
     acc.clear(); 

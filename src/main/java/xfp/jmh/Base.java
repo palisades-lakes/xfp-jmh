@@ -36,7 +36,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-03
+ * @version 2019-06-04
  */
 
 @SuppressWarnings("unchecked")
@@ -62,9 +62,9 @@ public abstract class Base {
 
   @Param({
     //"33554433",
-    //"8388609",
+    "8388609",
     //"2097153",
-    "524289",
+    //"524289",
     //"131071",
   })
   int dim;
@@ -78,10 +78,11 @@ public abstract class Base {
   @Param({
     //"xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.KahanAccumulator",
-    "xfp.java.accumulators.BigFloatAccumulator",
+    //"xfp.java.accumulators.BigFloatAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.java.accumulators.RationalAccumulator",
     "xfp.java.accumulators.DistilledAccumulator",
+    "xfp.java.accumulators.DistilledAccumulator2",
     //"xfp.java.accumulators.ZhuHayesAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCBranch",
@@ -246,6 +247,8 @@ public abstract class Base {
   @Benchmark
   public final double bench () { 
     final double pred = operation(acc,x0,x1);
+    if (! Double.isFinite(pred)) {
+      throw new ArithmeticException(); }
     save(pred,est);
     return pred; }
 
@@ -266,7 +269,8 @@ public abstract class Base {
       //.mode(Mode.All)
       .mode(Mode.AverageTime)
       .timeUnit(TimeUnit.MILLISECONDS)
-      .include("Dot|L2|Sum")
+      .include("Dot|L2|Sum|Partials")
+      //.include("Dot|L2|Sum")
       //.include("Sum")
       //.resultFormat(ResultFormatType.JSON)
       //.result("output/Sums" + "-" + now() + ".json")
