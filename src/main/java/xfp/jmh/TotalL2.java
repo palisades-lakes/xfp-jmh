@@ -5,13 +5,13 @@ import xfp.java.accumulators.Accumulator;
 /** Benchmark <code>double[]</code> squared l2 norm.
  * 
  * <pre>
- * java -ea -jar target\benchmarks.jar L2
+ * java -ea -jar target\benchmarks.jar TotalL2
  * </pre>
  * @author palisades dot lakes at gmail dot com
  * @version 2019-04-12
  */
 
-public class L2 extends Base {
+public class TotalL2 extends Base {
 
   @Override
   public final double operation (final Accumulator ac,

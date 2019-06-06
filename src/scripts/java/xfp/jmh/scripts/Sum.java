@@ -15,7 +15,7 @@ import xfp.jmh.accumulators.ZhuHayesBranch;
 /** Benchmark accumulators tests.
  * 
  * <pre>
- * jy --source 11 -ea src/scripts/java/xfp/jmh/scripts/Sum.java
+ * jy --source 11 -ea src/scripts/java/xfp/jmh/scripts/TotalSum.java
  * </pre>
  * @author palisades dot lakes at gmail dot com
  * @version 2019-04-08

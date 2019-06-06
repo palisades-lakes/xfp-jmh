@@ -27,7 +27,7 @@ import xfp.jmh.accumulators.RatioAccumulator;
 /** Benchmark double dot products.
  * 
  * <pre>
- * java -ea -jar target\benchmarks.jar Dot
+ * java -ea -jar target\benchmarks.jar TotalDot
  * </pre>
  * @author palisades dot lakes at gmail dot com
  * @version 2019-04-14

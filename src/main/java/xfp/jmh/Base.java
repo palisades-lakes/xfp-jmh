@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -36,7 +37,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-04
+ * @version 2019-06-05
  */
 
 @SuppressWarnings("unchecked")
@@ -62,8 +63,8 @@ public abstract class Base {
 
   @Param({
     //"33554433",
-    "8388609",
-    //"2097153",
+    //"8388609",
+    "2097153",
     //"524289",
     //"131071",
   })
@@ -73,6 +74,12 @@ public abstract class Base {
   double[] x1;
 
   Accumulator exact;
+  // exact partials
+  double[] true0;
+  double[] true1;
+  // exact scalar
+  double trueVal;
+  // collect trueValyes
   List<Double> truth = new ArrayList<Double>();
 
   @Param({
@@ -98,6 +105,11 @@ public abstract class Base {
   })
   String accumulator;
   Accumulator acc;
+  // estimated partials
+  double[] p0;
+  double[] p1;
+  // estimated exact
+  double val;
   List<Double> est = new ArrayList<Double>();
 
   //--------------------------------------------------------------
@@ -216,7 +228,14 @@ public abstract class Base {
   public final void invocationSetup () {
     x0 = (double[]) gen.next();
     x1 = (double[]) gen.next();
-    save(operation(exact,x0,x1),truth); }  
+    // call operation twice to fill in true partials 
+    operation(exact,x0,x1);
+    true0 = Arrays.copyOf(p0,p0.length);
+    true1 = Arrays.copyOf(p1,p1.length);
+    // call 2nd time to get trueVal == 0
+    // accuracy metric for partials
+    trueVal = operation(exact,x0,x1);
+    save(trueVal,truth); }  
 
   // not needed while testing exact methods
   //  @TearDown(Level.Trial)  
@@ -246,8 +265,8 @@ public abstract class Base {
   @Benchmark
   public final double bench () { 
     final double pred = operation(acc,x0,x1);
-    if (! Double.isFinite(pred)) {
-      throw new ArithmeticException(); }
+    assert Double.isFinite(pred);
+    if (acc.isExact()) { assert pred == trueVal; }
     save(pred,est);
     return pred; }
 
@@ -268,9 +287,10 @@ public abstract class Base {
       //.mode(Mode.All)
       .mode(Mode.AverageTime)
       .timeUnit(TimeUnit.MILLISECONDS)
-      .include("Dot|L2|Sum|Partials")
-      //.include("Dot|L2|Sum")
-      //.include("Sum")
+      .include("PartialSums")
+      //.include("TotalDot|TotalL2|TotalSum|PartialSums")
+      //.include("TotalDot|TotalL2|TotalSum")
+      //.include("TotalSum")
       //.resultFormat(ResultFormatType.JSON)
       //.result("output/Sums" + "-" + now() + ".json")
       .resultFormat(ResultFormatType.CSV)

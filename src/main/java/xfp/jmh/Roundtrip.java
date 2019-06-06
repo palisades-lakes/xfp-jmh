@@ -19,7 +19,7 @@ import xfp.java.prng.PRNG;
 
 /** Benchmark roundtrip double -> rational -> double.
  * <pre>
- * java -ea -jar target\benchmarks.jar Sum
+ * java -ea -jar target\benchmarks.jar TotalSum
  * </pre>
  * @author palisades dot lakes at gmail dot com
  * @version 2019-03-26

@@ -25,7 +25,7 @@ import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
 import xfp.java.test.Common;
 
-/** Benchmark L2 regression tree split optimization.
+/** Benchmark TotalL2 regression tree split optimization.
  * 
  * <pre>
  * java -cp target\benchmarks.jar xfp.jmh.MSSN
