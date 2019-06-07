@@ -1,16 +1,20 @@
 package xfp.jmh;
 
+import java.util.Arrays;
+
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.RunnerException;
+import org.openjdk.jmh.runner.options.Options;
 
 import xfp.java.accumulators.Accumulator;
 
-/** Benchmark partial sums.
- * <pre>
+/** <pre>
  * java -cp target\benchmarks.jar xfp.jmh.PartialSums
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-05
+ * @version 2019-06-06
  */
 
 @SuppressWarnings("unchecked")
@@ -34,6 +38,11 @@ public class PartialSums extends Base {
     if (acc.isExact()) { assert 0.0==l20; assert 0.0==l21; }
     return l20 + l21; }
 
-  //--------------------------------------------------------------
+  public static final void main (final String[] args) 
+    throws RunnerException {
+    System.err.println("args=" + Arrays.toString(args));
+    final Options opt = 
+      Defaults.options("PartialSums","PartialSums");
+    System.err.println(opt.toString());
+    new Runner(opt).run(); }
 }
-//--------------------------------------------------------------

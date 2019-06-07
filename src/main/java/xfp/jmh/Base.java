@@ -1,31 +1,21 @@
 package xfp.jmh;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.function.IntFunction;
 
 import org.apache.commons.rng.UniformRandomProvider;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Level;
-import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.results.format.ResultFormatType;
-import org.openjdk.jmh.runner.Runner;
-import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import xfp.java.accumulators.Accumulator;
-import xfp.java.accumulators.BigFloatAccumulator;
+import xfp.java.accumulators.BigFloatAccumulator1;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
@@ -42,9 +32,6 @@ import xfp.java.test.Common;
 
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
-//@Threads(value=4)
-//@BenchmarkMode(Mode.All)
-///@OutputTimeUnit(TimeUnit.MILLISECONDS)
 public abstract class Base {
 
   //--------------------------------------------------------------
@@ -53,19 +40,13 @@ public abstract class Base {
                                  final List data) {
     data.add(Double.valueOf(x)); }
 
-  private static final DateTimeFormatter DTF = 
-    DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
-
-  public static final String now () {
-    return LocalDateTime.now().format(DTF); }
-
   //--------------------------------------------------------------
 
   @Param({
     //"33554433",
     //"8388609",
-    "2097153",
-    //"524289",
+    //"2097153",
+    "524289",
     //"131071",
   })
   int dim;
@@ -83,10 +64,12 @@ public abstract class Base {
   List<Double> truth = new ArrayList<Double>();
 
   @Param({
+    "xfp.java.accumulators.BigFloatAccumulator1",
+    "xfp.java.accumulators.RationalFloatAccumulator1",
+    "xfp.java.accumulators.RationalFloatAccumulator",
+    "xfp.java.accumulators.BigFloatAccumulator",
     "xfp.java.accumulators.DoubleAccumulator",
     "xfp.java.accumulators.KahanAccumulator",
-    "xfp.java.accumulators.BigFloatAccumulator",
-    "xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.java.accumulators.RationalAccumulator",
     "xfp.java.accumulators.DistilledAccumulator",
     "xfp.java.accumulators.ZhuHayesAccumulator",
@@ -197,7 +180,9 @@ public abstract class Base {
                                                final int dim) {
     return factories.get(name).apply(dim); }
 
-  @Param({"finite","exponential",})
+  //@Param({"laplace",})
+  //@Param({"finite",})
+  @Param({"exponential",})
   //@Param({"gaussian",})
   //@Param({"uniform",})
   String generator;
@@ -220,7 +205,7 @@ public abstract class Base {
     gen = makeGenerator(generator,dim);
     truth.clear();
     est.clear();
-    exact = BigFloatAccumulator.make();
+    exact = BigFloatAccumulator1.make();
     assert exact.isExact();
     acc = Common.makeAccumulator(accumulator); }  
 
@@ -230,8 +215,9 @@ public abstract class Base {
     x1 = (double[]) gen.next();
     // call operation twice to fill in true partials 
     operation(exact,x0,x1);
-    true0 = Arrays.copyOf(p0,p0.length);
-    true1 = Arrays.copyOf(p1,p1.length);
+    // p0 p1 won't be initialized in scalar benchmarks
+    if (null!=p0) { true0 = Arrays.copyOf(p0,p0.length); }
+    if (null!=p0) { true1 = Arrays.copyOf(p1,p1.length); }
     // call 2nd time to get trueVal == 0
     // accuracy metric for partials
     trueVal = operation(exact,x0,x1);
@@ -276,34 +262,13 @@ public abstract class Base {
    * </pre> 
    */
 
-  public static void main (final String[] args) 
-    throws RunnerException {
-    final File parent = new File("output");
-    parent.mkdirs();
-    final File csv = 
-      new File(parent,"Sums" + "-" + now() + ".csv");
-    final Options opt = 
-      new OptionsBuilder()
-      //.mode(Mode.All)
-      .mode(Mode.AverageTime)
-      .timeUnit(TimeUnit.MILLISECONDS)
-      .include("PartialSums")
-      //.include("TotalDot|TotalL2|TotalSum|PartialSums")
-      //.include("TotalDot|TotalL2|TotalSum")
-      //.include("TotalSum")
-      //.resultFormat(ResultFormatType.JSON)
-      //.result("output/Sums" + "-" + now() + ".json")
-      .resultFormat(ResultFormatType.CSV)
-      .result(csv.getPath())
-      .threads(1)
-      .shouldFailOnError(true)
-      .shouldDoGC(true)
-      .jvmArgs(
-        "-Xmx4g","-Xms4g","-Xmn2g",
-        "-XX:+UseFMA",
-        "-Xbatch","-server")
-      .build();
-    new Runner(opt).run(); }
+//  public static void main (final String[] args) 
+//    throws RunnerException {
+//    System.out.println("args=" + Arrays.toString(args));
+//    final Options opt = 
+//      Defaults.options("Base","TotalDot|TotalL2|TotalSum");
+//    System.out.println(opt.toString());
+//    new Runner(opt).run(); }
 
   //--------------------------------------------------------------
 }

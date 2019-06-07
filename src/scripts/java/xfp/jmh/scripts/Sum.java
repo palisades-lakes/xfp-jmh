@@ -114,7 +114,7 @@ public final class Sum {
     final int trys = 128;
     final Generator g = factories.get("finite").apply(dim);
     final double[] x = (double[]) g.next();
-//    final Accumulator exact = RationalFloatAccumulator.make();
+//    final Accumulator exact = RationalFloatAccumulator1.make();
 //    final double truth = exact.addAll(x).doubleValue();
     final Accumulator a = ZhuHayesBranch.make();
     assert a.isExact();

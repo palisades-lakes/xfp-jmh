@@ -20,7 +20,7 @@ public final class Shared {
         //"xfp.jmh.accumulators.RationalFloatBIAccumulator",
         //"xfp.java.accumulators.DoubleAccumulator",
         //"xfp.java.accumulators.KahanAccumulator"
-        //"xfp.java.accumulators.BigFloatAccumulator",
+        //"xfp.java.accumulators.BigFloatAccumulator1",
         //"xfp.java.accumulators.ZhuHayesAccumulator",
         //"xfp.jmh.accumulators.BigFloatAccumulator0",
         //"xfp.jmh.accumulators.BigFloatAccumulator1",
@@ -33,7 +33,7 @@ public final class Shared {
         //"xfp.jmh.accumulators.ZhuHayesGCBranch",
         //"xfp.jmh.accumulators.ZhuHayesBranch"
         // ,
-        // "xfp.java.accumulators.RationalFloatAccumulator"
+        // "xfp.java.accumulators.RationalFloatAccumulator1"
         // ,
         // // Same as non-strict, just slower
         // "xfp.jmh.accumulators.StrictDoubleAccumulator",
