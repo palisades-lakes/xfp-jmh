@@ -64,15 +64,15 @@ public abstract class Base {
   List<Double> truth = new ArrayList<Double>();
 
   @Param({
-    "xfp.java.accumulators.BigFloatAccumulator1",
-    "xfp.java.accumulators.RationalFloatAccumulator1",
-    "xfp.java.accumulators.RationalFloatAccumulator",
     "xfp.java.accumulators.BigFloatAccumulator",
-    "xfp.java.accumulators.DoubleAccumulator",
-    "xfp.java.accumulators.KahanAccumulator",
+    "xfp.java.accumulators.BigFloatAccumulator1",
+    //"xfp.java.accumulators.RationalFloatAccumulator",
+    //"xfp.java.accumulators.RationalFloatAccumulator1",
+    //"xfp.java.accumulators.DoubleAccumulator",
+    //"xfp.java.accumulators.KahanAccumulator",
+    //"xfp.java.accumulators.DistilledAccumulator",
+    //"xfp.java.accumulators.ZhuHayesAccumulator",
     //"xfp.java.accumulators.RationalAccumulator",
-    "xfp.java.accumulators.DistilledAccumulator",
-    "xfp.java.accumulators.ZhuHayesAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCBranch",
     //"xfp.jmh.accumulators.ZhuHayesBranch",
