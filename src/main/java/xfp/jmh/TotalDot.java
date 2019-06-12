@@ -1,10 +1,7 @@
 package xfp.jmh;
 
-import java.util.Arrays;
-
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
 
 import xfp.java.accumulators.Accumulator;
 
@@ -12,7 +9,7 @@ import xfp.java.accumulators.Accumulator;
  * java -cp target\benchmarks.jar xfp.jmh.TotalDot
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-06
+ * @version 2019-06-12
  */
 
 public class TotalDot extends Base {
@@ -25,9 +22,7 @@ public class TotalDot extends Base {
 
   public static final void main (final String[] args) 
     throws RunnerException {
-    System.err.println("args=" + Arrays.toString(args));
-    final Options opt = 
-      Defaults.options("TotalDot","TotalDot");
-    System.err.println(opt.toString());
-    new Runner(opt).run(); }
+    new Runner( 
+      Defaults.options("TotalDot","TotalDot"))
+    .run(); }
 }

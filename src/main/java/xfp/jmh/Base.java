@@ -27,7 +27,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-10
+ * @version 2019-06-12
  */
 
 @SuppressWarnings("unchecked")
@@ -66,13 +66,13 @@ public abstract class Base {
   @Param({
     "xfp.java.accumulators.BigFloatAccumulator",
     "xfp.java.accumulators.BigFloatAccumulator0",
-    "xfp.java.accumulators.BigFloatAccumulator1",
-    "xfp.java.accumulators.RationalFloatAccumulator",
-    "xfp.java.accumulators.RationalFloatAccumulator1",
-    "xfp.java.accumulators.DoubleAccumulator",
-    "xfp.java.accumulators.KahanAccumulator",
-    "xfp.java.accumulators.DistilledAccumulator",
-    "xfp.java.accumulators.ZhuHayesAccumulator",
+    //"xfp.java.accumulators.BigFloatAccumulator1",
+//    "xfp.java.accumulators.RationalFloatAccumulator",
+//    "xfp.java.accumulators.RationalFloatAccumulator1",
+//    "xfp.java.accumulators.DoubleAccumulator",
+//    "xfp.java.accumulators.KahanAccumulator",
+//    "xfp.java.accumulators.DistilledAccumulator",
+//    "xfp.java.accumulators.ZhuHayesAccumulator",
     //"xfp.java.accumulators.RationalAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCBranch",
@@ -267,7 +267,7 @@ public abstract class Base {
 //    throws RunnerException {
 //    System.out.println("args=" + Arrays.toString(args));
 //    final Options opt = 
-//      Defaults.options("Base","TotalDot|TotalL2|TotalSum");
+//      Defaults.options("Base","TotalDot|TotalL2Norm|TotalSum");
 //    System.out.println(opt.toString());
 //    new Runner(opt).run(); }
 

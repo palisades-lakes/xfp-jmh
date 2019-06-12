@@ -16,7 +16,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-05
+ * @version 2019-06-12
  */
 
 @SuppressWarnings("unchecked")
@@ -37,9 +37,13 @@ public final class Defaults {
     final File parent = new File("output");
     parent.mkdirs();
     final File csv = 
-      new File(parent, fileName + now() + ".csv");
-    //    final File json = 
-    //      new File(parent, fileName + now() + ".json");
+      new File(parent, 
+        fileName 
+        + "-"  + SystemInfo.model() 
+        + "-" + now() 
+        + ".csv");
+    //final File json = 
+    //  new File(parent, fileName + "-" + now() + ".json");
     return new OptionsBuilder()
       .mode(Mode.AverageTime)
       .timeUnit(TimeUnit.MILLISECONDS)

@@ -1,21 +1,18 @@
 package xfp.jmh;
 
-import java.util.Arrays;
-
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
 
 import xfp.java.accumulators.Accumulator;
 
 /** <pre>
- * java -cp target\benchmarks.jar xfp.jmh.TotalL2
+ * java -cp target\benchmarks.jar xfp.jmh.TotalL2Norm
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-06
+ * @version 2019-06-12
  */
 
-public class TotalL2 extends Base {
+public class TotalL2Norm extends Base {
 
   @Override
   public final double operation (final Accumulator ac,
@@ -26,9 +23,7 @@ public class TotalL2 extends Base {
 
   public static final void main (final String[] args) 
     throws RunnerException {
-    System.err.println("args=" + Arrays.toString(args));
-    final Options opt = 
-      Defaults.options("TotalL2","TotalL2");
-    System.err.println(opt.toString());
-    new Runner(opt).run(); }
+    new Runner( 
+      Defaults.options("TotalL2Norm","TotalL2Norm"))
+    .run(); }
 }
