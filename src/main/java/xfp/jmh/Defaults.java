@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.results.format.ResultFormatType;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
@@ -16,7 +18,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-12
+ * @version 2019-06-13
  */
 
 @SuppressWarnings("unchecked")
@@ -61,6 +63,18 @@ public final class Defaults {
         "-Xbatch","-server")
       .build(); }
 
+  //--------------------------------------------------------------
+
+  public static final void run (final String fileName,
+                                final String includes) {
+    
+    try { new Runner(Defaults.options(fileName,includes)).run(); }
+    catch (final RunnerException e) {
+      throw new RuntimeException(e); } } 
+
+  public static final void run (final String includes) {
+    run(includes,includes); }
+  
   //--------------------------------------------------------------
 }
 //--------------------------------------------------------------

@@ -1,15 +1,12 @@
 package xfp.jmh;
 
-import org.openjdk.jmh.runner.Runner;
-import org.openjdk.jmh.runner.RunnerException;
-
 import xfp.java.accumulators.Accumulator;
 
 /** <pre>
  * java -cp target\benchmarks.jar xfp.jmh.TotalDot
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-12
+ * @version 2019-06-13
  */
 
 public class TotalDot extends Base {
@@ -20,9 +17,5 @@ public class TotalDot extends Base {
                                  final double[] z1) { 
     return ac.clear().addProducts(z0,z1).doubleValue(); }
 
-  public static final void main (final String[] args) 
-    throws RunnerException {
-    new Runner( 
-      Defaults.options("TotalDot","TotalDot"))
-    .run(); }
-}
+  public static final void main (final String[] args)  {
+    Defaults.run("TotalDot"); } }
