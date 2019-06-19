@@ -2,12 +2,12 @@ package xfp.jmh.numbers;
 
 import java.util.Arrays;
 
-import xfp.java.numbers.MutableUnNatural;
+import xfp.java.numbers.MutableNaturalBEI;
 import xfp.java.numbers.Numbers;
 
 class MutableBigInteger {
   /**
-   * Holds the magnitude of this MutableUnNatural in big endian order.
+   * Holds the magnitude of this MutableNaturalBEI in big endian order.
    * The magnitude may start at an offset into the value array, and it may
    * end before the length of the value array.
    */
@@ -15,20 +15,20 @@ class MutableBigInteger {
 
   /**
    * The number of ints of the value array that are currently used
-   * to hold the magnitude of this MutableUnNatural. The magnitude starts
+   * to hold the magnitude of this MutableNaturalBEI. The magnitude starts
    * at an offset and offset + intLen may be less than value.length.
    */
   int intLen;
 
   /**
    * The offset into the value array where the magnitude of this
-   * MutableUnNatural begins.
+   * MutableNaturalBEI begins.
    */
   int offset = 0;
 
   // Constants
   /**
-   * MutableUnNatural with one element value array with the value 1. Used by
+   * MutableNaturalBEI with one element value array with the value 1. Used by
    * BigDecimal divideAndRound to increment the quotient. Use this constant
    * only when the method is not going to modify this object.
    */
@@ -55,7 +55,7 @@ class MutableBigInteger {
   // Constructors
 
   /**
-   * The default constructor. An empty MutableUnNatural is created with
+   * The default constructor. An empty MutableNaturalBEI is created with
    * a one word capacity.
    */
   MutableBigInteger() {
@@ -64,7 +64,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Construct a new MutableUnNatural with a magnitude specified by
+   * Construct a new MutableNaturalBEI with a magnitude specified by
    * the int val.
    */
   MutableBigInteger(final int val) {
@@ -74,7 +74,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Construct a new MutableUnNatural with the specified value array
+   * Construct a new MutableNaturalBEI with the specified value array
    * up to the length of the array supplied.
    */
   MutableBigInteger(final int[] val) {
@@ -83,7 +83,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Construct a new MutableUnNatural with a magnitude equal to the
+   * Construct a new MutableNaturalBEI with a magnitude equal to the
    * specified BigInteger.
    */
   MutableBigInteger(final BigInteger b) {
@@ -92,8 +92,8 @@ class MutableBigInteger {
   }
 
   /**
-   * Construct a new MutableUnNatural with a magnitude equal to the
-   * specified MutableUnNatural.
+   * Construct a new MutableNaturalBEI with a magnitude equal to the
+   * specified MutableNaturalBEI.
    */
   private MutableBigInteger(final MutableBigInteger val) {
     intLen = val.intLen;
@@ -127,7 +127,7 @@ class MutableBigInteger {
   }
 
   //  private final long toLong() {
-  //    assert (intLen <= 2) : "this MutableUnNatural exceeds the range of long";
+  //    assert (intLen <= 2) : "this MutableNaturalBEI exceeds the range of long";
   //    if (intLen == 0) { return 0; }
   //    final long d = value[offset] & Numbers.UNSIGNED_MASK;
   //    return 
@@ -136,7 +136,7 @@ class MutableBigInteger {
   //          : d); }
 
   /**
-   * Convert this MutableUnNatural to a BigInteger object.
+   * Convert this MutableNaturalBEI to a BigInteger object.
    */
   BigInteger toBigInteger(final int sign) {
     if ((intLen == 0) || (sign == 0)) {
@@ -156,7 +156,7 @@ class MutableBigInteger {
 
 
   /**
-   * This is for internal use in converting from a MutableUnNatural
+   * This is for internal use in converting from a MutableNaturalBEI
    * object into a long value given a specified sign.
    * returns INFLATED if value is not fit into long
    */
@@ -167,7 +167,7 @@ class MutableBigInteger {
     final int[] mag = getMagnitudeArray();
     final int len = mag.length;
     final int d = mag[0];
-    // If this MutableUnNatural can not be fitted into long, we need to
+    // If this MutableNaturalBEI can not be fitted into long, we need to
     // make a BigInteger object for the resultant BigDecimal object.
     if ((len > 2) || ((d < 0) && (len == 2))) {
       return BigInteger.INFLATED;
@@ -179,7 +179,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Clear out a MutableUnNatural for reuse.
+   * Clear out a MutableNaturalBEI for reuse.
    */
   void clear() {
     offset = intLen = 0;
@@ -189,7 +189,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Set a MutableUnNatural to zero, removing its offset.
+   * Set a MutableNaturalBEI to zero, removing its offset.
    */
   void reset() {
     offset = intLen = 0;
@@ -197,7 +197,7 @@ class MutableBigInteger {
 
   /**
    * Compare the magnitude of two MutableBigIntegers. Returns -1, 0 or 1
-   * as this MutableUnNatural is numerically less than, equal to, or
+   * as this MutableNaturalBEI is numerically less than, equal to, or
    * greater than {@code b}.
    */
   final int compare(final MutableBigInteger b) {
@@ -256,7 +256,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Compare this against half of a MutableUnNatural object (Needed for
+   * Compare this against half of a MutableNaturalBEI object (Needed for
    * remainder tests).
    * Assumes no leading unnecessary zeros, which holds for results
    * from divide().
@@ -302,8 +302,8 @@ class MutableBigInteger {
   }
 
   /**
-   * Return the index of the lowest set bit in this MutableUnNatural. If the
-   * magnitude of this MutableUnNatural is zero, -1 is returned.
+   * Return the index of the lowest set bit in this MutableNaturalBEI. If the
+   * magnitude of this MutableNaturalBEI is zero, -1 is returned.
    */
   private final int getLowestSetBit() {
     if (intLen == 0) {
@@ -319,7 +319,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Ensure that the MutableUnNatural is in normal form, specifically
+   * Ensure that the MutableNaturalBEI is in normal form, specifically
    * making sure that there are no leading zeros, and that if the
    * magnitude is zero, then intLen is zero.
    */
@@ -345,8 +345,8 @@ class MutableBigInteger {
   }
 
   /**
-   * Convert this MutableUnNatural into an int array with no leading
-   * zeros, of a length that is equal to this MutableUnNatural's intLen.
+   * Convert this MutableNaturalBEI into an int array with no leading
+   * zeros, of a length that is equal to this MutableNaturalBEI's intLen.
    */
   int[] toIntArray() {
     final int[] result = new int[intLen];
@@ -357,7 +357,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Sets the int at index+offset in this MutableUnNatural to val.
+   * Sets the int at index+offset in this MutableNaturalBEI to val.
    * This does not get inlined on all platforms so it is not used
    * as often as originally intended.
    */
@@ -366,7 +366,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Sets this MutableUnNatural's value array to the specified array.
+   * Sets this MutableNaturalBEI's value array to the specified array.
    * The intLen is set to the specified length.
    */
   void setValue(final int[] val, final int length) {
@@ -376,7 +376,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Sets this MutableUnNatural's value array to a copy of the specified
+   * Sets this MutableNaturalBEI's value array to a copy of the specified
    * array. The intLen is set to the length of the new array.
    */
   void copyValue(final MutableBigInteger src) {
@@ -390,7 +390,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Sets this MutableUnNatural's value array to a copy of the specified
+   * Sets this MutableNaturalBEI's value array to a copy of the specified
    * array. The intLen is set to the length of the specified array.
    */
   void copyValue(final int[] val) {
@@ -404,36 +404,36 @@ class MutableBigInteger {
   }
 
   /**
-   * Returns true iff this MutableUnNatural has a value of one.
+   * Returns true iff this MutableNaturalBEI has a value of one.
    */
   boolean isOne() {
     return (intLen == 1) && (value[offset] == 1);
   }
 
   /**
-   * Returns true iff this MutableUnNatural has a value of zero.
+   * Returns true iff this MutableNaturalBEI has a value of zero.
    */
   boolean isZero() {
     return (intLen == 0);
   }
 
   /**
-   * Returns true iff this MutableUnNatural is even.
+   * Returns true iff this MutableNaturalBEI is even.
    */
   boolean isEven() {
     return (intLen == 0) || ((value[(offset + intLen) - 1] & 1) == 0);
   }
 
   /**
-   * Returns true iff this MutableUnNatural is odd.
+   * Returns true iff this MutableNaturalBEI is odd.
    */
   boolean isOdd() {
     return isZero() ? false : ((value[(offset + intLen) - 1] & 1) == 1);
   }
 
   /**
-   * Returns true iff this MutableUnNatural is in normal form. A
-   * MutableUnNatural is in normal form if it has no leading zeros
+   * Returns true iff this MutableNaturalBEI is in normal form. A
+   * MutableNaturalBEI is in normal form if it has no leading zeros
    * after the offset, and intLen + offset <= value.length.
    */
   boolean isNormal() {
@@ -447,7 +447,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Returns a String representation of this MutableUnNatural in radix 10.
+   * Returns a String representation of this MutableNaturalBEI in radix 10.
    */
   @Override
   public String toString() {
@@ -467,7 +467,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Right shift this MutableUnNatural n bits. The MutableUnNatural is left
+   * Right shift this MutableNaturalBEI n bits. The MutableNaturalBEI is left
    * in normal form.
    */
   void rightShift(final int n) {
@@ -499,11 +499,11 @@ class MutableBigInteger {
   }
 
   /**
-   * Left shift this MutableUnNatural n bits.
+   * Left shift this MutableNaturalBEI n bits.
    */
   void leftShift(final int n) {
     /*
-     * If there is enough storage space in this MutableUnNatural already
+     * If there is enough storage space in this MutableNaturalBEI already
      * the available space will be used. Space to the right of the used
      * ints in the value array is faster to utilize, so the extra space
      * will be taken from the right if possible.
@@ -616,7 +616,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Right shift this MutableUnNatural n bits, where n is
+   * Right shift this MutableNaturalBEI n bits, where n is
    * less than 32.
    * Assumes that intLen > 0, n > 0 for speed
    */
@@ -632,7 +632,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Left shift this MutableUnNatural n bits, where n is
+   * Left shift this MutableNaturalBEI n bits, where n is
    * less than 32.
    * Assumes that intLen > 0, n > 0 for speed
    */
@@ -678,8 +678,8 @@ class MutableBigInteger {
   }
 
   /**
-   * Adds the contents of two MutableUnNatural objects.The result
-   * is placed within this MutableUnNatural.
+   * Adds the contents of two MutableNaturalBEI objects.The result
+   * is placed within this MutableNaturalBEI.
    * The contents of the addend are not changed.
    */
   void add(final MutableBigInteger addend) {
@@ -804,7 +804,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Like {@link #addShifted(MutableUnNatural, int)} but {@code this.intLen} must
+   * Like {@link #addShifted(MutableNaturalBEI, int)} but {@code this.intLen} must
    * not be greater than {@code n}. In other words, concatenates {@code this}
    * and {@code addend}.
    */
@@ -860,7 +860,7 @@ class MutableBigInteger {
 
   /**
    * Subtracts the smaller of this and b from the larger and places the
-   * result into this MutableUnNatural.
+   * result into this MutableNaturalBEI.
    */
   int subtract(MutableBigInteger b) {
     MutableBigInteger a = this;
@@ -950,8 +950,8 @@ class MutableBigInteger {
   }
 
   /**
-   * Multiply the contents of two MutableUnNatural objects. The result is
-   * placed into MutableUnNatural z. The contents of y are not changed.
+   * Multiply the contents of two MutableNaturalBEI objects. The result is
+   * placed into MutableNaturalBEI z. The contents of y are not changed.
    */
   private final void multiply (final MutableBigInteger y, 
                                final MutableBigInteger z) {
@@ -994,7 +994,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Multiply the contents of this MutableUnNatural by the word y. The
+   * Multiply the contents of this MutableNaturalBEI by the word y. The
    * result is placed into z.
    */
   void mul(final int y, final MutableBigInteger z) {
@@ -1097,7 +1097,7 @@ class MutableBigInteger {
 
   /**
    * Calculates the quotient of this div b and places the quotient in the
-   * provided MutableUnNatural objects and the remainder object is returned.
+   * provided MutableNaturalBEI objects and the remainder object is returned.
    *
    */
   MutableBigInteger divide(final MutableBigInteger b, final MutableBigInteger quotient) {
@@ -1114,14 +1114,14 @@ class MutableBigInteger {
   }
 
   /**
-   * @see #divideKnuth(MutableUnNatural, MutableUnNatural, boolean)
+   * @see #divideKnuth(MutableNaturalBEI, MutableNaturalBEI, boolean)
    */
   MutableBigInteger divideKnuth(final MutableBigInteger b, final MutableBigInteger quotient) {
     return divideKnuth(b,quotient,true);
   }
 
   /** Calculates the quotient of this div b and places the 
-   * quotient in the provided MutableUnNatural objects and the 
+   * quotient in the provided MutableNaturalBEI objects and the 
    * remainder object is returned.
    *
    * Uses Algorithm D in Knuth section 4.3.1.
@@ -1343,7 +1343,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Returns a {@code MutableUnNatural} containing {@code blockLength} ints from
+   * Returns a {@code MutableNaturalBEI} containing {@code blockLength} ints from
    * {@code this} number, starting at {@code index*blockLength}.<br/>
    * Used by Burnikel-Ziegler division.
    * @param index the block index
@@ -1381,12 +1381,12 @@ class MutableBigInteger {
     return (intLen*32L) - Integer.numberOfLeadingZeros(value[offset]); }
 
   //  /** Internally used  to calculate the quotient of this div v and
-  //   * places the quotient in the provided MutableUnNatural object 
+  //   * places the quotient in the provided MutableNaturalBEI object 
   //   * and the remainder is returned.
   //   *
   //   * @return the remainder of the division will be returned.
   //   */
-  //  private final long divide (long v, final MutableUnNatural quotient) {
+  //  private final long divide (long v, final MutableNaturalBEI quotient) {
   //    assert 0 != v;
   //    if (intLen == 0) {
   //      quotient.intLen = quotient.offset = 0;
@@ -1415,7 +1415,7 @@ class MutableBigInteger {
       dst[dstFrom+i] = (b << shift) | (c >>> n2); }
     dst[(dstFrom+srcLen)-1] = c << shift; }
 
-  /** Divide this MutableUnNatural by the divisor.
+  /** Divide this MutableNaturalBEI by the divisor.
    * The quotient will be placed into the provided quotient object
    * and the remainder object is returned.
    */
@@ -1627,15 +1627,15 @@ class MutableBigInteger {
     return needRemainder ? rem : null;
   }
 
-  //  /** Divide this MutableUnNatural by the divisor represented by 
+  //  /** Divide this MutableNaturalBEI by the divisor represented by 
   //   * positive long value. The quotient will be placed into the 
   //   * provided quotient object & the remainder object is returned.
   //   */
-  //  private final MutableUnNatural 
+  //  private final MutableNaturalBEI 
   //  divideLongMagnitude (long ldivisor, 
-  //                       final MutableUnNatural quotient) {
+  //                       final MutableNaturalBEI quotient) {
   //    // Remainder starts as dividend with space for a leading zero
-  //    final MutableUnNatural rem = new MutableUnNatural(new int[intLen + 1]);
+  //    final MutableNaturalBEI rem = new MutableNaturalBEI(new int[intLen + 1]);
   //    System.arraycopy(value, offset, rem.value, 1, intLen);
   //    rem.intLen = intLen;
   //    rem.offset = 1;
