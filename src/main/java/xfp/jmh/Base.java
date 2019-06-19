@@ -65,9 +65,9 @@ public abstract class Base {
 
   @Param({
     "xfp.java.accumulators.BigFloatAccumulator",
-    //"xfp.java.accumulators.BigFloatAccumulator0",
+    "xfp.java.accumulators.BigFloatAccumulator0",
     //"xfp.java.accumulators.BigFloatAccumulator1",
-    //"xfp.java.accumulators.KahanAccumulator",
+    "xfp.java.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator1",
