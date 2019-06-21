@@ -20,7 +20,7 @@ import xfp.java.numbers.Ringlike;
  * TODO: convert to purely non-negative numbers.
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-23
+ * @version 2019-06-20
  */
 
 @SuppressWarnings("hiding")
@@ -1037,6 +1037,11 @@ implements Ringlike<BigInteger> {
   //--------------------------------------------------------------
   // multiply
   //--------------------------------------------------------------
+  
+  @Override
+  public final boolean isOne () { return equals(ONE); }
+  
+  //--------------------------------------------------------------
   /**
    * The threshold value for using Karatsuba multiplication. If
    * the number
@@ -1626,9 +1631,8 @@ implements Ringlike<BigInteger> {
    *
    * @return {@code this<sup>2</sup>}
    */
-  private BigInteger square () {
-    return square(false);
-  }
+  @Override
+  public final BigInteger square () { return square(false); }
 
   /** The threshold value for using Karatsuba squaring. If the
    * number of ints in the number are larger than this value,
