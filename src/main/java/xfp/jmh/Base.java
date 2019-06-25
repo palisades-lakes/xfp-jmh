@@ -15,7 +15,7 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
 import xfp.java.accumulators.Accumulator;
-import xfp.java.accumulators.BigFloatAccumulator1;
+import xfp.java.accumulators.BigFloatAccumulator0;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
@@ -66,7 +66,7 @@ public abstract class Base {
   @Param({
     "xfp.java.accumulators.BigFloatAccumulator",
     "xfp.java.accumulators.BigFloatAccumulator0",
-    //"xfp.java.accumulators.BigFloatAccumulator1",
+    //"xfp.java.accumulators.BigFloatAccumulator0",
     //"xfp.java.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator",
@@ -206,7 +206,7 @@ public abstract class Base {
     gen = makeGenerator(generator,dim);
     truth.clear();
     est.clear();
-    exact = BigFloatAccumulator1.make();
+    exact = BigFloatAccumulator0.make();
     assert exact.isExact();
     acc = Common.makeAccumulator(accumulator); }
 

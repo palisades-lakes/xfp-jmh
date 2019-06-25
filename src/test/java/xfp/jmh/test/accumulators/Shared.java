@@ -6,7 +6,7 @@ import java.util.List;
  * Not instantiable. Class slots/methods only.
  *
  * @author mcdonald dot john dot alan at gmail dot com
- * @version 2019-05-28
+ * @version 2019-06-25
  */
 public final class Shared {
 
@@ -20,14 +20,8 @@ public final class Shared {
         //"xfp.jmh.accumulators.RationalFloatBIAccumulator",
         //"xfp.java.accumulators.DoubleAccumulator",
         //"xfp.java.accumulators.KahanAccumulator"
-        //"xfp.java.accumulators.BigFloatAccumulator1",
+        //"xfp.java.accumulators.BigFloatAccumulator0",
         //"xfp.java.accumulators.ZhuHayesAccumulator",
-        //"xfp.jmh.accumulators.BigFloatAccumulator0",
-        //"xfp.jmh.accumulators.BigFloatAccumulator1",
-        //"xfp.jmh.accumulators.BigFloatAccumulator2",
-        //"xfp.jmh.accumulators.BigFloatAccumulator3",
-        //"xfp.jmh.accumulators.BigFloatAccumulator4",
-        //"xfp.jmh.accumulators.BigFloatAccumulator5",
         //"xfp.jmh.accumulators.IFastAccumulator",
         //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
         //"xfp.jmh.accumulators.ZhuHayesGCBranch",
