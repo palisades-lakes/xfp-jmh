@@ -129,9 +129,9 @@ class MutableBigInteger {
   //    assert (intLen <= 2) : "this MutableBigInteger exceeds the range of long";
   //    if (intLen == 0) { return 0; }
   //    final long d = value[offset] & Numbers.UNSIGNED_MASK;
-  //    return 
-  //      ((intLen == 2) 
-  //        ? (d << 32) | (value[offset + 1] & Numbers.UNSIGNED_MASK) 
+  //    return
+  //      ((intLen == 2)
+  //        ? (d << 32) | (value[offset + 1] & Numbers.UNSIGNED_MASK)
   //          : d); }
 
   /**
@@ -952,7 +952,7 @@ class MutableBigInteger {
    * Multiply the contents of two MutableBigInteger objects. The result is
    * placed into MutableBigInteger z. The contents of y are not changed.
    */
-  private final void multiply (final MutableBigInteger y, 
+  private final void multiply (final MutableBigInteger y,
                                final MutableBigInteger z) {
     final int xLen = intLen;
     final int yLen = y.intLen;
@@ -1103,7 +1103,7 @@ class MutableBigInteger {
     return divide(b,quotient,true);
   }
 
-  MutableBigInteger divide(final MutableBigInteger b, 
+  MutableBigInteger divide(final MutableBigInteger b,
                            final MutableBigInteger quotient, final boolean needRemainder) {
     if ((b.intLen < BigInteger.BURNIKEL_ZIEGLER_THRESHOLD) ||
       ((intLen - b.intLen) < BigInteger.BURNIKEL_ZIEGLER_OFFSET)) {
@@ -1119,20 +1119,20 @@ class MutableBigInteger {
     return divideKnuth(b,quotient,true);
   }
 
-  /** Calculates the quotient of this div b and places the 
-   * quotient in the provided MutableBigInteger objects and the 
+  /** Calculates the quotient of this div b and places the
+   * quotient in the provided MutableBigInteger objects and the
    * remainder object is returned.
    *
    * Uses Algorithm D in Knuth section 4.3.1.
-   * Many optimizations to that algorithm have been adapted from 
+   * Many optimizations to that algorithm have been adapted from
    * the Colin Plumb C library.
-   * It special cases one word divisors for speed. The content of 
+   * It special cases one word divisors for speed. The content of
    * b is not changed.
    */
-  public final MutableBigInteger 
-  divideKnuth (final MutableBigInteger b, 
-                                              final MutableBigInteger quotient, 
-                                              final boolean needRemainder) {
+  public final MutableBigInteger
+  divideKnuth (final MutableBigInteger b,
+               final MutableBigInteger quotient,
+               final boolean needRemainder) {
     assert 0 != b.intLen;
     // Dividend is zero
     if (intLen == 0) {
@@ -1162,10 +1162,10 @@ class MutableBigInteger {
         return new MutableBigInteger(r); }
       return null; }
 
-    // Cancel common powers of two if we're above the 
+    // Cancel common powers of two if we're above the
     // KNUTH_POW2_* thresholds
     if (intLen >= KNUTH_POW2_THRESH_LEN) {
-      final int trailingZeroBits = 
+      final int trailingZeroBits =
         Math.min(getLowestSetBit(), b.getLowestSetBit());
       if (trailingZeroBits >= (KNUTH_POW2_THRESH_ZEROS*32)) {
         final MutableBigInteger aa = new MutableBigInteger(this);
@@ -1189,8 +1189,8 @@ class MutableBigInteger {
    * @param quotient output parameter for {@code this/b}
    * @return the remainder
    */
-  public final MutableBigInteger 
-  divideAndRemainderBurnikelZiegler (final MutableBigInteger b, 
+  public final MutableBigInteger
+  divideAndRemainderBurnikelZiegler (final MutableBigInteger b,
                                      final MutableBigInteger quotient) {
     final int r = intLen;
     final int s = b.intLen;
@@ -1291,7 +1291,7 @@ class MutableBigInteger {
    * @param quotient output parameter for {@code this/b}
    * @return {@code this%b}
    */
-  private MutableBigInteger divide3n2n (final MutableBigInteger b, 
+  private MutableBigInteger divide3n2n (final MutableBigInteger b,
                                         final MutableBigInteger quotient) {
     final int n = b.intLen / 2;   // half the length of b in ints
 
@@ -1366,10 +1366,10 @@ class MutableBigInteger {
       return new MutableBigInteger();
     }
 
-    final int[] newVal = 
+    final int[] newVal =
       Arrays.copyOfRange(
-        value, 
-        (offset+intLen)-blockEnd, 
+        value,
+        (offset+intLen)-blockEnd,
         (offset+intLen)-blockStart);
     return new MutableBigInteger(newVal);
   }
@@ -1380,7 +1380,7 @@ class MutableBigInteger {
     return (intLen*32L) - Integer.numberOfLeadingZeros(value[offset]); }
 
   //  /** Internally used  to calculate the quotient of this div v and
-  //   * places the quotient in the provided MutableBigInteger object 
+  //   * places the quotient in the provided MutableBigInteger object
   //   * and the remainder is returned.
   //   *
   //   * @return the remainder of the division will be returned.
@@ -1396,15 +1396,15 @@ class MutableBigInteger {
   //    quotient.clear();
   //    // Special case on word divisor
   //    if (d == 0) {
-  //      return 
+  //      return
   //        divideOneWord((int)v, quotient) & Numbers.UNSIGNED_MASK; }
   //    return divideLongMagnitude(v, quotient).toLong(); }
 
-  private static final void copyAndShift (final int[] src, 
-                                          int srcFrom, 
-                                          final int srcLen, 
-                                          final int[] dst, 
-                                          final int dstFrom, 
+  private static final void copyAndShift (final int[] src,
+                                          int srcFrom,
+                                          final int srcLen,
+                                          final int[] dst,
+                                          final int dstFrom,
                                           final int shift) {
     final int n2 = 32 - shift;
     int c=src[srcFrom];
@@ -1626,12 +1626,12 @@ class MutableBigInteger {
     return needRemainder ? rem : null;
   }
 
-  //  /** Divide this MutableBigInteger by the divisor represented by 
-  //   * positive long value. The quotient will be placed into the 
+  //  /** Divide this MutableBigInteger by the divisor represented by
+  //   * positive long value. The quotient will be placed into the
   //   * provided quotient object & the remainder object is returned.
   //   */
-  //  private final MutableBigInteger 
-  //  divideLongMagnitude (long ldivisor, 
+  //  private final MutableBigInteger
+  //  divideLongMagnitude (long ldivisor,
   //                       final MutableBigInteger quotient) {
   //    // Remainder starts as dividend with space for a leading zero
   //    final MutableBigInteger rem = new MutableBigInteger(new int[intLen + 1]);
@@ -1745,9 +1745,9 @@ class MutableBigInteger {
   //   * Specialized version of the method divadd.
   //   * dh is a high part of the divisor, dl is a low part
   //   */
-  //  private static final int divaddLong(final int dh, 
-  //                                      final int dl, 
-  //                                      final int[] result, 
+  //  private static final int divaddLong(final int dh,
+  //                                      final int dl,
+  //                                      final int[] result,
   //                                      final int offset) {
   //    long carry = 0;
   //
@@ -1763,10 +1763,10 @@ class MutableBigInteger {
   //   * Specialized version of the method sulsub.
   //   * dh is a high part of the divisor, dl is a low part
   //   */
-  //  private static final int mulsubLong(final int[] q, 
-  //                                      final int dh, 
-  //                                      final int dl, 
-  //                                      final int x, 
+  //  private static final int mulsubLong(final int[] q,
+  //                                      final int dh,
+  //                                      final int dl,
+  //                                      final int x,
   //                                      int offset1) {
   //    final long xLong = x & Numbers.UNSIGNED_MASK;
   //    offset1 += 2;
@@ -1787,7 +1787,7 @@ class MutableBigInteger {
   /** Compare two longs as if they were unsigned.
    * Returns true iff one is bigger than two.
    */
-  private static final boolean unsignedLongCompare (final long one, 
+  private static final boolean unsignedLongCompare (final long one,
                                                     final long two) {
     return (one+Long.MIN_VALUE) > (two+Long.MIN_VALUE); }
 

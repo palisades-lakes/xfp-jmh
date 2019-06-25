@@ -24,9 +24,9 @@ import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.GeneratorBase;
 
-/** The set of rational numbers represented by 
+/** The set of rational numbers represented by
  * <code>BigFraction</code>
- * 
+ *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-04-01
  */
@@ -59,11 +59,11 @@ public final class BigFractions implements Set {
 
   public static final BigFraction toBigFraction (final Number x) {
     if (x instanceof BigFraction) { return (BigFraction) x; }
-    if (x instanceof Double) { 
+    if (x instanceof Double) {
       return new BigFraction(((Double) x).doubleValue()); }
     if (x instanceof Integer) {
       return new BigFraction(((Integer) x).intValue()); }
-    if (x instanceof Long) { 
+    if (x instanceof Long) {
       final BigInteger bi = BigInteger.valueOf(((Long) x).longValue());
       return new BigFraction(bi); }
     //    return new BigFraction(((Long) x).longValue()); }
@@ -76,7 +76,7 @@ public final class BigFractions implements Set {
     if (x instanceof BigInteger) {
       return new BigFraction(((BigInteger) x)); }
     throw Exceptions.unsupportedOperation(
-      BigFractions.class,"toBigFraction",x); } 
+      BigFractions.class,"toBigFraction",x); }
 
   //--------------------------------------------------------------
 
@@ -121,7 +121,7 @@ public final class BigFractions implements Set {
     for (int i=0;i<n;i++) { y[i] = toBigFraction(x[i]); }
     return y; }
 
-  public static final BigFraction[] 
+  public static final BigFraction[]
     toBigFraction (final byte[] x) {
     final int n = x.length;
     final BigFraction[] y = new BigFraction[n];
@@ -133,30 +133,30 @@ public final class BigFractions implements Set {
   public static final Object toBigFraction (final Object x) {
 
     if (x instanceof BigFraction) { return x; }
-    if (x instanceof Number) { 
+    if (x instanceof Number) {
       return toBigFraction(((Number) x)); }
 
     if (x instanceof BigFraction[]) { return x; }
 
-    if (x instanceof byte[]) { 
+    if (x instanceof byte[]) {
       return toBigFraction((byte[]) x); }
 
-    if (x instanceof short[]) { 
+    if (x instanceof short[]) {
       return toBigFraction((short[]) x); }
 
-    if (x instanceof int[]) { 
+    if (x instanceof int[]) {
       return toBigFraction((int[]) x); }
 
-    if (x instanceof long[]) { 
+    if (x instanceof long[]) {
       return toBigFraction((long[]) x); }
 
-    if (x instanceof float[]) { 
+    if (x instanceof float[]) {
       return toBigFraction((float[]) x); }
 
-    if (x instanceof double[]) { 
+    if (x instanceof double[]) {
       return toBigFraction((double[]) x); }
 
-    if (x instanceof Number[]) { 
+    if (x instanceof Number[]) {
       return toBigFraction((Number[]) x); }
 
     throw Exceptions.unsupportedOperation(
@@ -167,20 +167,20 @@ public final class BigFractions implements Set {
   // adapted from clojure.lang.Ratio
   //--------------------------------------------------------------
 
-  public static final BigInteger 
+  public static final BigInteger
   bigIntegerValue (final BigFraction f){
     return f.getNumerator().divide(f.getDenominator()); }
 
-  public static final BigDecimal 
+  public static final BigDecimal
   decimalValue (final BigFraction f,
                 final MathContext mc) {
-    final BigDecimal numerator = 
+    final BigDecimal numerator =
       new BigDecimal(f.getNumerator());
-    final BigDecimal denominator = 
+    final BigDecimal denominator =
       new BigDecimal(f.getDenominator());
     return numerator.divide(denominator, mc); }
 
-  public static final BigDecimal 
+  public static final BigDecimal
   decimalValue (final BigFraction f) {
     return decimalValue(f,MathContext.UNLIMITED); }
 
@@ -203,18 +203,18 @@ public final class BigFractions implements Set {
   // TODO: is consistency with other algebraic structure classes
   // worth the indirection?
 
-  private final BigFraction add (final BigFraction q0, 
+  private final BigFraction add (final BigFraction q0,
                                  final BigFraction q1) {
     assert contains(q0);
     assert contains(q1);
-    return q0.add(q1); } 
+    return q0.add(q1); }
 
   public final BinaryOperator<BigFraction> adder () {
     return new BinaryOperator<BigFraction> () {
       @Override
       public final String toString () { return "BF.add()"; }
       @Override
-      public final BigFraction apply (final BigFraction q0, 
+      public final BigFraction apply (final BigFraction q0,
                                       final BigFraction q1) {
         return BigFractions.this.add(q0,q1); } }; }
 
@@ -231,7 +231,7 @@ public final class BigFractions implements Set {
 
   private final BigFraction negate (final BigFraction q) {
     assert contains(q);
-    return q.negate(); } 
+    return q.negate(); }
 
   public final UnaryOperator<BigFraction> additiveInverse () {
     return new UnaryOperator<BigFraction> () {
@@ -243,18 +243,18 @@ public final class BigFractions implements Set {
 
   //--------------------------------------------------------------
 
-  private final BigFraction multiply (final BigFraction q0, 
+  private final BigFraction multiply (final BigFraction q0,
                                       final BigFraction q1) {
     assert contains(q0);
     assert contains(q1);
-    return q0.multiply(q1); } 
+    return q0.multiply(q1); }
 
   public final BinaryOperator<BigFraction> multiplier () {
     return new BinaryOperator<BigFraction>() {
       @Override
       public final String toString () { return "BF.multiply()"; }
       @Override
-      public final BigFraction apply (final BigFraction q0, 
+      public final BigFraction apply (final BigFraction q0,
                                       final BigFraction q1) {
         return BigFractions.this.multiply(q0,q1); } }; }
 
@@ -270,7 +270,7 @@ public final class BigFractions implements Set {
     assert contains(q);
     // only a partial inverse
     if (BigFraction.ZERO.equals(q)) { return null; }
-    return q.reciprocal();  } 
+    return q.reciprocal();  }
 
   public final UnaryOperator<BigFraction> multiplicativeInverse () {
     return new UnaryOperator<BigFraction> () {
@@ -297,24 +297,24 @@ public final class BigFractions implements Set {
   // which method to use?
 
   @SuppressWarnings("static-method")
-  public final boolean equals (final BigFraction q0, 
+  public final boolean equals (final BigFraction q0,
                                final BigFraction q1) {
     if (q0 == q1) { return true; }
     if (null == q0) {
       if (null == q1) { return true; }
       return false; }
     if (null == q1) { return false; }
-    final BigInteger n0 = q0.getNumerator(); 
-    final BigInteger d0 = q0.getDenominator(); 
-    final BigInteger n1 = q1.getNumerator(); 
-    final BigInteger d1 = q1.getDenominator(); 
+    final BigInteger n0 = q0.getNumerator();
+    final BigInteger d0 = q0.getDenominator();
+    final BigInteger n1 = q1.getNumerator();
+    final BigInteger d1 = q1.getDenominator();
     return n0.multiply(d1).equals(n1.multiply(d0)); }
 
   @Override
   public final BiPredicate equivalence () {
     return new BiPredicate<BigFraction,BigFraction>() {
       @Override
-      public final boolean test (final BigFraction q0, 
+      public final boolean test (final BigFraction q0,
                                  final BigFraction q1) {
         return BigFractions.this.equals(q0,q1); } }; }
 
@@ -324,7 +324,7 @@ public final class BigFractions implements Set {
   public final Supplier generator (final Map options) {
     final UniformRandomProvider urp = Set.urp(options);
     final Generator bfs = BigFractions.bigFractionGenerator(urp);
-    return 
+    return
       new Supplier () {
       @Override
       public final Object get () { return bfs.next(); } }; }
@@ -349,7 +349,7 @@ public final class BigFractions implements Set {
   //--------------------------------------------------------------
 
 
-  public static final Generator 
+  public static final Generator
   bigFractionGenerator (final int n,
                         final UniformRandomProvider urp) {
     return new GeneratorBase ("bigFractionGenerator:" + n) {
@@ -364,19 +364,19 @@ public final class BigFractions implements Set {
    * (see {@link xfp.java.prng.DoubleSampler})
    * and convert to <code>BigFraction</code>
    * with {@link #DOUBLE_P} probability;
-   * otherwise return {@link BigFraction#ZERO} or 
-   * {@link BigFraction#ONE}, {@link BigFraction#MINUS_ONE},  
+   * otherwise return {@link BigFraction#ZERO} or
+   * {@link BigFraction#ONE}, {@link BigFraction#MINUS_ONE},
    * with equal probability (these are potential edge cases).
    */
-  
-  public static final Generator 
+
+  public static final Generator
   bigFractionGenerator (final UniformRandomProvider urp) {
     final double dp = 0.9;
     return new GeneratorBase ("bigFractionGenerator") {
-      private final ContinuousSampler choose = 
+      private final ContinuousSampler choose =
         new ContinuousUniformSampler(urp,0.0,1.0);
       private final Generator fdg = Doubles.finiteGenerator(urp);
-      private final CollectionSampler edgeCases = 
+      private final CollectionSampler edgeCases =
         new CollectionSampler(
           urp,
           List.of(
@@ -384,7 +384,7 @@ public final class BigFractions implements Set {
             BigFraction.ONE,
             BigFraction.MINUS_ONE));
       @Override
-      public Object next () { 
+      public Object next () {
         final boolean edge = choose.sample() > dp;
         if (edge) { return edgeCases.sample(); }
         return new BigFraction(fdg.nextDouble()); } }; }
@@ -393,17 +393,17 @@ public final class BigFractions implements Set {
 
   private static final BigFractions SINGLETON = new BigFractions();
 
-  public static final BigFractions get () { return SINGLETON; } 
+  public static final BigFractions get () { return SINGLETON; }
 
   //--------------------------------------------------------------
 
-  public static final OneSetOneOperation ADDITIVE_MAGMA = 
+  public static final OneSetOneOperation ADDITIVE_MAGMA =
     OneSetOneOperation.magma(get().adder(),get());
 
-  public static final OneSetOneOperation MULTIPLICATIVE_MAGMA = 
+  public static final OneSetOneOperation MULTIPLICATIVE_MAGMA =
     OneSetOneOperation.magma(get().multiplier(),get());
 
-  public static final OneSetTwoOperations FIELD = 
+  public static final OneSetTwoOperations FIELD =
     OneSetTwoOperations.field(
       get().adder(),
       get().additiveIdentity(),

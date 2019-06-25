@@ -14,7 +14,7 @@ public class TotalL1Norm extends Base {
   @Override
   public final double operation (final Accumulator ac,
                                  final double[] z0,
-                                 final double[] z1) { 
+                                 final double[] z1) {
     return ac.clear().addAbsAll(z0).addAbsAll(z1).doubleValue(); }
 
   public static final void main (final String[] args)  {

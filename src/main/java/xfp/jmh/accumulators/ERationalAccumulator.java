@@ -6,13 +6,13 @@ import com.upokecenter.numbers.ERational;
 import xfp.java.accumulators.Accumulator;
 import xfp.jmh.numbers.ERationals;
 
-/** Naive sum of <code>double</code> values with ERational 
+/** Naive sum of <code>double</code> values with ERational
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-04-20
  */
-public final class ERationalAccumulator 
+public final class ERationalAccumulator
 
 implements Accumulator<ERationalAccumulator> {
 
@@ -47,12 +47,12 @@ implements Accumulator<ERationalAccumulator> {
   public final double doubleValue () { return _sum.ToDouble(); }
 
   @Override
-  public final ERationalAccumulator clear () { 
+  public final ERationalAccumulator clear () {
     _sum = ERational.Zero;
     return this; }
 
   @Override
-  public final ERationalAccumulator add (final double z) { 
+  public final ERationalAccumulator add (final double z) {
     assert Double.isFinite(z);
     _sum = reduce(_sum.Add(ERational.FromDouble(z)));
     return this; }
@@ -66,7 +66,7 @@ implements Accumulator<ERationalAccumulator> {
 
   @Override
   public final ERationalAccumulator addProduct (final double z0,
-                                                final double z1) { 
+                                                final double z1) {
     assert Double.isFinite(z0);
     assert Double.isFinite(z1);
     _sum = reduce(

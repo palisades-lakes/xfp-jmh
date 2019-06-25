@@ -12,8 +12,8 @@ import xfp.java.test.Common;
 import xfp.jmh.numbers.Ratios;
 
 //----------------------------------------------------------------
-/** Tests showing why I use <code>BigFraction</code> for 
- * rationals rather than <code>clojure.lang.Ratio</code>. 
+/** Tests showing why I use <code>BigFraction</code> for
+ * rationals rather than <code>clojure.lang.Ratio</code>.
  * <p>
  * <pre>
  * mvn -q -Dtest=xfp/java/test/sets/RatioTest test > RatioTest.txt
@@ -55,8 +55,8 @@ public final class RatioTest {
           q -> ((Ratio) q).doubleValue(),
           (q0,q1) -> Ratios.abs((Ratio) Numbers.minus(q0,q1)),
           Object::toString); },
-      "Ratio doesn't round correctly"); 
-    
+      "Ratio doesn't round correctly");
+
     Assertions.assertThrows(
       AssertionFailedError.class,
       () -> {
@@ -66,8 +66,8 @@ public final class RatioTest {
           q -> ((Ratio) q).floatValue(),
           (q0,q1) -> Ratios.abs((Ratio) Numbers.minus(q0,q1)),
           Object::toString); },
-      "Ratio doesn't round correctly"); 
-    
+      "Ratio doesn't round correctly");
+
   }
 
   //--------------------------------------------------------------

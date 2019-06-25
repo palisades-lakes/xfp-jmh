@@ -3,7 +3,7 @@ package xfp.jmh.accumulators;
 import xfp.java.accumulators.Accumulator;
 
 //----------------------------------------------------------------
-/** Compensated summation for lots of numbers. 
+/** Compensated summation for lots of numbers.
  * Only makes sense for floating point numbers of various kinds.
  * <p>
  * Mutable! Not thread safe!
@@ -15,12 +15,12 @@ import xfp.java.accumulators.Accumulator;
  *@see  <a
  *      href="https://www-pequan.lip6.fr/~graillat/papers/posterRNC7.pdf">
  *      Graillat, Langlois, and Louvet, Accurate dot products with FMA"</a>
- *      
+ *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-04-21
  */
 
-public final class KahanFmaAccumulator 
+public final class KahanFmaAccumulator
 
 implements Accumulator<KahanFmaAccumulator> {
 
@@ -36,14 +36,14 @@ implements Accumulator<KahanFmaAccumulator> {
   public final boolean noOverflow () { return false; }
 
   @Override
-  public final Object value () { 
+  public final Object value () {
     return Double.valueOf(doubleValue()); }
 
   @Override
   public final double doubleValue () { return s; }
 
   @Override
-  public final KahanFmaAccumulator clear () { 
+  public final KahanFmaAccumulator clear () {
     s = 0.0; c = 0.0; return this; }
 
   @Override
@@ -52,17 +52,17 @@ implements Accumulator<KahanFmaAccumulator> {
     final double zz = z - c;
     final double ss = s + zz;
     c = (ss - s) - zz;
-    s = ss; 
+    s = ss;
     return this; }
 
   @Override
-  public final KahanFmaAccumulator addAll (final double[] z) { 
-    for (final double zi : z) { 
+  public final KahanFmaAccumulator addAll (final double[] z) {
+    for (final double zi : z) {
       assert Double.isFinite(zi);
       final double zz = zi - c;
       final double ss = s + zz;
       c = (ss - s) - zz;
-      s = ss; } 
+      s = ss; }
     return this; }
 
   @Override
@@ -71,17 +71,17 @@ implements Accumulator<KahanFmaAccumulator> {
     final double zz = Math.fma(z,z,-c);
     final double ss = s + zz;
     c = (ss - s) - zz;
-    s = ss; 
+    s = ss;
     return this; }
 
   @Override
-  public final KahanFmaAccumulator add2All (final double[] z) { 
-    for (final double zi : z) { 
+  public final KahanFmaAccumulator add2All (final double[] z) {
+    for (final double zi : z) {
       assert Double.isFinite(zi);
       final double zz = Math.fma(zi,zi,-c);
       final double ss = s + zz;
       c = (ss - s) - zz;
-      s = ss; } 
+      s = ss; }
     return this; }
 
   @Override
@@ -92,21 +92,21 @@ implements Accumulator<KahanFmaAccumulator> {
     final double zz = Math.fma(z0,z1,-c);
     final double ss = s + zz;
     c = (ss - s) - zz;
-    s = ss; 
+    s = ss;
     return this; }
 
   @Override
   public final KahanFmaAccumulator addProducts (final double[] z0,
-                                                final double[] z1) { 
+                                                final double[] z1) {
     final int n = z0.length;
     assert n == z1.length;
-    for (int i=0;i<n;i++) {     
+    for (int i=0;i<n;i++) {
       assert Double.isFinite(z0[i]);
       assert Double.isFinite(z1[i]);
       final double zz = Math.fma(z0[i],z1[i],-c);
       final double ss = s + zz;
       c = (ss - s) - zz;
-      s = ss; 
+      s = ss;
     }
     return this; }
 
@@ -116,7 +116,7 @@ implements Accumulator<KahanFmaAccumulator> {
 
   private KahanFmaAccumulator () { }
 
-  public static final KahanFmaAccumulator make () { 
+  public static final KahanFmaAccumulator make () {
     return new KahanFmaAccumulator(); }
 
   //--------------------------------------------------------------

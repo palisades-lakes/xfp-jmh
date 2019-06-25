@@ -14,11 +14,11 @@ import xfp.java.numbers.Floats;
 import xfp.java.numbers.Numbers;
 import xfp.java.numbers.Ringlike;
 
-/** immutable arbitrary-precision integers for arbitrary precision 
+/** immutable arbitrary-precision integers for arbitrary precision
  * floats.
- * 
+ *
  * TODO: convert to purely non-negative numbers.
- * 
+ *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-06-20
  */
@@ -30,9 +30,9 @@ implements Ringlike<BigInteger> {
   final int signum;
   final int[] mag;
 
-  // The following fields are stable variables. A stable 
-  // variable's value changes at most once from the default zero 
-  // value to a non-zero stable value. A stable value is 
+  // The following fields are stable variables. A stable
+  // variable's value changes at most once from the default zero
+  // value to a non-zero stable value. A stable value is
   // calculated lazily on demand.
 
   private int bitCountPlusOne;
@@ -40,7 +40,7 @@ implements Ringlike<BigInteger> {
   private int lowestSetBitPlusTwo;
   private int firstNonzeroIntNumPlusTwo;
 
-  /** This constant limits {@code mag.length} of BigIntegers to 
+  /** This constant limits {@code mag.length} of BigIntegers to
    * the supported range.
    */
   private static final int MAX_MAG_LENGTH =
@@ -51,15 +51,15 @@ implements Ringlike<BigInteger> {
   //-------------------------------------------------------------
   /** Translates a byte sub-array containing the two's-complement
    * binary representation of a BigInteger into a BigInteger. The
-   * sub-array is specified via an offset into the array and a 
-   * length. The sub-array is assumed to be in <i>big-endian</i> 
-   * byte-order: the most significant byte is the element at index 
-   * {@code off}. The {@code val} array is assumed to be unchanged 
+   * sub-array is specified via an offset into the array and a
+   * length. The sub-array is assumed to be in <i>big-endian</i>
+   * byte-order: the most significant byte is the element at index
+   * {@code off}. The {@code val} array is assumed to be unchanged
    * for the duration of the constructor call.
    *
    * An {@code IndexOutOfBoundsException} is thrown if the length
-   * of the array {@code val} is non-zero and either {@code off} 
-   * is negative, {@code len} * is negative, or {@code off+len} is 
+   * of the array {@code val} is non-zero and either {@code off}
+   * is negative, {@code len} * is negative, or {@code off+len} is
    * greater than the length of {@code val}.
    *
    * @param val
@@ -193,9 +193,9 @@ implements Ringlike<BigInteger> {
   //   *           length.
   //   * @since 9
   //   */
-  //  public BigInteger (final int signum, 
+  //  public BigInteger (final int signum,
   //                     final byte[] magnitude,
-  //                     final int off, 
+  //                     final int off,
   //                     final int len) {
   //    if ((signum < -1) || (signum > 1)) {
   //      throw (new NumberFormatException("Invalid signum value"));
@@ -309,7 +309,7 @@ implements Ringlike<BigInteger> {
    *           {@link Character#MAX_RADIX}, inclusive.
    * @see Character#digit
    */
-  public BigInteger (final String s, 
+  public BigInteger (final String s,
                      final int radix) {
     //Debug.println("BigInteger");
     //Debug.println("s=" + s);
@@ -334,7 +334,7 @@ implements Ringlike<BigInteger> {
       if (index2 != 0) {
         throw new NumberFormatException("embedded sign char"); }
       cursor = 1; }
-    assert (cursor != len) : "Zero length BigInteger"; 
+    assert (cursor != len) : "Zero length BigInteger";
 
     while ((cursor < len)
       && (Character.digit(s.charAt(cursor),radix) == 0)) {
@@ -360,14 +360,14 @@ implements Ringlike<BigInteger> {
     //Debug.println("firstGroupLen=" + firstGroupLen);
     String group = s.substring(cursor,cursor += firstGroupLen);
     magnitude[numWords-1] = Integer.parseInt(group,radix);
-    assert 0 <= magnitude[numWords-1] : "Illegal digit"; 
+    assert 0 <= magnitude[numWords-1] : "Illegal digit";
 
     final int superRadix = intRadix[radix];
     int groupVal = 0;
     while (cursor < len) {
       group = s.substring(cursor,cursor += digitsPerInt[radix]);
       groupVal = Integer.parseInt(group,radix);
-      assert 0 <= groupVal : "Illegal digit"; 
+      assert 0 <= groupVal : "Illegal digit";
       destructiveMulAdd(magnitude,superRadix,groupVal); }
 
     mag = trustedStripLeadingZeroInts(magnitude);
@@ -485,12 +485,12 @@ implements Ringlike<BigInteger> {
     return new BigInteger(val); }
 
   private static final int[] shiftUp (final long x,
-                                        final int upShift) {
+                                      final int upShift) {
     //    final int s0 = upShift / 32;
     //    final int s1 = upShift % 32;
     //    final int n = s0 + 2 + ((s1 > 0) ? 1 : 0);
     //    final int[] x = new int[n];
-    final int[] xs = { (int) (x >>> 32), 
+    final int[] xs = { (int) (x >>> 32),
                        (int) (x & 0xFFFFFFFFL), };
     return shiftUp(xs,upShift); }
 
@@ -505,7 +505,7 @@ implements Ringlike<BigInteger> {
     if (val < 0) { val = -val; signum = -1; }
     else { signum = 1; }
     final int highWord = (int) (val >>> 32);
-    if (highWord == 0) { 
+    if (highWord == 0) {
       mag = new int[1];
       mag[0] = (int) val; }
     else {
@@ -526,14 +526,14 @@ implements Ringlike<BigInteger> {
         : new BigInteger(val)); }
 
   private static final int MAX_CONSTANT = 16;
-  private static BigInteger posConst[] = 
+  private static BigInteger posConst[] =
     new BigInteger[MAX_CONSTANT + 1];
   private static BigInteger negConst[] =
     new BigInteger[MAX_CONSTANT + 1];
 
-  /** The cache of powers of each radix. This allows us to not 
-   * have to recalculate powers of radix^(2^n) more than once. 
-   * This speeds Schoenhage recursive base conversion 
+  /** The cache of powers of each radix. This allows us to not
+   * have to recalculate powers of radix^(2^n) more than once.
+   * This speeds Schoenhage recursive base conversion
    * significantly.
    */
   private static volatile BigInteger[][] powerCache;
@@ -552,7 +552,7 @@ implements Ringlike<BigInteger> {
       posConst[i] = new BigInteger(magnitude,1);
       negConst[i] = new BigInteger(magnitude,-1); }
     // Initialize the cache of radix^(2^x) values used for base
-    // conversion with just the very first value. Additional 
+    // conversion with just the very first value. Additional
     // values will be created on demand.
     powerCache = new BigInteger[Character.MAX_RADIX + 1][];
     logCache = new double[Character.MAX_RADIX + 1];
@@ -561,7 +561,7 @@ implements Ringlike<BigInteger> {
       powerCache[i] = new BigInteger[] { BigInteger.valueOf(i) };
       logCache[i] = Math.log(i); } }
 
-  public static final BigInteger ZERO = 
+  public static final BigInteger ZERO =
     new BigInteger(new int[0],0);
   public static final BigInteger ONE = valueOf(1);
   public static final BigInteger TWO = valueOf(2);
@@ -571,13 +571,13 @@ implements Ringlike<BigInteger> {
   //--------------------------------------------------------------
   // add
   //--------------------------------------------------------------
-  /** Adds the contents of the int array x and long value val. 
-   * This method allocates a new int array to hold the answer. 
+  /** Adds the contents of the int array x and long value val.
+   * This method allocates a new int array to hold the answer.
    * Assumes x.length &gt; 0 and val is non-negative
    */
-  private static final int[] addMagnitude (final int[] x, 
+  private static final int[] addMagnitude (final int[] x,
                                            final long val) {
-    //assert val >= 0L; 
+    //assert val >= 0L;
     long sum = 0;
     int xIndex = x.length;
     int[] result;
@@ -644,7 +644,7 @@ implements Ringlike<BigInteger> {
     return new BigInteger(resultMag,cmp == signum ? 1 : -1); }
 
   //--------------------------------------------------------------
-  /** Adds the contents of the int arrays x and y. Allocate a new 
+  /** Adds the contents of the int arrays x and y. Allocate a new
    * int array to hold the answer.
    */
 
@@ -710,7 +710,7 @@ implements Ringlike<BigInteger> {
     final int intShift = bitShift >>> 5;
     final int remShift = bitShift & 0x1f;
     final boolean yCarry = (64 < (remShift + Numbers.hiBit(y)));
-    final int ny = intShift + (yCarry ? 3 : 2); 
+    final int ny = intShift + (yCarry ? 3 : 2);
 
     final int nx = x.length;
     int ix=nx-1;
@@ -723,7 +723,7 @@ implements Ringlike<BigInteger> {
     //Debug.println("nx>ny=" + (nx>ny));
     //Debug.println("x=" + toHexString(x));
     //Debug.println("y=" + toHexString(y));
-    //Debug.println("shift y=" 
+    //Debug.println("shift y="
     //+ Numbers.toHexString(shiftUp(y,bitShift)));
     //Debug.println("bitShift=" + bitShift);
     //Debug.println("intShift=" + intShift);
@@ -747,7 +747,7 @@ implements Ringlike<BigInteger> {
     final long mid = (y << remShift);
     sum = (mid & 0xFFFFFFFFL);
     //Debug.println("ylo=" + toHexString(mid & 0xFFFFFFFFL));
-    if (0<=ix) { 
+    if (0<=ix) {
       //Debug.println("x[" + ix + "]=" + toHexString(x[ix]));
       sum += unsigned(x[ix--]); }
     //Debug.println("sum=" + toHexString(sum));
@@ -756,7 +756,7 @@ implements Ringlike<BigInteger> {
     sum = (mid >>> 32) + (sum >>> 32);
     //Debug.println("ymi=" + toHexString(mid >>> 32));
     //Debug.println("sum=" + toHexString(sum));
-    if (0<=ix) { 
+    if (0<=ix) {
       //Debug.println("x[" + ix + "]=" + toHexString(x[ix]));
       sum += unsigned(x[ix--]); }
     //Debug.println("sum=" + toHexString(sum));
@@ -767,12 +767,12 @@ implements Ringlike<BigInteger> {
       sum = (y >>> (64 - remShift)) + (sum >>> 32);
       //Debug.println("yhi=" + toHexString(y >>> (64 - remShift)));
       //Debug.println("sum=" + toHexString(sum));
-      if (0<=ix) { 
+      if (0<=ix) {
         //Debug.println("x[" + ix + "]=" + toHexString(x[ix]));
         sum += unsigned(x[ix--]); }
       //Debug.println("sum=" + toHexString(sum));
       r0[ir--] = (int) sum;
-      //Debug.println("r0=" + toHexString(r0)); 
+      //Debug.println("r0=" + toHexString(r0));
     }
 
     // handle carry propagation
@@ -814,7 +814,7 @@ implements Ringlike<BigInteger> {
   //--------------------------------------------------------------
   /** Subtracts the contents of the second argument (val) from the
    * first (big). The first int array (big) must represent a
-   * larger number than the second. This method allocates the 
+   * larger number than the second. This method allocates the
    * space necessary to hold the answer. assumes val &gt;= 0
    */
 
@@ -872,7 +872,7 @@ implements Ringlike<BigInteger> {
       return result; }
     final int result[] = new int[2];
     if (little.length == 1) {
-      final long difference = 
+      final long difference =
         unsigned((int) val) - unsigned(little[0]);
       result[1] = (int) difference;
       // Subtract remainder of longer number while borrow
@@ -892,9 +892,9 @@ implements Ringlike<BigInteger> {
     return result; }
 
   //--------------------------------------------------------------
-  /** Subtracts the contents of the second int arrays (little) 
-   * from the first (big). The first int array (big) must 
-   * represent a larger number than the second. This method 
+  /** Subtracts the contents of the second int arrays (little)
+   * from the first (big). The first int array (big) must
+   * represent a larger number than the second. This method
    * allocates the space necessary to hold the answer.
    */
 
@@ -945,15 +945,15 @@ implements Ringlike<BigInteger> {
 
   //--------------------------------------------------------------
   // assuming little*2<sup>bitShift</sup> <= big
-  // big represents 
+  // big represents
   // sum<sub>i=0,n-1</sub> unsigned(big[n-1-i]) * 2 <sup>i*32</sup>
   // so big[0] is the most significant term; big[n-1] the least.
   //
   // if x = (little << (bitShift % 32)),
   // and intShift = bitShift/32,
-  // then x fits in 3 unsigned ints, xlo, xmi, xhi, 
+  // then x fits in 3 unsigned ints, xlo, xmi, xhi,
   // where xhi == 0 if (bitShift % 32) == 0, and
-  // little*2<sup>bitShift</sup> = 
+  // little*2<sup>bitShift</sup> =
   // (xlo * 2<sup>intShift*32</sup) +
   // (xmi * 2<sup>(intShift+1)*32</sup) +
   // (xhi * 2<sup>(intShift+2)*32</sup)
@@ -967,7 +967,7 @@ implements Ringlike<BigInteger> {
     final int result[] = new int[n];
     int i=n-1;
     // copy unaffected low order ints
-    for (;i>n-intShift-1;i--) { result[i] = big[i]; }
+    for (;i>(n-intShift-1);i--) { result[i] = big[i]; }
 
     final int remShift = bitShift & 0x1f;
     final long mid = (little << remShift);
@@ -976,18 +976,18 @@ implements Ringlike<BigInteger> {
 
     // Subtract common parts of both numbers
     difference = (unsigned(big[i]) - (mid & 0xFFFFFFFFL));
-    result[i] = (int) difference; 
+    result[i] = (int) difference;
     i--;
-    difference = (unsigned(big[i]) - (mid >>> 32)) 
+    difference = (unsigned(big[i]) - (mid >>> 32))
       + (difference >> 32);
-    result[i] = (int) difference; 
+    result[i] = (int) difference;
     i--;
     // TODO: i==0 implies remShift==0 ?
     if ((0<=i) && (0<remShift)) {
-      difference = 
+      difference =
         (unsigned(big[i]) - (little >>> (64 - remShift)))
         + (difference >> 32);
-      result[i] = (int) difference; 
+      result[i] = (int) difference;
       i--; }
 
     // Subtract remainder of longer number while borrow propagates
@@ -1011,7 +1011,7 @@ implements Ringlike<BigInteger> {
       return new BigInteger(shiftUp(val,upShift),1); }
     //assert 0 < signum;
     //assert 0L < val;
-    return 
+    return
       new BigInteger(subtract(shiftUp(val,upShift),mag),1); }
 
   //--------------------------------------------------------------
@@ -1022,7 +1022,7 @@ implements Ringlike<BigInteger> {
     if (0L == val) { return this; }
     //assert 0L < val;
     ////Debug.println("4little=" + Long.toHexString(val));
-    return 
+    return
       new BigInteger(subtract(mag,shiftUp(val,upShift)),1); }
 
   public final BigInteger subtractFrom4 (final long val,
@@ -1031,16 +1031,16 @@ implements Ringlike<BigInteger> {
       return new BigInteger(shiftUp(val,upShift),1); }
     //assert 0 < signum;
     //assert 0L < val;
-    return 
+    return
       new BigInteger(subtract(shiftUp(val,upShift),mag),1); }
 
   //--------------------------------------------------------------
   // multiply
   //--------------------------------------------------------------
-  
+
   @Override
   public final boolean isOne () { return equals(ONE); }
-  
+
   //--------------------------------------------------------------
   /**
    * The threshold value for using Karatsuba multiplication. If
@@ -1054,14 +1054,14 @@ implements Ringlike<BigInteger> {
   /** The threshold value for using 3-way Toom-Cook multiplication.
    * If the number of ints in each mag array is greater than the
    * Karatsuba threshold, and the number of ints in at least one
-   * of the mag arrays is greater than this threshold, then 
+   * of the mag arrays is greater than this threshold, then
    * Toom-Cook multiplication will be used.
    */
   private static final int TOOM_COOK_THRESHOLD = 240;
 
   /** The threshold value for using squaring code to perform
-   * multiplication of a {@code BigInteger} instance by itself. If 
-   * the number of ints in the number are larger than this value, 
+   * multiplication of a {@code BigInteger} instance by itself. If
+   * the number of ints in the number are larger than this value,
    * {@code multiply(this)} will return {@code square()}.
    */
   private static final int MULTIPLY_SQUARE_THRESHOLD = 20;
@@ -1366,18 +1366,18 @@ implements Ringlike<BigInteger> {
 
   /**
    * Multiplies two BigIntegers using a 3-way Toom-Cook
-   * multiplication algorithm. This is a recursive 
-   * divide-and-conquer algorithm which is more efficient for 
+   * multiplication algorithm. This is a recursive
+   * divide-and-conquer algorithm which is more efficient for
    * large numbers than what is commonly called the "grade-school"
    * algorithm used in multiplyToLen. If the numbers to be
    * multiplied have length n, the "grade-school" algorithm has an
    * asymptotic complexity of O(n^2). In contrast, 3-way Toom-Cook
-   * has a complexity of about O(n^1.465). It achieves this 
-   * increased asymptotic performance by breaking each number into 
-   * three parts and by doing 5 multiplies instead of 9 when 
-   * evaluating the product. Due to overhead (additions, shifts, 
-   * and one division) in the Toom-Cook algorithm, it should only 
-   * be used when both numbers are larger than a certain threshold 
+   * has a complexity of about O(n^1.465). It achieves this
+   * increased asymptotic performance by breaking each number into
+   * three parts and by doing 5 multiplies instead of 9 when
+   * evaluating the product. Due to overhead (additions, shifts,
+   * and one division) in the Toom-Cook algorithm, it should only
+   * be used when both numbers are larger than a certain threshold
    * (found experimentally). This threshold is generally larger
    * than that for Karatsuba multiplication, so this algorithm is
    * generally only used when numbers become significantly larger.
@@ -1895,21 +1895,21 @@ implements Ringlike<BigInteger> {
   public static final int BURNIKEL_ZIEGLER_THRESHOLD = 80;
   public static final int BURNIKEL_ZIEGLER_OFFSET = 40;
 
-  private static final boolean 
+  private static final boolean
   useKnuthDivision (final BigInteger num,
                     final BigInteger den) {
     final int nn = num.mag.length;
     final int nd = den.mag.length;
-    return 
+    return
       (nd < BURNIKEL_ZIEGLER_THRESHOLD)
-      || 
+      ||
       ((nn-nd) < BURNIKEL_ZIEGLER_OFFSET); }
-  
+
   //--------------------------------------------------------------
   // Knuth algorithm
   //--------------------------------------------------------------
 
-  private final BigInteger 
+  private final BigInteger
   divideKnuth (final BigInteger that) {
     final MutableBigInteger q = new MutableBigInteger();
     final MutableBigInteger a = new MutableBigInteger(this.mag);
@@ -1918,13 +1918,13 @@ implements Ringlike<BigInteger> {
     return q.toBigInteger(this.signum * that.signum); }
 
   /** Long division */
-  private final BigInteger[] 
+  private final BigInteger[]
     divideAndRemainderKnuth (final BigInteger that) {
     final MutableBigInteger q = new MutableBigInteger();
     final MutableBigInteger a = new MutableBigInteger(this.mag);
     final MutableBigInteger b = new MutableBigInteger(that.mag);
     final MutableBigInteger r = a.divideKnuth(b,q);
-    return new BigInteger[] 
+    return new BigInteger[]
       { q.toBigInteger(this.signum * that.signum),
         r.toBigInteger(this.signum), }; }
 
@@ -1937,7 +1937,7 @@ implements Ringlike<BigInteger> {
 
   //--------------------------------------------------------------
 
-  private final BigInteger[] 
+  private final BigInteger[]
     divideAndRemainderBurnikelZiegler (final BigInteger that) {
     final MutableBigInteger q = new MutableBigInteger();
     final MutableBigInteger num = new MutableBigInteger(this);
@@ -1950,11 +1950,11 @@ implements Ringlike<BigInteger> {
       r.isZero() ? ZERO : r.toBigInteger(signum);
     return new BigInteger[] { qBigInt, rBigInt }; }
 
-  private final BigInteger 
+  private final BigInteger
   divideBurnikelZiegler (final BigInteger that) {
     return divideAndRemainderBurnikelZiegler(that)[0]; }
 
-  private final BigInteger 
+  private final BigInteger
   remainderBurnikelZiegler (final BigInteger that) {
     return divideAndRemainderBurnikelZiegler(that)[1]; }
 
@@ -1963,17 +1963,17 @@ implements Ringlike<BigInteger> {
   //--------------------------------------------------------------
 
   @Override
-  public final BigInteger 
+  public final BigInteger
   divide (final BigInteger that) {
     if (useKnuthDivision(this,that)) { return divideKnuth(that); }
     return divideBurnikelZiegler(that); }
 
   @Override
-  public List<BigInteger> 
+  public List<BigInteger>
   divideAndRemainder (final BigInteger that) {
     if (useKnuthDivision(this,that)) {
       return Arrays.asList(divideAndRemainderKnuth(that)); }
-    return 
+    return
       Arrays.asList(divideAndRemainderBurnikelZiegler(that)); }
 
   @Override
@@ -2933,7 +2933,7 @@ implements Ringlike<BigInteger> {
       final int a = m1[i];
       final int b = m2[i];
       if (a != b) {
-        return (unsigned(a) < unsigned(b)) 
+        return (unsigned(a) < unsigned(b))
           ? -1 : 1; } }
     return 0; }
 
@@ -2952,7 +2952,7 @@ implements Ringlike<BigInteger> {
       final int a = m1[0];
       final int b = (int) val;
       if (a != b) {
-        return 
+        return
           ((unsigned(a) < unsigned(b))
             ? -1 : 1); }
       return 0; }
@@ -2960,12 +2960,12 @@ implements Ringlike<BigInteger> {
     int a = m1[0];
     int b = highWord;
     if (a != b) {
-      return 
+      return
         ((unsigned(a) < unsigned(b)) ? -1 : 1); }
     a = m1[1];
     b = (int) val;
     if (a != b) {
-      return 
+      return
         ((unsigned(a) < unsigned(b)) ? -1 : 1); }
     return 0; }
 
@@ -2987,7 +2987,7 @@ implements Ringlike<BigInteger> {
       final int a = m1[0];
       final int b = (int) val;
       if (a != b) {
-        return 
+        return
           ((unsigned(a) < unsigned(b))
             ? -1 : 1); }
       return 0; }
@@ -2995,12 +2995,12 @@ implements Ringlike<BigInteger> {
     int a = m1[0];
     int b = highWord;
     if (a != b) {
-      return 
+      return
         ((unsigned(a) < unsigned(b)) ? -1 : 1); }
     a = m1[1];
     b = (int) val;
     if (a != b) {
-      return 
+      return
         ((unsigned(a) < unsigned(b)) ? -1 : 1); }
     return 0; }
 
@@ -3156,10 +3156,10 @@ implements Ringlike<BigInteger> {
   }
 
   /** The threshold value for using Schoenhage recursive base
-   * conversion. If the number of ints in the number are larger 
-   * than this value, the Schoenhage algorithm will be used. In 
-   * practice, it appears that the Schoenhage routine is faster 
-   * for any threshold down to 2, and is relatively flat for 
+   * conversion. If the number of ints in the number are larger
+   * than this value, the Schoenhage algorithm will be used. In
+   * practice, it appears that the Schoenhage routine is faster
+   * for any threshold down to 2, and is relatively flat for
    * thresholds between 2-25, so this choice may be
    * varied within this range for very small effect.
    */
@@ -3216,7 +3216,7 @@ implements Ringlike<BigInteger> {
         (Math.log((b * LOG_TWO) / logCache[radix]) / LOG_TWO)
         - 1.0);
     final BigInteger v = getRadixConversionCache(radix,n);
-    List<BigInteger> results = u.divideAndRemainder(v);
+    final List<BigInteger> results = u.divideAndRemainder(v);
 
     final int expectedDigits = 1 << n;
 
@@ -3876,7 +3876,7 @@ implements Ringlike<BigInteger> {
    *
    * <p>
    * Note: never used for a BigInteger with a magnitude of zero.
-   * 
+   *
    * @see #getInt.
    */
   private int firstNonzeroIntNum () {

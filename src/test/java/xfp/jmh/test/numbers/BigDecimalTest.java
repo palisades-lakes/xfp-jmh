@@ -8,7 +8,7 @@ import xfp.java.numbers.Numbers;
 import xfp.java.test.Common;
 
 //----------------------------------------------------------------
-/** Test desired properties of BigDecimal. 
+/** Test desired properties of BigDecimal.
  * <p>
  * <pre>
  * mvn -Dtest=xfp/jmh/test/numbers/BigDecimalTest test > BigDecimalTest.txt
@@ -29,15 +29,15 @@ public final class BigDecimalTest {
       BigDecimal::valueOf,
       Numbers::doubleValue,
       (q0,q1) -> ((BigDecimal) q0).subtract((BigDecimal) q1).abs(),
-      Object::toString); 
-    
+      Object::toString);
+
     Common.floatRoundingTests(
       null,
       BigDecimal::valueOf,
       Numbers::floatValue,
       (q0,q1) -> ((BigDecimal) q0).subtract((BigDecimal) q1).abs(),
-      Object::toString); 
-    
+      Object::toString);
+
   }
 
   //--------------------------------------------------------------

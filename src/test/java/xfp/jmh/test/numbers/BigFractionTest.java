@@ -9,7 +9,7 @@ import xfp.java.numbers.Numbers;
 import xfp.java.test.Common;
 
 //----------------------------------------------------------------
-/** Test desired properties of BigFractions. 
+/** Test desired properties of BigFractions.
  * <p>
  * Failed, hacky attempts to correct BigFraction.doubelValue(),
  * so that rounds correctly (half-even), including
@@ -27,7 +27,7 @@ import xfp.java.test.Common;
 
 public final class BigFractionTest {
 
-  // TODO: BigFraction.doubleValue doesn't round to nearest. 
+  // TODO: BigFraction.doubleValue doesn't round to nearest.
   // Test below fails with both random double -> BigFraction
   // and random long,long -> BigFraction.
 
@@ -44,8 +44,8 @@ public final class BigFractionTest {
           Numbers::doubleValue,
           (q0,q1) -> ((BigFraction) q0).subtract((BigFraction) q1).abs(),
           Object::toString); },
-      "BigFraction doesn't round correctly"); 
-    
+      "BigFraction doesn't round correctly");
+
     Assertions.assertThrows(
       AssertionFailedError.class,
       () -> {
@@ -55,8 +55,8 @@ public final class BigFractionTest {
           Numbers::floatValue,
           (q0,q1) -> ((BigFraction) q0).subtract((BigFraction) q1).abs(),
           Object::toString); },
-      "BigFraction doesn't round correctly"); 
-    
+      "BigFraction doesn't round correctly");
+
   }
 
   //--------------------------------------------------------------

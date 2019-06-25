@@ -16,7 +16,7 @@ import xfp.java.prng.PRNG;
 import xfp.jmh.accumulators.EFloatAccumulator;
 
 //----------------------------------------------------------------
-/** Test number conversions expected to be lossless. 
+/** Test number conversions expected to be lossless.
  * <p>
  * <pre>
  * mvn -Dtest=xfp/java/test/numbers/RoundtripTests test > RoundtripTests.txt
@@ -84,7 +84,7 @@ public final class RoundtripTests {
   //    final double nx = n.doubleValue();
   //    final double dx = d.doubleValue();
   //    System.out.println(
-  //      n + "\n" + d + "\n" + 
+  //      n + "\n" + d + "\n" +
   //        Double.toHexString(nx) + "\n" +
   //        Double.toHexString(dx));
   //    if (Double.isInfinite(nx) || Double.isInfinite(dx)) {
@@ -117,7 +117,7 @@ public final class RoundtripTests {
   //    final BigDecimal d10 = new BigDecimal(d);
   //    //final MathContext mc = MathContext.DECIMAL128;
   //    final MathContext mc = new MathContext(128,RoundingMode.HALF_UP);
-  //    final BigDecimal x10 = n10.divide(d10,mc); 
+  //    final BigDecimal x10 = n10.divide(d10,mc);
   //    final double x = x10.doubleValue();
   //    if (Doubles.isNormal(x)) { return x; }
   //    return 2.0*x; }
@@ -130,7 +130,7 @@ public final class RoundtripTests {
   //    final double x = -0x0.19c0ba819d5c3p-1022;
   //    final ERational f = ERational.FromDouble(x);
   //    final double xf = f.ToDouble();
-  //    System.out.println("\n\n" + 
+  //    System.out.println("\n\n" +
   //      "ERational.ToDouble:" + Doubles.isNormal(x) +"\n" +
   //      x + "\n" +
   //      xf + "\n\n" +
@@ -141,16 +141,16 @@ public final class RoundtripTests {
   //      f.getNumerator().ToRadixString(16) + "\n" +
   //      f.getDenominator().ToRadixString(16));
   //    //final double dx = Math.abs(x - xf);
-  //    //if (dx > Math.ulp(x)) { 
-  //    if (x != xf) { 
-  //      return false; } 
+  //    //if (dx > Math.ulp(x)) {
+  //    if (x != xf) {
+  //      return false; }
   //    return true; }
 
   //  public static final boolean double2BigFraction2Double () {
   //    final double x = -0x0.19c0ba819d5c3p-1022;
   //    final BigFraction f = new BigFraction(x);
   //    final double xf = toDouble(f);
-  //    System.out.println("\n\n" + 
+  //    System.out.println("\n\n" +
   //      "toDouble:" + Doubles.isNormal(x) +"\n" +
   //      x + "\n" +
   //      xf + "\n\n" +
@@ -161,23 +161,23 @@ public final class RoundtripTests {
   //      f.getNumerator().toString(16) + "\n" +
   //      f.getDenominator().toString(16));
   //    //final double dx = Math.abs(x - xf);
-  //    //if (dx > Math.ulp(x)) { 
-  //    if (x != xf) { 
-  //      return false; } 
+  //    //if (dx > Math.ulp(x)) {
+  //    if (x != xf) {
+  //      return false; }
   //    return true; }
 
   //  public static final boolean double2BigFraction2Double () {
-  //    final Generator g = 
+  //    final Generator g =
   //      finiteDoubles();
   //    //      subnormalDoubles();
   //    for (int i=0;i<TRYS;i++) {
   //      final double x = g.nextDouble();
   //      final BigFraction f = new BigFraction(x);
   //      final double xf = toDouble(f);
-  //      if (x != xf) { 
+  //      if (x != xf) {
   //        //        final double dx = Math.abs(x - xf);
-  //        //        if (dx > Math.ulp(x)) { 
-  //        System.out.println("\n\n" + 
+  //        //        if (dx > Math.ulp(x)) {
+  //        System.out.println("\n\n" +
   //          "toDouble:" + i + " " + Doubles.isNormal(x) +"\n" +
   //          x + "\n" +
   //          xf + "\n\n" +
@@ -185,7 +185,7 @@ public final class RoundtripTests {
   //          Double.toHexString(xf) + "\n\n" +
   //          f.getNumerator().toString(16) + "\n" +
   //          f.getDenominator().toString(16));
-  //        return false; } } 
+  //        return false; } }
   //    return true; }
 
   //--------------------------------------------------------------
@@ -194,11 +194,11 @@ public final class RoundtripTests {
   //  /** Based on Rational.doubleValue() from jscience 4.3.1
   //   */
   //
-  //  public static final double 
+  //  public static final double
   //  toDoubleJScience (final BigFraction f) {
   //    final BigInteger _dividend = f.getNumerator();
   //    final BigInteger _divisor = f.getDenominator();
-  //    // Avoid negative numbers (ref. bitLength) 
+  //    // Avoid negative numbers (ref. bitLength)
   //    if (-1 == _dividend.signum()) {
   //      return - toDoubleJScience(f.abs()); }
   //
@@ -226,14 +226,14 @@ public final class RoundtripTests {
   //      final double x = g.nextDouble();
   //      final BigFraction f = new BigFraction(x);
   //      final double xf = toDoubleJScience(f);
-  //      if (x != xf) { 
-  //        System.out.println("\n" + 
+  //      if (x != xf) {
+  //        System.out.println("\n" +
   //          "double2BigFraction:" + i + " " + Doubles.isNormal(x) +"\n" +
   //          Double.toHexString(x) + "\n" +
   //          Double.toHexString(xf) + "\n" +
   //          f.getNumerator() + "\n" +
   //          f.getDenominator());
-  //        return false; } } 
+  //        return false; } }
   //    return true; }
 
   //  // Fails.
@@ -245,14 +245,14 @@ public final class RoundtripTests {
   //      final double x = g.nextDouble();
   //      final BigFraction f = new BigFraction(x);
   //      final double xf = f.doubleValue();
-  //      if (x != xf) { 
-  //        //        System.out.println("\n" + 
+  //      if (x != xf) {
+  //        //        System.out.println("\n" +
   //        //          "double2BigFraction:" + i + " " + Doubles.isNormal(x) +"\n" +
   //        //          Double.toHexString(x) + "\n" +
   //        //          Double.toHexString(xf) + "\n" +
   //        //          f.getNumerator() + "\n" +
   //        //          f.getDenominator());
-  //        return false; } } 
+  //        return false; } }
   //    return true; }
 
   //  // Fails. Off in least significant bit for small numbers.
@@ -264,14 +264,14 @@ public final class RoundtripTests {
   //      final double x = g.nextDouble();
   //      final Ratio f = Ratios.toRatio(x);
   //      final double xf = f.doubleValue();
-  //      if (x != xf) { 
-  //        System.out.println("\n" + 
-  //          "double2Ratio:" + i + " " + Doubles.isNormal(x) + "\n" + 
+  //      if (x != xf) {
+  //        System.out.println("\n" +
+  //          "double2Ratio:" + i + " " + Doubles.isNormal(x) + "\n" +
   //          Double.toHexString(x) + "\n" +
   //          Double.toHexString(xf) + "\n" +
   //          f.numerator + "\n" +
   //          f.denominator);
-  //        return false; } } 
+  //        return false; } }
   //    return true; }
 
   //// Fails.
@@ -284,13 +284,13 @@ public final class RoundtripTests {
   //      // Might return Ratio or BigInt
   //      final Number f = Numbers.rationalize(Double.valueOf(x));
   //      final double xf = f.doubleValue();
-  //      if (x != xf) { 
-  //        //        System.out.println("\n" + 
-  //        //          "double2Rationalize:" + i + " " + Doubles.isNormal(x) + "\n" + 
+  //      if (x != xf) {
+  //        //        System.out.println("\n" +
+  //        //          "double2Rationalize:" + i + " " + Doubles.isNormal(x) + "\n" +
   //        //          Double.toHexString(x) + "\n" +
   //        //          Double.toHexString(xf) + "\n" +
   //        //          f);
-  //        return false; } } 
+  //        return false; } }
   //    return true; }
 
   // This fails.
@@ -306,7 +306,7 @@ public final class RoundtripTests {
   //    final Generator g = finiteDoubles();
   //    for (int i=0;i<TRYS;i++) {
   //      final double x = g.nextDouble();
-  //      
+  //
   //      final BigFraction f0 = new BigFraction(x).reduce();
   //      final BigInteger f0n = f0.getNumerator();
   //      final BigInteger f0d = f0.getDenominator();
@@ -315,7 +315,7 @@ public final class RoundtripTests {
   //      final Ratio f1 = Ratios.toRatio(x);
   //      final BigInteger f1n = f1.numerator;
   //      final BigInteger f1d = f1.denominator;
-  //      
+  //
   //      // Might return Ratio or BigInt
   //      final Number f2 = Numbers.rationalize(Double.valueOf(x));
   //      final BigInteger f2n, f2d;
@@ -326,15 +326,15 @@ public final class RoundtripTests {
   //        f2n = ((Ratio) f2).numerator;
   //        f2d = ((Ratio) f2).denominator; }
   //      else { throw new RuntimeException("can't get here"); }
-  //      
-  //      if (! ((f0n == f1n) && (f1n == f2n) && (f0d == f1d) && (f1d == f2d))) { 
-  //        System.out.println("\n" + 
-  //          "rationalizers:" + i + " " + Doubles.isNormal(x) + "\n" + 
+  //
+  //      if (! ((f0n == f1n) && (f1n == f2n) && (f0d == f1d) && (f1d == f2d))) {
+  //        System.out.println("\n" +
+  //          "rationalizers:" + i + " " + Doubles.isNormal(x) + "\n" +
   //          Double.toHexString(x) + "\n\n" +
   //          "BigFraction\n" + f0n + "\n" + f0d + "\n\n" +
   //          "toRatio\n" + f1n + "\n" + f1d + "\n\n" +
   //          "rationalize\n" + f2n + "\n" + f2d + "\n\n");
-  //        return false; } } 
+  //        return false; } }
   //    return true; }
 
   //--------------------------------------------------------------
@@ -342,22 +342,22 @@ public final class RoundtripTests {
    */
 
   private static final boolean double2BigDecimal2Double () {
-    final Generator g = 
+    final Generator g =
       finiteDoubles();
-      //subnormalDoubles();
+    //subnormalDoubles();
     for (int i=0;i<TRYS;i++) {
       final double x = g.nextDouble();
       final BigDecimal f = new BigDecimal(x);
       final double xf = f.doubleValue();
-      if (x != xf) { 
-        System.out.println("\n\n" + 
+      if (x != xf) {
+        System.out.println("\n\n" +
           "BigDecimal.ToDouble:" + Doubles.isNormal(x) +"\n" +
           x + "\n" +
           xf + "\n\n" +
           Double.toHexString(x) + "\n" +
           Double.toHexString(xf) + "\n\n" +
-          f + "\n" 
-          //+ f.toHexString(f) + "\n" 
+          f + "\n"
+          //+ f.toHexString(f) + "\n"
           );
         return false; } }
     return true; }
@@ -367,15 +367,15 @@ public final class RoundtripTests {
    */
 
   private static final boolean double2EFloat2Double () {
-    final Generator g = 
+    final Generator g =
       finiteDoubles();
-      //subnormalDoubles();
+    //subnormalDoubles();
     for (int i=0;i<TRYS;i++) {
       final double x = g.nextDouble();
       final EFloat f = EFloat.FromDouble(x);
       final double xf = f.ToDouble();
-      if (x != xf) { 
-        System.out.println("\n\n" + 
+      if (x != xf) {
+        System.out.println("\n\n" +
           "EFloat.ToDouble:" + Doubles.isNormal(x) +"\n" +
           x + "\n" +
           xf + "\n\n" +
@@ -391,15 +391,15 @@ public final class RoundtripTests {
    */
 
   private static final boolean double2Rational2Double () {
-    final Generator g = 
+    final Generator g =
       finiteDoubles();
-      //subnormalDoubles();
+    //subnormalDoubles();
     for (int i=0;i<TRYS;i++) {
       final double x = g.nextDouble();
       final Rational f = Rational.valueOf(x);
       final double xf = f.doubleValue();
-      if (x != xf) { 
-        System.out.println("\n\n" + 
+      if (x != xf) {
+        System.out.println("\n\n" +
           "Rational.doubleValue:" + Doubles.isNormal(x) +"\n" +
           x + "\n" +
           xf + "\n\n" +
@@ -417,15 +417,15 @@ public final class RoundtripTests {
    */
 
   private static final boolean double2ERational2Double () {
-    final Generator g = 
+    final Generator g =
       finiteDoubles();
-      //subnormalDoubles();
+    //subnormalDoubles();
     for (int i=0;i<TRYS;i++) {
       final double x = g.nextDouble();
       final ERational f = ERational.FromDouble(x);
       final double xf = f.ToDouble();
-      if (x != xf) { 
-        System.out.println("\n\n" + 
+      if (x != xf) {
+        System.out.println("\n\n" +
           "ERational.ToDouble:" + Doubles.isNormal(x) +"\n" +
           x + "\n" +
           xf + "\n\n" +
@@ -466,18 +466,18 @@ public final class RoundtripTests {
     // This should be true. Last significand bit wrong for some
     // small numbers.
     // Ratio should be able to represent any double exactly.
-    // Not sure whether Ratio.doubleValue() or 
+    // Not sure whether Ratio.doubleValue() or
     // Ratios.toRatio(double) is broken.
     //    assertTrue(double2Ratio());
 
     // This should be true.
     // Ratio should be able to represent any double exactly.
-    // Not sure whether Ratio.doubleValue() or 
+    // Not sure whether Ratio.doubleValue() or
     // Ratios.toRatio(double) is broken.
     //assertTrue(double2Rationalize());
 
     // check where to-rational conversions differ
-    // if they all did exact conversion to rational, 
+    // if they all did exact conversion to rational,
     // numerators and denominators would be the same
     // assertTrue(rationalizers());
   }

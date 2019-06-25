@@ -5,13 +5,13 @@ import com.upokecenter.numbers.EInteger;
 
 import xfp.java.accumulators.Accumulator;
 
-/** Naive sum of <code>double</code> values with EFloat 
+/** Naive sum of <code>double</code> values with EFloat
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-04-21
  */
-public final class EFloatAccumulator 
+public final class EFloatAccumulator
 
 implements Accumulator<EFloatAccumulator> {
 
@@ -31,7 +31,7 @@ implements Accumulator<EFloatAccumulator> {
     if (x.isZero()) { return ss + "0x0.0p0"; }
     final EInteger e = x.getExponent();
     final EInteger t = x.getUnsignedMantissa();
-    return 
+    return
       ss + "0x" + t.ToRadixString(0x10) + "p" +
       e.toString(); }
 
@@ -43,7 +43,7 @@ implements Accumulator<EFloatAccumulator> {
   //--------------------------------------------------------------
   // Accumulator methods
   //--------------------------------------------------------------
-  
+
   @Override
   public final boolean isExact () { return true; }
 
@@ -54,22 +54,22 @@ implements Accumulator<EFloatAccumulator> {
   public final Object value () { return _sum; }
 
   @Override
-  public final double doubleValue () { 
+  public final double doubleValue () {
     return _sum.ToDouble(); }
 
   @Override
-  public final EFloatAccumulator clear () { 
+  public final EFloatAccumulator clear () {
     _sum = EFloat.Zero;
     return this; }
 
   @Override
-  public final EFloatAccumulator add (final double z) { 
+  public final EFloatAccumulator add (final double z) {
     assert Double.isFinite(z);
     _sum = _sum.Add(EFloat.FromDouble(z));
     return this; }
 
   @Override
-  public final EFloatAccumulator add2 (final double z) { 
+  public final EFloatAccumulator add2 (final double z) {
     assert Double.isFinite(z);
     final EFloat zz = EFloat.FromDouble(z);
     _sum = _sum.Add(zz.Multiply(zz));
@@ -77,7 +77,7 @@ implements Accumulator<EFloatAccumulator> {
 
   @Override
   public final EFloatAccumulator addProduct (final double z0,
-                                             final double z1) { 
+                                             final double z1) {
     assert Double.isFinite(z0);
     assert Double.isFinite(z1);
     _sum = _sum.Add(

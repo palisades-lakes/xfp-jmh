@@ -4,12 +4,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import xfp.java.Debug;
 import xfp.java.test.Common;
 import xfp.jmh.accumulators.ERationalAccumulator;
 
 //----------------------------------------------------------------
-/** Test summation algorithms. 
+/** Test summation algorithms.
  * <p>
  * <pre>
  * mvn test -Dtest=xfp/java/test/accumulators/BigFloatAccumulatorTest > BigFloatAccumulatorTest.txt
@@ -28,17 +27,17 @@ public final class BigFloatAccumulatorTest {
   @SuppressWarnings("static-method")
   @Test
   public final void tests () {
-    Debug.DEBUG=false;
+    //Debug.DEBUG=false;
     //Debug.println();
     //Debug.println(Classes.className(this));
     Common.sumTests(
       Common.generators(DIM),
       Common.makeAccumulators(accumulators),
-      ERationalAccumulator.make()); 
+      ERationalAccumulator.make());
     Common.l2Tests(
       Common.generators(DIM),
       Common.makeAccumulators(accumulators),
-      ERationalAccumulator.make()); 
+      ERationalAccumulator.make());
     Common.dotTests(
       Common.generators(DIM),
       Common.makeAccumulators(accumulators),

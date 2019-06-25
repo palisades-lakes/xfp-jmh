@@ -25,9 +25,9 @@ import xfp.java.prng.Generator;
 import xfp.java.prng.GeneratorBase;
 import xfp.java.prng.Generators;
 
-/** The set of rational numbers represented by 
+/** The set of rational numbers represented by
  * <code>ERational</code>
- * 
+ *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-05-111
  */
@@ -39,22 +39,22 @@ public final class ERationals implements Set {
   //--------------------------------------------------------------
 
   public static final String toHexString (final ERational q) {
-    return 
-      "(" + q.getNumerator().ToRadixString(0x10) 
+    return
+      "(" + q.getNumerator().ToRadixString(0x10)
       + " / "
-//      + "\n/\n"
+      //      + "\n/\n"
       + q.getDenominator().ToRadixString(0x10) + ")"; }
-    
+
   //--------------------------------------------------------------
   /** Divide out gcd from numberator and denominator. */
 
   public static final ERational reduce (final ERational q) {
     return q; }
-//    final EInteger n = q.getNumerator();
-//    final EInteger d = q.getDenominator();
-//    final EInteger gcd = n.Gcd(d);
-//    return ERational.Create(n.Divide(gcd),d.Divide(gcd)); }
-  
+  //    final EInteger n = q.getNumerator();
+  //    final EInteger d = q.getDenominator();
+  //    final EInteger gcd = n.Gcd(d);
+  //    return ERational.Create(n.Divide(gcd),d.Divide(gcd)); }
+
   //--------------------------------------------------------------
   // convert representation to ERational[] as default.
   // higher performance methods use raw representation where
@@ -98,11 +98,11 @@ public final class ERationals implements Set {
     if (x instanceof BigInteger) {return toERational((BigInteger) x); }
     // TODO: too tricky with rounding modes, etc.
     // if (x instanceof BigDecimal) {return toERational((BigDecimal) x); }
-    if (x instanceof Double) { 
+    if (x instanceof Double) {
       return toERational(((Double) x).doubleValue()); }
     if (x instanceof Integer) {
       return toERational(((Integer) x).intValue()); }
-    if (x instanceof Long) { 
+    if (x instanceof Long) {
       return toERational(((Long) x).longValue()); }
     if (x instanceof Float) {
       return toERational(((Float) x).floatValue()); }
@@ -111,7 +111,7 @@ public final class ERationals implements Set {
     if (x instanceof Byte) {
       return toERational(((Byte) x).intValue()); }
     throw Exceptions.unsupportedOperation(
-      ERationals.class,"toERational",x); } 
+      ERationals.class,"toERational",x); }
 
   //--------------------------------------------------------------
 
@@ -156,7 +156,7 @@ public final class ERationals implements Set {
     for (int i=0;i<n;i++) { y[i] = toERational(x[i]); }
     return y; }
 
-  public static final ERational[] 
+  public static final ERational[]
     toERationalArray (final byte[] x) {
     final int n = x.length;
     final ERational[] y = new ERational[n];
@@ -169,25 +169,25 @@ public final class ERationals implements Set {
 
     if (x instanceof ERational[]) { return (ERational[]) x; }
 
-    if (x instanceof byte[]) { 
+    if (x instanceof byte[]) {
       return toERationalArray((byte[]) x); }
 
-    if (x instanceof short[]) { 
+    if (x instanceof short[]) {
       return toERationalArray((short[]) x); }
 
-    if (x instanceof int[]) { 
+    if (x instanceof int[]) {
       return toERationalArray((int[]) x); }
 
-    if (x instanceof long[]) { 
+    if (x instanceof long[]) {
       return toERationalArray((long[]) x); }
 
-    if (x instanceof float[]) { 
+    if (x instanceof float[]) {
       return toERationalArray((float[]) x); }
 
-    if (x instanceof double[]) { 
+    if (x instanceof double[]) {
       return toERationalArray((double[]) x); }
 
-    if (x instanceof Object[]) { 
+    if (x instanceof Object[]) {
       return toERationalArray((Object[]) x); }
 
     throw Exceptions.unsupportedOperation(
@@ -198,20 +198,20 @@ public final class ERationals implements Set {
   // adapted from clojure.lang.Ratio
   //--------------------------------------------------------------
 
-  //  public static final EInteger 
+  //  public static final EInteger
   //  bigIntegerValue (final ERational f){
   //    return f.getNumerator().divide(f.getDenominator()); }
   //
-  //  public static final BigDecimal 
+  //  public static final BigDecimal
   //  decimalValue (final ERational f,
   //                final MathContext mc) {
-  //    final BigDecimal numerator = 
+  //    final BigDecimal numerator =
   //      new BigDecimal(f.getNumerator());
-  //    final BigDecimal denominator = 
+  //    final BigDecimal denominator =
   //      new BigDecimal(f.getDenominator());
   //    return numerator.divide(denominator, mc); }
   //
-  //  public static final BigDecimal 
+  //  public static final BigDecimal
   //  decimalValue (final ERational f) {
   //    return decimalValue(f,MathContext.UNLIMITED); }
 
@@ -234,18 +234,18 @@ public final class ERationals implements Set {
   // TODO: is consistency with other algebraic structure classes
   // worth the indirection?
 
-  private final ERational add (final ERational q0, 
+  private final ERational add (final ERational q0,
                                final ERational q1) {
     assert contains(q0);
     assert contains(q1);
-    return q0.Add(q1); } 
+    return q0.Add(q1); }
 
   public final BinaryOperator<ERational> adder () {
     return new BinaryOperator<ERational> () {
       @Override
       public final String toString () { return "BF.add()"; }
       @Override
-      public final ERational apply (final ERational q0, 
+      public final ERational apply (final ERational q0,
                                     final ERational q1) {
         return ERationals.this.add(q0,q1); } }; }
 
@@ -262,7 +262,7 @@ public final class ERationals implements Set {
 
   private final ERational negate (final ERational q) {
     assert contains(q);
-    return q.Negate(); } 
+    return q.Negate(); }
 
   public final UnaryOperator<ERational> additiveInverse () {
     return new UnaryOperator<ERational> () {
@@ -274,18 +274,18 @@ public final class ERationals implements Set {
 
   //--------------------------------------------------------------
 
-  private final ERational multiply (final ERational q0, 
+  private final ERational multiply (final ERational q0,
                                     final ERational q1) {
     assert contains(q0);
     assert contains(q1);
-    return q0.Multiply(q1); } 
+    return q0.Multiply(q1); }
 
   public final BinaryOperator<ERational> multiplier () {
     return new BinaryOperator<ERational>() {
       @Override
       public final String toString () { return "BF.multiply()"; }
       @Override
-      public final ERational apply (final ERational q0, 
+      public final ERational apply (final ERational q0,
                                     final ERational q1) {
         return ERationals.this.multiply(q0,q1); } }; }
 
@@ -300,8 +300,8 @@ public final class ERationals implements Set {
   public static final ERational reciprocal (final ERational q) {
     // only a partial inverse
     if (ERational.Zero.equals(q)) { return null; }
-    return 
-      ERational.Create(q.getDenominator(),q.getNumerator());  } 
+    return
+      ERational.Create(q.getDenominator(),q.getNumerator());  }
 
   @SuppressWarnings("static-method")
   public final UnaryOperator<ERational> multiplicativeInverse () {
@@ -329,24 +329,24 @@ public final class ERationals implements Set {
   // which method to use?
 
   @SuppressWarnings("static-method")
-  public final boolean equals (final ERational q0, 
+  public final boolean equals (final ERational q0,
                                final ERational q1) {
     if (q0 == q1) { return true; }
     if (null == q0) {
       if (null == q1) { return true; }
       return false; }
     if (null == q1) { return false; }
-    final EInteger n0 = q0.getNumerator(); 
-    final EInteger d0 = q0.getDenominator(); 
-    final EInteger n1 = q1.getNumerator(); 
-    final EInteger d1 = q1.getDenominator(); 
+    final EInteger n0 = q0.getNumerator();
+    final EInteger d0 = q0.getDenominator();
+    final EInteger n1 = q1.getNumerator();
+    final EInteger d1 = q1.getDenominator();
     return n0.Multiply(d1).equals(n1.Multiply(d0)); }
 
   @Override
   public final BiPredicate equivalence () {
     return new BiPredicate<ERational,ERational>() {
       @Override
-      public final boolean test (final ERational q0, 
+      public final boolean test (final ERational q0,
                                  final ERational q1) {
         return ERationals.this.equals(q0,q1); } }; }
 
@@ -355,10 +355,10 @@ public final class ERationals implements Set {
   @Override
   public final Supplier generator (final Map options) {
     final UniformRandomProvider urp = Set.urp(options);
-    final Generator g = 
+    final Generator g =
       ERationals.eRationalFromEIntegerGenerator(urp);
     //    Generators.eRationalFromDoubleGenerator(urp);
-    return 
+    return
       new Supplier () {
       @Override
       public final Object get () { return g.next(); } }; }
@@ -383,7 +383,7 @@ public final class ERationals implements Set {
   //--------------------------------------------------------------
 
 
-  public static final Generator 
+  public static final Generator
   eRationalFromEintegerGenerator (final int n,
                                   final UniformRandomProvider urp) {
     return new GeneratorBase ("eRationalFromEintegerGenerator:" + n) {
@@ -394,15 +394,15 @@ public final class ERationals implements Set {
         for (int i=0;i<n;i++) { z[i] = (ERational) g.next(); }
         return z; } }; }
 
-  public static final Generator 
+  public static final Generator
   eRationalFromEIntegerGenerator (final UniformRandomProvider urp) {
     final double dp = 0.9;
     return new GeneratorBase ("eRationalFromEIntegerGenerator") {
-      private final ContinuousSampler choose = 
+      private final ContinuousSampler choose =
         new ContinuousUniformSampler(urp,0.0,1.0);
       final Generator gn = eIntegerGenerator(urp);
       final Generator gd = nonzeroEIntegerGenerator(urp);
-      private final CollectionSampler edgeCases = 
+      private final CollectionSampler edgeCases =
         new CollectionSampler(
           urp,
           List.of(
@@ -410,7 +410,7 @@ public final class ERationals implements Set {
             ERational.One,
             ERational.One.Negate()));
       @Override
-      public Object next () { 
+      public Object next () {
         final boolean edge = choose.sample() > dp;
         if (edge) { return edgeCases.sample(); }
         final EInteger n = (EInteger) gn.next();
@@ -418,7 +418,7 @@ public final class ERationals implements Set {
         final ERational f = ERational.Create(n,d);
         return f; } }; }
 
-  public static final Generator 
+  public static final Generator
   eRationalFromDoubleGenerator (final int n,
                                 final UniformRandomProvider urp) {
     return new GeneratorBase ("eRationalFromDoubleGenerator:" + n) {
@@ -433,19 +433,19 @@ public final class ERationals implements Set {
    * (see {@link xfp.java.prng.DoubleSampler})
    * and convert to <code>ERational</code>
    * with {@link #DOUBLE_P} probability;
-   * otherwise return {@link ERational#ZERO} or 
-   * {@link ERational#ONE}, {@link ERational#MINUS_ONE},  
+   * otherwise return {@link ERational#ZERO} or
+   * {@link ERational#ONE}, {@link ERational#MINUS_ONE},
    * with equal probability (these are potential edge cases).
    */
-  
-  public static final Generator 
+
+  public static final Generator
   eRationalFromDoubleGenerator (final UniformRandomProvider urp) {
     final double dp = 0.9;
     return new GeneratorBase ("eRationalFromDoubleGenerator") {
-      private final ContinuousSampler choose = 
+      private final ContinuousSampler choose =
         new ContinuousUniformSampler(urp,0.0,1.0);
       private final Generator fdg = Doubles.finiteGenerator(urp);
-      private final CollectionSampler edgeCases = 
+      private final CollectionSampler edgeCases =
         new CollectionSampler(
           urp,
           List.of(
@@ -453,12 +453,12 @@ public final class ERationals implements Set {
             ERational.One,
             ERational.One.Negate()));
       @Override
-      public Object next () { 
+      public Object next () {
         final boolean edge = choose.sample() > dp;
         if (edge) { return edgeCases.sample(); }
         return ERational.FromDouble(fdg.nextDouble()); } }; }
 
-  public static final Generator 
+  public static final Generator
   nonzeroEIntegerGenerator (final int n,
                             final UniformRandomProvider urp) {
     return new GeneratorBase ("nonzeroEIntegerGenerator:" + n) {
@@ -470,33 +470,33 @@ public final class ERationals implements Set {
         return z; } }; }
 
   /** Intended primarily for testing. <b>
-   * Generate enough bytes to at least cover the range of 
+   * Generate enough bytes to at least cover the range of
    * <code>double</code> values.
    */
-  
-  public static final Generator 
+
+  public static final Generator
   nonzeroEIntegerGenerator (final UniformRandomProvider urp) {
     final double dp = 0.99;
     return new GeneratorBase ("nonzeroEIntegerGenerator") {
-      private final ContinuousSampler choose = 
+      private final ContinuousSampler choose =
         new ContinuousUniformSampler(urp,0.0,1.0);
-      private final CollectionSampler edgeCases = 
+      private final CollectionSampler edgeCases =
         new CollectionSampler(
           urp,
           List.of(
             EInteger.getOne(),
             EInteger.getTen()));
       @Override
-      public Object next () { 
+      public Object next () {
         final boolean edge = choose.sample() > dp;
         if (edge) { return edgeCases.sample(); }
         // TODO: bound infinite loop?
         for (;;) {
           final EInteger e =
-            EInteger.FromBytes(Generators.nextBytes(urp,1024),false); 
+            EInteger.FromBytes(Generators.nextBytes(urp,1024),false);
           if (! e.isZero()) { return e; } } } }; }
 
-  public static final Generator 
+  public static final Generator
   eIntegerGenerator (final int n,
                      final UniformRandomProvider urp) {
     return new GeneratorBase ("eIntegerGenerator:" + n) {
@@ -508,17 +508,17 @@ public final class ERationals implements Set {
         return z; } }; }
 
   /** Intended primarily for testing. <b>
-   * Generate enough bytes to at least cover the range of 
+   * Generate enough bytes to at least cover the range of
    * <code>double</code> values.
    */
-  
-  public static final Generator 
+
+  public static final Generator
   eIntegerGenerator (final UniformRandomProvider urp) {
     final double dp = 0.99;
     return new GeneratorBase ("eIntegerGenerator") {
-      private final ContinuousSampler choose = 
+      private final ContinuousSampler choose =
         new ContinuousUniformSampler(urp,0.0,1.0);
-      private final CollectionSampler edgeCases = 
+      private final CollectionSampler edgeCases =
         new CollectionSampler(
           urp,
           List.of(
@@ -526,7 +526,7 @@ public final class ERationals implements Set {
             EInteger.getOne(),
             EInteger.getTen()));
       @Override
-      public Object next () { 
+      public Object next () {
         final boolean edge = choose.sample() > dp;
         if (edge) { return edgeCases.sample(); }
         return EInteger.FromBytes(Generators.nextBytes(urp,1024),false); } }; }
@@ -535,17 +535,17 @@ public final class ERationals implements Set {
 
   private static final ERationals SINGLETON = new ERationals();
 
-  public static final ERationals get () { return SINGLETON; } 
+  public static final ERationals get () { return SINGLETON; }
 
   //--------------------------------------------------------------
 
-  public static final OneSetOneOperation ADDITIVE_MAGMA = 
+  public static final OneSetOneOperation ADDITIVE_MAGMA =
     OneSetOneOperation.magma(get().adder(),get());
 
-  public static final OneSetOneOperation MULTIPLICATIVE_MAGMA = 
+  public static final OneSetOneOperation MULTIPLICATIVE_MAGMA =
     OneSetOneOperation.magma(get().multiplier(),get());
 
-  public static final OneSetTwoOperations FIELD = 
+  public static final OneSetTwoOperations FIELD =
     OneSetTwoOperations.field(
       get().adder(),
       get().additiveIdentity(),

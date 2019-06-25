@@ -2,13 +2,13 @@ package xfp.jmh.accumulators;
 
 import xfp.java.accumulators.Accumulator;
 
-/** Naive sum of <code>double</code> values with float 
+/** Naive sum of <code>double</code> values with float
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-04-21
  */
-public final class FloatFmaAccumulator 
+public final class FloatFmaAccumulator
 
 implements Accumulator<FloatFmaAccumulator> {
 
@@ -32,23 +32,23 @@ implements Accumulator<FloatFmaAccumulator> {
   public final FloatFmaAccumulator clear () { _sum = 0.0F; return this; }
 
   @Override
-  public final FloatFmaAccumulator add (final double z) { 
+  public final FloatFmaAccumulator add (final double z) {
     assert Double.isFinite(z);
-        _sum += (float) z; 
+    _sum += (float) z;
     return this; }
 
   @Override
-  public final FloatFmaAccumulator add2 (final double z) { 
+  public final FloatFmaAccumulator add2 (final double z) {
     assert Double.isFinite(z);
-        _sum = Math.fma((float) z, (float) z, _sum);
+    _sum = Math.fma((float) z, (float) z, _sum);
     return this; }
 
   @Override
   public final FloatFmaAccumulator addProduct (final double z0,
-                                               final double z1) { 
+                                               final double z1) {
     assert Double.isFinite(z0);
     assert Double.isFinite(z1);
-       _sum = Math.fma((float) z0, (float) z1, _sum);
+    _sum = Math.fma((float) z0, (float) z1, _sum);
     return this; }
 
   //--------------------------------------------------------------

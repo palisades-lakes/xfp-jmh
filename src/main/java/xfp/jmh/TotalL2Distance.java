@@ -14,7 +14,7 @@ public class TotalL2Distance extends Base {
   @Override
   public final double operation (final Accumulator ac,
                                  final double[] z0,
-                                 final double[] z1) { 
+                                 final double[] z1) {
     return ac.clear().addL2Distance(z0,z1).doubleValue(); }
 
   public static final void main (final String[] args)  {

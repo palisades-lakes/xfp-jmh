@@ -10,7 +10,7 @@ import xfp.java.test.Common;
 import xfp.jmh.numbers.ERationals;
 
 //----------------------------------------------------------------
-/** Test desired properties of ERational. 
+/** Test desired properties of ERational.
  * <p>
  * <pre>
  * mvn -q clean -Dtest=xfp/jmh/test/numbers/ERationalTest test > ERationalTest.txt
@@ -31,7 +31,7 @@ public final class ERationalTest {
       ERational::FromDouble,
       q -> ((ERational) q).ToDouble(),
       (q0,q1) -> ((ERational) q0).Subtract((ERational) q1).Abs(),
-      q -> ERationals.toHexString((ERational) q)); 
+      q -> ERationals.toHexString((ERational) q));
 
     Assertions.assertThrows(
       AssertionFailedError.class,
@@ -42,7 +42,7 @@ public final class ERationalTest {
           q -> ((ERational) q).ToSingle(),
           (q0,q1) -> ((ERational) q0).Subtract((ERational) q1).Abs(),
           q -> ERationals.toHexString((ERational) q));  },
-      "ERational doesn't round to float correctly"); 
+      "ERational doesn't round to float correctly");
 
   }
 

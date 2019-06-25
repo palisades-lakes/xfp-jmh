@@ -33,11 +33,11 @@ public class Roundtrip {
   //--------------------------------------------------------------
 
   private static final int TRYS = 1*1024;
- 
+
   @SuppressWarnings("static-method")
   @Benchmark
-  public final boolean roundtrip () { 
-    final UniformRandomProvider urp = 
+  public final boolean roundtrip () {
+    final UniformRandomProvider urp =
       PRNG.well44497b("seeds/Well44497b-2019-01-05.txt");
     final Generator g = Doubles.finiteGenerator(urp);
     boolean identical = true;

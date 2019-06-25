@@ -13,7 +13,7 @@ import xfp.java.test.Common;
 import xfp.jmh.accumulators.ZhuHayesBranch;
 
 /** Benchmark accumulators tests.
- * 
+ *
  * <pre>
  * jy --source 11 -ea src/scripts/java/xfp/jmh/scripts/TotalSum.java
  * </pre>
@@ -23,15 +23,15 @@ import xfp.jmh.accumulators.ZhuHayesBranch;
 @SuppressWarnings("unchecked")
 public final class Sum {
 
-  private static final String SEED0 = 
+  private static final String SEED0 =
     "seeds/Well44497b-2019-01-05.txt";
 
-  private static final String SEED1 = 
+  private static final String SEED1 =
     "seeds/Well44497b-2019-01-07.txt";
 
-  private static final 
-  Map<String,IntFunction<Generator>> 
-  factories = 
+  private static final
+  Map<String,IntFunction<Generator>>
+  factories =
   Map.of(
     "uniform",
     new IntFunction<Generator>() {
@@ -41,11 +41,11 @@ public final class Sum {
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
         final int emax = Common.deMax(dim)/2;
         final double dmax = (1<<emax);
-        return 
+        return
           Doubles.shuffledGenerator(
             Doubles.zeroSumGenerator(
               Doubles.uniformGenerator(dim,urp0,-dmax,dmax)),
-            urp1); } 
+            urp1); }
     },
     "finite",
     new IntFunction<Generator>() {
@@ -55,11 +55,11 @@ public final class Sum {
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
         final int emax = Common.deMax(dim)/2;
         System.out.println("emax=" + emax);
-        return 
+        return
           Doubles.shuffledGenerator(
             Doubles.zeroSumGenerator(
               Doubles.finiteGenerator(dim,urp0,emax)),
-            urp1); } 
+            urp1); }
     },
     "exponential",
     new IntFunction<Generator>() {
@@ -69,11 +69,11 @@ public final class Sum {
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
         final int emax = Common.deMax(dim)/2;
         final double dmax = (1<<emax);
-        return 
+        return
           Doubles.shuffledGenerator(
             Doubles.zeroSumGenerator(
               Doubles.exponentialGenerator(dim,urp0,0.0,dmax)),
-            urp1); } 
+            urp1); }
     },
     "gaussian",
     new IntFunction<Generator>() {
@@ -83,11 +83,11 @@ public final class Sum {
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
         final int emax = Common.deMax(dim)/2;
         final double dmax = (1<<emax);
-        return 
+        return
           Doubles.shuffledGenerator(
             Doubles.zeroSumGenerator(
               Doubles.gaussianGenerator(dim,urp0,0.0,dmax)),
-            urp1); } 
+            urp1); }
     },
     "laplace",
     new IntFunction<Generator>() {
@@ -97,25 +97,25 @@ public final class Sum {
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
         final int emax = Common.deMax(dim)/2;
         final double dmax = (1<<emax);
-        return 
+        return
           Doubles.shuffledGenerator(
             Doubles.zeroSumGenerator(
               Doubles.laplaceGenerator(dim,urp0,0.0,dmax)),
-            urp1); } 
+            urp1); }
     });
 
   //--------------------------------------------------------------
 
-  public static final void main (final String[] args) 
-//    throws InterruptedException 
+  public static final void main (final String[] args)
+  //    throws InterruptedException
   {
 
     final int dim = 64*1024*1024;
     final int trys = 128;
     final Generator g = factories.get("finite").apply(dim);
     final double[] x = (double[]) g.next();
-//    final Accumulator exact = RationalFloatAccumulator.make();
-//    final double truth = exact.addAll(x).doubleValue();
+    //    final Accumulator exact = RationalFloatAccumulator.make();
+    //    final double truth = exact.addAll(x).doubleValue();
     final Accumulator a = ZhuHayesBranch.make();
     assert a.isExact();
     //Thread.sleep(16*1024);
@@ -125,12 +125,12 @@ public final class Sum {
       a.addAll(x);
       final double z = a.doubleValue();
       if (0.0 != z) {
-        System.out.println(Double.toHexString(0.0) 
-          + " != " + Double.toHexString(z)); } } 
+        System.out.println(Double.toHexString(0.0)
+          + " != " + Double.toHexString(z)); } }
     System.out.printf("total secs: %8.2f\n",
-      Double.valueOf((System.nanoTime()-t)*1.0e-9)); 
-    //Thread.sleep(16*1024); 
-    }
+      Double.valueOf((System.nanoTime()-t)*1.0e-9));
+    //Thread.sleep(16*1024);
+  }
 
   //--------------------------------------------------------------
 }

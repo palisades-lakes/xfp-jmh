@@ -13,7 +13,7 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 /** Benchmark <code>double[]</code> sums.
- * 
+ *
  * <pre>
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
@@ -26,7 +26,7 @@ public final class Defaults {
 
   //--------------------------------------------------------------
 
-  private static final DateTimeFormatter DTF = 
+  private static final DateTimeFormatter DTF =
     DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
 
   public static final String now () {
@@ -38,13 +38,13 @@ public final class Defaults {
                                        final String includes) {
     final File parent = new File("output");
     parent.mkdirs();
-    final File csv = 
-      new File(parent, 
-        fileName 
-        + "-"  + SystemInfo.model() 
-        + "-" + now() 
+    final File csv =
+      new File(parent,
+        fileName
+        + "-"  + SystemInfo.model()
+        + "-" + now()
         + ".csv");
-    //final File json = 
+    //final File json =
     //  new File(parent, fileName + "-" + now() + ".json");
     return new OptionsBuilder()
       .mode(Mode.AverageTime)
@@ -67,14 +67,14 @@ public final class Defaults {
 
   public static final void run (final String fileName,
                                 final String includes) {
-    
+
     try { new Runner(Defaults.options(fileName,includes)).run(); }
     catch (final RunnerException e) {
-      throw new RuntimeException(e); } } 
+      throw new RuntimeException(e); } }
 
   public static final void run (final String includes) {
     run(includes,includes); }
-  
+
   //--------------------------------------------------------------
 }
 //--------------------------------------------------------------

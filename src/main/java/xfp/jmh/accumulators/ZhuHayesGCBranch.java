@@ -102,15 +102,15 @@ implements Accumulator<ZhuHayesGCBranch> {
   private double errTwo = Double.NaN;
 
   /** Update {@link #sumTwo} and {@link #errTwo} so that
-   * <code>{@link #sumTwo} == x0 + x1</code> 
+   * <code>{@link #sumTwo} == x0 + x1</code>
    * (sum rounded to nearest double), and
-   * <code>rationalSum({@link #sumTwo},{@link #errTwo}) 
-   * == rationalSum(x0,x1)</code> 
+   * <code>rationalSum({@link #sumTwo},{@link #errTwo})
+   * == rationalSum(x0,x1)</code>
    * (exact sums, implemented, for example, with arbitrary
    * precision rationals)
    */
 
-  private final void twoSum (final double x0, 
+  private final void twoSum (final double x0,
                              final double x1) {
     // might get +/- Infinity due to overflow
     sumTwo = x0 + x1;
@@ -129,8 +129,8 @@ implements Accumulator<ZhuHayesGCBranch> {
 
     // Step 2
     for (int ii=0;ii<n[0]; ii++) {
-      twoSum(s,x[ii]); 
-      s = sumTwo; 
+      twoSum(s,x[ii]);
+      s = sumTwo;
       if (! Double.isFinite(s)) { return s; }
       x[ii] = errTwo; }
     // Step 3
@@ -192,7 +192,7 @@ implements Accumulator<ZhuHayesGCBranch> {
           // Step 3(5)(d)(iii)
           final double s2 = iFastSum(x, n, false);
           // Step 3(5)(d)(iv)
-          s = round3(s, s1, s2); 
+          s = round3(s, s1, s2);
           if (! Double.isFinite(s)) { return s; } }
         // Step 3(5)(e)
         return s; } } }
@@ -207,8 +207,8 @@ implements Accumulator<ZhuHayesGCBranch> {
 
   //--------------------------------------------------------------
 
-  private static final void twoInc (final double[] s, 
-                                    final double[] e, 
+  private static final void twoInc (final double[] s,
+                                    final double[] e,
                                     final double x) {
     // might get +/- Infinity due to overflow
     final int j = biasedExponent(x);
@@ -279,7 +279,7 @@ implements Accumulator<ZhuHayesGCBranch> {
     return iFastSum(x,n,true); }
 
   @Override
-  public final Object value () { 
+  public final Object value () {
     return Double.valueOf(doubleValue()); }
 
   //--------------------------------------------------------------
@@ -294,7 +294,7 @@ implements Accumulator<ZhuHayesGCBranch> {
     // Step 4(5)
     i += 1;
     // Step 4(6)
-    if (i >= NADDS) { i = compact(); } 
+    if (i >= NADDS) { i = compact(); }
     return this; }
 
   //--------------------------------------------------------------
@@ -306,7 +306,7 @@ implements Accumulator<ZhuHayesGCBranch> {
     final double x2 = x*x;
     final double e = Math.fma(x,x,-x2);
     add(x2);
-    add(e); 
+    add(e);
     return this; }
 
   //--------------------------------------------------------------
@@ -320,7 +320,7 @@ implements Accumulator<ZhuHayesGCBranch> {
     final double x01 = x0*x1;
     final double e = Math.fma(x0,x1,-x01);
     add(x01);
-    add(e); 
+    add(e);
     return this; }
 
   //--------------------------------------------------------------

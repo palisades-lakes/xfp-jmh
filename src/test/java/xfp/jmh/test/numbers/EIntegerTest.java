@@ -14,7 +14,7 @@ import xfp.java.prng.PRNG;
 import xfp.jmh.numbers.ERationals;
 
 //----------------------------------------------------------------
-/** Test desired properties of EInteger. 
+/** Test desired properties of EInteger.
  * <p>
  * <pre>
  * mvn -Dtest=xfp/java/test/numbers/EIntegerTest test > EIntegerTest.txt
@@ -29,11 +29,11 @@ public final class EIntegerTest {
   private static final int TRYS = 32;
   //--------------------------------------------------------------
   /** Check conversion from BigInteger to EInteger to BigInteger */
-  
+
   @SuppressWarnings({ "static-method" })
   @Test
   public final void fromBigIntegerTest () {
-    final Generator g = 
+    final Generator g =
       Generators.bigIntegerGenerator(
         PRNG.well44497b("seeds/Well44497b-2019-01-05.txt"));
     for (int i=0;i<TRYS;i++) {
@@ -47,11 +47,11 @@ public final class EIntegerTest {
       assertTrue(b0.equals(b1)); } }
 
   /** Check conversion from EInteger to BigInteger to EInteger */
-  
+
   @SuppressWarnings({ "static-method" })
   @Test
   public final void fromEIntegerTest () {
-    final Generator g = 
+    final Generator g =
       ERationals.eIntegerGenerator(
         PRNG.well44497b("seeds/Well44497b-2019-01-05.txt"));
     for (int i=0;i<TRYS;i++) {

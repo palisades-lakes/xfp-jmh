@@ -4,20 +4,20 @@ import java.math.BigDecimal;
 
 import xfp.java.accumulators.Accumulator;
 
-/** Naive sum of <code>double</code> values with BigDecimal 
+/** Naive sum of <code>double</code> values with BigDecimal
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-04-21
  */
-public final class BigDecimalAccumulator 
+public final class BigDecimalAccumulator
 
 implements Accumulator<BigDecimalAccumulator> {
 
   private BigDecimal _sum;
 
   //--------------------------------------------------------------
-  
+
   @Override
   public final boolean isExact () { return true; }
 
@@ -27,7 +27,7 @@ implements Accumulator<BigDecimalAccumulator> {
   // start with only immediate needs
 
   @Override
-  public final BigDecimalAccumulator clear () { 
+  public final BigDecimalAccumulator clear () {
     _sum = BigDecimal.ZERO;
     return this; }
 
@@ -35,34 +35,34 @@ implements Accumulator<BigDecimalAccumulator> {
   public final Object value () { return _sum; }
 
   @Override
-  public final double doubleValue () { 
+  public final double doubleValue () {
     return _sum.doubleValue(); }
 
   @Override
-  public final BigDecimalAccumulator add (final double z) { 
+  public final BigDecimalAccumulator add (final double z) {
     assert Double.isFinite(z);
-        _sum = _sum.add(new BigDecimal(z));
+    _sum = _sum.add(new BigDecimal(z));
     return this; }
 
   //  @Override
   //  public final BigDecimalAccumulator addAll (final double[] z)  {
-  //    for (final double zi : z) { 
+  //    for (final double zi : z) {
   //      _sum = _sum.add(new BigDecimal(zi)); }
   //    return this; }
 
   @Override
-  public final BigDecimalAccumulator add2 (final double z) { 
+  public final BigDecimalAccumulator add2 (final double z) {
     assert Double.isFinite(z);
-       final BigDecimal bd = new BigDecimal(z);
+    final BigDecimal bd = new BigDecimal(z);
     _sum = _sum.add(bd.multiply(bd));
     return this; }
 
   @Override
   public final BigDecimalAccumulator addProduct (final double z0,
-                                                 final double z1) { 
+                                                 final double z1) {
     assert Double.isFinite(z0);
     assert Double.isFinite(z1);
-        _sum = _sum.add(
+    _sum = _sum.add(
       new BigDecimal(z0)
       .multiply(
         new BigDecimal(z1)));

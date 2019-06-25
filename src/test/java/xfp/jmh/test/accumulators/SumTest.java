@@ -4,12 +4,11 @@ import static xfp.jmh.test.accumulators.Shared.accumulators;
 
 import org.junit.jupiter.api.Test;
 
-import xfp.java.Debug;
 import xfp.java.accumulators.BigFloatAccumulator1;
 import xfp.java.test.Common;
 
 //----------------------------------------------------------------
-/** Test summation algorithms. 
+/** Test summation algorithms.
  * <p>
  * <pre>
  * mvn clean -Dtest=xfp/jmh/test/accumulators/SumTest test > SumTest.txt
@@ -22,19 +21,19 @@ import xfp.java.test.Common;
 public final class SumTest {
 
   // TODO: pick expected behavior for non-finite input
-//  @SuppressWarnings("static-method")
-//  @Test
-//  public final void nanSum () {
-//    Debug.DEBUG=false;
-//    //Debug.println();
-//    //Debug.println("infinite");
-//    Common.nonFiniteTests(
-//      Common.makeAccumulators(accumulators())); }
+  //  @SuppressWarnings("static-method")
+  //  @Test
+  //  public final void nanSum () {
+  //    //Debug.DEBUG=false;
+  //    //Debug.println();
+  //    //Debug.println("infinite");
+  //    Common.nonFiniteTests(
+  //      Common.makeAccumulators(accumulators())); }
 
   @SuppressWarnings("static-method")
   @Test
   public final void infiniteSum () {
-    Debug.DEBUG=false;
+    //Debug.DEBUG=false;
     //Debug.println();
     //Debug.println("infinite");
     Common.infinityTests(
@@ -43,7 +42,7 @@ public final class SumTest {
   @SuppressWarnings("static-method")
   @Test
   public final void overflowSum () {
-    Debug.DEBUG=false;
+    //Debug.DEBUG=false;
     //Debug.println();
     //Debug.println("overflow");
     Common.overflowTests(
@@ -52,7 +51,7 @@ public final class SumTest {
   @SuppressWarnings("static-method")
   @Test
   public final void zeroSum () {
-    Debug.DEBUG=false;
+    //Debug.DEBUG=false;
     //Debug.println();
     //Debug.println("zeroSum");
     Common.zeroSumTests(
@@ -62,7 +61,7 @@ public final class SumTest {
   @SuppressWarnings("static-method")
   @Test
   public final void sum () {
-    Debug.DEBUG=false;
+    //Debug.DEBUG=false;
     //Debug.println();
     //Debug.println("sum");
     Common.sumTests(
@@ -73,7 +72,7 @@ public final class SumTest {
   @SuppressWarnings("static-method")
   @Test
   public final void l2 () {
-    Debug.DEBUG=false;
+    //Debug.DEBUG=false;
     //Debug.println();
     //Debug.println("l2");
     Common.l2Tests(
@@ -84,7 +83,7 @@ public final class SumTest {
   @SuppressWarnings("static-method")
   @Test
   public final void dot () {
-    Debug.DEBUG=false;
+    //Debug.DEBUG=false;
     //Debug.println();
     //Debug.println("dot");
     Common.dotTests(

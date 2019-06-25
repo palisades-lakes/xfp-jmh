@@ -11,7 +11,7 @@ import xfp.java.prng.Generators;
 import xfp.java.prng.PRNG;
 
 /** BigInteger pair: divide and round to float.
- * 
+ *
  * <pre>
  * j --source 11 src/scripts/java/xfp/java/scripts/DivideFloat.java > divide.txt 2>&1
  * </pre>
@@ -20,7 +20,7 @@ import xfp.java.prng.PRNG;
  * jy --source 11 src/scripts/java/xfp/java/scripts/DivideFloat.java
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-11
+ * @version 2019-06-24
  */
 
 @SuppressWarnings("unchecked")
@@ -30,20 +30,20 @@ public final class DivideFloat {
 
   public static final float roundingTest (final BigInteger n,
                                           final BigInteger d) {
-    final float ze = Debug.ToFloat(n,d);
+    final float ze = Debug. ToFloat(n,d);
     //Debug.println(Float.toHexString(ze) + " :E");
     try {
       final float z = Rational.valueOf(n,d).floatValue();
       //Debug.println(Float.toHexString(z) + " :D");
-      assert ze == z : 
-        "\n" 
+      assert ze == z :
+        "\n"
         + Float.toHexString(ze) + " :E\n"
-        + Float.toHexString(z); 
-      return z; } 
+        + Float.toHexString(z);
+      return z; }
     catch (final Throwable t) {
       System.err.println("failed on:");
-      System.err.println(description("n",n)); 
-      System.err.println(description("d",d)); 
+      System.err.println(description("n",n));
+      System.err.println(description("d",d));
       throw t; } }
 
   public static final float roundingTest (final long n,
@@ -51,33 +51,33 @@ public final class DivideFloat {
     final float z = roundingTest(
       BigInteger.valueOf(n),
       BigInteger.valueOf(d));
-    return z; } 
+    return z; }
 
   public static final float roundingTest (final float x) {
     //    //Debug.println();
-    //    //Debug.println("roundingTest(" 
+    //    //Debug.println("roundingTest("
     //      + Float.toHexString(x) + ")");
     //    //Debug.println("signBit=" + signBit(x));
-    //    //Debug.println("significand=" 
+    //    //Debug.println("significand="
     //      + Long.toHexString(fullSignificand(x)));
-    //    //Debug.println("significand=" 
+    //    //Debug.println("significand="
     //      + Long.toBinaryString(fullSignificand(x)));
-    //    //Debug.println("significand=" 
+    //    //Debug.println("significand="
     //      + Long.toBinaryString(SIGNIFICAND_MASK));
-    //    //Debug.println("unbiasedExp=" 
+    //    //Debug.println("unbiasedExp="
     //      + Floats.unbiasedExponent(x));
     final BigInteger[] nd = Floats.toRatio(x);
     final BigInteger n = nd[0];
     final BigInteger d = nd[1];
     try {
       final float z = roundingTest(n,d);
-      assert z == x : 
-        "E:\n" 
+      assert z == x :
+        "E:\n"
         + Float.toHexString(x) + "\n"
-        + Float.toHexString(z); 
-      return z; } 
+        + Float.toHexString(z);
+      return z; }
     catch (final Throwable t) {
-      System.err.println("failed on x= " + Float.toHexString(x)); 
+      System.err.println("failed on x= " + Float.toHexString(x));
       throw t; } }
 
   //--------------------------------------------------------------
@@ -85,22 +85,22 @@ public final class DivideFloat {
   private static final int TRYS = 16 * 1024;
 
   public static final void fromBigIntegersRoundingTest () {
-    final Generator gn = 
+    final Generator gn =
       Generators.bigIntegerGenerator(
         PRNG.well44497b("seeds/Well44497b-2019-01-05.txt"));
-    final Generator gd = 
+    final Generator gd =
       Generators.positiveBigIntegerGenerator(
         PRNG.well44497b("seeds/Well44497b-2019-01-07.txt"));
-    for (int i=0;i<TRYS/64;i++) {
+    for (int i=0;i<(TRYS/64);i++) {
       final BigInteger n = (BigInteger) gn.next();
       final BigInteger d = (BigInteger) gd.next();
       roundingTest(n,d); } }
 
   public static final void fromIntsRoundingTest () {
-    final Generator gn = 
+    final Generator gn =
       Generators.intGenerator(
         PRNG.well44497b("seeds/Well44497b-2019-01-05.txt"));
-    final Generator gd = 
+    final Generator gd =
       Generators.positiveIntGenerator(
         PRNG.well44497b("seeds/Well44497b-2019-01-07.txt"));
     for (int i=0;i<TRYS;i++) {
@@ -110,7 +110,7 @@ public final class DivideFloat {
       roundingTest(n,d); } }
 
   public static final void finiteFloatRoundingTest () {
-    final Generator g = 
+    final Generator g =
       Floats.finiteGenerator(
         PRNG.well44497b("seeds/Well44497b-2019-01-05.txt"));
     for (int i=0;i<TRYS;i++) {
@@ -118,7 +118,7 @@ public final class DivideFloat {
       roundingTest(x); } }
 
   public static final void normalFloatRoundingTest () {
-    final Generator g = 
+    final Generator g =
       Floats.normalGenerator(
         PRNG.well44497b("seeds/Well44497b-2019-01-07.txt"));
     for (int i=0;i<TRYS;i++) {
@@ -126,7 +126,7 @@ public final class DivideFloat {
       roundingTest(x); } }
 
   public static final void subnormalFloatRoundingTest () {
-    final Generator g = 
+    final Generator g =
       Floats.subnormalGenerator(
         PRNG.well44497b("seeds/Well44497b-2019-01-09.txt"));
     for (int i=0;i<TRYS;i++) {
@@ -137,9 +137,9 @@ public final class DivideFloat {
 
   public static final void main (final String[] args) {
     final long t = System.nanoTime();
-    Debug.DEBUG=false;
+    //Debug.DEBUG=false;
     // test numbers outside float range
-    final BigInteger[] nd = 
+    final BigInteger[] nd =
       Floats.toRatio(Float.MAX_VALUE);
     final BigInteger a = nd[0].multiply(BigInteger.TEN);
     final BigInteger b = nd[1];
@@ -174,10 +174,10 @@ public final class DivideFloat {
     fromIntsRoundingTest();
     normalFloatRoundingTest();
     subnormalFloatRoundingTest();
-    //finiteFloatRoundingTest(); 
-    fromBigIntegersRoundingTest(); 
+    //finiteFloatRoundingTest();
+    fromBigIntegersRoundingTest();
     System.out.printf("total secs: %8.2f\n",
-      Double.valueOf((System.nanoTime()-t)*1.0e-9)); 
+      Double.valueOf((System.nanoTime()-t)*1.0e-9));
   }
 
   //--------------------------------------------------------------

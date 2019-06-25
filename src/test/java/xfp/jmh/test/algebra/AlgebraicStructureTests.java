@@ -21,7 +21,7 @@ import xfp.jmh.numbers.ERationals;
 import xfp.jmh.numbers.Ratios;
 
 //----------------------------------------------------------------
-/** Common code for testing sets. 
+/** Common code for testing sets.
  *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-04-20
@@ -35,11 +35,11 @@ public final class AlgebraicStructureTests {
 
   //--------------------------------------------------------------
 
-  private static final void 
+  private static final void
   structureTests (final Structure s,
                   final int n) {
     SetTests.tests(s);
-    final Map<Set,Supplier> generators = 
+    final Map<Set,Supplier> generators =
       s.generators(
         ImmutableMap.of(
           Set.URP,
@@ -56,26 +56,26 @@ public final class AlgebraicStructureTests {
   public final void tests () {
 
     structureTests(ERationals.ADDITIVE_MAGMA,TRYS);
-    structureTests(ERationals.MULTIPLICATIVE_MAGMA,TRYS); 
-    structureTests(ERationals.FIELD,TRYS);  
+    structureTests(ERationals.MULTIPLICATIVE_MAGMA,TRYS);
+    structureTests(ERationals.FIELD,TRYS);
 
     structureTests(BigFractions.ADDITIVE_MAGMA,TRYS);
-    structureTests(BigFractions.MULTIPLICATIVE_MAGMA,TRYS); 
-    structureTests(BigFractions.FIELD,TRYS); 
+    structureTests(BigFractions.MULTIPLICATIVE_MAGMA,TRYS);
+    structureTests(BigFractions.FIELD,TRYS);
 
     structureTests(Ratios.ADDITIVE_MAGMA,TRYS);
-    structureTests(Ratios.MULTIPLICATIVE_MAGMA,TRYS); 
-    structureTests(Ratios.FIELD,TRYS); 
+    structureTests(Ratios.MULTIPLICATIVE_MAGMA,TRYS);
+    structureTests(Ratios.FIELD,TRYS);
 
     for (final int n : new int[] { 1, 3, 127}) {
-      structureTests(ERationalsN.group(n),SPACE_TRYS); 
-      structureTests(ERationalsN.space(n),SPACE_TRYS); 
+      structureTests(ERationalsN.group(n),SPACE_TRYS);
+      structureTests(ERationalsN.space(n),SPACE_TRYS);
 
-      structureTests(BigFractionsN.group(n),SPACE_TRYS); 
-      structureTests(BigFractionsN.space(n),SPACE_TRYS); 
+      structureTests(BigFractionsN.group(n),SPACE_TRYS);
+      structureTests(BigFractionsN.space(n),SPACE_TRYS);
 
-      structureTests(RatiosN.group(n),SPACE_TRYS); 
-      structureTests(RatiosN.space(n),SPACE_TRYS); 
+      structureTests(RatiosN.group(n),SPACE_TRYS);
+      structureTests(RatiosN.space(n),SPACE_TRYS);
     } }
 
 

@@ -29,8 +29,8 @@ import oshi.util.FormatUtil;
 import oshi.util.Util;
 
 /** Derived from oshi.SystemInfoTest example code.
- * 
- * TODO: functions that return a hashmap, 
+ *
+ * TODO: functions that return a hashmap,
  * rather than printing.
  *
  * @author palisades dot lakes at gmail dot com
@@ -73,8 +73,8 @@ public final class SystemInfo {
     final oshi.SystemInfo si = new oshi.SystemInfo();
     final HardwareAbstractionLayer hal = si.getHardware();
     final ComputerSystem computerSystem = hal.getComputerSystem();
-    return 
-      computerSystem.getManufacturer() + 
+    return
+      computerSystem.getManufacturer() +
       "." +
       computerSystem.getModel(); }
 

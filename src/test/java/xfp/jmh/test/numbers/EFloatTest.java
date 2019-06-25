@@ -7,7 +7,7 @@ import com.upokecenter.numbers.EFloat;
 import xfp.java.test.Common;
 
 //----------------------------------------------------------------
-/** Test desired properties of EFloat. 
+/** Test desired properties of EFloat.
  * <p>
  * <pre>
  * mvn -Dtest=xfp/java/test/numbers/EFloatTest test > EFloatTest.txt
@@ -22,21 +22,21 @@ public final class EFloatTest {
   @SuppressWarnings({ "static-method" })
   @Test
   public final void testRounding () {
- 
+
     Common.doubleRoundingTests(
       null,
       EFloat::FromDouble,
       q -> ((EFloat) q).ToDouble(),
       (q0,q1) -> ((EFloat) q0).Subtract((EFloat) q1).Abs(),
-      Object::toString); 
-    
+      Object::toString);
+
     Common.floatRoundingTests(
       null,
       EFloat::FromSingle,
       q -> ((EFloat) q).ToSingle(),
       (q0,q1) -> ((EFloat) q0).Subtract((EFloat) q1).Abs(),
-      Object::toString); 
-    
+      Object::toString);
+
   }
   //--------------------------------------------------------------
 }

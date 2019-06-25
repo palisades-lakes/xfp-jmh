@@ -17,18 +17,18 @@ import xfp.java.algebra.Sets;
 import xfp.java.algebra.Structure;
 import xfp.java.algebra.TwoSetsOneOperation;
 import xfp.java.linear.BigDecimalsN;
-import xfp.jmh.linear.BigFractionsN;
 import xfp.java.linear.Dn;
-import xfp.jmh.linear.ERationalsN;
 import xfp.java.linear.Fn;
 import xfp.java.linear.Qn;
-import xfp.jmh.linear.RatiosN;
 import xfp.java.prng.PRNG;
+import xfp.jmh.linear.BigFractionsN;
+import xfp.jmh.linear.ERationalsN;
+import xfp.jmh.linear.RatiosN;
 
 // java -ea --illegal-access=warn -jar target/benchmarks.jar NaiveSum
 
 /** Benchmark algebraic structure tests.
- * 
+ *
  * <pre>
  * java -jar target\benchmarks.jar qnSpaceTest
  * java -jar target\benchmarks.jar .*SpaceTest
@@ -45,20 +45,20 @@ public class Bench {
 
   private static final boolean testMembership (final Set set,
                                                final int ntrys) {
-    final Supplier g = 
-      set.generator( 
+    final Supplier g =
+      set.generator(
         ImmutableMap.of(
           Set.URP,
           PRNG.well44497b("seeds/Well44497b-2019-01-05.txt")));
     for (int i=0; i<ntrys; i++) {
       final Object x = g.get();
-      if (! set.contains(x)) { return false; } } 
+      if (! set.contains(x)) { return false; } }
     return true; }
 
   private static final boolean testEquivalence (final Set set,
                                                 final int ntrys) {
-    final Supplier g = 
-      set.generator( 
+    final Supplier g =
+      set.generator(
         ImmutableMap.of(
           Set.URP,
           PRNG.well44497b("seeds/Well44497b-2019-01-07.txt")));
@@ -76,10 +76,10 @@ public class Bench {
 
   //--------------------------------------------------------------
 
-  private static final boolean 
+  private static final boolean
   structureTests (final Structure s,
                   final int ntrys) {
-    final Map<Set,Supplier> generators = 
+    final Map<Set,Supplier> generators =
       s.generators(
         ImmutableMap.of(
           Set.URP,
@@ -92,13 +92,13 @@ public class Bench {
   //--------------------------------------------------------------
 
   private static final int TRYS = 1;
-  private static final int[] DIMENSIONS = 
+  private static final int[] DIMENSIONS =
     new int[] { 16 * 1024, };
 
-  public static final boolean 
+  public static final boolean
   spaceTest (final TwoSetsOneOperation space) {
     if (! setTests(space,TRYS)) { return false; }
-    if (! structureTests(space,TRYS)) { return false; } 
+    if (! structureTests(space,TRYS)) { return false; }
     return true; }
 
   //--------------------------------------------------------------

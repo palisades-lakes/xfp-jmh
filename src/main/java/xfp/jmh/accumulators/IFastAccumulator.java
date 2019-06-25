@@ -98,15 +98,15 @@ implements Accumulator<IFastAccumulator> {
   private double errTwo = Double.NaN;
 
   /** Update {@link #sumTwo} and {@link #errTwo} so that
-   * <code>{@link #sumTwo} == x0 + x1</code> 
+   * <code>{@link #sumTwo} == x0 + x1</code>
    * (sum rounded to nearest double), and
-   * <code>rationalSum({@link #sumTwo},{@link #errTwo}) 
-   * == rationalSum(x0,x1)</code> 
+   * <code>rationalSum({@link #sumTwo},{@link #errTwo})
+   * == rationalSum(x0,x1)</code>
    * (exact sums, implemented, for example, with arbitrary
    * precision rationals)
    */
 
-  private final void twoSum (final double x0, 
+  private final void twoSum (final double x0,
                              final double x1) {
     // might get +/- Infinity due to overflow
     sumTwo = x0 + x1;
@@ -122,12 +122,12 @@ implements Accumulator<IFastAccumulator> {
     double s = 0.0;
 
     // Step 2
-    for (int ii=0;ii<n[0]; ii++) { 
+    for (int ii=0;ii<n[0]; ii++) {
       // needed to pass nonFinite test.
-      // could be dropped if we don't require 
+      // could be dropped if we don't require
       assert Double.isFinite(x[ii]);
-      twoSum(s,x[ii]); 
-      s = sumTwo; 
+      twoSum(s,x[ii]);
+      s = sumTwo;
       if (! Double.isFinite(s)) { return s; }
       x[ii] = errTwo; }
     // Step 3
@@ -189,7 +189,7 @@ implements Accumulator<IFastAccumulator> {
           // Step 3(5)(d)(iii)
           final double s2 = iFastSum(x, n, false);
           // Step 3(5)(d)(iv)
-          s = round3(s, s1, s2); 
+          s = round3(s, s1, s2);
           if (! Double.isFinite(s)) { return s; } }
         // Step 3(5)(e)
         return s; } } }
@@ -197,7 +197,7 @@ implements Accumulator<IFastAccumulator> {
   //--------------------------------------------------------------
   // Accumulator interface
   //--------------------------------------------------------------
-  
+
   @Override
   public final boolean isExact () { return true; }
 
@@ -218,7 +218,7 @@ implements Accumulator<IFastAccumulator> {
   //--------------------------------------------------------------
 
   @Override
-  public final Object value () { 
+  public final Object value () {
     return Double.valueOf(doubleValue()); }
 
   @Override
@@ -255,7 +255,7 @@ implements Accumulator<IFastAccumulator> {
     final double x2 = x*x;
     final double e = Math.fma(x,x,-x2);
     add(x2);
-    add(e); 
+    add(e);
     return this; }
 
   //--------------------------------------------------------------
@@ -268,7 +268,7 @@ implements Accumulator<IFastAccumulator> {
     final double x01 = x0*x1;
     final double e = Math.fma(x0,x1,-x01);
     add(x01);
-    add(e); 
+    add(e);
     return this; }
 
   //--------------------------------------------------------------

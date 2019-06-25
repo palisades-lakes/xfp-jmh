@@ -22,7 +22,7 @@ import xfp.java.prng.PRNG;
 import xfp.java.test.Common;
 
 /** Benchmark <code>double[]</code> sums.
- * 
+ *
  * <pre>
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
@@ -36,7 +36,7 @@ public abstract class Base {
 
   //--------------------------------------------------------------
 
-  public static final void save (final double x, 
+  public static final void save (final double x,
                                  final List data) {
     data.add(Double.valueOf(x)); }
 
@@ -98,14 +98,14 @@ public abstract class Base {
 
   //--------------------------------------------------------------
 
-  private static final String SEED0 = 
+  private static final String SEED0 =
     "seeds/Well44497b-2019-01-05.txt";
 
-  private static final String SEED1 = 
+  private static final String SEED1 =
     "seeds/Well44497b-2019-01-07.txt";
 
-  public static final Map<String,IntFunction<Generator>> 
-  factories = 
+  public static final Map<String,IntFunction<Generator>>
+  factories =
   Map.of(
     "uniform",
     new IntFunction<Generator>() {
@@ -115,11 +115,11 @@ public abstract class Base {
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
         final int emax = Common.deMax(dim)/2;
         final double dmax = (1<<emax);
-        return 
+        return
           Doubles.shuffledGenerator(
             Doubles.zeroSumGenerator(
               Doubles.uniformGenerator(dim,urp0,-dmax,dmax)),
-            urp1); } 
+            urp1); }
     },
     "finite",
     new IntFunction<Generator>() {
@@ -128,11 +128,11 @@ public abstract class Base {
         final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
         final int emax = Common.deMax(dim)/2;
-        return 
+        return
           Doubles.shuffledGenerator(
             Doubles.zeroSumGenerator(
               Doubles.finiteGenerator(dim,urp0,emax)),
-            urp1); } 
+            urp1); }
     },
     "exponential",
     new IntFunction<Generator>() {
@@ -142,11 +142,11 @@ public abstract class Base {
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
         final int emax = Common.deMax(dim)/2;
         final double dmax = (1<<emax);
-        return 
+        return
           Doubles.shuffledGenerator(
             Doubles.zeroSumGenerator(
               Doubles.exponentialGenerator(dim,urp0,0.0,dmax)),
-            urp1); } 
+            urp1); }
     },
     "gaussian",
     new IntFunction<Generator>() {
@@ -156,11 +156,11 @@ public abstract class Base {
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
         final int emax = Common.deMax(dim)/2;
         final double dmax = (1<<emax);
-        return 
+        return
           Doubles.shuffledGenerator(
             Doubles.zeroSumGenerator(
               Doubles.gaussianGenerator(dim,urp0,0.0,dmax)),
-            urp1); } 
+            urp1); }
     },
     "laplace",
     new IntFunction<Generator>() {
@@ -170,11 +170,11 @@ public abstract class Base {
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
         final int emax = Common.deMax(dim)/2;
         final double dmax = (1<<emax);
-        return 
+        return
           Doubles.shuffledGenerator(
             Doubles.zeroSumGenerator(
               Doubles.laplaceGenerator(dim,urp0,0.0,dmax)),
-            urp1); } 
+            urp1); }
     });
 
   public static final Generator makeGenerator (final String name,
@@ -201,20 +201,20 @@ public abstract class Base {
   /** Re-initialize the prngs with the same seeds for each
    * <code>(accumulator,dim)</code> pair.
    */
-  @Setup(Level.Trial)  
+  @Setup(Level.Trial)
   public final void trialSetup () {
     gen = makeGenerator(generator,dim);
     truth.clear();
     est.clear();
     exact = BigFloatAccumulator1.make();
     assert exact.isExact();
-    acc = Common.makeAccumulator(accumulator); }  
+    acc = Common.makeAccumulator(accumulator); }
 
-  @Setup(Level.Invocation)  
+  @Setup(Level.Invocation)
   public final void invocationSetup () {
     x0 = (double[]) gen.next();
     x1 = (double[]) gen.next();
-    // call operation twice to fill in true partials 
+    // call operation twice to fill in true partials
     operation(exact,x0,x1);
     // p0 p1 won't be initialized in scalar benchmarks
     if (null!=p0) { true0 = Arrays.copyOf(p0,p0.length); }
@@ -222,16 +222,16 @@ public abstract class Base {
     // call 2nd time to get trueVal == 0
     // accuracy metric for partials
     trueVal = operation(exact,x0,x1);
-    save(trueVal,truth); }  
+    save(trueVal,truth); }
 
   // not needed while testing exact methods
-  //  @TearDown(Level.Trial)  
+  //  @TearDown(Level.Trial)
   //  public final void teardownTrial () {
   //    //System.out.println("teardownTrial");
   //    final int n = truth.size();
-  //    assert n == est.size(); 
+  //    assert n == est.size();
   //    final String aname = Classes.className(acc);
-  //    final String bname = 
+  //    final String bname =
   //      Classes.className(this).replace("_jmhType","");
   //    final File parent = new File("output/" + bname);
   //    parent.mkdirs();
@@ -243,14 +243,14 @@ public abstract class Base {
   //      pw.println("generator,benchmark,accumulator,dim,truth,est");
   //      for (int i=0;i<n;i++) {
   //        pw.println(
-  //          generator + "," + bname + "," + aname + "," + dim + "," 
+  //          generator + "," + bname + "," + aname + "," + dim + ","
   //            + truth.get(i) + "," + est.get(i)); } }
   //    catch (final FileNotFoundException e) {
-  //      throw new RuntimeException(e); } 
+  //      throw new RuntimeException(e); }
   //    finally { if (null != pw) { pw.close(); } } }
 
   @Benchmark
-  public final double bench () { 
+  public final double bench () {
     final double pred = operation(acc,x0,x1);
     assert Double.isFinite(pred);
     if (acc.isExact()) { assert pred == trueVal; }
@@ -260,16 +260,16 @@ public abstract class Base {
   //--------------------------------------------------------------
   /** <pre>
    * java -cp target\benchmarks.jar xfp.jmh.Base
-   * </pre> 
+   * </pre>
    */
 
-//  public static void main (final String[] args) 
-//    throws RunnerException {
-//    System.out.println("args=" + Arrays.toString(args));
-//    final Options opt = 
-//      Defaults.options("Base","TotalDot|TotalL2Norm|TotalSum");
-//    System.out.println(opt.toString());
-//    new Runner(opt).run(); }
+  //  public static void main (final String[] args)
+  //    throws RunnerException {
+  //    System.out.println("args=" + Arrays.toString(args));
+  //    final Options opt =
+  //      Defaults.options("Base","TotalDot|TotalL2Norm|TotalSum");
+  //    System.out.println(opt.toString());
+  //    new Runner(opt).run(); }
 
   //--------------------------------------------------------------
 }

@@ -12,14 +12,14 @@ import xfp.java.Classes;
 import xfp.java.algebra.Set;
 import xfp.java.algebra.Sets;
 import xfp.java.numbers.BigDecimals;
+import xfp.java.numbers.Rationals;
+import xfp.java.prng.PRNG;
 import xfp.jmh.numbers.BigFractions;
 import xfp.jmh.numbers.ERationals;
-import xfp.java.numbers.Rationals;
 import xfp.jmh.numbers.Ratios;
-import xfp.java.prng.PRNG;
 
 //----------------------------------------------------------------
-/** Common code for testing sets. 
+/** Common code for testing sets.
  *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-03-22
@@ -31,8 +31,8 @@ public final class SetTests {
   private static final int TRYS = 1023;
 
   private static final void testMembership (final Set set) {
-    final Supplier g = 
-      set.generator( 
+    final Supplier g =
+      set.generator(
         ImmutableMap.of(
           Set.URP,
           PRNG.well44497b("seeds/Well44497b-2019-01-05.txt")));
@@ -42,13 +42,13 @@ public final class SetTests {
       //System.out.println("element=" + x);
       assertTrue(
         set.contains(x),
-        () -> set.toString() + "\n does not contain \n" + 
+        () -> set.toString() + "\n does not contain \n" +
           Classes.className(x) + ": " +
           x); } }
 
   private static final void testEquivalence (final Set set) {
-    final Supplier g = 
-      set.generator( 
+    final Supplier g =
+      set.generator(
         ImmutableMap.of(
           Set.URP,
           PRNG.well44497b("seeds/Well44497b-2019-01-07.txt")));
@@ -64,27 +64,27 @@ public final class SetTests {
 
   @SuppressWarnings({ "static-method" })
   @Test
-  public final void Rationals () { 
+  public final void Rationals () {
     SetTests.tests(Rationals.get()); }
 
   @SuppressWarnings({ "static-method" })
   @Test
-  public final void eRationals () { 
+  public final void eRationals () {
     SetTests.tests(ERationals.get()); }
 
   @SuppressWarnings({ "static-method" })
   @Test
-  public final void bigDecimals () { 
+  public final void bigDecimals () {
     SetTests.tests(BigDecimals.get()); }
 
   @SuppressWarnings({ "static-method" })
   @Test
-  public final void bigFractions () { 
+  public final void bigFractions () {
     SetTests.tests(BigFractions.get()); }
 
   @SuppressWarnings({ "static-method" })
   @Test
-  public final void ratios () { 
+  public final void ratios () {
     SetTests.tests(Ratios.get()); }
 
   //--------------------------------------------------------------
