@@ -484,19 +484,19 @@ implements Ringlike<BigInteger> {
       return negConst[(int) -val]; }
     return new BigInteger(val); }
 
-  private static final int[] shiftLeft (final long x,
-                                        final int leftShift) {
-    //    final int s0 = leftShift / 32;
-    //    final int s1 = leftShift % 32;
+  private static final int[] shiftUp (final long x,
+                                        final int upShift) {
+    //    final int s0 = upShift / 32;
+    //    final int s1 = upShift % 32;
     //    final int n = s0 + 2 + ((s1 > 0) ? 1 : 0);
     //    final int[] x = new int[n];
     final int[] xs = { (int) (x >>> 32), 
                        (int) (x & 0xFFFFFFFFL), };
-    return shiftLeft(xs,leftShift); }
+    return shiftUp(xs,upShift); }
 
   public static final BigInteger nonNegative (final long x,
-                                              final int leftShift) {
-    return new BigInteger(shiftLeft(x,leftShift),1); }
+                                              final int upShift) {
+    return new BigInteger(shiftUp(x,upShift),1); }
 
   /** Constructs a BigInteger with the specified value, which may
    * not be zero.
@@ -695,10 +695,10 @@ implements Ringlike<BigInteger> {
     return new BigInteger(resultMag,cmp == signum ? 1 : -1); }
 
   public final BigInteger addMagnitude4 (final long val,
-                                         final int leftShift) {
+                                         final int upShift) {
     if (0 == signum) {
-      return new BigInteger(shiftLeft(val,leftShift),1); }
-    return new BigInteger(add(mag,shiftLeft(val,leftShift)),1); }
+      return new BigInteger(shiftUp(val,upShift),1); }
+    return new BigInteger(add(mag,shiftUp(val,upShift)),1); }
 
   //--------------------------------------------------------------
 
@@ -724,7 +724,7 @@ implements Ringlike<BigInteger> {
     //Debug.println("x=" + toHexString(x));
     //Debug.println("y=" + toHexString(y));
     //Debug.println("shift y=" 
-    //+ Numbers.toHexString(shiftLeft(y,bitShift)));
+    //+ Numbers.toHexString(shiftUp(y,bitShift)));
     //Debug.println("bitShift=" + bitShift);
     //Debug.println("intShift=" + intShift);
     //Debug.println("remShift=" + remShift);
@@ -797,12 +797,12 @@ implements Ringlike<BigInteger> {
     return r0; }
 
   public final BigInteger addMagnitude (final long val,
-                                        final int leftShift) {
+                                        final int upShift) {
     if (0 == signum) {
-      return new BigInteger(shiftLeft(val,leftShift),1); }
-    //return new BigInteger(add(mag,shiftLeft(val,leftShift)),1); }
-    final int[] r0 = addMagnitude(mag,val,leftShift);
-    //      final int[] r1 = add(mag,shiftLeft(val,leftShift));
+      return new BigInteger(shiftUp(val,upShift),1); }
+    //return new BigInteger(add(mag,shiftUp(val,upShift)),1); }
+    final int[] r0 = addMagnitude(mag,val,upShift);
+    //      final int[] r1 = add(mag,shiftUp(val,upShift));
     //      assert Arrays.equals(r0,r1) :
     //        "\n" + Numbers.toHexString(r0)
     //        + "\n" + Numbers.toHexString(r1);
@@ -999,40 +999,40 @@ implements Ringlike<BigInteger> {
     return trustedStripLeadingZeroInts(result); }
 
   public final BigInteger subtract (final long val,
-                                    final int leftShift) {
+                                    final int upShift) {
     //assert 0 < signum;
     if (0L == val) { return this; }
     //assert 0L < val;
-    return new BigInteger(subtract(mag,val,leftShift),1); }
+    return new BigInteger(subtract(mag,val,upShift),1); }
 
   public final BigInteger subtractFrom (final long val,
-                                        final int leftShift) {
+                                        final int upShift) {
     if (0 == signum) {
-      return new BigInteger(shiftLeft(val,leftShift),1); }
+      return new BigInteger(shiftUp(val,upShift),1); }
     //assert 0 < signum;
     //assert 0L < val;
     return 
-      new BigInteger(subtract(shiftLeft(val,leftShift),mag),1); }
+      new BigInteger(subtract(shiftUp(val,upShift),mag),1); }
 
   //--------------------------------------------------------------
 
   public final BigInteger subtract4 (final long val,
-                                     final int leftShift) {
+                                     final int upShift) {
     //assert 0 < signum;
     if (0L == val) { return this; }
     //assert 0L < val;
     ////Debug.println("4little=" + Long.toHexString(val));
     return 
-      new BigInteger(subtract(mag,shiftLeft(val,leftShift)),1); }
+      new BigInteger(subtract(mag,shiftUp(val,upShift)),1); }
 
   public final BigInteger subtractFrom4 (final long val,
-                                         final int leftShift) {
+                                         final int upShift) {
     if (0 == signum) {
-      return new BigInteger(shiftLeft(val,leftShift),1); }
+      return new BigInteger(shiftUp(val,upShift),1); }
     //assert 0 < signum;
     //assert 0L < val;
     return 
-      new BigInteger(subtract(shiftLeft(val,leftShift),mag),1); }
+      new BigInteger(subtract(shiftUp(val,upShift),mag),1); }
 
   //--------------------------------------------------------------
   // multiply
@@ -1173,7 +1173,7 @@ implements Ringlike<BigInteger> {
                                            final int sign) {
     if (Integer.bitCount(y) == 1) {
       return new BigInteger(
-        shiftLeft(x,Integer.numberOfTrailingZeros(y)),sign);
+        shiftUp(x,Integer.numberOfTrailingZeros(y)),sign);
     }
     final int xlen = x.length;
     int[] rmag = new int[xlen + 1];
@@ -1357,8 +1357,8 @@ implements Ringlike<BigInteger> {
     // result = p1 * 2^(32*2*half) + (p3 - p1 - p2) * 2^(32*half)
     // + p2
     final BigInteger result =
-      p1.shiftLeft(32 * half).add(p3.subtract(p1).subtract(p2))
-      .shiftLeft(32 * half).add(p2);
+      p1.shiftUp(32 * half).add(p3.subtract(p1).subtract(p2))
+      .shiftUp(32 * half).add(p2);
 
     if (x.signum != y.signum) { return result.negate(); }
     return result;
@@ -1431,8 +1431,8 @@ implements Ringlike<BigInteger> {
     db1 = db1.add(b1);
     v1 = da1.multiply(db1,true);
     v2 =
-      da1.add(a2).shiftLeft(1).subtract(a0)
-      .multiply(db1.add(b2).shiftLeft(1).subtract(b0),true);
+      da1.add(a2).shiftUp(1).subtract(a0)
+      .multiply(db1.add(b2).shiftUp(1).subtract(b0),true);
     vinf = a2.multiply(b2,true);
 
     // The algorithm requires two divisions by 2 and one by 3.
@@ -1445,19 +1445,19 @@ implements Ringlike<BigInteger> {
     // only an exact division by 3, which is done by a specialized
     // linear-time algorithm.
     t2 = v2.subtract(vm1).exactDivideBy3();
-    tm1 = v1.subtract(vm1).shiftRight(1);
+    tm1 = v1.subtract(vm1).shiftDown(1);
     t1 = v1.subtract(v0);
-    t2 = t2.subtract(t1).shiftRight(1);
+    t2 = t2.subtract(t1).shiftDown(1);
     t1 = t1.subtract(tm1).subtract(vinf);
-    t2 = t2.subtract(vinf.shiftLeft(1));
+    t2 = t2.subtract(vinf.shiftUp(1));
     tm1 = tm1.subtract(t2);
 
     // Number of bits to shift left.
     final int ss = k * 32;
 
     final BigInteger result =
-      vinf.shiftLeft(ss).add(t2).shiftLeft(ss).add(t1)
-      .shiftLeft(ss).add(tm1).shiftLeft(ss).add(v0);
+      vinf.shiftUp(ss).add(t2).shiftUp(ss).add(t1)
+      .shiftUp(ss).add(tm1).shiftUp(ss).add(v0);
 
     if (a.signum != b.signum) { return result.negate(); }
     return result;
@@ -1822,9 +1822,9 @@ implements Ringlike<BigInteger> {
     final BigInteger xls = xl.square();  // xls = xl^2
 
     // xh^2 << 64 + (((xl+xh)^2 - (xh^2 + xl^2)) << 32) + xl^2
-    return xhs.shiftLeft(half * 32)
+    return xhs.shiftUp(half * 32)
       .add(xl.add(xh).square().subtract(xhs.add(xls)))
-      .shiftLeft(half * 32).add(xls);
+      .shiftUp(half * 32).add(xls);
   }
 
   /**
@@ -1861,7 +1861,7 @@ implements Ringlike<BigInteger> {
     da1 = da1.add(a1);
     v1 = da1.square(true);
     vinf = a2.square(true);
-    v2 = da1.add(a2).shiftLeft(1).subtract(a0).square(true);
+    v2 = da1.add(a2).shiftUp(1).subtract(a0).square(true);
 
     // The algorithm requires two divisions by 2 and one by 3.
     // All divisions are known to be exact, that is, they do not
@@ -1874,18 +1874,18 @@ implements Ringlike<BigInteger> {
     // The division by 3 is done by an optimized algorithm for
     // this case.
     t2 = v2.subtract(vm1).exactDivideBy3();
-    tm1 = v1.subtract(vm1).shiftRight(1);
+    tm1 = v1.subtract(vm1).shiftDown(1);
     t1 = v1.subtract(v0);
-    t2 = t2.subtract(t1).shiftRight(1);
+    t2 = t2.subtract(t1).shiftDown(1);
     t1 = t1.subtract(tm1).subtract(vinf);
-    t2 = t2.subtract(vinf.shiftLeft(1));
+    t2 = t2.subtract(vinf.shiftUp(1));
     tm1 = tm1.subtract(t2);
 
     // Number of bits to shift left.
     final int ss = k * 32;
 
-    return vinf.shiftLeft(ss).add(t2).shiftLeft(ss).add(t1)
-      .shiftLeft(ss).add(tm1).shiftLeft(ss).add(v0);
+    return vinf.shiftUp(ss).add(t2).shiftUp(ss).add(t1)
+      .shiftUp(ss).add(tm1).shiftUp(ss).add(v0);
   }
 
   //--------------------------------------------------------------
@@ -2021,13 +2021,13 @@ implements Ringlike<BigInteger> {
     // Factor the powers of two out quickly by shifting right, if
     // needed.
     if (powersOfTwo > 0) {
-      partToSquare = partToSquare.shiftRight(powersOfTwo);
+      partToSquare = partToSquare.shiftDown(powersOfTwo);
       remainingBits = partToSquare.bitLength();
       if (remainingBits == 1) {  // Nothing left but +/- 1?
         if ((signum < 0) && ((exponent & 1) == 1)) {
-          return NEGATIVE_ONE.shiftLeft(bitsToShift);
+          return NEGATIVE_ONE.shiftUp(bitsToShift);
         }
-        return ONE.shiftLeft(bitsToShift);
+        return ONE.shiftUp(bitsToShift);
       }
     }
     else {
@@ -2076,7 +2076,7 @@ implements Ringlike<BigInteger> {
         if ((bitsToShift + scaleFactor) <= 62) { // Fits in long?
           return valueOf((result << bitsToShift) * newSign);
         }
-        return valueOf(result * newSign).shiftLeft(bitsToShift);
+        return valueOf(result * newSign).shiftUp(bitsToShift);
       }
       return valueOf(result * newSign);
     }
@@ -2104,7 +2104,7 @@ implements Ringlike<BigInteger> {
     // Multiply back the (exponentiated) powers of two (quickly,
     // by shifting left)
     if (powersOfTwo > 0) {
-      answer = answer.shiftLeft(bitsToShift);
+      answer = answer.shiftUp(bitsToShift);
     }
 
     if ((signum < 0) && ((exponent & 1) == 1)) {
@@ -2379,20 +2379,20 @@ implements Ringlike<BigInteger> {
    * @param n
    *          shift distance, in bits.
    * @return {@code this << n}
-   * @see #shiftRight
+   * @see #shiftDown
    */
-  public BigInteger shiftLeft (final int n) {
+  public BigInteger shiftUp (final int n) {
     if (signum == 0) { return ZERO; }
     if (n > 0) {
-      return new BigInteger(shiftLeft(mag,n),signum);
+      return new BigInteger(shiftUp(mag,n),signum);
     }
     else if (n == 0) {
       return this;
     }
     else {
       // Possible int overflow in (-n) is not a trouble,
-      // because shiftRightImpl considers its argument unsigned
-      return shiftRightImpl(-n);
+      // because shiftDownImpl considers its argument unsigned
+      return shiftDownImpl(-n);
     }
   }
 
@@ -2408,7 +2408,7 @@ implements Ringlike<BigInteger> {
    *          unsigned shift distance, in bits.
    * @return {@code mag << n}
    */
-  private static int[] shiftLeft (final int[] mag, final int n) {
+  private static int[] shiftUp (final int[] mag, final int n) {
     final int nInts = n >>> 5;
     final int nBits = n & 0x1f;
     final int magLen = mag.length;
@@ -2447,20 +2447,20 @@ implements Ringlike<BigInteger> {
    * @param n
    *          shift distance, in bits.
    * @return {@code this >> n}
-   * @see #shiftLeft
+   * @see #shiftUp
    */
-  public BigInteger shiftRight (final int n) {
+  public BigInteger shiftDown (final int n) {
     if (signum == 0) { return ZERO; }
     if (n > 0) {
-      return shiftRightImpl(n);
+      return shiftDownImpl(n);
     }
     else if (n == 0) {
       return this;
     }
     else {
       // Possible int overflow in {@code -n} is not a trouble,
-      // because shiftLeft considers its argument unsigned
-      return new BigInteger(shiftLeft(mag,-n),signum);
+      // because shiftUp considers its argument unsigned
+      return new BigInteger(shiftUp(mag,-n),signum);
     }
   }
 
@@ -2474,7 +2474,7 @@ implements Ringlike<BigInteger> {
    *          unsigned shift distance, in bits.
    * @return {@code this >> n}
    */
-  private BigInteger shiftRightImpl (final int n) {
+  private BigInteger shiftDownImpl (final int n) {
     final int nInts = n >>> 5;
     final int nBits = n & 0x1f;
     final int magLen = mag.length;
@@ -2970,8 +2970,8 @@ implements Ringlike<BigInteger> {
     return 0; }
 
   public final int compareMagnitude (final long val,
-                                     final int leftShift) {
-    return compareMagnitude(mag,shiftLeft(val,leftShift)); }
+                                     final int upShift) {
+    return compareMagnitude(mag,shiftUp(val,upShift)); }
 
   //--------------------------------------------------------------
 
@@ -3006,8 +3006,8 @@ implements Ringlike<BigInteger> {
 
 
   public final int compareMagnitude4 (final long val,
-                                      final int leftShift) {
-    return compareMagnitude(mag,shiftLeft(val,leftShift)); }
+                                      final int upShift) {
+    return compareMagnitude(mag,shiftUp(val,upShift)); }
 
   //--------------------------------------------------------------
   /**
@@ -3427,7 +3427,7 @@ implements Ringlike<BigInteger> {
 
     int twiceSignifFloor;
     // twiceSignifFloor will be ==
-    // abs().shiftRight(shift).intValue()
+    // abs().shiftDown(shift).intValue()
     // We do the shift into an int directly to improve
     // performance.
 
@@ -3534,7 +3534,7 @@ implements Ringlike<BigInteger> {
 
     long twiceSignifFloor;
     // twiceSignifFloor will be ==
-    // abs().shiftRight(shift).longValue()
+    // abs().shiftDown(shift).longValue()
     // We do the shift into a long directly to improve
     // performance.
 

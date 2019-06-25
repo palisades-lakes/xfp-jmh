@@ -88,7 +88,7 @@ public final class RoundtripTests {
   //        Double.toHexString(nx) + "\n" +
   //        Double.toHexString(dx));
   //    if (Double.isInfinite(nx) || Double.isInfinite(dx)) {
-  //      return toDouble(n.shiftRight(1),d.shiftRight(1)); }
+  //      return toDouble(n.shiftDown(1),d.shiftDown(1)); }
   //    return nx / dx;  }
   //
   //  public static final double toDouble (final BigFraction f) {
@@ -208,13 +208,13 @@ public final class RoundtripTests {
   //    if (dividendBitLength > divisorBitLength) {
   //      // Normalizes the divisor to 63 bits.
   //      final int shift = divisorBitLength - 63;
-  //      final long divisor = _divisor.shiftRight(shift).longValue();
-  //      final BigInteger dividend = _dividend.shiftRight(shift);
+  //      final long divisor = _divisor.shiftDown(shift).longValue();
+  //      final BigInteger dividend = _dividend.shiftDown(shift);
   //      return dividend.doubleValue() / divisor; }
   //    // Normalizes the dividend to 63 bits.
   //    final int shift = dividendBitLength - 63;
-  //    final long dividend = _dividend.shiftRight(shift).longValue();
-  //    final BigInteger divisor = _divisor.shiftRight(shift);
+  //    final long dividend = _dividend.shiftDown(shift).longValue();
+  //    final BigInteger divisor = _divisor.shiftDown(shift);
   //    return dividend / divisor.doubleValue(); }
 
   //  //Fails.

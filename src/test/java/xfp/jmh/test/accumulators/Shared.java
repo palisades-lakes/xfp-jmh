@@ -33,7 +33,7 @@ public final class Shared {
         //"xfp.jmh.accumulators.ZhuHayesGCBranch",
         //"xfp.jmh.accumulators.ZhuHayesBranch"
         // ,
-        // "xfp.java.accumulators.RationalFloatAccumulator1"
+        // "xfp.java.accumulators.RationalFloatAccumulator"
         // ,
         // // Same as non-strict, just slower
         // "xfp.jmh.accumulators.StrictDoubleAccumulator",

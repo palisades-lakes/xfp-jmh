@@ -70,7 +70,7 @@ public abstract class Base {
     //"xfp.java.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator",
-    //"xfp.java.accumulators.RationalFloatAccumulator1",
+    //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.java.accumulators.DistilledAccumulator",
     //"xfp.java.accumulators.ZhuHayesAccumulator",
     //"xfp.java.accumulators.RationalAccumulator",

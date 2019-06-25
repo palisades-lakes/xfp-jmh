@@ -225,7 +225,7 @@ class MutableBigInteger {
   }
 
   /**
-   * Returns a value equal to what {@code b.leftShift(32*ints); return compare(b);}
+   * Returns a value equal to what {@code b.upShift(32*ints); return compare(b);}
    * would return, but doesn't change the value of {@code b}.
    */
   private int compareShifted(final MutableBigInteger b, final int ints) {
@@ -455,13 +455,13 @@ class MutableBigInteger {
   }
 
   /**
-   * Like {@link #rightShift(int)} but {@code n} can be greater than the length of the number.
+   * Like {@link #downShift(int)} but {@code n} can be greater than the length of the number.
    */
   void safeRightShift(final int n) {
     if ((n/32) >= intLen) {
       reset();
     } else {
-      rightShift(n);
+      downShift(n);
     }
   }
 
@@ -469,7 +469,7 @@ class MutableBigInteger {
    * Right shift this MutableBigInteger n bits. The MutableBigInteger is left
    * in normal form.
    */
-  void rightShift(final int n) {
+  void downShift(final int n) {
     if (intLen == 0) {
       return;
     }
@@ -489,18 +489,18 @@ class MutableBigInteger {
   }
 
   /**
-   * Like {@link #leftShift(int)} but {@code n} can be zero.
+   * Like {@link #upShift(int)} but {@code n} can be zero.
    */
   void safeLeftShift(final int n) {
     if (n > 0) {
-      leftShift(n);
+      upShift(n);
     }
   }
 
   /**
    * Left shift this MutableBigInteger n bits.
    */
-  void leftShift(final int n) {
+  void upShift(final int n) {
     /*
      * If there is enough storage space in this MutableBigInteger already
      * the available space will be used. Space to the right of the used
@@ -738,7 +738,7 @@ class MutableBigInteger {
 
   /**
    * Adds the value of {@code addend} shifted {@code n} ints to the left.
-   * Has the same effect as {@code addend.leftShift(32*ints); add(addend);}
+   * Has the same effect as {@code addend.upShift(32*ints); add(addend);}
    * but doesn't change the value of {@code addend}.
    */
   void addShifted(final MutableBigInteger addend, final int n) {
@@ -1170,10 +1170,10 @@ class MutableBigInteger {
       if (trailingZeroBits >= (KNUTH_POW2_THRESH_ZEROS*32)) {
         final MutableBigInteger aa = new MutableBigInteger(this);
         final MutableBigInteger bb = new MutableBigInteger(b);
-        aa.rightShift(trailingZeroBits);
-        bb.rightShift(trailingZeroBits);
+        aa.downShift(trailingZeroBits);
+        bb.downShift(trailingZeroBits);
         final MutableBigInteger r = aa.divideKnuth(bb, quotient);
-        r.leftShift(trailingZeroBits);
+        r.upShift(trailingZeroBits);
         return r; } }
 
     return divideMagnitude(b, quotient, needRemainder); }
@@ -1242,7 +1242,7 @@ class MutableBigInteger {
     ri = z.divide2n1n(bShifted, qi);
     quotient.add(qi);
 
-    ri.rightShift(sigma);   // step 9: a and b were shifted, so shift back
+    ri.downShift(sigma);   // step 9: a and b were shifted, so shift back
     return ri;
   }
 
@@ -1316,19 +1316,19 @@ class MutableBigInteger {
       // step 3b: if a1>=b1, let quotient=beta^n-1 and r=a12-b1*2^n+b1
       quotient.ones(n);
       a12.add(b1);
-      b1.leftShift(32*n);
+      b1.upShift(32*n);
       a12.subtract(b1);
       r = a12;
 
       // step 4: d=quotient*b2=(b2 << 32*n) - b2
       d = new MutableBigInteger(b2);
-      d.leftShift(32 * n);
+      d.upShift(32 * n);
       d.subtract(new MutableBigInteger(b2));
     }
 
     // step 5: r = r*beta^n + a3 - d (paper says a4)
     // However, don't subtract d until after the while loop so r doesn't become negative
-    r.leftShift(32 * n);
+    r.upShift(32 * n);
     r.addLower(this, n);
 
     // step 6: add b until r>=d
@@ -1618,7 +1618,7 @@ class MutableBigInteger {
     if (needRemainder) {
       // D8 Unnormalize
       if (shift > 0) {
-        rem.rightShift(shift);
+        rem.downShift(shift);
       }
       rem.normalize();
     }
@@ -1653,7 +1653,7 @@ class MutableBigInteger {
   //    final int shift = Long.numberOfLeadingZeros(ldivisor);
   //    if (shift > 0) {
   //      ldivisor<<=shift;
-  //      rem.leftShift(shift);
+  //      rem.upShift(shift);
   //    }
   //
   //    // Must insert leading 0 in rem if its length did not change
@@ -1733,7 +1733,7 @@ class MutableBigInteger {
   //
   //    // D8 Unnormalize
   //    if (shift > 0) {
-  //      rem.rightShift(shift);
+  //      rem.downShift(shift);
   //    }
   //
   //    quotient.normalize();
@@ -1881,7 +1881,7 @@ class MutableBigInteger {
 
     // Shift the value into positive long range.
     MutableBigInteger xk = new MutableBigInteger(this);
-    xk.rightShift(shift);
+    xk.downShift(shift);
     xk.normalize();
 
     // Use the square root of the shifted value as an approximation.
@@ -1890,7 +1890,7 @@ class MutableBigInteger {
     xk = new MutableBigInteger(bi.mag);
 
     // Shift the approximate square root back into the original range.
-    xk.leftShift(shift / 2);
+    xk.upShift(shift / 2);
 
     // Refine the estimate.
     final MutableBigInteger xk1 = new MutableBigInteger();
@@ -1898,7 +1898,7 @@ class MutableBigInteger {
       // xk1 = (xk + n/xk)/2
       this.divide(xk, xk1, false);
       xk1.add(xk);
-      xk1.rightShift(1);
+      xk1.downShift(1);
 
       // Terminate when non-decreasing.
       if (xk1.compare(xk) >= 0) {
@@ -1947,8 +1947,8 @@ class MutableBigInteger {
     final int s2 = v.getLowestSetBit();
     final int k = (s1 < s2) ? s1 : s2;
     if (k != 0) {
-      u.rightShift(k);
-      v.rightShift(k);
+      u.downShift(k);
+      v.downShift(k);
     }
 
     // step B2
@@ -1959,7 +1959,7 @@ class MutableBigInteger {
     int lb;
     while ((lb = t.getLowestSetBit()) >= 0) {
       // steps B3 and B4
-      t.rightShift(lb);
+      t.downShift(lb);
       // step B5
       if (tsign > 0) {
         u = t;
@@ -1977,7 +1977,7 @@ class MutableBigInteger {
         r.intLen = 1;
         r.offset = 0;
         if (k > 0) {
-          r.leftShift(k);
+          r.upShift(k);
         }
         return r;
       }
@@ -1990,7 +1990,7 @@ class MutableBigInteger {
     }
 
     if (k > 0) {
-      u.leftShift(k);
+      u.upShift(k);
     }
     return u;
   }
@@ -2130,7 +2130,7 @@ class MutableBigInteger {
       p.mul(v, temp);
       c.add(temp);
       // c = c / 2^j
-      c.rightShift(numBits);
+      c.downShift(numBits);
     }
 
     // In theory, c may be greater than p at this point (Very rare!)
@@ -2147,7 +2147,7 @@ class MutableBigInteger {
    */
   MutableBigInteger euclidModInverse(final int k) {
     MutableBigInteger b = new MutableBigInteger(1);
-    b.leftShift(k);
+    b.upShift(k);
     final MutableBigInteger mod = new MutableBigInteger(b);
 
     MutableBigInteger a = new MutableBigInteger(this);

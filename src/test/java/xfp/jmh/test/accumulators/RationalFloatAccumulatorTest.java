@@ -24,7 +24,7 @@ public final class RationalFloatAccumulatorTest {
   //--------------------------------------------------------------
   private static final int DIM = 256;
   private static final List<String> accumulators =
-    List.of("xfp.java.accumulators.RationalFloatAccumulator1");
+    List.of("xfp.java.accumulators.RationalFloatAccumulator");
   @SuppressWarnings("static-method")
   @Test
   public final void tests () {
