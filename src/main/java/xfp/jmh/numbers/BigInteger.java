@@ -3010,32 +3010,6 @@ implements Ringlike<BigInteger> {
     return compareMagnitude(mag,shiftUp(val,upShift)); }
 
   //--------------------------------------------------------------
-  /**
-   * Returns the minimum of this BigInteger and {@code val}.
-   *
-   * @param val
-   *          value with which the minimum is to be computed.
-   * @return the BigInteger whose value is the lesser of this
-   *         BigInteger and
-   *         {@code val}. If they are equal, either may be
-   *         returned.
-   */
-  public BigInteger min (final BigInteger val) {
-    return (compareTo(val) < 0 ? this : val); }
-
-  /**
-   * Returns the maximum of this BigInteger and {@code val}.
-   *
-   * @param val
-   *          value with which the maximum is to be computed.
-   * @return the BigInteger whose value is the greater of this and
-   *         {@code val}. If they are equal, either may be
-   *         returned.
-   */
-  public BigInteger max (final BigInteger val) {
-    return (compareTo(val) > 0 ? this : val); }
-
-  //--------------------------------------------------------------
   // Object methods
   //--------------------------------------------------------------
 
