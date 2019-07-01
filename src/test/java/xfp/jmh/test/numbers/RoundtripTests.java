@@ -23,7 +23,7 @@ import xfp.jmh.accumulators.EFloatAccumulator;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-03
+ * @version 2019-07-01
  */
 
 public final class RoundtripTests {
@@ -407,8 +407,8 @@ public final class RoundtripTests {
           Double.toHexString(xf) + "\n\n" +
           f.numerator() + "\n" +
           f.denominator() + "\n\n" +
-          f.numerator().toString(0x10) + "\n" +
-          f.denominator().toString(0x10));
+          f.numerator().toHexString() + "\n" +
+          f.denominator().toHexString());
         return false; } }
     return true; }
 

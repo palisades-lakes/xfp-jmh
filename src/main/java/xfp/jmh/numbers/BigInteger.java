@@ -20,7 +20,7 @@ import xfp.java.numbers.Ringlike;
  * TODO: convert to purely non-negative numbers.
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-20
+ * @version 2019-07-01
  */
 
 @SuppressWarnings("hiding")
@@ -3054,7 +3054,7 @@ implements Ringlike<BigInteger> {
    * @see Character#forDigit
    * @see #BigInteger(java.lang.String, int)
    */
-  @Override
+  //@Override
   public final String toString (int radix) {
     if (signum == 0) { return "0"; }
     if ((radix < Character.MIN_RADIX)
@@ -3254,9 +3254,7 @@ implements Ringlike<BigInteger> {
    * @see #BigInteger(java.lang.String)
    */
   @Override
-  public String toString () {
-    return toString(10);
-  }
+  public String toString () { return toString(0x10); }
 
   /**
    * Returns a byte array containing the two's-complement
