@@ -241,7 +241,7 @@ public final class ERationals implements Set {
     return q0.Add(q1); }
 
   public final BinaryOperator<ERational> adder () {
-    return new BinaryOperator<ERational> () {
+    return new BinaryOperator<> () {
       @Override
       public final String toString () { return "BF.add()"; }
       @Override
@@ -265,7 +265,7 @@ public final class ERationals implements Set {
     return q.Negate(); }
 
   public final UnaryOperator<ERational> additiveInverse () {
-    return new UnaryOperator<ERational> () {
+    return new UnaryOperator<> () {
       @Override
       public final String toString () { return "BF.negate()"; }
       @Override
@@ -281,7 +281,7 @@ public final class ERationals implements Set {
     return q0.Multiply(q1); }
 
   public final BinaryOperator<ERational> multiplier () {
-    return new BinaryOperator<ERational>() {
+    return new BinaryOperator<>() {
       @Override
       public final String toString () { return "BF.multiply()"; }
       @Override
@@ -305,7 +305,7 @@ public final class ERationals implements Set {
 
   @SuppressWarnings("static-method")
   public final UnaryOperator<ERational> multiplicativeInverse () {
-    return new UnaryOperator<ERational> () {
+    return new UnaryOperator<> () {
       @Override
       public final String toString () { return "BF.inverse()"; }
       @Override

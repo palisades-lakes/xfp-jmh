@@ -51,7 +51,7 @@ public final class Ratios implements Set {
     return Numbers.toRatio(Numbers.add(q0,q1)); }
 
   public final BinaryOperator<Ratio> adder () {
-    return new BinaryOperator<Ratio> () {
+    return new BinaryOperator<> () {
       @Override
       public final String toString () { return "Ratio.add()"; }
       @Override
@@ -69,7 +69,7 @@ public final class Ratios implements Set {
     return Numbers.toRatio(Numbers.minus(q)); }
 
   public final UnaryOperator<Ratio> additiveInverse () {
-    return new UnaryOperator<Ratio> () {
+    return new UnaryOperator<> () {
       @Override
       public final String toString () { return "Ratio.negate()"; }
       @Override
@@ -94,7 +94,7 @@ public final class Ratios implements Set {
     return Numbers.toRatio(Numbers.multiply(q0,q1)); }
 
   public final BinaryOperator<Ratio> multiplier () {
-    return new BinaryOperator<Ratio>() {
+    return new BinaryOperator<>() {
       @Override
       public final String toString () { return "Ratio.multiply()"; }
       @Override
@@ -123,7 +123,7 @@ public final class Ratios implements Set {
     return new Ratio(d,n); }
 
   public final UnaryOperator<Ratio> multiplicativeInverse () {
-    return new UnaryOperator<Ratio> () {
+    return new UnaryOperator<> () {
       @Override
       public final String toString () { return "Ratio.inverse()"; }
       @Override

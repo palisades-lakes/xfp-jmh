@@ -210,7 +210,7 @@ public final class BigFractions implements Set {
     return q0.add(q1); }
 
   public final BinaryOperator<BigFraction> adder () {
-    return new BinaryOperator<BigFraction> () {
+    return new BinaryOperator<> () {
       @Override
       public final String toString () { return "BF.add()"; }
       @Override
@@ -234,7 +234,7 @@ public final class BigFractions implements Set {
     return q.negate(); }
 
   public final UnaryOperator<BigFraction> additiveInverse () {
-    return new UnaryOperator<BigFraction> () {
+    return new UnaryOperator<> () {
       @Override
       public final String toString () { return "BF.negate()"; }
       @Override
@@ -250,7 +250,7 @@ public final class BigFractions implements Set {
     return q0.multiply(q1); }
 
   public final BinaryOperator<BigFraction> multiplier () {
-    return new BinaryOperator<BigFraction>() {
+    return new BinaryOperator<>() {
       @Override
       public final String toString () { return "BF.multiply()"; }
       @Override
@@ -273,7 +273,7 @@ public final class BigFractions implements Set {
     return q.reciprocal();  }
 
   public final UnaryOperator<BigFraction> multiplicativeInverse () {
-    return new UnaryOperator<BigFraction> () {
+    return new UnaryOperator<> () {
       @Override
       public final String toString () { return "BF.inverse()"; }
       @Override

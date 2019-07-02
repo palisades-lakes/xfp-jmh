@@ -61,7 +61,7 @@ public abstract class Base {
   // exact scalar
   double trueVal;
   // collect trueValyes
-  List<Double> truth = new ArrayList<Double>();
+  List<Double> truth = new ArrayList<>();
 
   @Param({
     "xfp.java.accumulators.BigFloatAccumulator",
@@ -94,7 +94,7 @@ public abstract class Base {
   double[] p1;
   // estimated exact
   double val;
-  List<Double> est = new ArrayList<Double>();
+  List<Double> est = new ArrayList<>();
 
   //--------------------------------------------------------------
 
