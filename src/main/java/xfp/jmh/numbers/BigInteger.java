@@ -392,17 +392,17 @@ implements Ringlike<BigInteger> {
 
     long product = 0;
     long carry = 0;
-    for (int i = len - 1; i >= 0; i--) {
+    for (int i = len-1; i >= 0; i--) {
       product = (ylong * unsigned(x[i])) + carry;
       x[i] = (int) product;
       carry = product >>> 32;
     }
 
     // Perform the addition
-    long sum = (x[len - 1] & UNSIGNED_MASK) + zlong;
-    x[len - 1] = (int) sum;
+    long sum = (x[len-1] & UNSIGNED_MASK) + zlong;
+    x[len-1] = (int) sum;
     carry = sum >>> 32;
-    for (int i = len - 2; i >= 0; i--) {
+    for (int i = len-2; i >= 0; i--) {
       sum = unsigned(x[i]) + carry;
       x[i] = (int) sum;
       carry = sum >>> 32;
@@ -764,8 +764,8 @@ implements Ringlike<BigInteger> {
     //Debug.println("r0=" + toHexString(r0));
     // TODO: i==0 implies remShift==0 ?
     if ((0<=ir) && yCarry) {
-      sum = (y >>> (64 - remShift)) + (sum >>> 32);
-      //Debug.println("yhi=" + toHexString(y >>> (64 - remShift)));
+      sum = (y >>> (64-remShift)) + (sum >>> 32);
+      //Debug.println("yhi=" + toHexString(y >>> (64-remShift)));
       //Debug.println("sum=" + toHexString(sum));
       if (0<=ix) {
         //Debug.println("x[" + ix + "]=" + toHexString(x[ix]));
@@ -825,20 +825,20 @@ implements Ringlike<BigInteger> {
     final int result[] = new int[bigIndex];
     long difference = 0;
     if (highWord == 0) {
-      difference = unsigned(big[--bigIndex]) - val;
+      difference = unsigned(big[--bigIndex])-val;
       result[bigIndex] = (int) difference; }
     else {
-      difference = unsigned(big[--bigIndex]) - loWord(val);
+      difference = unsigned(big[--bigIndex])-loWord(val);
       result[bigIndex] = (int) difference;
       difference =
         (unsigned(big[--bigIndex])
-          - unsigned(highWord))
+         -unsigned(highWord))
         + (difference >> 32);
       result[bigIndex] = (int) difference; }
     // Subtract remainder of longer number while borrow propagates
     boolean borrow = ((difference >> 32) != 0);
     while ((bigIndex > 0) && borrow) {
-      borrow = ((result[--bigIndex] = big[bigIndex] - 1) == -1); }
+      borrow = ((result[--bigIndex] = big[bigIndex]-1) == -1); }
     // Copy remainder of longer number
     while (bigIndex > 0) { result[--bigIndex] = big[bigIndex]; }
     return result; }
@@ -868,25 +868,25 @@ implements Ringlike<BigInteger> {
     final int highWord = (int) (val >>> 32);
     if (highWord == 0) {
       final int result[] = new int[1];
-      result[0] = (int) (val - unsigned(little[0]));
+      result[0] = (int) (val-unsigned(little[0]));
       return result; }
     final int result[] = new int[2];
     if (little.length == 1) {
       final long difference =
-        unsigned((int) val) - unsigned(little[0]);
+        unsigned((int) val)-unsigned(little[0]);
       result[1] = (int) difference;
       // Subtract remainder of longer number while borrow
       // propagates
       final boolean borrow = ((difference >> 32) != 0);
-      if (borrow) { result[0] = highWord - 1; }
+      if (borrow) { result[0] = highWord-1; }
       // Copy remainder of longer number
       else { result[0] = highWord; }
       return result; }
     long difference =
-      unsigned((int) val) - unsigned(little[1]);
+      unsigned((int) val)-unsigned(little[1]);
     result[1] = (int) difference;
     difference =
-      (unsigned(highWord) - unsigned(little[0]))
+      (unsigned(highWord)-unsigned(little[0]))
       + (difference >> 32);
     result[0] = (int) difference;
     return result; }
@@ -909,14 +909,14 @@ implements Ringlike<BigInteger> {
     while (littleIndex > 0) {
       difference =
         (unsigned(big[--bigIndex])
-          - unsigned(little[--littleIndex]))
+         -unsigned(little[--littleIndex]))
         + (difference >> 32);
       result[bigIndex] = (int) difference; }
 
     // Subtract remainder of longer number while borrow propagates
     boolean borrow = ((difference >> 32) != 0);
     while ((bigIndex > 0) && borrow) {
-      borrow = ((result[--bigIndex] = big[bigIndex] - 1) == -1); }
+      borrow = ((result[--bigIndex] = big[bigIndex]-1) == -1); }
 
     // Copy remainder of longer number
     while (bigIndex > 0) {
@@ -975,17 +975,17 @@ implements Ringlike<BigInteger> {
     long difference = 0;
 
     // Subtract common parts of both numbers
-    difference = (unsigned(big[i]) - (mid & 0xFFFFFFFFL));
+    difference = (unsigned(big[i])-(mid & 0xFFFFFFFFL));
     result[i] = (int) difference;
     i--;
-    difference = (unsigned(big[i]) - (mid >>> 32))
+    difference = (unsigned(big[i])-(mid >>> 32))
       + (difference >> 32);
     result[i] = (int) difference;
     i--;
     // TODO: i==0 implies remShift==0 ?
     if ((0<=i) && (0<remShift)) {
       difference =
-        (unsigned(big[i]) - (little >>> (64 - remShift)))
+        (unsigned(big[i])-(little >>> (64-remShift)))
         + (difference >> 32);
       result[i] = (int) difference;
       i--; }
@@ -993,7 +993,7 @@ implements Ringlike<BigInteger> {
     // Subtract remainder of longer number while borrow propagates
     boolean borrow = ((difference >> 32) != 0);
     while ((0<=i) && borrow) {
-      borrow = ((result[i] = big[i] - 1) == -1); i--;}
+      borrow = ((result[i] = big[i]-1) == -1); i--;}
     // Copy remainder of longer number
     while (0<=i) { result[i] = big[i]; i--; }
     return trustedStripLeadingZeroInts(result); }
@@ -1121,9 +1121,9 @@ implements Ringlike<BigInteger> {
     //
     // m + n leftmost set bit condition
     // ----- ---------------- ---------
-    // >= 32 x <= 64 - 32 = 32 no overflow
-    // == 31 x >= 64 - 32 = 32 possible overflow
-    // <= 30 x >= 64 - 31 = 33 definite overflow
+    // >= 32 x <= 64-32 = 32 no overflow
+    // == 31 x >= 64-32 = 32 possible overflow
+    // <= 30 x >= 64-31 = 33 definite overflow
     //
     // The "possible overflow" condition cannot be detected by
     // examning data lengths alone and requires further
@@ -1135,8 +1135,8 @@ implements Ringlike<BigInteger> {
     // bits, then:
     //
     // m + n >= 32*MAX_MAG_LENGTH no overflow
-    // m + n == 32*MAX_MAG_LENGTH - 1 possible overflow
-    // m + n <= 32*MAX_MAG_LENGTH - 2 definite overflow
+    // m + n == 32*MAX_MAG_LENGTH-1 possible overflow
+    // m + n <= 32*MAX_MAG_LENGTH-2 definite overflow
     //
     // Note however that if the number of ints in the result
     // were to be MAX_MAG_LENGTH and mag[0] < 0, then there would
@@ -1179,8 +1179,8 @@ implements Ringlike<BigInteger> {
     int[] rmag = new int[xlen + 1];
     long carry = 0;
     final long yl = y & UNSIGNED_MASK;
-    int rstart = rmag.length - 1;
-    for (int i = xlen - 1; i >= 0; i--) {
+    int rstart = rmag.length-1;
+    for (int i = xlen-1; i >= 0; i--) {
       final long product = (unsigned(x[i]) * yl) + carry;
       rmag[rstart--] = (int) product;
       carry = product >>> 32;
@@ -1221,8 +1221,8 @@ implements Ringlike<BigInteger> {
     int[] rmag =
       (dh == 0L) ? (new int[xlen + 1]) : (new int[xlen + 2]);
       long carry = 0;
-      int rstart = rmag.length - 1;
-      for (int i = xlen - 1; i >= 0; i--) {
+      int rstart = rmag.length-1;
+      for (int i = xlen-1; i >= 0; i--) {
         final long product = (unsigned(value[i]) * dl) + carry;
         rmag[rstart--] = (int) product;
         carry = product >>> 32;
@@ -1230,8 +1230,8 @@ implements Ringlike<BigInteger> {
       rmag[rstart] = (int) carry;
       if (dh != 0L) {
         carry = 0;
-        rstart = rmag.length - 2;
-        for (int i = xlen - 1; i >= 0; i--) {
+        rstart = rmag.length-2;
+        for (int i = xlen-1; i >= 0; i--) {
           final long product =
             (unsigned(value[i]) * dh)
             + unsigned(rmag[rstart]) + carry;
@@ -1267,8 +1267,8 @@ implements Ringlike<BigInteger> {
                                           final int[] y,
                                           final int ylen,
                                           int[] z) {
-    final int xstart = xlen - 1;
-    final int ystart = ylen - 1;
+    final int xstart = xlen-1;
+    final int ystart = ylen-1;
 
     if ((z == null) || (z.length < (xlen + ylen))) {
       z = new int[xlen + ylen];
@@ -1284,7 +1284,7 @@ implements Ringlike<BigInteger> {
     }
     z[xstart] = (int) carry;
 
-    for (int i = xstart - 1; i >= 0; i--) {
+    for (int i = xstart-1; i >= 0; i--) {
       carry = 0;
       for (int j = ystart, k = ystart + 1 + i; j >= 0; j--, k--) {
         final long product =
@@ -1308,7 +1308,7 @@ implements Ringlike<BigInteger> {
     Objects.requireNonNull(array);
 
     if (length > array.length) {
-      throw new ArrayIndexOutOfBoundsException(length - 1);
+      throw new ArrayIndexOutOfBoundsException(length-1);
     }
   }
 
@@ -1354,7 +1354,7 @@ implements Ringlike<BigInteger> {
     // p3=(xh+xl)*(yh+yl)
     final BigInteger p3 = xh.add(xl).multiply(yh.add(yl));
 
-    // result = p1 * 2^(32*2*half) + (p3 - p1 - p2) * 2^(32*half)
+    // result = p1 * 2^(32*2*half) + (p3-p1-p2) * 2^(32*half)
     // + p2
     final BigInteger result =
       p1.shiftUp(32 * half).add(p3.subtract(p1).subtract(p2))
@@ -1407,7 +1407,7 @@ implements Ringlike<BigInteger> {
     final int k = (largest + 2) / 3;   // Equal to ceil(largest/3)
 
     // r is the size (in ints) of the highest-order slice.
-    final int r = largest - (2 * k);
+    final int r = largest-(2 * k);
 
     // Obtain slices of the numbers. a2 and b2 are the most
     // significant
@@ -1489,39 +1489,27 @@ implements Ringlike<BigInteger> {
                                    final int upperSize,
                                    final int slice,
                                    final int fullsize) {
-    int start, end, sliceSize, len, offset;
-
-    len = mag.length;
-    offset = fullsize - len;
-
+    final int len = mag.length;
+    final int offset = fullsize-len;
+    int start;
+    final int end;
     if (slice == 0) {
-      start = 0 - offset;
-      end = upperSize - 1 - offset;
-    }
+      start = 0-offset;
+      end = upperSize-1-offset; }
     else {
-      start = (upperSize + ((slice - 1) * lowerSize)) - offset;
-      end = (start + lowerSize) - 1;
-    }
-
-    if (start < 0) {
-      start = 0;
-    }
+      start = (upperSize + ((slice-1) * lowerSize))-offset;
+      end = (start + lowerSize)-1; }
+    if (start < 0) { start = 0; }
     if (end < 0) { return ZERO; }
-
-    sliceSize = (end - start) + 1;
-
+    final int sliceSize = (end-start) + 1;
     if (sliceSize <= 0) { return ZERO; }
-
     // While performing Toom-Cook, all slices are positive and
     // the sign is adjusted when the final number is composed.
     if ((start == 0) && (sliceSize >= len)) { return this.abs(); }
-
     final int intSlice[] = new int[sliceSize];
     System.arraycopy(mag,start,intSlice,0,sliceSize);
-
-    return new BigInteger(trustedStripLeadingZeroInts(intSlice),
-      1);
-  }
+    return 
+      new BigInteger(trustedStripLeadingZeroInts(intSlice),1); }
 
   /**
    * Does an exact division (that is, the remainder is known to be
@@ -1535,40 +1523,29 @@ implements Ringlike<BigInteger> {
    * positive
    * arguments only.
    */
-  private BigInteger exactDivideBy3 () {
+  private final BigInteger exactDivideBy3 () {
     final int len = mag.length;
-    int[] result = new int[len];
+    final int[] result = new int[len];
     long x, w, q, borrow;
     borrow = 0L;
-    for (int i = len - 1; i >= 0; i--) {
+    for (int i=len-1;i>=0;i--) {
       x = unsigned(mag[i]);
-      w = x - borrow;
-      if (borrow > x) {      // Did we make the number go
-        // negative?
-        borrow = 1L;
-      }
-      else {
-        borrow = 0L;
-      }
-
+      w = x-borrow;
+   // Did we make the number go negative?
+      if (borrow > x) { borrow = 1L; }
+      else { borrow = 0L; }
       // 0xAAAAAAAB is the modular inverse of 3 (mod 2^32). Thus,
       // the effect of this is to divide by 3 (mod 2^32).
       // This is much faster than division on most architectures.
       q = (w * 0xAAAAAAABL) & UNSIGNED_MASK;
       result[i] = (int) q;
-
       // Now check the borrow. The second check can of course be
       // eliminated if the first fails.
       if (q >= 0x55555556L) {
         borrow++;
-        if (q >= 0xAAAAAAABL) {
-          borrow++;
-        }
-      }
-    }
-    result = trustedStripLeadingZeroInts(result);
-    return new BigInteger(result,signum);
-  }
+        if (q >= 0xAAAAAAABL) { borrow++; } } }
+    return 
+      new BigInteger(trustedStripLeadingZeroInts(result),signum); }
 
   /**
    * Returns a new BigInteger representing n lower ints of the
@@ -1582,7 +1559,7 @@ implements Ringlike<BigInteger> {
     if (len <= n) { return abs(); }
 
     final int lowerInts[] = new int[n];
-    System.arraycopy(mag,len - n,lowerInts,0,n);
+    System.arraycopy(mag,len-n,lowerInts,0,n);
 
     return new BigInteger(trustedStripLeadingZeroInts(lowerInts),
       1);
@@ -1599,7 +1576,7 @@ implements Ringlike<BigInteger> {
 
     if (len <= n) { return ZERO; }
 
-    final int upperLen = len - n;
+    final int upperLen = len-n;
     final int upperInts[] = new int[upperLen];
     System.arraycopy(mag,0,upperInts,0,upperLen);
 
@@ -1663,37 +1640,28 @@ implements Ringlike<BigInteger> {
     final int len = mag.length;
 
     if (len < KARATSUBA_SQUARE_THRESHOLD) {
+      //System.out.println("squareToLen");
       final int[] z = squareToLen(mag,len,null);
-      return new BigInteger(trustedStripLeadingZeroInts(z),1);
-    }
+      return new BigInteger(trustedStripLeadingZeroInts(z),1); }
     if (len < TOOM_COOK_SQUARE_THRESHOLD) {
-      return squareKaratsuba();
-    }
-    //
-    // For a discussion of overflow detection see multiply()
-    //
+      //System.out.println("squareKaratsuba");
+      return squareKaratsuba(); }
     if (!isRecursion) {
       if (bitLength(mag,mag.length) > (16L * MAX_MAG_LENGTH)) {
-        reportOverflow();
-      }
-    }
-
-    return squareToomCook3();
-  }
+        reportOverflow(); } }
+    //System.out.println("squareToomCook3");
+    return squareToomCook3(); }
 
   /**
    * Squares the contents of the int array x. The result is placed
    * into the
    * int array z. The contents of x are not changed.
    */
-  private static int[] squareToLen (final int[] x, final int len,
+  private static int[] squareToLen (final int[] x, 
+                                    final int len,
                                     int[] z) {
     final int zlen = len << 1;
-    if ((z == null) || (z.length < zlen)) {
-      z = new int[zlen];
-    }
-
-    // Execute checks before calling intrinsified method.
+    if ((z == null) || (z.length < zlen)) { z = new int[zlen]; }
     implSquareToLenChecks(x,len,z,zlen);
     return implSquareToLen(x,len,z,zlen);
   }
@@ -1790,14 +1758,14 @@ implements Ringlike<BigInteger> {
 
     // Add in off-diagonal sums
     for (int i = len, offset = 1; i > 0; i--, offset += 2) {
-      int t = x[i - 1];
-      t = mulAdd(z,x,offset,i - 1,t);
-      addOne(z,offset - 1,i,t);
+      int t = x[i-1];
+      t = mulAdd(z,x,offset,i-1,t);
+      addOne(z,offset-1,i,t);
     }
 
     // Shift back up and set low bit
     primitiveLeftShift(z,zlen,1);
-    z[zlen - 1] |= x[len - 1] & 1;
+    z[zlen-1] |= x[len-1] & 1;
 
     return z;
   }
@@ -1821,7 +1789,7 @@ implements Ringlike<BigInteger> {
     final BigInteger xhs = xh.square();  // xhs = xh^2
     final BigInteger xls = xl.square();  // xls = xl^2
 
-    // xh^2 << 64 + (((xl+xh)^2 - (xh^2 + xl^2)) << 32) + xl^2
+    // xh^2 << 64 + (((xl+xh)^2-(xh^2 + xl^2)) << 32) + xl^2
     return xhs.shiftUp(half * 32)
       .add(xl.add(xh).square().subtract(xhs.add(xls)))
       .shiftUp(half * 32).add(xls);
@@ -1838,55 +1806,48 @@ implements Ringlike<BigInteger> {
    * used in
    * squareToLen or squareKaratsuba.
    */
-  private BigInteger squareToomCook3 () {
+  private final BigInteger squareToomCook3 () {
     final int len = mag.length;
-
     // k is the size (in ints) of the lower-order slices.
-    final int k = (len + 2) / 3;   // Equal to ceil(largest/3)
-
+    final int k = (len+2)/3;   // Equal to ceil(largest/3)
     // r is the size (in ints) of the highest-order slice.
-    final int r = len - (2 * k);
-
+    final int r = len-(2*k);
     // Obtain slices of the numbers. a2 is the most significant
     // bits of the number, and a0 the least significant.
-    BigInteger a0, a1, a2;
-    a2 = getToomSlice(k,r,0,len);
-    a1 = getToomSlice(k,r,1,len);
-    a0 = getToomSlice(k,r,2,len);
-    BigInteger v0, v1, v2, vm1, vinf, t1, t2, tm1, da1;
-
-    v0 = a0.square(true);
-    da1 = a2.add(a0);
-    vm1 = da1.subtract(a1).square(true);
-    da1 = da1.add(a1);
-    v1 = da1.square(true);
-    vinf = a2.square(true);
-    v2 = da1.add(a2).shiftUp(1).subtract(a0).square(true);
+    final BigInteger a2 = getToomSlice(k,r,0,len);
+    final BigInteger a1 = getToomSlice(k,r,1,len);
+    final BigInteger a0 = getToomSlice(k,r,2,len);
+    final BigInteger v0 = a0.square(true);
+    final BigInteger da0 = a2.add(a0);
+    final BigInteger vm1 = da0.subtract(a1).square(true);
+    final BigInteger da1 = da0.add(a1);
+    final BigInteger v1 = da1.square(true);
+    final BigInteger vinf = a2.square(true);
+    final BigInteger v2 = 
+      da1.add(a2).shiftUp(1).subtract(a0).square(true);
 
     // The algorithm requires two divisions by 2 and one by 3.
     // All divisions are known to be exact, that is, they do not
-    // produce
-    // remainders, and all results are positive. The divisions by
-    // 2 are
-    // implemented as right shifts which are relatively efficient,
-    // leaving
-    // only a division by 3.
+    // produce remainders, and all results are positive. The 
+    // divisions by 2 are implemented as right shifts which are 
+    // relatively efficient, leaving only a division by 3.
     // The division by 3 is done by an optimized algorithm for
     // this case.
-    t2 = v2.subtract(vm1).exactDivideBy3();
-    tm1 = v1.subtract(vm1).shiftDown(1);
-    t1 = v1.subtract(v0);
+    BigInteger t2 = v2.subtract(vm1).exactDivideBy3();
+    BigInteger tm1 = v1.subtract(vm1).shiftDown(1);
+    BigInteger t1 = v1.subtract(v0);
     t2 = t2.subtract(t1).shiftDown(1);
     t1 = t1.subtract(tm1).subtract(vinf);
     t2 = t2.subtract(vinf.shiftUp(1));
     tm1 = tm1.subtract(t2);
-
     // Number of bits to shift left.
-    final int ss = k * 32;
-
-    return vinf.shiftUp(ss).add(t2).shiftUp(ss).add(t1)
-      .shiftUp(ss).add(tm1).shiftUp(ss).add(v0);
-  }
+    final int ss = k*32;
+    return 
+      vinf.shiftUp(ss).add(t2).shiftUp(ss)
+      .add(t1).shiftUp(ss)
+      .add(tm1)
+      .shiftUp(ss)
+      .add(v0); }
 
   //--------------------------------------------------------------
   // Division
@@ -2149,7 +2110,7 @@ implements Ringlike<BigInteger> {
    * Returns an array of two BigIntegers containing the integer
    * square root
    * {@code s} of {@code this} and its remainder
-   * {@code this - s*s},
+   * {@code this-s*s},
    * respectively.
    *
    * @return an array of two BigIntegers with the integer square
@@ -2184,17 +2145,17 @@ implements Ringlike<BigInteger> {
    * Package private method to return bit length for an integer.
    */
   static int bitLengthForInt (final int n) {
-    return 32 - Integer.numberOfLeadingZeros(n);
+    return 32-Integer.numberOfLeadingZeros(n);
   }
 
   // shifts a up to len right n bits assumes no leading zeros,
   // 0<n<32
   static void primitiveRightShift (final int[] a, final int len,
                                    final int n) {
-    final int n2 = 32 - n;
-    for (int i = len - 1, c = a[i]; i > 0; i--) {
+    final int n2 = 32-n;
+    for (int i = len-1, c = a[i]; i > 0; i--) {
       final int b = c;
-      c = a[i - 1];
+      c = a[i-1];
       a[i] = (c << n2) | (b >>> n);
     }
     a[0] >>>= n;
@@ -2206,13 +2167,13 @@ implements Ringlike<BigInteger> {
                                   final int n) {
     if ((len == 0) || (n == 0)) { return; }
 
-    final int n2 = 32 - n;
-    for (int i = 0, c = a[i], m = (i + len) - 1; i < m; i++) {
+    final int n2 = 32-n;
+    for (int i = 0, c = a[i], m = (i + len)-1; i < m; i++) {
       final int b = c;
       c = a[i + 1];
       a[i] = (b << n) | (c >>> n2);
     }
-    a[len - 1] <<= n;
+    a[len-1] <<= n;
   }
 
   /**
@@ -2222,7 +2183,7 @@ implements Ringlike<BigInteger> {
    */
   private static int bitLength (final int[] val, final int len) {
     if (len == 0) { return 0; }
-    return ((len - 1) << 5) + bitLengthForInt(val[0]);
+    return ((len-1) << 5) + bitLengthForInt(val[0]);
   }
 
   /**
@@ -2313,15 +2274,15 @@ implements Ringlike<BigInteger> {
       throw new IllegalArgumentException(
         "input offset is invalid: " + offset);
     }
-    if (offset > (out.length - 1)) {
+    if (offset > (out.length-1)) {
       throw new IllegalArgumentException(
         "input offset is out of bound: " + offset + " > "
-          + (out.length - 1));
+          + (out.length-1));
     }
-    if (len > (out.length - offset)) {
+    if (len > (out.length-offset)) {
       throw new IllegalArgumentException(
         "input len is out of bound: " + len + " > "
-          + (out.length - offset));
+          + (out.length-offset));
     }
   }
 
@@ -2335,8 +2296,8 @@ implements Ringlike<BigInteger> {
     final long kLong = k & UNSIGNED_MASK;
     long carry = 0;
 
-    offset = out.length - offset - 1;
-    for (int j = len - 1; j >= 0; j--) {
+    offset = out.length-offset-1;
+    for (int j = len-1; j >= 0; j--) {
       final long product =
         (unsigned(in[j]) * kLong) + unsigned(out[offset])
         + carry;
@@ -2353,7 +2314,7 @@ implements Ringlike<BigInteger> {
    */
   static int addOne (final int[] a, int offset, int mlen,
                      final int carry) {
-    offset = a.length - 1 - mlen - offset;
+    offset = a.length-1-mlen-offset;
     final long t = unsigned(a[offset]) + unsigned(carry);
 
     a[offset] = (int) t;
@@ -2408,7 +2369,8 @@ implements Ringlike<BigInteger> {
    *          unsigned shift distance, in bits.
    * @return {@code mag << n}
    */
-  private static int[] shiftUp (final int[] mag, final int n) {
+  private static int[] shiftUp (final int[] mag, 
+                                final int n) {
     final int nInts = n >>> 5;
     final int nBits = n & 0x1f;
     final int magLen = mag.length;
@@ -2420,7 +2382,7 @@ implements Ringlike<BigInteger> {
     }
     else {
       int i = 0;
-      final int nBits2 = 32 - nBits;
+      final int nBits2 = 32-nBits;
       final int highBits = mag[0] >>> nBits2;
       if (highBits != 0) {
         newMag = new int[magLen + nInts + 1];
@@ -2430,7 +2392,7 @@ implements Ringlike<BigInteger> {
         newMag = new int[magLen + nInts];
       }
       int j = 0;
-      while (j < (magLen - 1)) {
+      while (j < (magLen-1)) {
         newMag[i++] = (mag[j++] << nBits) | (mag[j] >>> nBits2);
       }
       newMag[i] = mag[j] << nBits;
@@ -2451,18 +2413,11 @@ implements Ringlike<BigInteger> {
    */
   public BigInteger shiftDown (final int n) {
     if (signum == 0) { return ZERO; }
-    if (n > 0) {
-      return shiftDownImpl(n);
-    }
-    else if (n == 0) {
-      return this;
-    }
-    else {
-      // Possible int overflow in {@code -n} is not a trouble,
-      // because shiftUp considers its argument unsigned
-      return new BigInteger(shiftUp(mag,-n),signum);
-    }
-  }
+    if (n > 0) { return shiftDownImpl(n); }
+    else if (n == 0) { return this; }
+    // Possible int overflow in {@code -n} is not a trouble,
+    // because shiftUp considers its argument unsigned
+    else { return new BigInteger(shiftUp(mag,-n),signum); } }
 
   /**
    * Returns a BigInteger whose value is {@code (this >> n)}. The
@@ -2486,23 +2441,23 @@ implements Ringlike<BigInteger> {
     }
 
     if (nBits == 0) {
-      final int newMagLen = magLen - nInts;
+      final int newMagLen = magLen-nInts;
       newMag = Arrays.copyOf(mag,newMagLen);
     }
     else {
       int i = 0;
       final int highBits = mag[0] >>> nBits;
       if (highBits != 0) {
-        newMag = new int[magLen - nInts];
+        newMag = new int[magLen-nInts];
         newMag[i++] = highBits;
       }
       else {
-        newMag = new int[magLen - nInts - 1];
+        newMag = new int[magLen-nInts-1];
       }
 
-      final int nBits2 = 32 - nBits;
+      final int nBits2 = 32-nBits;
       int j = 0;
-      while (j < (magLen - nInts - 1)) {
+      while (j < (magLen-nInts-1)) {
         newMag[i++] = (mag[j++] << nBits2) | (mag[j] >>> nBits);
       }
     }
@@ -2510,13 +2465,13 @@ implements Ringlike<BigInteger> {
     if (signum < 0) {
       // Find out whether any one-bits were shifted off the end.
       boolean onesLost = false;
-      for (int i = magLen - 1, j = magLen - nInts;
+      for (int i = magLen-1, j = magLen-nInts;
         (i >= j) && !onesLost; i--) {
         onesLost = (mag[i] != 0);
       }
       if (!onesLost && (nBits != 0)) {
         onesLost =
-          ((mag[magLen - nInts - 1] << (32 - nBits)) != 0);
+          ((mag[magLen-nInts-1] << (32-nBits)) != 0);
       }
 
       if (onesLost) {
@@ -2529,7 +2484,7 @@ implements Ringlike<BigInteger> {
 
   private static final int[] javaIncrement (int[] val) {
     int lastSum = 0;
-    for (int i = val.length - 1; (i >= 0) && (lastSum == 0);
+    for (int i = val.length-1; (i >= 0) && (lastSum == 0);
       i--) {
       lastSum = (val[i] += 1);
     }
@@ -2558,8 +2513,8 @@ implements Ringlike<BigInteger> {
       new int[Math.max(intLength(),val.intLength())];
     for (int i = 0; i < result.length; i++) {
       result[i] =
-        (getInt(result.length - i - 1)
-          & val.getInt(result.length - i - 1));
+        (getInt(result.length-i-1)
+          & val.getInt(result.length-i-1));
     }
 
     return valueOf(result);
@@ -2581,8 +2536,8 @@ implements Ringlike<BigInteger> {
       new int[Math.max(intLength(),val.intLength())];
     for (int i = 0; i < result.length; i++) {
       result[i] =
-        (getInt(result.length - i - 1)
-          | val.getInt(result.length - i - 1));
+        (getInt(result.length-i-1)
+          | val.getInt(result.length-i-1));
     }
 
     return valueOf(result);
@@ -2604,8 +2559,8 @@ implements Ringlike<BigInteger> {
       new int[Math.max(intLength(),val.intLength())];
     for (int i = 0; i < result.length; i++) {
       result[i] =
-        (getInt(result.length - i - 1)
-          ^ val.getInt(result.length - i - 1));
+        (getInt(result.length-i-1)
+          ^ val.getInt(result.length-i-1));
     }
 
     return valueOf(result);
@@ -2622,7 +2577,7 @@ implements Ringlike<BigInteger> {
   public BigInteger not () {
     final int[] result = new int[intLength()];
     for (int i = 0; i < result.length; i++) {
-      result[i] = ~getInt(result.length - i - 1);
+      result[i] = ~getInt(result.length-i-1);
     }
 
     return valueOf(result);
@@ -2649,8 +2604,8 @@ implements Ringlike<BigInteger> {
       new int[Math.max(intLength(),val.intLength())];
     for (int i = 0; i < result.length; i++) {
       result[i] =
-        (getInt(result.length - i - 1)
-          & ~val.getInt(result.length - i - 1));
+        (getInt(result.length-i-1)
+          & ~val.getInt(result.length-i-1));
     }
 
     return valueOf(result);
@@ -2700,10 +2655,10 @@ implements Ringlike<BigInteger> {
       new int[Math.max(intLength(),intNum + 2)];
 
     for (int i = 0; i < result.length; i++) {
-      result[result.length - i - 1] = getInt(i);
+      result[result.length-i-1] = getInt(i);
     }
 
-    result[result.length - intNum - 1] |= (1 << (n & 31));
+    result[result.length-intNum-1] |= (1 << (n & 31));
 
     return valueOf(result);
   }
@@ -2730,10 +2685,10 @@ implements Ringlike<BigInteger> {
       new int[Math.max(intLength(),((n + 1) >>> 5) + 1)];
 
     for (int i = 0; i < result.length; i++) {
-      result[result.length - i - 1] = getInt(i);
+      result[result.length-i-1] = getInt(i);
     }
 
-    result[result.length - intNum - 1] &= ~(1 << (n & 31));
+    result[result.length-intNum-1] &= ~(1 << (n & 31));
 
     return valueOf(result);
   }
@@ -2760,10 +2715,10 @@ implements Ringlike<BigInteger> {
       new int[Math.max(intLength(),intNum + 2)];
 
     for (int i = 0; i < result.length; i++) {
-      result[result.length - i - 1] = getInt(i);
+      result[result.length-i-1] = getInt(i);
     }
 
-    result[result.length - intNum - 1] ^= (1 << (n & 31));
+    result[result.length-intNum-1] ^= (1 << (n & 31));
 
     return valueOf(result);
   }
@@ -2779,7 +2734,7 @@ implements Ringlike<BigInteger> {
    * @return index of the rightmost one bit in this BigInteger.
    */
   public int getLowestSetBit () {
-    int lsb = lowestSetBitPlusTwo - 2;
+    int lsb = lowestSetBitPlusTwo-2;
     if (lsb == -2) {  // lowestSetBit not initialized yet
       lsb = 0;
       if (signum == 0) {
@@ -2816,7 +2771,7 @@ implements Ringlike<BigInteger> {
    *         a sign bit.
    */
   public int bitLength () {
-    int n = bitLengthPlusOne - 1;
+    int n = bitLengthPlusOne-1;
     if (n == -1) { // bitLength not initialized yet
       final int[] m = mag;
       final int len = m.length;
@@ -2826,7 +2781,7 @@ implements Ringlike<BigInteger> {
       else {
         // Calculate the bit length of the magnitude
         final int magBitLength =
-          ((len - 1) << 5) + bitLengthForInt(mag[0]);
+          ((len-1) << 5) + bitLengthForInt(mag[0]);
         if (signum < 0) {
           // Check if magnitude is a power of two
           boolean pow2 = (Integer.bitCount(mag[0]) == 1);
@@ -2834,7 +2789,7 @@ implements Ringlike<BigInteger> {
             pow2 = (mag[i] == 0);
           }
 
-          n = (pow2 ? magBitLength - 1 : magBitLength);
+          n = (pow2 ? magBitLength-1 : magBitLength);
         }
         else {
           n = magBitLength;
@@ -2857,7 +2812,7 @@ implements Ringlike<BigInteger> {
    *         of this BigInteger that differ from its sign bit.
    */
   public int bitCount () {
-    int bc = bitCountPlusOne - 1;
+    int bc = bitCountPlusOne-1;
     if (bc == -1) {  // bitCount not initialized yet
       bc = 0;      // offset by one to initialize
       // Count the bits in the magnitude
@@ -2867,12 +2822,12 @@ implements Ringlike<BigInteger> {
       if (signum < 0) {
         // Count the trailing zeros in the magnitude
         int magTrailingZeroCount = 0, j;
-        for (j = mag.length - 1; mag[j] == 0; j--) {
+        for (j = mag.length-1; mag[j] == 0; j--) {
           magTrailingZeroCount += 32;
         }
         magTrailingZeroCount +=
           Integer.numberOfTrailingZeros(mag[j]);
-        bc += magTrailingZeroCount - 1;
+        bc += magTrailingZeroCount-1;
       }
       bitCountPlusOne = bc + 1;
     }
@@ -3114,13 +3069,13 @@ implements Ringlike<BigInteger> {
     if (signum < 0) {
       buf.append('-');
     }
-    buf.append(digitGroup[numGroups - 1]);
+    buf.append(digitGroup[numGroups-1]);
 
     // Append remaining digit groups padded with leading zeros
-    for (int i = numGroups - 2; i >= 0; i--) {
+    for (int i = numGroups-2; i >= 0; i--) {
       // Prepend (any) leading zeros for this digit group
       final int numLeadingZeros =
-        digitsPerLong[radix] - digitGroup[i].length();
+        digitsPerLong[radix]-digitGroup[i].length();
       if (numLeadingZeros != 0) {
         buf.append(zeros[numLeadingZeros]);
       }
@@ -3188,14 +3143,14 @@ implements Ringlike<BigInteger> {
     n =
       (int) Math.round(
         (Math.log((b * LOG_TWO) / logCache[radix]) / LOG_TWO)
-        - 1.0);
+       -1.0);
     final BigInteger v = getRadixConversionCache(radix,n);
     final List<BigInteger> results = u.divideAndRemainder(v);
 
     final int expectedDigits = 1 << n;
 
     // Now recursively build the two halves of each number.
-    toString(results.get(0),sb,radix,digits - expectedDigits);
+    toString(results.get(0),sb,radix,digits-expectedDigits);
     toString(results.get(1),sb,radix,expectedDigits);
   }
 
@@ -3218,7 +3173,7 @@ implements Ringlike<BigInteger> {
     final int oldLength = cacheLine.length;
     cacheLine = Arrays.copyOf(cacheLine,exponent + 1);
     for (int i = oldLength; i <= exponent; i++) {
-      cacheLine[i] = cacheLine[i - 1].pow(2);
+      cacheLine[i] = cacheLine[i-1].pow(2);
     }
 
     BigInteger[][] pc = powerCache; // volatile read again
@@ -3275,7 +3230,7 @@ implements Ringlike<BigInteger> {
     final int byteLen = (bitLength() / 8) + 1;
     final byte[] byteArray = new byte[byteLen];
 
-    for (int i = byteLen - 1, bytesCopied = 4, nextInt =
+    for (int i = byteLen-1, bytesCopied = 4, nextInt =
       0, intIndex = 0; i >= 0; i--) {
       if (bytesCopied == 4) {
         nextInt = getInt(intIndex++);
@@ -3371,10 +3326,10 @@ implements Ringlike<BigInteger> {
     if (signum == 0) { return 0.0f; }
 
     final int exponent =
-      (((mag.length - 1) << 5) + bitLengthForInt(mag[0])) - 1;
+      (((mag.length-1) << 5) + bitLengthForInt(mag[0]))-1;
 
     // exponent == floor(log2(abs(this)))
-    if (exponent < (Long.SIZE - 1)) {
+    if (exponent < (Long.SIZE-1)) {
       return longValue();
     }
     else if (exponent > Float.MAX_EXPONENT) {
@@ -3393,9 +3348,9 @@ implements Ringlike<BigInteger> {
      * bits, and signifFloor the top SIGNIFICAND_WIDTH.
      *
      * It helps to consider the real number signif = abs(this) *
-     * 2^(SIGNIFICAND_WIDTH - 1 - exponent).
+     * 2^(SIGNIFICAND_WIDTH-1-exponent).
      */
-    final int shift = exponent - Floats.SIGNIFICAND_BITS;
+    final int shift = exponent-Floats.SIGNIFICAND_BITS;
 
     int twiceSignifFloor;
     // twiceSignifFloor will be ==
@@ -3404,7 +3359,7 @@ implements Ringlike<BigInteger> {
     // performance.
 
     final int nBits = shift & 0x1f;
-    final int nBits2 = 32 - nBits;
+    final int nBits2 = 32-nBits;
 
     if (nBits == 0) {
       twiceSignifFloor = mag[0];
@@ -3441,7 +3396,7 @@ implements Ringlike<BigInteger> {
       increment ? signifFloor + 1 : signifFloor;
     int bits =
       ((exponent
-        + Floats.EXPONENT_BIAS)) << (Floats.SIGNIFICAND_BITS - 1);
+        + Floats.EXPONENT_BIAS)) << (Floats.SIGNIFICAND_BITS-1);
     bits += signifRounded;
     /*
      * If signifRounded == 2^24, we'd need to set all of the
@@ -3478,10 +3433,10 @@ implements Ringlike<BigInteger> {
     if (signum == 0) { return 0.0; }
 
     final int exponent =
-      (((mag.length - 1) << 5) + bitLengthForInt(mag[0])) - 1;
+      (((mag.length-1) << 5) + bitLengthForInt(mag[0]))-1;
 
     // exponent == floor(log2(abs(this))Double)
-    if (exponent < (Long.SIZE - 1)) {
+    if (exponent < (Long.SIZE-1)) {
       return longValue();
     }
     else if (exponent > Double.MAX_EXPONENT) {
@@ -3500,9 +3455,9 @@ implements Ringlike<BigInteger> {
      * bits, and signifFloor the top SIGNIFICAND_WIDTH.
      *
      * It helps to consider the real number signif = abs(this) *
-     * 2^(SIGNIFICAND_WIDTH - 1 - exponent).
+     * 2^(SIGNIFICAND_WIDTH-1-exponent).
      */
-    final int shift = exponent - Doubles.SIGNIFICAND_BITS;
+    final int shift = exponent-Doubles.SIGNIFICAND_BITS;
 
     long twiceSignifFloor;
     // twiceSignifFloor will be ==
@@ -3511,7 +3466,7 @@ implements Ringlike<BigInteger> {
     // performance.
 
     final int nBits = shift & 0x1f;
-    final int nBits2 = 32 - nBits;
+    final int nBits2 = 32-nBits;
 
     int highBits;
     int lowBits;
@@ -3619,12 +3574,12 @@ implements Ringlike<BigInteger> {
     }
 
     // Allocate new array and copy relevant part of input array
-    final int intLength = ((indexBound - keep) + 3) >>> 2;
+    final int intLength = ((indexBound-keep) + 3) >>> 2;
     final int[] result = new int[intLength];
-    int b = indexBound - 1;
-    for (int i = intLength - 1; i >= 0; i--) {
+    int b = indexBound-1;
+    for (int i = intLength-1; i >= 0; i--) {
       result[i] = a[b--] & 0xff;
-      final int bytesRemaining = (b - keep) + 1;
+      final int bytesRemaining = (b-keep) + 1;
       final int bytesToTransfer = Math.min(3,bytesRemaining);
       for (int j = 8; j <= (bytesToTransfer << 3); j += 8) {
         result[i] |= ((a[b--] & 0xff) << j);
@@ -3662,17 +3617,17 @@ implements Ringlike<BigInteger> {
 
     final int extraByte = (k == indexBound) ? 1 : 0;
     final int intLength =
-      (((indexBound - keep) + extraByte) + 3) >>> 2;
+      (((indexBound-keep) + extraByte) + 3) >>> 2;
     final int result[] = new int[intLength];
 
     /*
      * Copy one's complement of input into output, leaving extra
      * byte (if it exists) == 0x00
      */
-    int b = indexBound - 1;
-    for (int i = intLength - 1; i >= 0; i--) {
+    int b = indexBound-1;
+    for (int i = intLength-1; i >= 0; i--) {
       result[i] = a[b--] & 0xff;
-      int numBytesToTransfer = Math.min(3,(b - keep) + 1);
+      int numBytesToTransfer = Math.min(3,(b-keep) + 1);
       if (numBytesToTransfer < 0) {
         numBytesToTransfer = 0;
       }
@@ -3681,12 +3636,12 @@ implements Ringlike<BigInteger> {
       }
 
       // Mask indicates which bits must be complemented
-      final int mask = -1 >>> (8 * (3 - numBytesToTransfer));
+      final int mask = -1 >>> (8 * (3-numBytesToTransfer));
         result[i] = ~result[i] & mask;
     }
 
     // Add one to one's complement to generate two's complement
-    for (int i = result.length - 1; i >= 0; i--) {
+    for (int i = result.length-1; i >= 0; i--) {
       result[i] = (int) (unsigned(result[i]) + 1);
       if (result[i] != 0) {
         break;
@@ -3719,18 +3674,18 @@ implements Ringlike<BigInteger> {
 
     }
     final int extraInt = (j == a.length ? 1 : 0);
-    final int result[] = new int[(a.length - keep) + extraInt];
+    final int result[] = new int[(a.length-keep) + extraInt];
 
     /*
      * Copy one's complement of input into output, leaving extra
      * int (if it exists) == 0x00
      */
     for (int i = keep; i < a.length; i++) {
-      result[(i - keep) + extraInt] = ~a[i];
+      result[(i-keep) + extraInt] = ~a[i];
     }
 
     // Add one to one's complement to generate two's complement
-    for (int i = result.length - 1; ++result[i] == 0; i--) {
+    for (int i = result.length-1; ++result[i] == 0; i--) {
 
     }
 
@@ -3832,7 +3787,7 @@ implements Ringlike<BigInteger> {
     if (n < 0) { return 0; }
     if (n >= mag.length) { return signInt(); }
 
-    final int magInt = mag[mag.length - n - 1];
+    final int magInt = mag[mag.length-n-1];
 
     return (signum >= 0 ? magInt
       : (n <= firstNonzeroIntNum() ? -magInt : ~magInt));
@@ -3852,15 +3807,15 @@ implements Ringlike<BigInteger> {
    * @see #getInt.
    */
   private int firstNonzeroIntNum () {
-    int fn = firstNonzeroIntNumPlusTwo - 2;
+    int fn = firstNonzeroIntNumPlusTwo-2;
     if (fn == -2) { // firstNonzeroIntNum not initialized yet
       // Search for the first nonzero int
       int i;
       final int mlen = mag.length;
-      for (i = mlen - 1; (i >= 0) && (mag[i] == 0); i--) {
+      for (i = mlen-1; (i >= 0) && (mag[i] == 0); i--) {
 
       }
-      fn = mlen - i - 1;
+      fn = mlen-i-1;
       firstNonzeroIntNumPlusTwo = fn + 2; // offset by two to
       // initialize
     }
