@@ -20,8 +20,10 @@ public final class Shared {
         //"xfp.jmh.accumulators.RationalFloatBIAccumulator",
         //"xfp.java.accumulators.DoubleAccumulator",
         //"xfp.java.accumulators.KahanAccumulator"
-        //"xfp.java.accumulators.BigFloatAccumulator0",
+        "xfp.java.accumulators.BigFloatAccumulator",
         //"xfp.java.accumulators.ZhuHayesAccumulator",
+        "xfp.java.accumulators.DistilledAccumulator"
+        //,
         //"xfp.jmh.accumulators.IFastAccumulator",
         //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
         //"xfp.jmh.accumulators.ZhuHayesGCBranch",

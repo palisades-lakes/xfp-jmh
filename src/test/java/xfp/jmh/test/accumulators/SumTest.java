@@ -4,7 +4,7 @@ import static xfp.jmh.test.accumulators.Shared.accumulators;
 
 import org.junit.jupiter.api.Test;
 
-import xfp.java.accumulators.BigFloatAccumulator0;
+import xfp.jmh.accumulators.ERationalAccumulator;
 import xfp.java.test.Common;
 
 //----------------------------------------------------------------
@@ -15,20 +15,10 @@ import xfp.java.test.Common;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-02
+ * @version 2019-07-22
  */
 
 public final class SumTest {
-
-  // TODO: pick expected behavior for non-finite input
-  //  @SuppressWarnings("static-method")
-  //  @Test
-  //  public final void nanSum () {
-  //    //Debug.DEBUG=false;
-  //    //Debug.println();
-  //    //Debug.println("infinite");
-  //    Common.nonFiniteTests(
-  //      Common.makeAccumulators(accumulators())); }
 
   @SuppressWarnings("static-method")
   @Test
@@ -67,7 +57,7 @@ public final class SumTest {
     Common.sumTests(
       Common.generators(Shared.TEST_DIM),
       Common.makeAccumulators(accumulators()),
-      BigFloatAccumulator0.make()); }
+      ERationalAccumulator.make()); }
 
   @SuppressWarnings("static-method")
   @Test
@@ -78,7 +68,7 @@ public final class SumTest {
     Common.l2Tests(
       Common.generators(Shared.TEST_DIM),
       Common.makeAccumulators(accumulators()),
-      BigFloatAccumulator0.make()); }
+      ERationalAccumulator.make()); }
 
   @SuppressWarnings("static-method")
   @Test
@@ -89,7 +79,17 @@ public final class SumTest {
     Common.dotTests(
       Common.generators(Shared.TEST_DIM),
       Common.makeAccumulators(accumulators()),
-      BigFloatAccumulator0.make()); }
+      ERationalAccumulator.make()); }
+
+  // TODO: pick expected behavior for non-finite input
+  //  @SuppressWarnings("static-method")
+  //  @Test
+  //  public final void nanSum () {
+  //    //Debug.DEBUG=false;
+  //    //Debug.println();
+  //    //Debug.println("infinite");
+  //    Common.nonFiniteTests(
+  //      Common.makeAccumulators(accumulators())); }
 
   //--------------------------------------------------------------
 }
