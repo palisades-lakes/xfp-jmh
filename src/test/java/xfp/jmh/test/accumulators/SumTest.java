@@ -4,7 +4,7 @@ import static xfp.jmh.test.accumulators.Shared.accumulators;
 
 import org.junit.jupiter.api.Test;
 
-import xfp.jmh.accumulators.ERationalAccumulator;
+import xfp.jmh.accumulators.EFloatAccumulator;
 import xfp.java.test.Common;
 
 //----------------------------------------------------------------
@@ -57,7 +57,7 @@ public final class SumTest {
     Common.sumTests(
       Common.generators(Shared.TEST_DIM),
       Common.makeAccumulators(accumulators()),
-      ERationalAccumulator.make()); }
+      EFloatAccumulator.make()); }
 
   @SuppressWarnings("static-method")
   @Test
@@ -68,7 +68,7 @@ public final class SumTest {
     Common.l2Tests(
       Common.generators(Shared.TEST_DIM),
       Common.makeAccumulators(accumulators()),
-      ERationalAccumulator.make()); }
+      EFloatAccumulator.make()); }
 
   @SuppressWarnings("static-method")
   @Test
@@ -79,7 +79,7 @@ public final class SumTest {
     Common.dotTests(
       Common.generators(Shared.TEST_DIM),
       Common.makeAccumulators(accumulators()),
-      ERationalAccumulator.make()); }
+      EFloatAccumulator.make()); }
 
   // TODO: pick expected behavior for non-finite input
   //  @SuppressWarnings("static-method")

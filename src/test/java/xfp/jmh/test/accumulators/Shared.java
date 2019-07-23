@@ -6,11 +6,11 @@ import java.util.List;
  * Not instantiable. Class slots/methods only.
  *
  * @author mcdonald dot john dot alan at gmail dot com
- * @version 2019-06-25
+ * @version 2019-07-22
  */
 public final class Shared {
 
-  public static final int TEST_DIM = (1 * 64 * 1024) - 1;
+  public static final int TEST_DIM = 256; //(1 * 64 * 1024) - 1;
   //1 << 14;
 
   public static final List<String> accumulators () {
