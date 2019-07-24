@@ -15,11 +15,11 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
 import xfp.java.accumulators.Accumulator;
-import xfp.java.accumulators.BigFloatAccumulator0;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
 import xfp.java.test.Common;
+import xfp.jmh.accumulators.EFloatAccumulator;
 
 /** Benchmark <code>double[]</code> sums.
  *
@@ -27,7 +27,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-1
+ * @version 2019-07-24
  */
 
 @SuppressWarnings("unchecked")
@@ -206,7 +206,7 @@ public abstract class Base {
     gen = makeGenerator(generator,dim);
     truth.clear();
     est.clear();
-    exact = BigFloatAccumulator0.make();
+    exact = EFloatAccumulator.make();
     assert exact.isExact();
     acc = Common.makeAccumulator(accumulator); }
 

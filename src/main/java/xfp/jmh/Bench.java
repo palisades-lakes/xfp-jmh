@@ -93,7 +93,7 @@ public class Bench {
 
   private static final int TRYS = 1;
   private static final int[] DIMENSIONS =
-    new int[] { 16 * 1024, };
+    new int[] { 17 * 1023, };
 
   public static final boolean
   spaceTest (final TwoSetsOneOperation space) {
