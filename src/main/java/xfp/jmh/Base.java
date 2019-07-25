@@ -14,12 +14,11 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
-import xfp.java.accumulators.Accumulator;
+import xfp.java.accumulators.EFloatAccumulator;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
 import xfp.java.test.Common;
-import xfp.jmh.accumulators.EFloatAccumulator;
 
 /** Benchmark <code>double[]</code> sums.
  *
