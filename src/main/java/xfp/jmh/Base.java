@@ -66,12 +66,10 @@ public abstract class Base {
   @Param({
     "xfp.java.accumulators.BigFloatAccumulator",
     "xfp.java.accumulators.BigFloatAccumulator0",
-    //"xfp.java.accumulators.BigFloatAccumulator0",
-    //"xfp.java.accumulators.KahanAccumulator",
-    //"xfp.java.accumulators.DoubleAccumulator",
-    //"xfp.java.accumulators.RationalFloatAccumulator",
-    //"xfp.java.accumulators.RationalFloatAccumulator",
-    //"xfp.java.accumulators.DistilledAccumulator",
+    "xfp.java.accumulators.KahanAccumulator",
+    "xfp.java.accumulators.DoubleAccumulator",
+    "xfp.java.accumulators.RationalFloatAccumulator",
+    "xfp.java.accumulators.DistilledAccumulator",
     //"xfp.java.accumulators.ZhuHayesAccumulator",
     //"xfp.java.accumulators.RationalAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
@@ -218,7 +216,7 @@ public abstract class Base {
     operation(exact,x0,x1);
     // p0 p1 won't be initialized in scalar benchmarks
     if (null!=p0) { true0 = Arrays.copyOf(p0,p0.length); }
-    if (null!=p0) { true1 = Arrays.copyOf(p1,p1.length); }
+    if (null!=p1) { true1 = Arrays.copyOf(p1,p1.length); }
     // call 2nd time to get trueVal == 0
     // accuracy metric for partials
     trueVal = operation(exact,x0,x1);

@@ -3,21 +3,21 @@ package xfp.jmh;
 import xfp.java.accumulators.Accumulator;
 
 /** <pre>
- * java -cp target\benchmarks.jar xfp.jmh.PartialSums
+ * java -cp target\benchmarks.jar xfp.jmh.PartialL2s
  * </pre>
  * @author palisades dot lakes at gmail dot com
  * @version 2019-07-24
  */
 
 @SuppressWarnings("unchecked")
-public class PartialSums extends Base {
+public class PartialL2s extends Base {
 
   @Override
   public final double operation (final Accumulator ac,
                                  final double[] z0,
                                  final double[] z1) {
-    p0 = acc.clear().partialSums(z0);
-    p1 = acc.clear().partialSums(z1);
+    p0 = acc.clear().partialL2s(z0);
+    p1 = acc.clear().partialL2s(z1);
     final double l20 =
       ((null==true0) ? 0.0 : // for initialization
         exact.clear().addL2Distance(true0,p0).doubleValue());
@@ -28,4 +28,4 @@ public class PartialSums extends Base {
     return l20 + l21; }
 
   public static final void main (final String[] args)  {
-    Defaults.run("PartialSums"); } }
+    Defaults.run("PartialL2s"); } }
