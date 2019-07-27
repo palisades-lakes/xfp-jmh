@@ -1,7 +1,5 @@
 package xfp.jmh;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.IntFunction;
@@ -13,6 +11,7 @@ import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.TearDown;
 
 import xfp.java.accumulators.Accumulator;
 import xfp.java.accumulators.EFloatAccumulator;
@@ -27,7 +26,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-07-25
+ * @version 2019-07-27
  */
 
 @SuppressWarnings("unchecked")
@@ -55,13 +54,8 @@ public abstract class Base {
   double[] x1;
 
   Accumulator exact;
-  // exact partials
-  double[] true0;
-  double[] true1;
-  // exact scalar
-  double trueVal;
-  // collect trueValyes
-  List<Double> truth = new ArrayList<>();
+  // exact value(s)
+  double[] truth;
 
   @Param({
     "xfp.java.accumulators.BigFloatAccumulator",
@@ -87,12 +81,8 @@ public abstract class Base {
   })
   String accumulator;
   Accumulator acc;
-  // estimated partials
-  double[] p0;
-  double[] p1;
-  // estimated exact
-  double val;
-  List<Double> est = new ArrayList<>();
+  // estimated value(s)
+  double[] p;
 
   //--------------------------------------------------------------
 
@@ -190,9 +180,9 @@ public abstract class Base {
   //--------------------------------------------------------------
   /** This is what is timed. */
 
-  public abstract double operation (final Accumulator ac,
-                                    final double[] z0,
-                                    final double[] z1);
+  public abstract double[] operation (final Accumulator ac,
+                                      final double[] z0,
+                                      final double[] z1);
 
   //--------------------------------------------------------------
 
@@ -202,8 +192,6 @@ public abstract class Base {
   @Setup(Level.Trial)
   public final void trialSetup () {
     gen = makeGenerator(generator,dim);
-    truth.clear();
-    est.clear();
     exact = EFloatAccumulator.make();
     assert exact.isExact();
     acc = Common.makeAccumulator(accumulator); }
@@ -212,15 +200,12 @@ public abstract class Base {
   public final void invocationSetup () {
     x0 = (double[]) gen.next();
     x1 = (double[]) gen.next();
-    // call operation twice to fill in true partials
-    operation(exact,x0,x1);
-    // p0 p1 won't be initialized in scalar benchmarks
-    if (null!=p0) { true0 = Arrays.copyOf(p0,p0.length); }
-    if (null!=p1) { true1 = Arrays.copyOf(p1,p1.length); }
-    // call 2nd time to get trueVal == 0
-    // accuracy metric for partials
-    trueVal = operation(exact,x0,x1);
-    save(trueVal,truth); }
+    truth = operation(exact,x0,x1); }
+
+  @TearDown(Level.Invocation)
+  public final void invocationTeardown () {
+    assert 
+    0.0 == exact.clear().addL1Distance(truth,p).doubleValue(); }
 
   // not needed while testing exact methods
   //  @TearDown(Level.Trial)
@@ -248,12 +233,9 @@ public abstract class Base {
   //    finally { if (null != pw) { pw.close(); } } }
 
   @Benchmark
-  public final double bench () {
-    final double pred = operation(acc,x0,x1);
-    assert Double.isFinite(pred);
-    if (acc.isExact()) { assert pred == trueVal; }
-    save(pred,est);
-    return pred; }
+  public final double[] bench () {
+    p = operation(acc,x0,x1);
+    return p; }
 
   //--------------------------------------------------------------
   /** <pre>
