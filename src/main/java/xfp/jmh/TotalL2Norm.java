@@ -16,7 +16,7 @@ public class TotalL2Norm extends Base {
                                  final double[] z0,
                                  final double[] z1) {
     return new double[] 
-      {  ac.clear().add2All(z0).add2All(z1).doubleValue() }; }
+      {  ac.clear().add2All(z0).doubleValue() }; }
 
   public static final void main (final String[] args)  {
     Defaults.run("TotalL2Norm"); } }

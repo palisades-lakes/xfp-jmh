@@ -16,7 +16,7 @@ public class PartialL2Distances extends Base {
   public final double[] operation (final Accumulator ac,
                                    final double[] z0,
                                    final double[] z1) {
-    return ac.clear().partialL1Distances(z0,z1); }
+    return ac.clear().partialL2Distances(z0,z1); }
 
   public static final void main (final String[] args)  {
     Defaults.run("PartialL1Distances"); } }
