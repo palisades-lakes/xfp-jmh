@@ -58,10 +58,10 @@ public abstract class Base {
   double[] truth;
 
   @Param({
-    //"xfp.java.accumulators.BigFloatAccumulator",
-    //"xfp.java.accumulators.BigFloatAccumulator0",
+    "xfp.java.accumulators.BigFloatAccumulator",
+    "xfp.java.accumulators.BigFloatAccumulator0",
     "xfp.java.accumulators.KahanAccumulator",
-    "xfp.java.accumulators.KahanAccumulator0",
+    //"xfp.java.accumulators.KahanAccumulator0",
     //"xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.java.accumulators.DistilledAccumulator",
