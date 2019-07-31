@@ -6,15 +6,15 @@ import xfp.java.accumulators.Accumulator;
  * java -cp target\benchmarks.jar xfp.jmh.TotalL2Distance
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-07-27
+ * @version 2019-07-30
  */
 
 public class TotalL2Distance extends Base {
 
   @Override
   public final double[] operation (final Accumulator ac,
-                                 final double[] z0,
-                                 final double[] z1) {
+                                   final double[] z0,
+                                   final double[] z1) {
     return new double[] 
       { ac.clear().addL2Distance(z0,z1).doubleValue() }; }
 
