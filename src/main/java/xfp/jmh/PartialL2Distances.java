@@ -3,10 +3,10 @@ package xfp.jmh;
 import xfp.java.accumulators.Accumulator;
 
 /** <pre>
- * java -cp target\benchmarks.jar xfp.jmh.PartialL1Distances
+ * java -cp target\benchmarks.jar xfp.jmh.PartialL2Distances
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-07-27
+ * @version 2019-07-31
  */
 
 @SuppressWarnings("unchecked")
@@ -19,4 +19,4 @@ public class PartialL2Distances extends Base {
     return ac.clear().partialL2Distances(z0,z1); }
 
   public static final void main (final String[] args)  {
-    Defaults.run("PartialL1Distances"); } }
+    Defaults.run("PartialL2Distances"); } }
