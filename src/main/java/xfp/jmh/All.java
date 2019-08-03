@@ -1,10 +1,10 @@
 package xfp.jmh;
 
 /** <pre>
- * java -cp target\benchmarks.jar xfp.jmh.All
+ * j xfp.jmh.All
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-07-29
+ * @version 2019-08-03
  */
 
 public final class All {
