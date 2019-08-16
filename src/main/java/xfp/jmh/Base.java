@@ -40,8 +40,8 @@ public abstract class Base {
   @Param({
     //"33554433",
     //"8388609",
-    //"2097153",
-    "524289",
+    "2097153",
+    //"524289",
     //"131071",
   })
   int dim;
@@ -85,10 +85,10 @@ public abstract class Base {
 
   //@Param({"laplace",})
   //@Param({"finite",})
-  //@Param({"exponential",})
+  @Param({"exponential",})
   //@Param({"gaussian",})
   //@Param({"uniform",})
-  @Param({"exponential","finite","gaussian","uniform",})
+  //@Param({"exponential","finite","gaussian","uniform",})
   String generator;
   Generator gen;
 
