@@ -9,7 +9,6 @@ import xfp.java.accumulators.Accumulator;
 import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
-import xfp.java.test.Common;
 import xfp.jmh.accumulators.ZhuHayesBranch;
 
 /** Benchmark accumulators tests.
@@ -39,7 +38,7 @@ public final class Sum {
       public final Generator apply (final int dim) {
         final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
-        final int emax = Common.deMax(dim)/2;
+        final int emax = Doubles.deMax(dim)/2;
         final double dmax = (1<<emax);
         return
           Doubles.shuffledGenerator(
@@ -53,7 +52,7 @@ public final class Sum {
       public final Generator apply (final int dim) {
         final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
-        final int emax = Common.deMax(dim)/2;
+        final int emax = Doubles.deMax(dim)/2;
         System.out.println("emax=" + emax);
         return
           Doubles.shuffledGenerator(
@@ -67,7 +66,7 @@ public final class Sum {
       public final Generator apply (final int dim) {
         final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
-        final int emax = Common.deMax(dim)/2;
+        final int emax = Doubles.deMax(dim)/2;
         final double dmax = (1<<emax);
         return
           Doubles.shuffledGenerator(
@@ -81,7 +80,7 @@ public final class Sum {
       public final Generator apply (final int dim) {
         final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
-        final int emax = Common.deMax(dim)/2;
+        final int emax = Doubles.deMax(dim)/2;
         final double dmax = (1<<emax);
         return
           Doubles.shuffledGenerator(
@@ -95,7 +94,7 @@ public final class Sum {
       public final Generator apply (final int dim) {
         final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
         final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
-        final int emax = Common.deMax(dim)/2;
+        final int emax = Doubles.deMax(dim)/2;
         final double dmax = (1<<emax);
         return
           Doubles.shuffledGenerator(

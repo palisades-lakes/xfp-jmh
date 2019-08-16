@@ -1,10 +1,7 @@
 package xfp.jmh;
 
 import java.util.List;
-import java.util.Map;
-import java.util.function.IntFunction;
 
-import org.apache.commons.rng.UniformRandomProvider;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Param;
@@ -15,9 +12,8 @@ import org.openjdk.jmh.annotations.TearDown;
 
 import xfp.java.accumulators.Accumulator;
 import xfp.java.accumulators.EFloatAccumulator;
-import xfp.java.numbers.Doubles;
 import xfp.java.prng.Generator;
-import xfp.java.prng.PRNG;
+import xfp.java.prng.Generators;
 import xfp.java.test.Common;
 
 /** Benchmark <code>double[]</code> sums.
@@ -26,7 +22,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-08-08
+ * @version 2019-08-16
  */
 
 @SuppressWarnings("unchecked")
@@ -87,94 +83,12 @@ public abstract class Base {
 
   //--------------------------------------------------------------
 
-  private static final String SEED0 =
-    "seeds/Well44497b-2019-01-05.txt";
-
-  private static final String SEED1 =
-    "seeds/Well44497b-2019-01-07.txt";
-
-  public static final Map<String,IntFunction<Generator>>
-  factories =
-  Map.of(
-    "uniform",
-    new IntFunction<Generator>() {
-      @Override
-      public final Generator apply (final int dim) {
-        final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
-        final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
-        final int emax = Common.deMax(dim)/2;
-        final double dmax = (1<<emax);
-        return
-          Doubles.shuffledGenerator(
-            Doubles.zeroSumGenerator(
-              Doubles.uniformGenerator(dim,urp0,-dmax,dmax)),
-            urp1); }
-    },
-    "finite",
-    new IntFunction<Generator>() {
-      @Override
-      public final Generator apply (final int dim) {
-        final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
-        final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
-        final int emax = Common.deMax(dim)/2;
-        return
-          Doubles.shuffledGenerator(
-            Doubles.zeroSumGenerator(
-              Doubles.finiteGenerator(dim,urp0,emax)),
-            urp1); }
-    },
-    "exponential",
-    new IntFunction<Generator>() {
-      @Override
-      public final Generator apply (final int dim) {
-        final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
-        final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
-        final int emax = Common.deMax(dim)/2;
-        final double dmax = (1<<emax);
-        return
-          Doubles.shuffledGenerator(
-            Doubles.zeroSumGenerator(
-              Doubles.exponentialGenerator(dim,urp0,0.0,dmax)),
-            urp1); }
-    },
-    "gaussian",
-    new IntFunction<Generator>() {
-      @Override
-      public final Generator apply (final int dim) {
-        final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
-        final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
-        final int emax = Common.deMax(dim)/2;
-        final double dmax = (1<<emax);
-        return
-          Doubles.shuffledGenerator(
-            Doubles.zeroSumGenerator(
-              Doubles.gaussianGenerator(dim,urp0,0.0,dmax)),
-            urp1); }
-    },
-    "laplace",
-    new IntFunction<Generator>() {
-      @Override
-      public final Generator apply (final int dim) {
-        final UniformRandomProvider urp0 = PRNG.well44497b(SEED0);
-        final UniformRandomProvider urp1 = PRNG.well44497b(SEED1);
-        final int emax = Common.deMax(dim)/2;
-        final double dmax = (1<<emax);
-        return
-          Doubles.shuffledGenerator(
-            Doubles.zeroSumGenerator(
-              Doubles.laplaceGenerator(dim,urp0,0.0,dmax)),
-            urp1); }
-    });
-
-  public static final Generator makeGenerator (final String name,
-                                               final int dim) {
-    return factories.get(name).apply(dim); }
-
   //@Param({"laplace",})
   //@Param({"finite",})
   //@Param({"exponential",})
-  @Param({"gaussian",})
+  //@Param({"gaussian",})
   //@Param({"uniform",})
+  @Param({"exponential","finite","gaussian","uniform",})
   String generator;
   Generator gen;
 
@@ -192,7 +106,7 @@ public abstract class Base {
    */
   @Setup(Level.Trial)
   public final void trialSetup () {
-    gen = makeGenerator(generator,dim);
+    gen = Generators.make(generator,dim);
     exact = EFloatAccumulator.make();
     assert exact.isExact();
     acc = Common.makeAccumulator(accumulator); }
@@ -248,7 +162,7 @@ public abstract class Base {
   //    throws RunnerException {
   //    System.out.println("args=" + Arrays.toString(args));
   //    final Options opt =
-  //      Defaults.options("Base","TotalDot|TotalL2Norm|TotalSum");
+  //      Defaults.options("Generators","TotalDot|TotalL2Norm|TotalSum");
   //    System.out.println(opt.toString());
   //    new Runner(opt).run(); }
 
