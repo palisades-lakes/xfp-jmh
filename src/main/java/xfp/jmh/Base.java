@@ -85,10 +85,10 @@ public abstract class Base {
 
   //@Param({"laplace",})
   //@Param({"finite",})
-  @Param({"exponential",})
+  //@Param({"exponential",})
   //@Param({"gaussian",})
   //@Param({"uniform",})
-  //@Param({"exponential","finite","gaussian","uniform",})
+  @Param({"exponential","finite","gaussian","uniform",})
   String generator;
   Generator gen;
 
