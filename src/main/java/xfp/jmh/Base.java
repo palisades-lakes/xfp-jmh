@@ -22,7 +22,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-08-16
+ * @version 2019-08-19
  */
 
 @SuppressWarnings("unchecked")
@@ -37,17 +37,14 @@ public abstract class Base {
 
   //--------------------------------------------------------------
 
-  @Param({
-    //"33554433",
-    //"8388609",
-    "2097153",
-    //"524289",
-    //"131071",
-  })
-  int dim;
-
-  double[] x0;
-  double[] x1;
+  //@Param({"laplace",})
+  //@Param({"finite",})
+  //@Param({"exponential",})
+  //@Param({"gaussian",})
+  @Param({"uniform",})
+  //@Param({"exponential","finite","gaussian","uniform",})
+  String generator;
+  Generator gen;
 
   Accumulator exact;
   // exact value(s)
@@ -78,19 +75,22 @@ public abstract class Base {
   })
   String accumulator;
   Accumulator acc;
-  // estimated value(s)
-  double[] p;
-
   //--------------------------------------------------------------
 
-  //@Param({"laplace",})
-  //@Param({"finite",})
-  //@Param({"exponential",})
-  //@Param({"gaussian",})
-  //@Param({"uniform",})
-  @Param({"exponential","finite","gaussian","uniform",})
-  String generator;
-  Generator gen;
+  @Param({
+    //"33554433",
+    //"8388609",
+    "2097153",
+    //"524289",
+    //"131071",
+  })
+  int dim;
+
+  double[] x0;
+  double[] x1;
+
+  // estimated value(s)
+  double[] p;
 
   //--------------------------------------------------------------
   /** This is what is timed. */
