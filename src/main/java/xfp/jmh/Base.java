@@ -153,10 +153,10 @@ public abstract class Base {
     return p; }
 
   //--------------------------------------------------------------
-  /** <pre>
-   * java -cp target\benchmarks.jar xfp.jmh.Base
-   * </pre>
-   */
+//  /** <pre>
+//   * java -cp target\benchmarks.jar xfp.jmh.Base
+//   * </pre>
+//   */
 
   //  public static void main (final String[] args)
   //    throws RunnerException {

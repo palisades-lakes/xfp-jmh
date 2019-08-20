@@ -18,7 +18,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-13
+ * @version 2019-08-19
  */
 
 @SuppressWarnings("unchecked")
@@ -58,7 +58,7 @@ public final class Defaults {
       .shouldFailOnError(true)
       .shouldDoGC(true)
       .jvmArgs(
-        "-Xmx4g","-Xms4g","-Xmn2g",
+        "-Xmx6g","-Xms6g","-Xmn3g",
         "-XX:+UseFMA",
         "-Xbatch","-server")
       .build(); }

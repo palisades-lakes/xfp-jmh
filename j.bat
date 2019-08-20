@@ -1,6 +1,6 @@
 @echo off
 :: palisades.lakes (at) gmail (dot) com
-:: 2018-12-12
+:: 2019-08-19
 
 ::set GC=-XX:+AggressiveHeap -XX:+UseStringDeduplication 
 set GC=
@@ -12,7 +12,8 @@ set TRACE=
 set THRUPUT=-server -Xbatch -XX:+UseFMA
 
 ::set XMX=-Xms29g -Xmx29g -Xmn11g 
-set XMX=-Xms12g -Xmx12g -Xmn5g 
+::set XMX=-Xms12g -Xmx12g -Xmn5g 
+set XMX= 
 
 set OPENS=--add-opens java.base/java.lang=ALL-UNNAMED
 set CP=-cp target/benchmarks.jar
