@@ -13,11 +13,11 @@ import xfp.java.prng.PRNG;
 /** BigInteger pair: divide and round to float.
  *
  * <pre>
- * j --source 11 src/scripts/java/xfp/java/scripts/DivideFloat.java > divide.txt 2>&1
+ * j --source 12 src/scripts/java/xfp/java/scripts/DivideFloat.java > divide.txt 2>&1
  * </pre>
  * Profiling:
  * <pre>
- * jy --source 11 src/scripts/java/xfp/java/scripts/DivideFloat.java
+ * jy --source 12 src/scripts/java/xfp/java/scripts/DivideFloat.java
  * </pre>
  * @author palisades dot lakes at gmail dot com
  * @version 2019-06-24
