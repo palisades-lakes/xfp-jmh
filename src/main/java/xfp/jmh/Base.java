@@ -11,7 +11,7 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.TearDown;
 
 import xfp.java.accumulators.Accumulator;
-import xfp.java.accumulators.EFloatAccumulator;
+import xfp.java.accumulators.BigFloatAccumulator;
 import xfp.java.prng.Generator;
 import xfp.java.prng.Generators;
 import xfp.java.test.Common;
@@ -22,7 +22,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-08-29
+ * @version 2019-08-31
  */
 
 @SuppressWarnings("unchecked")
@@ -80,8 +80,9 @@ public abstract class Base {
 
   @Param({
     //"33554433",
-    //"8388609",
-    "2097153",
+    "8388609",
+    //"4194304",
+    //"2097153",
     //"524289",
     //"131071",
   })
@@ -108,7 +109,8 @@ public abstract class Base {
   @Setup(Level.Trial)
   public final void trialSetup () {
     gen = Generators.make(generator,dim);
-    exact = EFloatAccumulator.make();
+    //exact = EFloatAccumulator.make();
+    exact = BigFloatAccumulator.make();
     assert exact.isExact();
     acc = Common.makeAccumulator(accumulator); }
 

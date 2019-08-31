@@ -11,6 +11,7 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
+import org.openjdk.jmh.runner.options.TimeValue;
 
 /** Benchmark <code>double[]</code> sums.
  *
@@ -18,7 +19,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-08-19
+ * @version 2019-08-31
  */
 
 @SuppressWarnings("unchecked")
@@ -46,7 +47,7 @@ public final class Defaults {
         + ".csv");
     //final File json =
     //  new File(parent, fileName + "-" + now() + ".json");
-    return new OptionsBuilder()
+    final Options options = new OptionsBuilder()
       .mode(Mode.AverageTime)
       .timeUnit(TimeUnit.MILLISECONDS)
       .include(includes)
@@ -58,17 +59,25 @@ public final class Defaults {
       .shouldFailOnError(true)
       .shouldDoGC(true)
       .jvmArgs(
-        "-Xmx6g","-Xms6g","-Xmn3g",
+        "-Xmx5g","-Xms5g","-Xmn2500m",
         "-XX:+UseFMA",
         "-Xbatch","-server")
-      .build(); }
+      .warmupIterations(5)
+      .warmupTime(TimeValue.seconds(30))
+      .measurementIterations(5)
+      .measurementTime(TimeValue.seconds(30))
+      .build(); 
+  return options; }
 
   //--------------------------------------------------------------
 
   public static final void run (final String fileName,
                                 final String includes) {
 
-    try { new Runner(Defaults.options(fileName,includes)).run(); }
+    try { 
+      final Runner runner = 
+        new Runner(Defaults.options(fileName,includes));
+      runner.run(); }
     catch (final RunnerException e) {
       throw new RuntimeException(e); } }
 

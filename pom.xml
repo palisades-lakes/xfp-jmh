@@ -8,7 +8,7 @@
   <!-- JMH version to use with this project. -->
   <jmh.version>1.21</jmh.version>
   <!-- Java source/target to use for compilation. -->
-  <javac.target>11</javac.target>
+  <javac.target>12</javac.target>
   <!-- Name of the benchmark Uber-JAR to generate. -->
   <uberjar.name>benchmarks</uberjar.name>
   <commons-math3-version>3.6.1</commons-math3-version>
