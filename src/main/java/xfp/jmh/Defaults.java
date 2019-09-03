@@ -65,7 +65,7 @@ public final class Defaults {
       .warmupIterations(4)
       .warmupTime(TimeValue.seconds(24))
       .measurementIterations(5)
-      .measurementTime(TimeValue.seconds(32))
+      .measurementTime(TimeValue.seconds(24))
       .build(); 
   return options; }
 
