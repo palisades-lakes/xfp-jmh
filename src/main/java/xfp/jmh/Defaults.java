@@ -19,7 +19,7 @@ import org.openjdk.jmh.runner.options.TimeValue;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-08-31
+ * @version 2019-09-04
  */
 
 @SuppressWarnings("unchecked")
@@ -63,9 +63,9 @@ public final class Defaults {
         "-XX:+UseFMA",
         "-Xbatch","-server")
       .warmupIterations(4)
-      .warmupTime(TimeValue.seconds(24))
-      .measurementIterations(5)
-      .measurementTime(TimeValue.seconds(24))
+      .warmupTime(TimeValue.seconds(20))
+      .measurementIterations(4)
+      .measurementTime(TimeValue.seconds(20))
       .build(); 
   return options; }
 
