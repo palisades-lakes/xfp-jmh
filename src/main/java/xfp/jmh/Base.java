@@ -54,7 +54,7 @@ public abstract class Base {
     //"xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.KahanAccumulator0",
     "xfp.java.accumulators.BigFloatAccumulator",
-    "xfp.java.accumulators.BigFloatAccumulator0",
+    "xfp.jmh.accumulators.BigFloatAccumulator0",
     //"xfp.java.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.java.accumulators.DistilledAccumulator",
