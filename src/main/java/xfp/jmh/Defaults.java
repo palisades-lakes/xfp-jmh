@@ -62,7 +62,7 @@ public final class Defaults {
         "-Xmx5g","-Xms5g","-Xmn2500m",
         "-XX:+UseFMA",
         "-Xbatch","-server")
-      .warmupIterations(4)
+      .warmupIterations(3)
       .warmupTime(TimeValue.seconds(20))
       .measurementIterations(4)
       .measurementTime(TimeValue.seconds(20))
