@@ -22,7 +22,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-09-04
+ * @version 2019-09-06
  */
 
 @SuppressWarnings("unchecked")
