@@ -1,6 +1,6 @@
 @echo off
 :: palisades.lakes (at) gmail (dot) com
-:: 2019-08-05
+:: 2019-09-07
 
 ::set GC=-XX:+AggressiveHeap -XX:+UseStringDeduplication 
 set GC=
@@ -18,7 +18,7 @@ set XMX=-Xms12g -Xmx12g -Xmn5g
 set PROF=-agentpath:"C:\Program Files\YourKit Java Profiler 2019.8-b110\bin\win64\yjpagent.dll"
 
 set OPENS=--add-opens java.base/java.lang=ALL-UNNAMED
-set CP=-cp lib/*
+set CP=-cp target/benchmarks.jar
 
 set JAVA_HOME=%JAVA12%
 set JAVA="%JAVA_HOME%\bin\java"

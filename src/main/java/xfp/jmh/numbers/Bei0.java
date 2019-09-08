@@ -1584,25 +1584,26 @@ public final class Bei0 {
   //      (unsigned(ms[i-1]) << 32) | unsigned(ms[i]); }
 
   public static final long getShiftedLong (final int[] m,
-                                           final int shift) {
+                                           final int downShift) {
     // leading zeros don't matter
-    final int intShift = shift >>> 5;
-    final int remShift = shift & 0x1f;
-    final int n = m.length;
-    if (intShift >= n) { return 0L; }
+    final int iShift = (downShift>>>5);
+    final int nt = m.length;
+    if (iShift >= nt) { return 0L; }
 
-    final int i = n-intShift-1;
+      final int bShift = (downShift&0x1F);
+    
+    final int i = nt-iShift-1;
 
-    if (0==remShift) {
+    if (0==bShift) {
       if (0==i) { return unsigned(m[0]); }
       return (unsigned(m[i-1]) << 32) | unsigned(m[i]); }
 
-    final int r2 = 32-remShift;
-    final long lo0 = (unsigned(m[i]) >>> remShift);
-    final long lo1 = (0<i) ? (unsigned(m[i-1]) << r2) : 0L;
+    final int rShift = 32-bShift;
+    final long lo0 = (unsigned(m[i]) >>> bShift);
+    final long lo1 = (0<i) ? (unsigned(m[i-1]) << rShift) : 0L;
     final long lo = lo1 | lo0;
-    final long hi0 = (0<i) ? (unsigned(m[i-1]) >>> remShift) : 0;
-    final long hi1 = (1<i) ? (unsigned(m[i-2]) << r2) : 0;
+    final long hi0 = (0<i) ? (unsigned(m[i-1]) >>> bShift) : 0;
+    final long hi1 = (1<i) ? (unsigned(m[i-2]) << rShift) : 0;
     final long hi = hi1 | hi0;
     return (hi << 32) | lo; }
 
@@ -1703,7 +1704,7 @@ public final class Bei0 {
 
   public static final int hiBit (final int[] m) {
     final int len = m.length;
-    if (len == 0) { return(0); }
+    if (len == 0) { return 0; }
     // Calculate the bit length of the magnitude
     final int n = ((len-1) << 5) + Numbers.hiBit(m[0]);
     return n; }
