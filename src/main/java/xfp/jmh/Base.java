@@ -22,7 +22,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-09-06
+ * @version 2019-09-09
  */
 
 @SuppressWarnings("unchecked")
@@ -39,10 +39,10 @@ public abstract class Base {
 
   //@Param({"exponential",})
   //@Param({"finite",})
-  //@Param({"gaussian",})
+  @Param({"gaussian",})
   //@Param({"laplace",})
   //@Param({"uniform",})
-  @Param({"exponential","finite","gaussian","laplace","uniform",})
+  //@Param({"exponential","finite","gaussian","laplace","uniform",})
   String generator;
   Generator gen;
 

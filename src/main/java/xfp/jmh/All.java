@@ -4,19 +4,19 @@ package xfp.jmh;
  * j xfp.jmh.All
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-09-08
+ * @version 2019-09-09
  */
 
 public final class All {
   public static final void main (final String[] args)  {
-    Defaults.run("PartialDots");
-    Defaults.run("PartialL2s");
+    //Defaults.run("PartialDots");
+    //Defaults.run("PartialL2s");
     //Defaults.run("PartialL2Distances");
-    Defaults.run("PartialSums");
-    Defaults.run("PartialL1s");
-    Defaults.run("PartialL1Distances");
-    Defaults.run("TotalDot");
-    Defaults.run("TotalL2Norm");
+    //Defaults.run("PartialSums");
+    //Defaults.run("PartialL1s");
+    //Defaults.run("PartialL1Distances");
+    //Defaults.run("TotalDot");
+    //Defaults.run("TotalL2Norm");
     Defaults.run("TotalL2Distance");
     Defaults.run("TotalSum");
     Defaults.run("TotalL1Norm");
