@@ -13,7 +13,6 @@ public final class BigFloatAccumulator0
 extends ExactAccumulator<BigFloatAccumulator0> {
 
   private BigFloat0 _sum;
-
   //--------------------------------------------------------------
 
   @Override
