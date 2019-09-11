@@ -4,7 +4,7 @@ package xfp.jmh;
  * j xfp.jmh.All
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-09-09
+ * @version 2019-09-10
  */
 
 public final class All {
@@ -20,5 +20,5 @@ public final class All {
     Defaults.run("PartialL2Distances");
     Defaults.run("TotalDot");
     Defaults.run("TotalL2Norm");
-    //Defaults.run("TotalL2Distance");
+    Defaults.run("TotalL2Distance");
   } }
