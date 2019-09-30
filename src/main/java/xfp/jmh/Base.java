@@ -16,13 +16,13 @@ import xfp.java.prng.Generator;
 import xfp.java.prng.Generators;
 import xfp.java.test.Common;
 
-/** Benchmark <code>double[]</code> sums.
+/** Benchmark operations on <code>double[]</code>.
  *
  * <pre>
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-09-09
+ * @version 2019-09-29
  */
 
 @SuppressWarnings("unchecked")
@@ -42,8 +42,8 @@ public abstract class Base {
   //@Param({"gaussian",})
   //@Param({"laplace",})
   //@Param({"uniform",})
-  //@Param({"exponential","finite","gaussian","laplace","uniform",})
-  @Param({"exponential","finite","laplace","uniform",})
+  @Param({"exponential","finite","gaussian","laplace","uniform",})
+  //@Param({"exponential","finite","laplace","uniform",})
   String generator;
   Generator gen;
 
@@ -55,8 +55,8 @@ public abstract class Base {
     //"xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.KahanAccumulator0",
     "xfp.java.accumulators.BigFloatAccumulator",
-    "xfp.jmh.accumulators.BigFloatAccumulator0",
-    //"xfp.java.accumulators.KahanAccumulator",
+    //"xfp.jmh.accumulators.BigFloatAccumulator0",
+    "xfp.java.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.java.accumulators.DistilledAccumulator",
     //"xfp.java.accumulators.ZhuHayesAccumulator",
