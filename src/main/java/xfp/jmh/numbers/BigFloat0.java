@@ -19,7 +19,7 @@ import xfp.java.numbers.Ringlike;
  * <code>int</code> exponent.
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-09-04
+ * @version 2019-10-02
  */
 
 @SuppressWarnings("unchecked")
@@ -543,6 +543,48 @@ public final class BigFloat0 implements Ringlike<BigFloat0> {
     BigFloat0 s = this;
     for (int i=0;i<n;i++) { s = s.addProduct(z0[i],z1[i]); }
     return s; }
+
+  //--------------------------------------------------------------
+  /** Exact <code>a*x+y</code> (aka fma). */
+
+  public static final BigFloat0
+  axpy (final double a,
+        final double x,
+        final double y) {
+    return valueOf(y).addProduct(a,x); }
+
+  /** Exact <code>a*x+y</code> (aka fma). */
+
+  public static final BigFloat0[]
+    axpy (final double[] a,
+          final double[] x,
+          final double[] y) {
+    final int n = a.length;
+    //assert n==x.length;
+    //assert n==y.length;
+    final BigFloat0[] bf = new BigFloat0[n];
+    for (int i=0;i<n;i++) { bf[i] = axpy(a[i],x[i],y[i]); }
+    return bf; }
+
+  /** Exact <code>this*x+y</code> (aka fma). */
+
+  public static final BigFloat0
+  axpy (final BigFloat0 a,
+        final double x,
+        final double y) {
+    return a.multiply(x).add(y); }
+
+  /** Exact <code>a*this+y</code> (aka fma). */
+
+  public static final BigFloat0[] axpy (final BigFloat0[] a,
+                                       final double[] x,
+                                       final double[] y) {
+    final int n = a.length;
+    //assert n==x.length;
+    //assert n==y.length;
+    final BigFloat0[] bf = new BigFloat0[n];
+    for (int i=0;i<n;i++) { bf[i] = axpy(a[i],x[i],y[i]); }
+    return bf; }
 
   //--------------------------------------------------------------
   // Number methods
