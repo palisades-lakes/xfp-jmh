@@ -21,7 +21,8 @@ public final class BigFloat0Axpy implements Axpy<BigFloat0> {
   public final BigFloat0 axpy (final double a,
                                final double x,
                                final double y) {
-    return BigFloat0.axpy(a,x,y); }
+    return axpy(BigFloat0.valueOf(a),x,y); }
+  //  return BigFloat0.axpy(a,x,y); }
 
   @Override
   public final BigFloat0[] axpy (final double[] a,
@@ -61,5 +62,5 @@ public final class BigFloat0Axpy implements Axpy<BigFloat0> {
   public static final BigFloat0Axpy make () {
     return new BigFloat0Axpy(); }
 
-//--------------------------------------------------------------
+  //--------------------------------------------------------------
 }
