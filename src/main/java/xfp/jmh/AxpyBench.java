@@ -47,9 +47,9 @@ public class AxpyBench {
 
   @Param({
     "xfp.java.polynomial.BigFloatAxpy",
-    "xfp.java.polynomial.DoubleAxpy",
-    "xfp.java.polynomial.EFloatAxpy",
     "xfp.jmh.polynomial.BigFloat0Axpy",
+    "xfp.java.polynomial.DoubleAxpy",
+    //"xfp.java.polynomial.EFloatAxpy",
   })
   String axpyName;
   Axpy axpy;
