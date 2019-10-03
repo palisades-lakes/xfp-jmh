@@ -13,17 +13,16 @@ import xfp.java.test.Common;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-10-02
+ * @version 2019-10-03
  */
 
 public final class AxpyTest {
 
-  // failing
   
-//  @SuppressWarnings({ "static-method" })
-//  @Test
-//  public final void bigFloat0Axpy () { 
-//    Common.daxpy(new BigFloat0Axpy()); } 
+  @SuppressWarnings({ "static-method" })
+  @Test
+  public final void bigFloat0Axpy () { 
+    Common.daxpy(new BigFloat0Axpy()); } 
 
   //--------------------------------------------------------------
 }
