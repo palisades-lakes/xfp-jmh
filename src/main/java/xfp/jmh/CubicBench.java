@@ -10,8 +10,8 @@ import org.openjdk.jmh.annotations.TearDown;
 
 import xfp.java.accumulators.Accumulator;
 import xfp.java.accumulators.EFloatAccumulator;
+import xfp.java.polynomial.EFloatCubic;
 import xfp.java.polynomial.Polynomial;
-import xfp.java.polynomial.EFloatQuadratic;
 import xfp.java.prng.Generator;
 import xfp.java.prng.Generators;
 import xfp.java.test.Common;
@@ -19,7 +19,7 @@ import xfp.java.test.Common;
 /** Benchmark axpy implementations.
  *
  *<pre>
- * j xfp.jmh.QuadraticBench
+ * j xfp.jmh.CubicBench
  * </pre>
  * 
  * @author palisades dot lakes at gmail dot com
@@ -28,7 +28,7 @@ import xfp.java.test.Common;
 
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
-public class QuadraticBench {
+public class CubicBench {
 
   //--------------------------------------------------------------
 
@@ -46,10 +46,10 @@ public class QuadraticBench {
   double[] truth;
 
   @Param({
-    "xfp.java.polynomial.BigFloatQuadratic",
-    "xfp.jmh.polynomial.BigFloat0Quadratic",
-    //"xfp.java.polynomial.DoubleQuadratic",
-    //"xfp.java.polynomial.EFloatQuadratic",
+    "xfp.java.polynomial.BigFloatCubic",
+    "xfp.jmh.polynomial.BigFloat0Cubic",
+    //"xfp.java.polynomial.DoubleCubic",
+    //"xfp.java.polynomial.EFloatCubic",
   })
   String qName;
   Polynomial q;
@@ -70,6 +70,7 @@ public class QuadraticBench {
   double a0;
   double a1;
   double a2;
+  double a3;
   double[] x;
 
   // estimated value(s)
@@ -96,11 +97,12 @@ public class QuadraticBench {
     a0 = gen.nextDouble();
     a1 = gen.nextDouble();
     a2 = gen.nextDouble();
+    a3 = gen.nextDouble();
     x = (double[]) gen.next();
-    e = EFloatQuadratic.make(a0,a1,a2);
+    e = EFloatCubic.make(a0,a1,a2,a3);
     assert e.isExact();
     truth = operation(e,x);
-    q = Common.makeQuadratic(qName,a0,a1,a2); }
+    q = Common.makeCubic(qName,a0,a1,a2,a3); }
 
   private final Accumulator acc = EFloatAccumulator.make();
 
