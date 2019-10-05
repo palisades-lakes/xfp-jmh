@@ -18,7 +18,7 @@ import xfp.java.numbers.Ringlike;
  * <code>int</code> exponent.
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-10
+ * @version 2019-10-04
  */
 
 @SuppressWarnings("unchecked")
@@ -511,17 +511,17 @@ public final class BigFloat0 implements Ringlike<BigFloat0> {
   /** Exact <code>this*x+y</code> (aka fma). */
 
   public static final BigFloat0
-  axpy (final BigFloat0 a,
-        final double x,
+  axpy (final double aa,
+        final BigFloat0 x,
         final double y) {
-    return a.multiply(x).add(y); }
+    return x.multiply(aa).add(y); }
 
   /** Exact <code>a*this+y</code> (aka fma). */
 
-  public static final BigFloat0[] axpy (final BigFloat0[] a,
-                                       final double[] x,
+  public static final BigFloat0[] axpy (final double[] a,
+                                       final BigFloat0[] x,
                                        final double[] y) {
-    final int n = a.length;
+    final int n = x.length;
     //assert n==x.length;
     //assert n==y.length;
     final BigFloat0[] bf = new BigFloat0[n];
@@ -617,6 +617,10 @@ public final class BigFloat0 implements Ringlike<BigFloat0> {
         Math.min(
           Doubles.MAXIMUM_EXPONENT_INTEGRAL_SIGNIFICAND-e0-1,
           eh-Doubles.SIGNIFICAND_BITS));
+    if (eh-es>Doubles.SIGNIFICAND_BITS) {
+      return 
+        (nn ? 
+          Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY); }
     if (0==es) {
       return doubleMergeBits(nn,s0.longValue(),e0); }
     if (0 > es) {
