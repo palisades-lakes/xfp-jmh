@@ -34,10 +34,10 @@ public class CubicBench {
 
   //@Param({"exponential",})
   //@Param({"finite",})
-  @Param({"gaussian",})
+  //@Param({"gaussian",})
   //@Param({"laplace",})
   //@Param({"uniform",})
-  //@Param({"exponential","finite","gaussian","laplace","uniform",})
+  @Param({"exponential","finite","gaussian","laplace","uniform",})
   String generator;
   Generator gen;
 
@@ -48,11 +48,11 @@ public class CubicBench {
   @Param({
     "xfp.java.polynomial.BigFloatCubic",
     "xfp.jmh.polynomial.BigFloat0Cubic",
-    //"xfp.java.polynomial.DoubleCubic",
-    //"xfp.java.polynomial.EFloatCubic",
+    "xfp.java.polynomial.DoubleCubic",
+    "xfp.java.polynomial.EFloatCubic",
   })
-  String qName;
-  Polynomial q;
+  String cName;
+  Polynomial c;
 
   //--------------------------------------------------------------
 
@@ -86,7 +86,7 @@ public class CubicBench {
   //--------------------------------------------------------------
 
   /** Re-initialize the prngs with the same seeds for each
-   * <code>(qName,dim)</code> pair.
+   * <code>(cName,dim)</code> pair.
    */
   @Setup(Level.Trial)
   public final void trialSetup () {
@@ -102,7 +102,7 @@ public class CubicBench {
     e = EFloatCubic.make(a0,a1,a2,a3);
     assert e.isExact();
     truth = operation(e,x);
-    q = Common.makeCubic(qName,a0,a1,a2,a3); }
+    c = Common.makeCubic(cName,a0,a1,a2,a3); }
 
   private final Accumulator acc = EFloatAccumulator.make();
 
@@ -113,13 +113,14 @@ public class CubicBench {
 
   @Benchmark
   public final double[] bench () {
-    p = operation(q,x);
+    p = operation(c,x);
     return p; }
 
   //--------------------------------------------------------------
 
   public static final void main (final String[] args)  {
-    Defaults.run("QuadraticBench"); } 
+    Defaults.run("Cub"
+      + "icBench"); } 
 
   //--------------------------------------------------------------
 }

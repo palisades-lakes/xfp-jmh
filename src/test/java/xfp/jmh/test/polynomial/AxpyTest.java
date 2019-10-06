@@ -9,7 +9,7 @@ import xfp.java.test.Common;
 /** Test desired properties of axpy calculators.
  * <p>
  * <pre>
- * mvn -q -Dtest=xfp/jmh/test/polynomial/AxpyTest test > AT.txt
+ * mvn -c -Dtest=xfp/jmh/test/polynomial/AxpyTest test > AT.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com

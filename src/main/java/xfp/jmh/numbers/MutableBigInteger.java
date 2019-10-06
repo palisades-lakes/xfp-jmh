@@ -577,7 +577,7 @@ class MutableBigInteger {
 
   /**
    * This method is used for division. It multiplies an n word input a by one
-   * word input x, and subtracts the n word product from q. This is needed
+   * word input x, and subtracts the n word product from c. This is needed
    * when subtracting qhat*divisor from dividend.
    */
   private static int mulsub(final int[] q, final int[] a, final int x, final int len, int offset) {
@@ -597,7 +597,7 @@ class MutableBigInteger {
   }
 
   /**
-   * The method is the same as mulsun, except the fact that q array is not
+   * The method is the same as mulsun, except the fact that c array is not
    * updated, the only result of the method is borrow flag.
    */
   private static int mulsubBorrow(final int[] q, final int[] a, final int x, final int len, int offset) {
@@ -1236,7 +1236,7 @@ class MutableBigInteger {
       // step 8b: z = [ri, a[i-1]]
       z = aShifted.getBlock(i-1, t, n);   // a[i-1]
       z.addDisjoint(ri, n);
-      quotient.addShifted(qi, i*n);   // update q (part of step 9)
+      quotient.addShifted(qi, i*n);   // update c (part of step 9)
     }
     // final iteration of step 8: do the loop one more time for i=0 but leave z unchanged
     ri = z.divide2n1n(bShifted, qi);
@@ -1647,7 +1647,7 @@ class MutableBigInteger {
   //      quotient.offset = 0;
   //    }
   //    quotient.intLen = limit;
-  //    final int[] q = quotient.value;
+  //    final int[] c = quotient.value;
   //
   //    // D1 normalize the divisor
   //    final int shift = Long.numberOfLeadingZeros(ldivisor);
@@ -1728,7 +1728,7 @@ class MutableBigInteger {
   //      }
   //
   //      // Store the quotient digit
-  //      q[j] = qhat;
+  //      c[j] = qhat;
   //    } // D7 loop on j
   //
   //    // D8 Unnormalize
@@ -1763,7 +1763,7 @@ class MutableBigInteger {
   //   * Specialized version of the method sulsub.
   //   * dh is a high part of the divisor, dl is a low part
   //   */
-  //  private static final int mulsubLong(final int[] q,
+  //  private static final int mulsubLong(final int[] c,
   //                                      final int dh,
   //                                      final int dl,
   //                                      final int x,
@@ -1771,14 +1771,14 @@ class MutableBigInteger {
   //    final long xLong = x & Numbers.UNSIGNED_MASK;
   //    offset1 += 2;
   //    long product = (dl & Numbers.UNSIGNED_MASK) * xLong;
-  //    long difference = q[offset1] - product;
-  //    q[offset1--] = (int)difference;
+  //    long difference = c[offset1] - product;
+  //    c[offset1--] = (int)difference;
   //    long carry = (product >>> 32)
   //      + (((difference & Numbers.UNSIGNED_MASK) >
   //      (((~(int)product) & Numbers.UNSIGNED_MASK))) ? 1:0);
   //    product = ((dh & Numbers.UNSIGNED_MASK) * xLong) + carry;
-  //    difference = q[offset1] - product;
-  //    q[offset1--] = (int)difference;
+  //    difference = c[offset1] - product;
+  //    c[offset1--] = (int)difference;
   //    carry = (product >>> 32)
   //      + (((difference & Numbers.UNSIGNED_MASK) >
   //      (((~(int)product) & Numbers.UNSIGNED_MASK))) ? 1:0);
@@ -1821,7 +1821,7 @@ class MutableBigInteger {
       r -= dLong;
       q++;
     }
-    // n - q*dlong == r && 0 <= r <dLong, hence we're done.
+    // n - c*dlong == r && 0 <= r <dLong, hence we're done.
     return (r << 32) | (q & Numbers.UNSIGNED_MASK);
   }
 

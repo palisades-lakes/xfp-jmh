@@ -14,7 +14,7 @@ import xfp.jmh.numbers.BigFloat0;
 /** Test desired properties of axpy calculators.
  * <p>
  * <pre>
- * mvn -q -Dtest=xfp/java/test/polynomial/QuadraticTest test > QT.txt
+ * mvn -c -Dtest=xfp/java/test/polynomial/QuadraticTest test > QT.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com

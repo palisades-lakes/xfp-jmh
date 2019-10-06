@@ -13,7 +13,7 @@ import xfp.jmh.numbers.ERationals;
 /** Test desired properties of ERational.
  * <p>
  * <pre>
- * mvn -q clean -Dtest=xfp/jmh/test/numbers/ERationalTest test > ERationalTest.txt
+ * mvn -c clean -Dtest=xfp/jmh/test/numbers/ERationalTest test > ERationalTest.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com

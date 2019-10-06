@@ -50,8 +50,8 @@ public final class ERationals implements Set {
 
   public static final ERational reduce (final ERational q) {
     return q; }
-  //    final EInteger n = q.getNumerator();
-  //    final EInteger d = q.getDenominator();
+  //    final EInteger n = c.getNumerator();
+  //    final EInteger d = c.getDenominator();
   //    final EInteger gcd = n.Gcd(d);
   //    return ERational.Create(n.Divide(gcd),d.Divide(gcd)); }
 

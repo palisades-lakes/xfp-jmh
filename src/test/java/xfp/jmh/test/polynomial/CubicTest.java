@@ -9,7 +9,7 @@ import xfp.jmh.polynomial.BigFloat0Cubic;
 /** Test desired properties of axpy calculators.
  * <p>
  * <pre>
- * mvn -q -Dtest=xfp/jmh/test/polynomial/CubicTest test > CT.txt
+ * mvn -c -Dtest=xfp/jmh/test/polynomial/CubicTest test > CT.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com

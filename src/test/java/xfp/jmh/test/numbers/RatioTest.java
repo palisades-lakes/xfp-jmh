@@ -16,7 +16,7 @@ import xfp.jmh.numbers.Ratios;
  * rationals rather than <code>clojure.lang.Ratio</code>.
  * <p>
  * <pre>
- * mvn -q -Dtest=xfp/java/test/sets/RatioTest test > RatioTest.txt
+ * mvn -c -Dtest=xfp/java/test/sets/RatioTest test > RatioTest.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com

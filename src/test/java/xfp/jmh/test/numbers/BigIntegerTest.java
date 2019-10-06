@@ -9,7 +9,7 @@ import xfp.jmh.numbers.BigInteger;
 /** Test desired properties of integer implementations.
  * <p>
  * <pre>
- * mvn -q -Dtest=xfp/jmh/test/numbers/BigIntegerTest test > BIT.txt
+ * mvn -c -Dtest=xfp/jmh/test/numbers/BigIntegerTest test > BIT.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com

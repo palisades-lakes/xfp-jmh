@@ -86,7 +86,7 @@ public class AxpyBench {
   //--------------------------------------------------------------
 
   /** Re-initialize the prngs with the same seeds for each
-   * <code>(qName,dim)</code> pair.
+   * <code>(cName,dim)</code> pair.
    */
   @Setup(Level.Trial)
   public final void trialSetup () {

@@ -932,7 +932,7 @@ public final class MutableNaturalBEI0 {
       // step 8b: z = [ri, a[i-1]]
       z = aShifted.getBlock(i-1, t, n);   // a[i-1]
       z.addDisjoint(ri, n);
-      // update q (part of step 9)
+      // update c (part of step 9)
       quotient.addShifted(qi, i*n); }
     // final iteration of step 8: do the loop one more time
     // for i=0 but leave z unchanged
@@ -945,7 +945,7 @@ public final class MutableNaturalBEI0 {
   //--------------------------------------------------------------
   /** This method is used for division. It multiplies an n word
    * input a by one word input x, and subtracts the n word product
-   * from q. This is needed when subtracting qhat*divisor from
+   * from c. This is needed when subtracting qhat*divisor from
    * the dividend.
    */
   private static final int mulsub (final int[] q,
@@ -966,7 +966,7 @@ public final class MutableNaturalBEI0 {
     return (int) carry; }
 
   /** The method is the same as {@link #mulsub}, except the fact
-   * that q array is not updated, the only result of the method is
+   * that c array is not updated, the only result of the method is
    * borrow flag.
    */
   private static final int mulsubBorrow (final int[] q,
@@ -1004,7 +1004,7 @@ public final class MutableNaturalBEI0 {
     // Correct the approximation
     while (r < 0) { r += dLong; q--; }
     while (r >= dLong) { r -= dLong; q++; }
-    // n - q*dlong == r && 0 <= r <dLong, hence we're done.
+    // n - c*dlong == r && 0 <= r <dLong, hence we're done.
     return (r << 32) | (loWord(q)); }
 
   //-------------------------------------------------------------

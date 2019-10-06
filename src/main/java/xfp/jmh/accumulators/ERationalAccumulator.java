@@ -27,7 +27,7 @@ implements Accumulator<ERationalAccumulator> {
     final EInteger n1 = n0.ShiftRight(e);
     final EInteger d1 = d0.ShiftRight(e);
     final EInteger gcd = n1.Gcd(d1);
-    //if (EInteger.getOne().equals(gcd)) { return q; }
+    //if (EInteger.getOne().equals(gcd)) { return c; }
     final EInteger n2 = n1.Divide(gcd);
     final EInteger d2 = d1.Divide(gcd);
     return ERational.Create(n2,d2); }

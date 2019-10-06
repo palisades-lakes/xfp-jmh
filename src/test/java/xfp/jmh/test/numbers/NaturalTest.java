@@ -4,7 +4,7 @@ package xfp.jmh.test.numbers;
 /** Test desired properties of natural number implementations.
  * <p>
  * <pre>
- * mvn -q -Dtest=xfp/java/test/numbers/NaturalTest test > NaturalTest.txt
+ * mvn -c -Dtest=xfp/java/test/numbers/NaturalTest test > NaturalTest.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
