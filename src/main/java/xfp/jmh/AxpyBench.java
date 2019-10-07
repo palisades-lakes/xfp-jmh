@@ -23,7 +23,7 @@ import xfp.java.test.Common;
  * </pre>
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-10-03
+ * @version 2019-10-07
  */
 
 @SuppressWarnings("unchecked")
@@ -47,7 +47,8 @@ public class AxpyBench {
 
   @Param({
     "xfp.java.polynomial.BigFloatAxpy",
-    "xfp.jmh.polynomial.BigFloat0Axpy",
+    "xfp.jmh.polynomial.RationalFloatAxpy",
+    //"xfp.jmh.polynomial.BigFloat0Axpy",
     "xfp.java.polynomial.DoubleAxpy",
     //"xfp.java.polynomial.EFloatAxpy",
   })

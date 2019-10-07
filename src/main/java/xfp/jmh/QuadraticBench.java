@@ -23,7 +23,7 @@ import xfp.java.test.Common;
  * </pre>
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-10-05
+ * @version 2019-10-07
  */
 
 @SuppressWarnings("unchecked")
@@ -47,7 +47,8 @@ public class QuadraticBench {
 
   @Param({
     "xfp.java.polynomial.BigFloatQuadratic",
-    "xfp.jmh.polynomial.BigFloat0Quadratic",
+    "xfp.jmh.polynomial.RationalFloatQuadratic",
+    //"xfp.jmh.polynomial.BigFloat0Quadratic",
     //"xfp.java.polynomial.DoubleQuadratic",
     //"xfp.java.polynomial.EFloatQuadratic",
   })

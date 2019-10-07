@@ -23,7 +23,7 @@ import xfp.java.test.Common;
  * </pre>
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-10-05
+ * @version 2019-10-07
  */
 
 @SuppressWarnings("unchecked")
@@ -47,9 +47,10 @@ public class CubicBench {
 
   @Param({
     "xfp.java.polynomial.BigFloatCubic",
-    "xfp.jmh.polynomial.BigFloat0Cubic",
-    "xfp.java.polynomial.DoubleCubic",
-    "xfp.java.polynomial.EFloatCubic",
+    "xfp.jmh.polynomial.RationalFloatCubic",
+    //"xfp.jmh.polynomial.BigFloat0Cubic",
+    //"xfp.java.polynomial.DoubleCubic",
+    //"xfp.java.polynomial.EFloatCubic",
   })
   String cName;
   Polynomial c;
