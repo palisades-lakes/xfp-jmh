@@ -46,8 +46,8 @@ public class AxpyBench {
   double[] truth;
 
   @Param({
+    "xfp.java.polynomial.RationalFloatAxpy",
     "xfp.java.polynomial.BigFloatAxpy",
-    "xfp.jmh.polynomial.RationalFloatAxpy",
     //"xfp.jmh.polynomial.BigFloat0Axpy",
     //"xfp.java.polynomial.DoubleAxpy",
     //"xfp.java.polynomial.EFloatAxpy",

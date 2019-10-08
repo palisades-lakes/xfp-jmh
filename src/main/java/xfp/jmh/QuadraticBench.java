@@ -46,8 +46,8 @@ public class QuadraticBench {
   double[] truth;
 
   @Param({
+    "xfp.java.polynomial.RationalFloatQuadratic",
     "xfp.java.polynomial.BigFloatQuadratic",
-    "xfp.jmh.polynomial.RationalFloatQuadratic",
     //"xfp.jmh.polynomial.BigFloat0Quadratic",
     //"xfp.java.polynomial.DoubleQuadratic",
     //"xfp.java.polynomial.EFloatQuadratic",

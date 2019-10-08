@@ -46,8 +46,8 @@ public class CubicBench {
   double[] truth;
 
   @Param({
+    "xfp.java.polynomial.RationalFloatCubic",
     "xfp.java.polynomial.BigFloatCubic",
-    "xfp.jmh.polynomial.RationalFloatCubic",
     //"xfp.jmh.polynomial.BigFloat0Cubic",
     //"xfp.java.polynomial.DoubleCubic",
     //"xfp.java.polynomial.EFloatCubic",
