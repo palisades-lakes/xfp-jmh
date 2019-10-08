@@ -33,11 +33,11 @@ public class AxpyBench {
   //--------------------------------------------------------------
 
   //@Param({"exponential",})
-  @Param({"finite",})
+  //@Param({"finite",})
   //@Param({"gaussian",})
   //@Param({"laplace",})
   //@Param({"uniform",})
-  //@Param({"exponential","finite","gaussian","laplace","uniform",})
+  @Param({"exponential","finite","gaussian","laplace","uniform",})
   String generator;
   Generator gen;
 
@@ -49,7 +49,7 @@ public class AxpyBench {
     "xfp.java.polynomial.BigFloatAxpy",
     "xfp.jmh.polynomial.RationalFloatAxpy",
     //"xfp.jmh.polynomial.BigFloat0Axpy",
-    "xfp.java.polynomial.DoubleAxpy",
+    //"xfp.java.polynomial.DoubleAxpy",
     //"xfp.java.polynomial.EFloatAxpy",
   })
   String axpyName;
@@ -62,9 +62,9 @@ public class AxpyBench {
     //"8388609",
     //"4194303",
     //"2097153",
-    "1048575",
+    //"1048575",
     //"524289",
-    //"131071",
+    "131071",
   })
   int dim;
 
