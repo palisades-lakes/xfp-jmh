@@ -41,8 +41,8 @@ public abstract class Base {
   //@Param({"finite",})
   //@Param({"gaussian",})
   //@Param({"laplace",})
-  //@Param({"uniform",})
-  @Param({"exponential","finite","gaussian","laplace","uniform",})
+  @Param({"uniform",})
+  //@Param({"exponential","finite","gaussian","laplace","uniform",})
   //@Param({"exponential","laplace","uniform",})
   String generator;
   Generator gen;
@@ -55,7 +55,7 @@ public abstract class Base {
     //"xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.KahanAccumulator0",
     "xfp.java.accumulators.RationalFloatAccumulator",
-    "xfp.java.accumulators.BigFloatAccumulator",
+    //"xfp.java.accumulators.BigFloatAccumulator",
     //"xfp.jmh.accumulators.BigFloatAccumulator0",
     //"xfp.java.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator",
