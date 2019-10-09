@@ -34,8 +34,8 @@ public class MonomialBench {
 
   //@Param({"exponential",})
   //@Param({"finite",})
-  //@Param({"gaussian",})
-  @Param({"laplace",})
+  @Param({"gaussian",})
+  //@Param({"laplace",})
   //@Param({"uniform",})
   //@Param({"exponential","finite","gaussian","laplace","uniform",})
   String agenerator;
@@ -51,11 +51,11 @@ public class MonomialBench {
   double[] a;
 
   @Param({
-    //"xfp.java.polynomial.MonomialDouble",
+    "xfp.java.polynomial.MonomialDouble",
     "xfp.java.polynomial.MonomialDoubleBF",
     "xfp.java.polynomial.MonomialBigFloat",
-    //"xfp.java.polynomial.MonomialDoubleRF",
-    //"xfp.java.polynomial.MonomialRationalFloat",
+    "xfp.java.polynomial.MonomialDoubleRF",
+    "xfp.java.polynomial.MonomialRationalFloat",
     })
   String cName;
   Polynomial c;
@@ -78,8 +78,8 @@ public class MonomialBench {
     //"2097153",
     //"1048575",
     //"524289",
-    //"131071",
-    "32767",
+    "131071",
+    //"32767",
   })
   int dim;
 

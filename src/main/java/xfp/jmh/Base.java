@@ -22,7 +22,7 @@ import xfp.java.test.Common;
  * java -cp target\benchmarks.jar xfp.jmh.Base
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-09-29
+ * @version 2019-10-08
  */
 
 @SuppressWarnings("unchecked")
@@ -43,7 +43,7 @@ public abstract class Base {
   //@Param({"laplace",})
   //@Param({"uniform",})
   @Param({"exponential","finite","gaussian","laplace","uniform",})
-  //@Param({"exponential","finite","laplace","uniform",})
+  //@Param({"exponential","laplace","uniform",})
   String generator;
   Generator gen;
 
@@ -54,9 +54,10 @@ public abstract class Base {
   @Param({
     //"xfp.java.accumulators.DoubleAccumulator",
     //"xfp.java.accumulators.KahanAccumulator0",
+    "xfp.java.accumulators.RationalFloatAccumulator",
     "xfp.java.accumulators.BigFloatAccumulator",
     //"xfp.jmh.accumulators.BigFloatAccumulator0",
-    "xfp.java.accumulators.KahanAccumulator",
+    //"xfp.java.accumulators.KahanAccumulator",
     //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.java.accumulators.DistilledAccumulator",
     //"xfp.java.accumulators.ZhuHayesAccumulator",
