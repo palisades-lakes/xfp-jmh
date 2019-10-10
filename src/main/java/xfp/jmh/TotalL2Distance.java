@@ -3,10 +3,10 @@ package xfp.jmh;
 import xfp.java.accumulators.Accumulator;
 
 /** <pre>
- * java -cp target\benchmarks.jar xfp.jmh.TotalL2Distance
+ * j xfp.jmh.TotalL2Distance
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-07-30
+ * @version 2019-10-10
  */
 
 public class TotalL2Distance extends Base {

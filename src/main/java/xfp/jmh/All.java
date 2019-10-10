@@ -4,7 +4,7 @@ package xfp.jmh;
  * j xfp.jmh.All
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-09-10
+ * @version 2019-10-10
  */
 
 public final class All {

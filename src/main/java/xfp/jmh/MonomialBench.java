@@ -23,7 +23,7 @@ import xfp.java.test.Common;
  * </pre>
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-10-08
+ * @version 2019-10-09
  */
 
 @SuppressWarnings("unchecked")
@@ -34,9 +34,9 @@ public class MonomialBench {
 
   //@Param({"exponential",})
   //@Param({"finite",})
-  @Param({"gaussian",})
+  //@Param({"gaussian",})
   //@Param({"laplace",})
-  //@Param({"uniform",})
+  @Param({"uniform",})
   //@Param({"exponential","finite","gaussian","laplace","uniform",})
   String agenerator;
   Generator agen;
