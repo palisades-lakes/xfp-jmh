@@ -23,7 +23,7 @@ import xfp.java.test.Common;
  * </pre>
  * 
  * @author palisades dot lakes at gmail dot com
- * @version 2019-10-10
+ * @version 2019-10-11
  */
 
 @SuppressWarnings("unchecked")
@@ -51,11 +51,11 @@ public class MonomialBench {
   double[] a;
 
   @Param({
+    "xfp.java.polynomial.MonomialRationalFloat",
+    "xfp.java.polynomial.MonomialBigFloat",
     //"xfp.java.polynomial.MonomialDouble",
     //"xfp.java.polynomial.MonomialDoubleBF",
-    "xfp.java.polynomial.MonomialBigFloat",
     //"xfp.java.polynomial.MonomialDoubleRF",
-    "xfp.java.polynomial.MonomialRationalFloat",
     })
   String cName;
   Polynomial c;

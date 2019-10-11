@@ -18,11 +18,8 @@ import xfp.java.test.Common;
 
 /** Benchmark operations on <code>double[]</code>.
  *
- * <pre>
- * java -cp target\benchmarks.jar xfp.jmh.Base
- * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-10-08
+ * @version 2019-10-10
  */
 
 @SuppressWarnings("unchecked")
