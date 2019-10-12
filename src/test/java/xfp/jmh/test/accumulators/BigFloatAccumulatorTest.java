@@ -5,7 +5,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import xfp.java.test.Common;
-import xfp.jmh.accumulators.ERationalAccumulator;
+import xfp.java.accumulators.ERationalAccumulator;
 
 //----------------------------------------------------------------
 /** Test summation algorithms.
@@ -15,7 +15,7 @@ import xfp.jmh.accumulators.ERationalAccumulator;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-20
+ * @version 2019-10-12
  */
 
 public final class BigFloatAccumulatorTest {

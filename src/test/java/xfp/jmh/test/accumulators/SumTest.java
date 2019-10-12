@@ -4,7 +4,7 @@ import static xfp.jmh.test.accumulators.Shared.accumulators;
 
 import org.junit.jupiter.api.Test;
 
-import xfp.jmh.accumulators.EFloatAccumulator;
+import xfp.java.accumulators.EFloatAccumulator;
 import xfp.java.test.Common;
 
 //----------------------------------------------------------------
@@ -15,7 +15,7 @@ import xfp.java.test.Common;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-07-22
+ * @version 2019-10-12
  */
 
 public final class SumTest {

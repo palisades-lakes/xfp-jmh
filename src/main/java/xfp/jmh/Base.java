@@ -58,7 +58,6 @@ public abstract class Base {
     //"xfp.java.accumulators.RationalFloatAccumulator",
     //"xfp.java.accumulators.DistilledAccumulator",
     //"xfp.java.accumulators.ZhuHayesAccumulator",
-    //"xfp.java.accumulators.RationalAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCBranch",
     //"xfp.jmh.accumulators.ZhuHayesBranch",

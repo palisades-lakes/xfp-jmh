@@ -10,10 +10,11 @@ import com.upokecenter.numbers.EFloat;
 import com.upokecenter.numbers.ERational;
 
 import xfp.java.numbers.Doubles;
-import xfp.java.numbers.Rational;
+import xfp.java.numbers.RationalFloat;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
-import xfp.jmh.accumulators.EFloatAccumulator;
+import xfp.java.Classes;
+import xfp.java.accumulators.EFloatAccumulator;
 
 //----------------------------------------------------------------
 /** Test number conversions expected to be lossless.
@@ -23,7 +24,7 @@ import xfp.jmh.accumulators.EFloatAccumulator;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-07-01
+ * @version 2019-10-12
  */
 
 public final class RoundtripTests {
@@ -390,17 +391,18 @@ public final class RoundtripTests {
   /** ERational should be able to represent any double exactly.
    */
 
-  private static final boolean double2Rational2Double () {
+  private static final boolean double2RF2Double () {
     final Generator g =
       finiteDoubles();
     //subnormalDoubles();
     for (int i=0;i<TRYS;i++) {
       final double x = g.nextDouble();
-      final Rational f = Rational.valueOf(x);
+      final RationalFloat f = RationalFloat.valueOf(x);
       final double xf = f.doubleValue();
       if (x != xf) {
         System.out.println("\n\n" +
-          "Rational.doubleValue:" + Doubles.isNormal(x) +"\n" +
+          Classes.className(f) +
+          ".doubleValue:" + Doubles.isNormal(x) +"\n" +
           x + "\n" +
           xf + "\n\n" +
           Double.toHexString(x) + "\n" +
@@ -447,7 +449,7 @@ public final class RoundtripTests {
   @Test
   public final void roundTripTest () {
 
-    assertTrue(double2Rational2Double());
+    assertTrue(double2RF2Double());
     assertTrue(double2BigDecimal2Double());
     assertTrue(double2ERational2Double());
     assertTrue(double2EFloat2Double());

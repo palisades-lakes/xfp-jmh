@@ -11,7 +11,7 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 
 import xfp.java.numbers.Doubles;
-import xfp.java.numbers.Rational;
+import xfp.java.numbers.RationalFloat;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
 
@@ -22,7 +22,7 @@ import xfp.java.prng.PRNG;
  * java -ea -jar target\benchmarks.jar TotalSum
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-26
+ * @version 2019-10-02
  */
 @SuppressWarnings("unchecked")
 @State(Scope.Thread)
@@ -43,7 +43,7 @@ public class Roundtrip {
     boolean identical = true;
     for (int i=0;i<TRYS;i++) {
       final double x0 = g.nextDouble();
-      final Rational q = Rational.valueOf(x0);
+      final RationalFloat q = RationalFloat.valueOf(x0);
       final double x1 = q.doubleValue();
       identical = identical && (x1 == x0); }
     assert identical;

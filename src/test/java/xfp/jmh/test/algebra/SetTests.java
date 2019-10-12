@@ -12,7 +12,7 @@ import xfp.java.Classes;
 import xfp.java.algebra.Set;
 import xfp.java.algebra.Sets;
 import xfp.java.numbers.BigDecimals;
-import xfp.java.numbers.Rationals;
+import xfp.java.numbers.RationalFloats;
 import xfp.java.prng.PRNG;
 import xfp.jmh.numbers.BigFractions;
 import xfp.jmh.numbers.ERationals;
@@ -22,7 +22,7 @@ import xfp.jmh.numbers.Ratios;
 /** Common code for testing sets.
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-03-22
+ * @version 2019-10-12
  */
 
 @SuppressWarnings("unchecked")
@@ -64,8 +64,8 @@ public final class SetTests {
 
   @SuppressWarnings({ "static-method" })
   @Test
-  public final void Rationals () {
-    SetTests.tests(Rationals.get()); }
+  public final void RationalFloats () {
+    SetTests.tests(RationalFloats.get()); }
 
   @SuppressWarnings({ "static-method" })
   @Test
