@@ -47,16 +47,16 @@ public class MonomialBench {
     "3",
   })
   int degree;
-  
+
   double[] a;
 
   @Param({
     "xfp.java.polynomial.MonomialRationalFloat",
     "xfp.java.polynomial.MonomialBigFloat",
+    "xfp.java.polynomial.MonomialDoubleBF",
+    "xfp.java.polynomial.MonomialDoubleRF",
     //"xfp.java.polynomial.MonomialDouble",
-    //"xfp.java.polynomial.MonomialDoubleBF",
-    //"xfp.java.polynomial.MonomialDoubleRF",
-    })
+  })
   String cName;
   Polynomial c;
 
