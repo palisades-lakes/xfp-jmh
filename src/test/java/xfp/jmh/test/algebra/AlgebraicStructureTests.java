@@ -13,9 +13,11 @@ import com.google.common.collect.ImmutableMap;
 import xfp.java.algebra.Set;
 import xfp.java.algebra.Structure;
 import xfp.java.prng.PRNG;
+import xfp.jmh.linear.BigDecimalsN;
 import xfp.jmh.linear.BigFractionsN;
 import xfp.jmh.linear.ERationalsN;
 import xfp.jmh.linear.RatiosN;
+import xfp.jmh.numbers.BigDecimals;
 import xfp.jmh.numbers.BigFractions;
 import xfp.jmh.numbers.ERationals;
 import xfp.jmh.numbers.Ratios;
@@ -24,7 +26,7 @@ import xfp.jmh.numbers.Ratios;
 /** Common code for testing sets.
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-20
+ * @version 2019-10-15
  */
 
 @SuppressWarnings("unchecked")
@@ -59,6 +61,10 @@ public final class AlgebraicStructureTests {
     structureTests(ERationals.MULTIPLICATIVE_MAGMA,TRYS);
     structureTests(ERationals.FIELD,TRYS);
 
+    structureTests(BigDecimals.ADDITIVE_MAGMA,TRYS);
+    structureTests(BigDecimals.MULTIPLICATIVE_MAGMA,TRYS);
+    structureTests(BigDecimals.RING,TRYS);
+
     structureTests(BigFractions.ADDITIVE_MAGMA,TRYS);
     structureTests(BigFractions.MULTIPLICATIVE_MAGMA,TRYS);
     structureTests(BigFractions.FIELD,TRYS);
@@ -68,6 +74,9 @@ public final class AlgebraicStructureTests {
     structureTests(Ratios.FIELD,TRYS);
 
     for (final int n : new int[] { 1, 3, 127}) {
+      structureTests(BigDecimalsN.group(n),SPACE_TRYS);
+      structureTests(BigDecimalsN.space(n),SPACE_TRYS);
+
       structureTests(ERationalsN.group(n),SPACE_TRYS);
       structureTests(ERationalsN.space(n),SPACE_TRYS);
 

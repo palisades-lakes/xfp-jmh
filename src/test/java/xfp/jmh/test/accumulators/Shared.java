@@ -16,13 +16,7 @@ public final class Shared {
   public static final List<String> accumulators () {
     return
       List.of(
-        //"xfp.jmh.accumulators.RationalFloat0Accumulator",
-        //"xfp.jmh.accumulators.RationalFloatBIAccumulator",
-        //"xfp.java.accumulators.DoubleAccumulator",
-        //"xfp.java.accumulators.KahanAccumulator"
-        "xfp.java.accumulators.BigFloatAccumulator",
-        //"xfp.java.accumulators.ZhuHayesAccumulator",
-        "xfp.java.accumulators.DistilledAccumulator"
+        "xfp.jmh.accumulators.BigFloat0Accumulator"
         //,
         //"xfp.jmh.accumulators.IFastAccumulator",
         //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
@@ -41,12 +35,7 @@ public final class Shared {
         // "xfp.jmh.accumulators.BigDecimalAccumulator",
         // "xfp.jmh.accumulators.BigFractionAccumulator",
         // "xfp.java.accumulators.DoubleFmaAccumulator",
-        //"xfp.jmh.accumulators.EFloatAccumulator"
-        //,
-        // "xfp.jmh.accumulators.ERationalAccumulator",
         // "xfp.jmh.accumulators.KahanFmaAccumulator",
-        // "xfp.jmh.accumulators.MutableRationalAccumulator",
-        // "xfp.jmh.accumulators.RationalAccumulator"
         // //,
         // // Broken in many ways.
         // // Doesn't overflow to infinity, or accumulate extreme

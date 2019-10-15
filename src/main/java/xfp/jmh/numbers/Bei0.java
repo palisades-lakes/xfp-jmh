@@ -152,67 +152,6 @@ public final class Bei0 {
     return -compare(m1,m0); }
 
   //--------------------------------------------------------------
-  /** Truncated number of whole <code>int</code> words required to
-   * shift up (left) <code>upShift</code> bits.
-   */
-
-  //  private static final int intShift (final int upShift) {
-  //return upShift >>> 5; }
-
-  /** Remaining bits to shift up (left) after
-   */
-
-  //  private static final int remShift (final int upShift) {
-  //return upShift & 0x1f; }
-
-  /** How many <code>int</code> words does it take to hold
-   * the non-zero bits of <code>k</code> shifted up (left)
-   * <code>shift</code> bits.
-   */
-
-  //  private static final int nWords (final long k,
-  //                               final int shift) {
-  //final int hi = hiBit(k) + shift;
-  //if (64 < hi) { return 3; }
-  //if (32 < hi) { return 2; }
-  //return 1; }
-
-  /** The value of <code>k</code> shifted up (left) may require
-   * up to 3 <code>int/code>s to represent. This is the most
-   * significant word.
-   */
-
-  //  private static final long hiPart (final long k,
-  //                                final int shift) {
-  ////assert 64 > shift;
-  //return k >>> (64-shift); }
-
-  // TODO: is it worth complicating the code by computing
-  // mid and low parts with just one shift?
-
-  /** The value of <code>k</code> shifted up (left) may require
-   * up to 3 <code>int/code>s to represent. This is the 2nd most
-   * significant word.
-   */
-
-  //  private static final long midPart (final long k,
-  //                                 final int shift) {
-  ////assert 64 > shift;
-  //final long ks = (k << shift);
-  //return hiWord(ks); }
-
-  /** The value of <code>k</code> shifted up (left) may require
-   * up to 3 <code>int/code>s to represent. This is the least
-   * significant word.
-   */
-
-  //  private static final long loPart (final long k,
-  //                                final int shift) {
-  ////assert 64 > shift;
-  //final long ks = (k << shift);
-  //return loWord(ks); }
-
-  //--------------------------------------------------------------
 
   public static final int compare (final int[] u0,
                                    final long u1,
@@ -275,64 +214,12 @@ public final class Bei0 {
           if (u01<u12) { return -1; }
           if (u01>u12) { return 1; } }
         else {
-          final long u01 = unsigned(u0[i++]);
           final long u12 = Numbers.loWord(us);
-          if (u01<u12) { return -1; }
-          if (u01>u12) { return 1; } } } }
+          if (u00<u12) { return -1; }
+          if (u00>u12) { return 1; } } } }
 
     while (i<n0) { if (0!=u0[i++]) { return 1; } } 
     return 0; }
-
-  //  public static final int compare (final int[] u0,
-  //                                   final long u1,
-  //                                   final int upShift) {
-  //    // TODO: //assert necessary?
-  //    assert (! leadingZero(u0));
-  //    assert 0L<=u1;
-  ////    assert 0<=upShift : "upShift=" + upShift;
-  //
-  //    if (0==upShift) { return compare(u0,u1); }
-  //    if (0L==u1) { return (isZero(u0) ? 0 : 1); }
-  //
-  //    final int m0 = hiBit(u0);
-  //    final int m1 = Numbers.hiBit(u1) + upShift;
-  //    if (m0<m1) { return -1; }
-  //    if (m0>m1) { return 1; }
-  //
-  //    final int bShift = upShift & 0x1f;
-  //
-  //    // compare non-zero words from u<<upShift
-  //    if (0==bShift) {
-  //      final long hi0 = u0[0];
-  //      final long hi1 = Numbers.hiWord(u1);
-  //      if (hi0<hi1) { return -1; }
-  //      if (hi0>hi1) { return 1; }
-  //      final long lo0 = u0[1];
-  //      final long lo1 = Numbers.loWord(u1);
-  //      if (lo0<lo1) { return -1; }
-  //      if (lo0>lo1) { return 1; } }
-  //    else {
-  //      // most significant word in u<<upShift
-  //      final long hi0 = u0[0];
-  //      final long hi1 = (u1>>>(64-bShift));
-  //      if (hi0<hi1) { return -1; }
-  //      if (hi0>hi1) { return 1; }
-  //
-  //      final long us = (u1<<bShift);
-  //      final long mid0 = u0[1];
-  //      final long mid1 = Numbers.hiWord(us);
-  //      if (mid0<mid1) { return -1; }
-  //      if (mid0>mid1) { return 1; }
-  //
-  //      final long lo0 = u0[2];
-  //      final long lo1 = Numbers.loWord(us);
-  //      if (lo0<lo1) { return -1; }
-  //      if (lo0>lo1) { return 1; } }
-  //
-  //    // check this for any non-zero words in zeros of u<<upShift
-  //    for (int i=3;i<u0.length;i--) {
-  //      if (0!=u0[i]) { return 1; } }
-  //    return 0; }
 
   //--------------------------------------------------------------
 
@@ -1590,8 +1477,8 @@ public final class Bei0 {
     final int nt = m.length;
     if (iShift >= nt) { return 0L; }
 
-      final int bShift = (downShift&0x1F);
-    
+    final int bShift = (downShift&0x1F);
+
     final int i = nt-iShift-1;
 
     if (0==bShift) {

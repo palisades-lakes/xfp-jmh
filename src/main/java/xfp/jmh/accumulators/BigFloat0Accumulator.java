@@ -9,8 +9,8 @@ import xfp.jmh.numbers.BigFloat0;
  * @author palisades dot lakes at gmail dot com
  * @version 2019-09-04
  */
-public final class BigFloatAccumulator0
-extends ExactAccumulator<BigFloatAccumulator0> {
+public final class BigFloat0Accumulator
+extends ExactAccumulator<BigFloat0Accumulator> {
 
   private BigFloat0 _sum;
   //--------------------------------------------------------------
@@ -30,73 +30,73 @@ extends ExactAccumulator<BigFloatAccumulator0> {
     return _sum.floatValue(); }
 
   @Override
-  public final BigFloatAccumulator0 clear () {
+  public final BigFloat0Accumulator clear () {
     _sum = BigFloat0.ZERO;
     return this; }
 
   @Override
-  public final BigFloatAccumulator0 add (final double z) {
+  public final BigFloat0Accumulator add (final double z) {
     _sum = _sum.add(z);
     return this; }
 
   @Override
-  public final BigFloatAccumulator0 addAll (final double[] z) {
+  public final BigFloat0Accumulator addAll (final double[] z) {
     _sum = _sum.addAll(z); 
     return this; }
 
   @Override
-  public final BigFloatAccumulator0 addAbs (final double z) {
+  public final BigFloat0Accumulator addAbs (final double z) {
     _sum = _sum.addAbs(z);
     return this; }
 
   @Override
-  public final BigFloatAccumulator0 addAbsAll (final double[] z) {
+  public final BigFloat0Accumulator addAbsAll (final double[] z) {
     _sum = _sum.addAbsAll(z); 
     return this; }
 
   @Override
-  public final BigFloatAccumulator0 add2 (final double z) {
+  public final BigFloat0Accumulator add2 (final double z) {
     _sum = _sum.add2(z);
     return this; }
 
   @Override
-  public final BigFloatAccumulator0 add2All (final double[] z)  {
+  public final BigFloat0Accumulator add2All (final double[] z)  {
     _sum = _sum.add2All(z);
     return this; }
 
   @Override
-  public final BigFloatAccumulator0 addProduct (final double z0,
+  public final BigFloat0Accumulator addProduct (final double z0,
                                                final double z1) {
     _sum = _sum.addProduct(z0,z1);
     return this; }
 
   @Override
-  public final BigFloatAccumulator0 addProducts (final double[] z0,
+  public final BigFloat0Accumulator addProducts (final double[] z0,
                                                 final double[] z1)  {
     _sum = _sum.addProducts(z0,z1); 
     return this; }
 
   @Override
-  public final BigFloatAccumulator0 addL1 (final double z0,
+  public final BigFloat0Accumulator addL1 (final double z0,
                                           final double z1) {
 
     _sum = _sum.addL1(z0,z1);
     return this; }
 
   @Override
-  public final BigFloatAccumulator0 addL1Distance (final double[] z0,
+  public final BigFloat0Accumulator addL1Distance (final double[] z0,
                                                   final double[] z1)  {
     _sum = _sum.addL1Distance(z0,z1); 
     return this; }
 
   @Override
-  public final BigFloatAccumulator0 addL2 (final double z0,
+  public final BigFloat0Accumulator addL2 (final double z0,
                                           final double z1) {
     _sum = _sum.addL2(z0,z1);
     return this; }
 
   @Override
-  public final BigFloatAccumulator0 addL2Distance (final double[] z0,
+  public final BigFloat0Accumulator addL2Distance (final double[] z0,
                                                   final double[] z1)  {
     _sum = _sum.addL2Distance(z0,z1); 
     return this; }
@@ -188,10 +188,10 @@ extends ExactAccumulator<BigFloatAccumulator0> {
   // construction
   //--------------------------------------------------------------
 
-  private BigFloatAccumulator0 () { super(); clear(); }
+  private BigFloat0Accumulator () { super(); clear(); }
 
-  public static final BigFloatAccumulator0 make () {
-    return new BigFloatAccumulator0(); }
+  public static final BigFloat0Accumulator make () {
+    return new BigFloat0Accumulator(); }
 
   //--------------------------------------------------------------
 }

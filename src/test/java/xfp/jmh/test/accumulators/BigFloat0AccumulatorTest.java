@@ -11,19 +11,19 @@ import xfp.java.accumulators.ERationalAccumulator;
 /** Test summation algorithms.
  * <p>
  * <pre>
- * mvn test -Dtest=xfp/java/test/accumulators/BigFloatAccumulatorTest > BigFloatAccumulatorTest.txt
+ * mvn test -Dtest=xfp/java/test/accumulators/BigFloat0AccumulatorTest > BigFloat0AccumulatorTest.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-10-12
+ * @version 2019-10-15
  */
 
-public final class BigFloatAccumulatorTest {
+public final class BigFloat0AccumulatorTest {
 
   //--------------------------------------------------------------
   private static final int DIM = 256;
   private static final List<String> accumulators =
-    List.of("xfp.jmh.accumulators.BigFloatAccumulator0");
+    List.of("xfp.jmh.accumulators.BigFloat0Accumulator");
   @SuppressWarnings("static-method")
   @Test
   public final void tests () {

@@ -3,7 +3,7 @@ package xfp.jmh.scripts;
 import xfp.java.accumulators.Accumulator;
 import xfp.java.prng.Generator;
 import xfp.java.prng.Generators;
-import xfp.jmh.accumulators.BigFloatAccumulator0;
+import xfp.jmh.accumulators.BigFloat0Accumulator;
 
 /** Benchmark partial L1 norms
  *
@@ -24,7 +24,7 @@ public final class PartialL1s {
     final Generator g = Generators.make("gaussian",dim);
     //final Generator g = Generators.make("laplace",dim);
     //final Generator g = Generators.make("uniform",dim);
-    final Accumulator a = BigFloatAccumulator0.make();
+    final Accumulator a = BigFloat0Accumulator.make();
     assert a.isExact();
     for (int i=0;i<trys;i++) {
       final double[] x = (double[]) g.next();
