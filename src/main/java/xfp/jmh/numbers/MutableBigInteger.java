@@ -1859,9 +1859,10 @@ class MutableBigInteger {
 
         // Terminate when non-decreasing.
         if (xk1 >= xk) {
-          return new MutableBigInteger(new int[] {
-                                                  (int)(xk >>> 32), (int)(xk & Numbers.UNSIGNED_MASK)
-          });
+          return new MutableBigInteger(
+            new int[] { (int)(xk >>> 32), 
+                        (int)(xk & Numbers.UNSIGNED_MASK)
+            });
         }
 
         xk = xk1;
