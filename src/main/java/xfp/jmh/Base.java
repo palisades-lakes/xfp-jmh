@@ -55,7 +55,8 @@ public abstract class Base {
     "xfp.java.accumulators.BigFloatAccumulator",
     //"xfp.jmh.accumulators.BigFloat0Accumulator",
     //"xfp.java.accumulators.KahanAccumulator",
-    //"xfp.java.accumulators.RationalFloatAccumulator",
+    //"xfp.test.java.accumulators.EFloatAccumulator",
+    //"xfp.test.java.accumulators.ERationalAccumulator",
     //"xfp.java.accumulators.DistilledAccumulator",
     //"xfp.java.accumulators.ZhuHayesAccumulator",
     //"xfp.jmh.accumulators.ZhuHayesGCAccumulator",
@@ -65,15 +66,13 @@ public abstract class Base {
     //"xfp.jmh.accumulators.BigFractionAccumulator",
     //"xfp.jmh.accumulators.DoubleFmaAccumulator",
     //"xfp.jmh.accumulators.KahanFmaAccumulator",
-    //"xfp.jmh.accumulators.EFloatAccumulator",
-    //"xfp.jmh.accumulators.ERationalAccumulator",
     //"xfp.jmh.accumulators.FloatAccumulator",
     //"xfp.jmh.accumulators.FloatFmaAccumulator",
     //"xfp.jmh.accumulators.RatioAccumulator",
   })
   String accumulator;
   Accumulator acc;
-  
+
   //--------------------------------------------------------------
 
   @Param({
@@ -155,10 +154,10 @@ public abstract class Base {
     return p; }
 
   //--------------------------------------------------------------
-//  /** <pre>
-//   * java -cp target\benchmarks.jar xfp.jmh.Base
-//   * </pre>
-//   */
+  //  /** <pre>
+  //   * java -cp target\benchmarks.jar xfp.jmh.Base
+  //   * </pre>
+  //   */
 
   //  public static void main (final String[] args)
   //    throws RunnerException {

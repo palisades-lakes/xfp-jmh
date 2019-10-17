@@ -13,8 +13,8 @@ import xfp.java.numbers.Doubles;
 import xfp.java.numbers.RationalFloat;
 import xfp.java.prng.Generator;
 import xfp.java.prng.PRNG;
+import xfp.java.test.accumulators.EFloatAccumulator;
 import xfp.java.Classes;
-import xfp.java.accumulators.EFloatAccumulator;
 
 //----------------------------------------------------------------
 /** Test number conversions expected to be lossless.

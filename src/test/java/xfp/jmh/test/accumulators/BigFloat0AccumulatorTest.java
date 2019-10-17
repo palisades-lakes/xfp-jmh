@@ -5,7 +5,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import xfp.java.test.Common;
-import xfp.java.accumulators.ERationalAccumulator;
+import xfp.java.test.accumulators.ERationalAccumulator;
 
 //----------------------------------------------------------------
 /** Test summation algorithms.

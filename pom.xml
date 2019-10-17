@@ -72,7 +72,8 @@
   <!-- Rational.doubleValue() is interesting, but no easy way to go double -> Rational 
    <dependency> <groupId>org.jscience</groupId> <artifactId>jscience</artifactId> <version>${jscience-version}</version> 
    </dependency> -->
-  <!-- BigRational not useful <dependency> <groupId>de.uni-mannheim.rz.krum</groupId> 
+  <!-- BigRational not useful 
+  <dependency> <groupId>de.uni-mannheim.rz.krum</groupId> 
    <artifactId>jas</artifactId> <version>${jas-version}</version> </dependency> -->
   <!-- no easy path double -> Rational double <dependency> <groupId>org.apfloat</groupId> 
    <artifactId>apfloat</artifactId> <version>${apfloat-version}</version> </dependency> -->

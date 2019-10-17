@@ -9,12 +9,12 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.TearDown;
 
 import xfp.java.accumulators.Accumulator;
-import xfp.java.accumulators.EFloatAccumulator;
-import xfp.java.polynomial.MonomialEFloat;
 import xfp.java.polynomial.Polynomial;
 import xfp.java.prng.Generator;
 import xfp.java.prng.Generators;
 import xfp.java.test.Common;
+import xfp.java.test.accumulators.EFloatAccumulator;
+import xfp.java.test.polynomial.MonomialEFloat;
 
 /** Benchmark polynomial implementations.
  *
