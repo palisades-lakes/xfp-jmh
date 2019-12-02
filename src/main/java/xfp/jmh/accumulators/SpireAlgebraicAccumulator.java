@@ -1,20 +1,20 @@
 package xfp.jmh.accumulators;
 
-import spire.math.Rational;
+import spire.math.Algebraic;
 import xfp.java.accumulators.ExactAccumulator;
-import xfp.jmh.numbers.SpireRationals;
+import xfp.jmh.numbers.SpireAlgebraics;
 
-/** Naive sum of <code>double</code> values with Rational
+/** Naive sum of <code>double</code> values with Algebraic
  * accumulator (for testing).
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-11-30
+ * @version 2019-12-01
  */
-public final class SpireRationalAccumulator
+public final class SpireAlgebraicAccumulator
 
-extends ExactAccumulator<SpireRationalAccumulator> {
+extends ExactAccumulator<SpireAlgebraicAccumulator> {
 
-  private Rational _sum;
+  private Algebraic _sum;
 
   //--------------------------------------------------------------
 
@@ -29,43 +29,43 @@ extends ExactAccumulator<SpireRationalAccumulator> {
     return _sum.doubleValue(); }
 
   @Override
-  public final SpireRationalAccumulator clear () {
-    _sum = SpireRationals.ZERO;
+  public final SpireAlgebraicAccumulator clear () {
+    _sum = SpireAlgebraics.ZERO;
     return this; }
 
   @Override
-  public final SpireRationalAccumulator add (final double z) {
+  public final SpireAlgebraicAccumulator add (final double z) {
     //assert Double.isFinite(z);
-    _sum = _sum.$plus(SpireRationals.toRational(z));
+    _sum = _sum.$plus(SpireAlgebraics.toAlgebraic(z));
     return this; }
 
   @Override
-  public final SpireRationalAccumulator add2 (final double z) {
+  public final SpireAlgebraicAccumulator add2 (final double z) {
     //assert Double.isFinite(z);
-    final Rational zz = SpireRationals.toRational(z);
+    final Algebraic zz = SpireAlgebraics.toAlgebraic(z);
     _sum = _sum.$plus(zz.$times(zz));
     return this; }
 
   @Override
-  public final SpireRationalAccumulator addL2 (final double z0,
+  public final SpireAlgebraicAccumulator addL2 (final double z0,
                                                final double z1) {
     //assert Double.isFinite(z0);
     //assert Double.isFinite(z1);
-    final Rational zz0 = SpireRationals.toRational(z0);
-    final Rational zz1 = SpireRationals.toRational(z1);
-    final Rational dz = zz0.$minus(zz1);
-    final Rational dz2 = dz.$times(dz);
+    final Algebraic zz0 = SpireAlgebraics.toAlgebraic(z0);
+    final Algebraic zz1 = SpireAlgebraics.toAlgebraic(z1);
+    final Algebraic dz = zz0.$minus(zz1);
+    final Algebraic dz2 = dz.$times(dz);
     _sum = _sum.$plus(dz2);
     return this; }
 
   @Override
-  public final SpireRationalAccumulator addProduct (final double z0,
+  public final SpireAlgebraicAccumulator addProduct (final double z0,
                                                     final double z1) {
     //assert Double.isFinite(z0);
     //assert Double.isFinite(z1);
     _sum = _sum.$plus(
-      SpireRationals.toRational(z0)
-      .$times(SpireRationals.toRational(z1)));
+      SpireAlgebraics.toAlgebraic(z0)
+      .$times(SpireAlgebraics.toAlgebraic(z1)));
     return this; }
 
   //--------------------------------------------------------------
@@ -79,10 +79,10 @@ extends ExactAccumulator<SpireRationalAccumulator> {
   // construction
   //--------------------------------------------------------------
 
-  private SpireRationalAccumulator () { super(); clear(); }
+  private SpireAlgebraicAccumulator () { super(); clear(); }
 
-  public static final SpireRationalAccumulator make () {
-    return new SpireRationalAccumulator(); }
+  public static final SpireAlgebraicAccumulator make () {
+    return new SpireAlgebraicAccumulator(); }
 
   //--------------------------------------------------------------
 }

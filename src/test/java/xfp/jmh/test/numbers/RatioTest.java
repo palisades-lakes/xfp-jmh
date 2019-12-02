@@ -20,7 +20,7 @@ import xfp.jmh.numbers.Ratios;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-11
+ * @version 2019-12-01
  */
 
 public final class RatioTest {
@@ -54,7 +54,8 @@ public final class RatioTest {
           x -> Numbers.toRatio(Double.valueOf(x)),
           q -> ((Ratio) q).doubleValue(),
           (q0,q1) -> Ratios.abs((Ratio) Numbers.minus(q0,q1)),
-          Object::toString); },
+          Object::toString, 
+          Common::compareTo, Common::compareTo); },
       "Ratio doesn't round correctly");
 
     Assertions.assertThrows(
@@ -65,7 +66,8 @@ public final class RatioTest {
           x -> Numbers.toRatio(Float.valueOf(x)),
           q -> ((Ratio) q).floatValue(),
           (q0,q1) -> Ratios.abs((Ratio) Numbers.minus(q0,q1)),
-          Object::toString); },
+          Object::toString, 
+          Common::compareTo, Common::compareTo); },
       "Ratio doesn't round correctly");
 
   }

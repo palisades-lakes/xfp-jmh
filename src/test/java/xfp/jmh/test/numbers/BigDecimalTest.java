@@ -15,7 +15,7 @@ import xfp.java.test.Common;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-22
+ * @version 2019-12-01
  */
 
 public final class BigDecimalTest {
@@ -29,14 +29,16 @@ public final class BigDecimalTest {
       BigDecimal::valueOf,
       Numbers::doubleValue,
       (q0,q1) -> ((BigDecimal) q0).subtract((BigDecimal) q1).abs(),
-      Object::toString);
+      Object::toString, 
+      Common::compareTo, Common::compareTo);
 
     Common.floatRoundingTests(
       null,
       BigDecimal::valueOf,
       Numbers::floatValue,
       (q0,q1) -> ((BigDecimal) q0).subtract((BigDecimal) q1).abs(),
-      Object::toString);
+      Object::toString, 
+      Common::compareTo, Common::compareTo);
 
   }
 

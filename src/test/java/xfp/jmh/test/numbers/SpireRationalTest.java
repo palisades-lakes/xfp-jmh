@@ -16,7 +16,7 @@ import xfp.jmh.numbers.SpireRationals;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-11-30
+ * @version 2019-12-01
  */
 
 public final class SpireRationalTest {
@@ -33,7 +33,8 @@ public final class SpireRationalTest {
       SpireRationals::toRational,
       q -> ((Rational) q).doubleValue(),
       (q0,q1) -> ((Rational) q0).$minus((Rational) q1).abs(),
-      q -> SpireRationals.toHexString((Rational) q)); },
+      q -> q.toString(), 
+      Common::compareTo, Common::compareTo); },
       "spire.math.Rational doesn't round to double correctly");
 
     Common.floatRoundingTests(
@@ -41,7 +42,8 @@ public final class SpireRationalTest {
       SpireRationals::toRational,
       q -> ((Rational) q).floatValue(),
       (q0,q1) -> ((Rational) q0).$minus((Rational) q1).abs(),
-      q -> SpireRationals.toHexString((Rational) q)); 
+      q -> q.toString(), 
+      Common::compareTo, Common::compareTo); 
 
   }
 

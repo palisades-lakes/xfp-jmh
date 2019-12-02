@@ -13,8 +13,9 @@ import org.apache.commons.rng.sampling.CollectionSampler;
 import org.apache.commons.rng.sampling.distribution.ContinuousSampler;
 import org.apache.commons.rng.sampling.distribution.ContinuousUniformSampler;
 
+import spire.math.Algebraic;
+import spire.math.Algebraic$;
 import spire.math.Rational;
-import spire.math.Rational$;
 import spire.math.SafeLong;
 import spire.math.SafeLong$;
 import spire.math.SafeLongBigInteger;
@@ -28,249 +29,246 @@ import xfp.java.prng.GeneratorBase;
 import xfp.java.prng.Generators;
 
 /** The set of rational numbers represented by
- * <code>Rational</code>
+ * <code>Algebraic</code>
  *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-12-01
  */
 @SuppressWarnings({"unchecked","static-method"})
-public final class SpireRationals implements Set {
+public final class SpireAlgebraics implements Set {
 
   //--------------------------------------------------------------
 
-  public static final Rational toRational (final double x) {
-    return Rational$.MODULE$.apply(x); }
+  public static final Algebraic toAlgebraic (final double x) {
+    return Algebraic$.MODULE$.apply(x); }
 
-  public static final Rational toRational (final float x) {
-    return Rational$.MODULE$.apply(x); }
+  public static final Algebraic toAlgebraic (final float x) {
+    return Algebraic$.MODULE$.apply(x); }
 
-  public static final Rational toRational (final long x) {
-    return Rational$.MODULE$.apply(x); }
+  public static final Algebraic toAlgebraic (final long x) {
+    return Algebraic$.MODULE$.apply(x); }
 
-  public static final Rational toRational (final int x) {
-    return Rational$.MODULE$.apply(x); }
+  public static final Algebraic toAlgebraic (final int x) {
+    return Algebraic$.MODULE$.apply(x); }
 
-  public static final Rational toRational (final short x) {
-    return Rational$.MODULE$.apply(x); }
+  public static final Algebraic toAlgebraic (final short x) {
+    return Algebraic$.MODULE$.apply(x); }
 
-  public static final Rational toRational (final byte x) {
-    return Rational$.MODULE$.apply(x); }
+  public static final Algebraic toAlgebraic (final byte x) {
+    return Algebraic$.MODULE$.apply(x); }
 
-  public static final Rational toRational (final SafeLong x) {
-    return Rational$.MODULE$.apply(x); }
+  public static final Algebraic toAlgebraic (final Rational q) {
+    return Algebraic$.MODULE$.apply(q); }
 
-  public static final Rational toRational (final BigInteger x) {
-    final SafeLong sl = new SafeLongBigInteger(x);
-    return Rational$.MODULE$.apply(sl); }
+  public static final Algebraic toAlgebraic (final SafeLong x) {
+    return toAlgebraic(SpireRationals.toRational(x)); }
 
-  public static final Rational toRational (final SafeLong n, 
-                                           final SafeLong d) {
-    return Rational$.MODULE$.apply(n,d); }
-  
-  public static final Rational toRational (final BigInteger n,
-                                           final BigInteger d) {
-    final SafeLong nsl = new SafeLongBigInteger(n);
-    final SafeLong dsl = new SafeLongBigInteger(d);
-    return toRational(nsl,dsl); }
+  public static final Algebraic toAlgebraic (final BigInteger x) {
+    return toAlgebraic(SpireRationals.toRational(x)); }
 
-  public static final Rational toRational (final Object x) {
-    if (x instanceof Rational) { return (Rational) x; }
-    if (x instanceof SafeLong) { return toRational((SafeLong) x); }
-    if (x instanceof BigInteger) {return toRational((BigInteger) x); }
+  public static final Algebraic toAlgebraic (final SafeLong n, 
+                                             final SafeLong d) {
+    return toAlgebraic(SpireRationals.toRational(n,d)); }
+
+  public static final Algebraic toAlgebraic (final BigInteger n,
+                                             final BigInteger d) {
+    return toAlgebraic(SpireRationals.toRational(n,d)); }
+
+  public static final Algebraic toAlgebraic (final Object x) {
+    if (x instanceof Algebraic) { return (Algebraic) x; }
+    if (x instanceof SafeLong) { return toAlgebraic((SafeLong) x); }
+    if (x instanceof BigInteger) {return toAlgebraic((BigInteger) x); }
     // TODO: too tricky with rounding modes, etc.
-    // if (x instanceof BigDecimal) {return toRational((BigDecimal) x); }
+    // if (x instanceof BigDecimal) {return toAlgebraic((BigDecimal) x); }
     if (x instanceof Double) {
-      return toRational(((Double) x).doubleValue()); }
+      return toAlgebraic(((Double) x).doubleValue()); }
     if (x instanceof Integer) {
-      return toRational(((Integer) x).intValue()); }
+      return toAlgebraic(((Integer) x).intValue()); }
     if (x instanceof Long) {
-      return toRational(((Long) x).longValue()); }
+      return toAlgebraic(((Long) x).longValue()); }
     if (x instanceof Float) {
-      return toRational(((Float) x).floatValue()); }
+      return toAlgebraic(((Float) x).floatValue()); }
     if (x instanceof Short) {
-      return toRational(((Short) x).intValue()); }
+      return toAlgebraic(((Short) x).intValue()); }
     if (x instanceof Byte) {
-      return toRational(((Byte) x).intValue()); }
+      return toAlgebraic(((Byte) x).intValue()); }
     throw Exceptions.unsupportedOperation(
-      SpireRationals.class,"toRational",x); }
+      SpireAlgebraics.class,"toAlgebraic",x); }
 
   //--------------------------------------------------------------
 
-  public static final Rational[] toRationalArray (final Object[] x) {
+  public static final Algebraic[] toAlgebraicArray (final Object[] x) {
     final int n = x.length;
-    final Rational[] y = new Rational[n];
-    for (int i=0;i<n;i++) { y[i] = toRational(x[i]); }
+    final Algebraic[] y = new Algebraic[n];
+    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
     return y; }
 
-  public static final Rational[]
-    toRationalArray (final double[] x) {
+  public static final Algebraic[]
+    toAlgebraicArray (final double[] x) {
     final int n = x.length;
-    final Rational[] y = new Rational[n];
-    for (int i=0;i<n;i++) { y[i] = toRational(x[i]); }
+    final Algebraic[] y = new Algebraic[n];
+    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
     return y; }
 
-  public static final Rational[]
-    toRationalArray (final float[] x) {
+  public static final Algebraic[]
+    toAlgebraicArray (final float[] x) {
     final int n = x.length;
-    final Rational[] y = new Rational[n];
-    for (int i=0;i<n;i++) { y[i] = toRational(x[i]); }
+    final Algebraic[] y = new Algebraic[n];
+    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
     return y; }
 
-  public static final Rational[]
-    toRationalArray (final long[] x) {
+  public static final Algebraic[]
+    toAlgebraicArray (final long[] x) {
     final int n = x.length;
-    final Rational[] y = new Rational[n];
-    for (int i=0;i<n;i++) { y[i] = toRational(x[i]); }
+    final Algebraic[] y = new Algebraic[n];
+    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
     return y; }
 
-  public static final Rational[]
-    toRationalArray (final int[] x) {
+  public static final Algebraic[]
+    toAlgebraicArray (final int[] x) {
     final int n = x.length;
-    final Rational[] y = new Rational[n];
-    for (int i=0;i<n;i++) { y[i] = toRational(x[i]); }
+    final Algebraic[] y = new Algebraic[n];
+    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
     return y; }
 
-  public static final Rational[]
-    toRationalArray (final short[] x) {
+  public static final Algebraic[]
+    toAlgebraicArray (final short[] x) {
     final int n = x.length;
-    final Rational[] y = new Rational[n];
-    for (int i=0;i<n;i++) { y[i] = toRational(x[i]); }
+    final Algebraic[] y = new Algebraic[n];
+    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
     return y; }
 
-  public static final Rational[]
-    toRationalArray (final byte[] x) {
+  public static final Algebraic[]
+    toAlgebraicArray (final byte[] x) {
     final int n = x.length;
-    final Rational[] y = new Rational[n];
-    for (int i=0;i<n;i++) { y[i] = toRational(x[i]); }
+    final Algebraic[] y = new Algebraic[n];
+    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
     return y; }
 
   //--------------------------------------------------------------
 
-  public static final Rational[] toRationalArray (final Object x) {
+  public static final Algebraic[] toAlgebraicArray (final Object x) {
 
-    if (x instanceof Rational[]) { return (Rational[]) x; }
+    if (x instanceof Algebraic[]) { return (Algebraic[]) x; }
 
     if (x instanceof byte[]) {
-      return toRationalArray((byte[]) x); }
+      return toAlgebraicArray((byte[]) x); }
 
     if (x instanceof short[]) {
-      return toRationalArray((short[]) x); }
+      return toAlgebraicArray((short[]) x); }
 
     if (x instanceof int[]) {
-      return toRationalArray((int[]) x); }
+      return toAlgebraicArray((int[]) x); }
 
     if (x instanceof long[]) {
-      return toRationalArray((long[]) x); }
+      return toAlgebraicArray((long[]) x); }
 
     if (x instanceof float[]) {
-      return toRationalArray((float[]) x); }
+      return toAlgebraicArray((float[]) x); }
 
     if (x instanceof double[]) {
-      return toRationalArray((double[]) x); }
+      return toAlgebraicArray((double[]) x); }
 
     if (x instanceof Object[]) {
-      return toRationalArray((Object[]) x); }
+      return toAlgebraicArray((Object[]) x); }
 
     throw Exceptions.unsupportedOperation(
-      SpireRationals.class,"toRationalArray",x); }
+      SpireAlgebraics.class,"toAlgebraicArray",x); }
 
   //--------------------------------------------------------------
-  // from Rational to other numbers
-  //--------------------------------------------------------------
 
-  public static final double doubleValue (final Rational f) {
+  public static final double doubleValue (final Algebraic f) {
     return f.doubleValue(); }
 
-  public static final int intValue (final Rational f) {
+  public static final int intValue (final Algebraic f) {
     return f.intValue(); }
 
-  public static final long longValue (final Rational f) {
+  public static final long longValue (final Algebraic f) {
     return f.longValue(); }
 
-  public static final float floatValue (final Rational f) {
+  public static final float floatValue (final Algebraic f) {
     return f.floatValue(); }
 
   //--------------------------------------------------------------
-  // operations for algebraic structures over Rationals.
+  // operations for algebraic structures over Algebraics.
   //--------------------------------------------------------------
 
   // TODO: is consistency with other algebraic structure classes
   // worth the indirection?
 
-  private final Rational add (final Rational q0,
-                              final Rational q1) {
+  private final Algebraic add (final Algebraic q0,
+                               final Algebraic q1) {
     //assert contains(q0);
     //assert contains(q1);
     return q0.$plus(q1); }
 
-  public final BinaryOperator<Rational> adder () {
+  public final BinaryOperator<Algebraic> adder () {
     return new BinaryOperator<> () {
       @Override
       public final String toString () { return "BF.add()"; }
       @Override
-      public final Rational apply (final Rational q0,
-                                   final Rational q1) {
-        return SpireRationals.this.add(q0,q1); } }; }
+      public final Algebraic apply (final Algebraic q0,
+                                    final Algebraic q1) {
+        return SpireAlgebraics.this.add(q0,q1); } }; }
 
   //--------------------------------------------------------------
 
-  public static final Rational ZERO = Rational$.MODULE$.zero();
+  public static final Algebraic ZERO = Algebraic$.MODULE$.Zero();
 
-  public final Rational additiveIdentity () { return ZERO; }
+  public final Algebraic additiveIdentity () { return ZERO; }
 
   //--------------------------------------------------------------
 
   // TODO: is consistency with other algebraic structure classes
   // worth the indirection?
 
-  private final Rational negate (final Rational q) {
+  private final Algebraic negate (final Algebraic q) {
     //assert contains(q);
     return q.unary_$minus(); }
 
-  public final UnaryOperator<Rational> additiveInverse () {
+  public final UnaryOperator<Algebraic> additiveInverse () {
     return new UnaryOperator<> () {
       @Override
       public final String toString () { return "BF.negate()"; }
       @Override
-      public final Rational apply (final Rational q) {
-        return SpireRationals.this.negate(q); } }; }
+      public final Algebraic apply (final Algebraic q) {
+        return SpireAlgebraics.this.negate(q); } }; }
 
   //--------------------------------------------------------------
 
-  private final Rational multiply (final Rational q0,
-                                   final Rational q1) {
+  private final Algebraic multiply (final Algebraic q0,
+                                    final Algebraic q1) {
     //assert contains(q0);
     //assert contains(q1);
     return q0.$times(q1); }
 
-  public final BinaryOperator<Rational> multiplier () {
+  public final BinaryOperator<Algebraic> multiplier () {
     return new BinaryOperator<>() {
       @Override
       public final String toString () { return "BF.multiply()"; }
       @Override
-      public final Rational apply (final Rational q0,
-                                   final Rational q1) {
-        return SpireRationals.this.multiply(q0,q1); } }; }
+      public final Algebraic apply (final Algebraic q0,
+                                    final Algebraic q1) {
+        return SpireAlgebraics.this.multiply(q0,q1); } }; }
 
   //--------------------------------------------------------------
 
-  private static final Rational ONE = Rational$.MODULE$.one();
+  private static final Algebraic ONE = Algebraic$.MODULE$.One();
 
-  public final Rational multiplicativeIdentity () { return ONE; }
+  public final Algebraic multiplicativeIdentity () { return ONE; }
 
   //--------------------------------------------------------------
 
-  public static final Rational reciprocal (final Rational q) {
-    // only a partial inverse
-    return q.inverse(); }
+  public static final Algebraic reciprocal (final Algebraic q) {
+    return ONE.$div(q); }
 
-  public final UnaryOperator<Rational> multiplicativeInverse () {
+  public final UnaryOperator<Algebraic> multiplicativeInverse () {
     return new UnaryOperator<> () {
       @Override
       public final String toString () { return "BF.inverse()"; }
       @Override
-      public final Rational apply (final Rational q) {
-        return q.inverse(); } }; }
+      public final Algebraic apply (final Algebraic q) {
+        return SpireAlgebraics.reciprocal(q); } }; }
 
   //--------------------------------------------------------------
   // Set methods
@@ -278,20 +276,20 @@ public final class SpireRationals implements Set {
 
   @Override
   public final boolean contains (final Object element) {
-    return element instanceof Rational; }
+    return element instanceof Algebraic; }
 
   //--------------------------------------------------------------
 
-  public final boolean equals (final Rational q0,
-                               final Rational q1) {
+  public final boolean equals (final Algebraic q0,
+                               final Algebraic q1) {
     return q0.equals(q1); }
 
   @Override
   public final BiPredicate equivalence () {
-    return new BiPredicate<Rational,Rational>() {
+    return new BiPredicate<Algebraic,Algebraic>() {
       @Override
-      public final boolean test (final Rational q0,
-                                 final Rational q1) {
+      public final boolean test (final Algebraic q0,
+                                 final Algebraic q1) {
         return q0.equals(q1); } }; }
 
   //--------------------------------------------------------------
@@ -300,7 +298,8 @@ public final class SpireRationals implements Set {
   public final Supplier generator (final Map options) {
     final UniformRandomProvider urp = Set.urp(options);
     final Generator g =
-      SpireRationals.rationalFromSafeLongGenerator(urp);
+      SpireAlgebraics.rationalFromSafeLongGenerator(urp);
+    //    Generators.rationalFromDoubleGenerator(urp);
     return
       new Supplier () {
       @Override
@@ -316,15 +315,23 @@ public final class SpireRationals implements Set {
   // singleton
   @Override
   public final boolean equals (final Object that) {
-    return that instanceof SpireRationals; }
+    return that instanceof SpireAlgebraics; }
 
   @Override
   public final String toString () { return "BF"; }
 
   //--------------------------------------------------------------
-  // construction
+  // ordering
   //--------------------------------------------------------------
 
+  public static final int compareTo (final Object x,
+                                     final Object y) {
+    return ((Algebraic) x).compare((Algebraic) y); }
+
+  //--------------------------------------------------------------
+  // construction
+  //--------------------------------------------------------------
+  // TODO: generate irrational numbers
 
   public static final Generator
   rationalFromEintegerGenerator (final int n,
@@ -333,8 +340,8 @@ public final class SpireRationals implements Set {
       final Generator g = rationalFromSafeLongGenerator(urp);
       @Override
       public final Object next () {
-        final Rational[] z = new Rational[n];
-        for (int i=0;i<n;i++) { z[i] = (Rational) g.next(); }
+        final Algebraic[] z = new Algebraic[n];
+        for (int i=0;i<n;i++) { z[i] = (Algebraic) g.next(); }
         return z; } }; }
 
   public static final Generator
@@ -358,7 +365,7 @@ public final class SpireRationals implements Set {
         if (edge) { return edgeCases.sample(); }
         final SafeLong n = (SafeLong) gn.next();
         final SafeLong d = (SafeLong) gd.next();
-        final Rational f = toRational(n,d);
+        final Algebraic f = toAlgebraic(n,d);
         return f; } }; }
 
   public static final Generator
@@ -368,16 +375,16 @@ public final class SpireRationals implements Set {
       final Generator g = rationalFromDoubleGenerator(urp);
       @Override
       public final Object next () {
-        final Rational[] z = new Rational[n];
-        for (int i=0;i<n;i++) { z[i] = (Rational) g.next(); }
+        final Algebraic[] z = new Algebraic[n];
+        for (int i=0;i<n;i++) { z[i] = (Algebraic) g.next(); }
         return z; } }; }
 
   /** Intended primarily for testing. Sample a random double
    * (see {@link xfp.java.prng.DoubleSampler})
-   * and convert to <code>Rational</code>
+   * and convert to <code>Algebraic</code>
    * with {@link #DOUBLE_P} probability;
-   * otherwise return {@link Rational#ZERO} or
-   * {@link Rational#ONE}, {@link Rational#MINUS_ONE},
+   * otherwise return {@link Algebraic#ZERO} or
+   * {@link Algebraic#ONE}, {@link Algebraic#MINUS_ONE},
    * with equal probability (these are potential edge cases).
    */
 
@@ -399,7 +406,7 @@ public final class SpireRationals implements Set {
       public Object next () {
         final boolean edge = choose.sample() > dp;
         if (edge) { return edgeCases.sample(); }
-        return toRational(fdg.nextDouble()); } }; }
+        return toAlgebraic(fdg.nextDouble()); } }; }
 
   public static final Generator
   nonzeroSafeLongGenerator (final int n,
@@ -476,11 +483,11 @@ public final class SpireRationals implements Set {
         final SafeLong e = new SafeLongBigInteger(bi);
         return e; } }; }
 
-  private SpireRationals () { }
+  private SpireAlgebraics () { }
 
-  private static final SpireRationals SINGLETON = new SpireRationals();
+  private static final SpireAlgebraics SINGLETON = new SpireAlgebraics();
 
-  public static final SpireRationals get () { return SINGLETON; }
+  public static final SpireAlgebraics get () { return SINGLETON; }
 
   //--------------------------------------------------------------
 

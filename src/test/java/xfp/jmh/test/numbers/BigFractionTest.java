@@ -22,7 +22,7 @@ import xfp.java.test.Common;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-05-11
+ * @version 2019-12-01
  */
 
 public final class BigFractionTest {
@@ -43,7 +43,8 @@ public final class BigFractionTest {
           x -> new BigFraction(x),
           Numbers::doubleValue,
           (q0,q1) -> ((BigFraction) q0).subtract((BigFraction) q1).abs(),
-          Object::toString); },
+          Object::toString, 
+          Common::compareTo, Common::compareTo); },
       "BigFraction doesn't round correctly");
 
     Assertions.assertThrows(
@@ -54,7 +55,8 @@ public final class BigFractionTest {
           x -> new BigFraction(x),
           Numbers::floatValue,
           (q0,q1) -> ((BigFraction) q0).subtract((BigFraction) q1).abs(),
-          Object::toString); },
+          Object::toString, 
+          Common::compareTo, Common::compareTo); },
       "BigFraction doesn't round correctly");
 
   }

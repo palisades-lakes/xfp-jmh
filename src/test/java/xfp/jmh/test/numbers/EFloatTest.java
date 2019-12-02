@@ -14,7 +14,7 @@ import xfp.java.test.Common;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-22
+ * @version 2019-12-01
  */
 
 public final class EFloatTest {
@@ -28,14 +28,16 @@ public final class EFloatTest {
       EFloat::FromDouble,
       q -> ((EFloat) q).ToDouble(),
       (q0,q1) -> ((EFloat) q0).Subtract((EFloat) q1).Abs(),
-      Object::toString);
+      Object::toString, 
+      Common::compareTo, Common::compareTo);
 
     Common.floatRoundingTests(
       null,
       EFloat::FromSingle,
       q -> ((EFloat) q).ToSingle(),
       (q0,q1) -> ((EFloat) q0).Subtract((EFloat) q1).Abs(),
-      Object::toString);
+      Object::toString, 
+      Common::compareTo, Common::compareTo);
 
   }
   //--------------------------------------------------------------
