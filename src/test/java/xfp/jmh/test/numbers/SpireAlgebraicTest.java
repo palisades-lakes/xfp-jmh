@@ -9,14 +9,14 @@ import xfp.java.test.Common;
 import xfp.jmh.numbers.SpireAlgebraics;
 
 //----------------------------------------------------------------
-/** Test desired properties of ERational.
+/** Test desired properties of <code>spire.math.Algebraic</code>.
  * <p>
  * <pre>
  * mvn -c clean -Dtest=xfp/jmh/test/numbers/SpireAlgebraicTest test > SpireAlgebraicTest.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-12-01
+ * @version 2019-12-02
  */
 
 public final class SpireAlgebraicTest {

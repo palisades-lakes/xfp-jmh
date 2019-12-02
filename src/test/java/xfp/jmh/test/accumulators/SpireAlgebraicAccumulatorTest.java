@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 
 import xfp.java.test.Common;
-import xfp.java.test.accumulators.ERationalAccumulator;
+import xfp.java.test.accumulators.EFloatAccumulator;
 
 //----------------------------------------------------------------
 /** Test summation algorithms.
@@ -17,7 +17,7 @@ import xfp.java.test.accumulators.ERationalAccumulator;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-12-01
+ * @version 2019-12-02
  */
 
 public final class SpireAlgebraicAccumulatorTest {
@@ -36,7 +36,7 @@ public final class SpireAlgebraicAccumulatorTest {
         Common.sumTests(
           Common.generators(DIM),
           Common.makeAccumulators(accumulators),
-          ERationalAccumulator.make()); 
+          EFloatAccumulator.make()); 
       },
       "fails because spire.math.Algebraic doesn't round to double correctly");
 
@@ -46,7 +46,7 @@ public final class SpireAlgebraicAccumulatorTest {
         Common.l2Tests(
           Common.generators(DIM),
           Common.makeAccumulators(accumulators),
-          ERationalAccumulator.make()); 
+          EFloatAccumulator.make()); 
       },
       "fails, reason unknown yet");
 
@@ -56,7 +56,7 @@ public final class SpireAlgebraicAccumulatorTest {
         Common.dotTests(
           Common.generators(DIM),
           Common.makeAccumulators(accumulators),
-          ERationalAccumulator.make()); 
+          EFloatAccumulator.make()); 
       },
       "fails, reason unknown yet");
   }

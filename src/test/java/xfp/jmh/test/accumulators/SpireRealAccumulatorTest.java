@@ -13,49 +13,54 @@ import xfp.java.test.accumulators.EFloatAccumulator;
 /** Test summation algorithms.
  * <p>
  * <pre>
- * mvn test -Dtest=xfp/java/test/accumulators/SpireRationalAccumulatorTest > SpireRationalAccumulatorTest.txt
+ * mvn test -Dtest=xfp/jmh/test/accumulators/SpireRealAccumulatorTest > SpireRealAccumulatorTest.txt
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-12-02
  */
 
-public final class SpireRationalAccumulatorTest {
+public final class SpireRealAccumulatorTest {
 
   //--------------------------------------------------------------
   private static final int DIM = 256;
   private static final List<String> accumulators =
-    List.of("xfp.jmh.accumulators.SpireRationalAccumulator");
+    List.of("xfp.jmh.accumulators.SpireRealAccumulator");
 
   @SuppressWarnings("static-method")
   @Test
   public final void tests () {
-    //Debug.DEBUG=false;
-    //Debug.println();
-    //Debug.println(Classes.className(this));
+
     Assertions.assertThrows(
       AssertionFailedError.class,
       () -> {
         Common.sumTests(
           Common.generators(DIM),
           Common.makeAccumulators(accumulators),
-          EFloatAccumulator.make()); },
-      "fails because spire.math.Rational doesn't round to double correctly");
+          EFloatAccumulator.make()); 
+      },
+      "fails because spire.math.Real doesn't round to double correctly");
 
     Assertions.assertThrows(
       AssertionFailedError.class,
       () -> {
-    Common.l2Tests(
-      Common.generators(DIM),
-      Common.makeAccumulators(accumulators),
-      EFloatAccumulator.make()); },
+        Common.l2Tests(
+          Common.generators(DIM),
+          Common.makeAccumulators(accumulators),
+          EFloatAccumulator.make()); 
+      },
       "fails, reason unknown yet");
 
-    Common.dotTests(
-      Common.generators(DIM),
-      Common.makeAccumulators(accumulators),
-      EFloatAccumulator.make()); }
-
+//    Assertions.assertThrows(
+//      AssertionFailedError.class,
+//      () -> {
+        Common.dotTests(
+          Common.generators(DIM),
+          Common.makeAccumulators(accumulators),
+          EFloatAccumulator.make()); 
+//      },
+//      "fails, reason unknown yet");
+  }
   //--------------------------------------------------------------
 }
 //--------------------------------------------------------------

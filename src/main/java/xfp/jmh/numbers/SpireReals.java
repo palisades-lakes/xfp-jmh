@@ -13,8 +13,8 @@ import org.apache.commons.rng.sampling.CollectionSampler;
 import org.apache.commons.rng.sampling.distribution.ContinuousSampler;
 import org.apache.commons.rng.sampling.distribution.ContinuousUniformSampler;
 
-import spire.math.Algebraic;
-import spire.math.Algebraic$;
+import spire.math.Real;
+import spire.math.Real$;
 import spire.math.Rational;
 import spire.math.SafeLong;
 import spire.math.SafeLong$;
@@ -28,247 +28,247 @@ import xfp.java.prng.Generator;
 import xfp.java.prng.GeneratorBase;
 import xfp.java.prng.Generators;
 
-/** The set of algebraic numbers, represented by
- * <code>spire.math.Algebraic</code> instances.
+/** The set of computable real numbers, represented by
+ * <code>spire.math.Real</code>
  *
  * @author palisades dot lakes at gmail dot com
  * @version 2019-12-02
  */
 @SuppressWarnings({"unchecked","static-method"})
-public final class SpireAlgebraics implements Set {
+public final class SpireReals implements Set {
 
   //--------------------------------------------------------------
 
-  public static final Algebraic toAlgebraic (final double x) {
-    return Algebraic$.MODULE$.apply(x); }
+  public static final Real toReal (final double x) {
+    return Real$.MODULE$.apply(x); }
 
-  public static final Algebraic toAlgebraic (final float x) {
-    return Algebraic$.MODULE$.apply(x); }
+  public static final Real toReal (final float x) {
+    return Real$.MODULE$.apply(x); }
 
-  public static final Algebraic toAlgebraic (final long x) {
-    return Algebraic$.MODULE$.apply(x); }
+  public static final Real toReal (final long x) {
+    return Real$.MODULE$.apply(x); }
 
-  public static final Algebraic toAlgebraic (final int x) {
-    return Algebraic$.MODULE$.apply(x); }
+  public static final Real toReal (final int x) {
+    return Real$.MODULE$.apply(x); }
 
-  public static final Algebraic toAlgebraic (final short x) {
-    return Algebraic$.MODULE$.apply(x); }
+  public static final Real toReal (final short x) {
+    return Real$.MODULE$.apply(x); }
 
-  public static final Algebraic toAlgebraic (final byte x) {
-    return Algebraic$.MODULE$.apply(x); }
+  public static final Real toReal (final byte x) {
+    return Real$.MODULE$.apply(x); }
 
-  public static final Algebraic toAlgebraic (final Rational q) {
-    return Algebraic$.MODULE$.apply(q); }
+  public static final Real toReal (final Rational q) {
+    return Real$.MODULE$.apply(q); }
 
-  public static final Algebraic toAlgebraic (final SafeLong x) {
-    return toAlgebraic(SpireRationals.toRational(x)); }
+  public static final Real toReal (final SafeLong x) {
+    return toReal(SpireRationals.toRational(x)); }
 
-  public static final Algebraic toAlgebraic (final BigInteger x) {
-    return toAlgebraic(SpireRationals.toRational(x)); }
+  public static final Real toReal (final BigInteger x) {
+    return toReal(SpireRationals.toRational(x)); }
 
-  public static final Algebraic toAlgebraic (final SafeLong n, 
+  public static final Real toReal (final SafeLong n, 
                                              final SafeLong d) {
-    return toAlgebraic(SpireRationals.toRational(n,d)); }
+    return toReal(SpireRationals.toRational(n,d)); }
 
-  public static final Algebraic toAlgebraic (final BigInteger n,
+  public static final Real toReal (final BigInteger n,
                                              final BigInteger d) {
-    return toAlgebraic(SpireRationals.toRational(n,d)); }
+    return toReal(SpireRationals.toRational(n,d)); }
 
-  public static final Algebraic toAlgebraic (final Object x) {
-    if (x instanceof Algebraic) { return (Algebraic) x; }
-    if (x instanceof SafeLong) { return toAlgebraic((SafeLong) x); }
-    if (x instanceof BigInteger) {return toAlgebraic((BigInteger) x); }
+  public static final Real toReal (final Object x) {
+    if (x instanceof Real) { return (Real) x; }
+    if (x instanceof SafeLong) { return toReal((SafeLong) x); }
+    if (x instanceof BigInteger) {return toReal((BigInteger) x); }
     // TODO: too tricky with rounding modes, etc.
-    // if (x instanceof BigDecimal) {return toAlgebraic((BigDecimal) x); }
+    // if (x instanceof BigDecimal) {return toReal((BigDecimal) x); }
     if (x instanceof Double) {
-      return toAlgebraic(((Double) x).doubleValue()); }
+      return toReal(((Double) x).doubleValue()); }
     if (x instanceof Integer) {
-      return toAlgebraic(((Integer) x).intValue()); }
+      return toReal(((Integer) x).intValue()); }
     if (x instanceof Long) {
-      return toAlgebraic(((Long) x).longValue()); }
+      return toReal(((Long) x).longValue()); }
     if (x instanceof Float) {
-      return toAlgebraic(((Float) x).floatValue()); }
+      return toReal(((Float) x).floatValue()); }
     if (x instanceof Short) {
-      return toAlgebraic(((Short) x).intValue()); }
+      return toReal(((Short) x).intValue()); }
     if (x instanceof Byte) {
-      return toAlgebraic(((Byte) x).intValue()); }
+      return toReal(((Byte) x).intValue()); }
     throw Exceptions.unsupportedOperation(
-      SpireAlgebraics.class,"toAlgebraic",x); }
+      SpireReals.class,"toReal",x); }
 
   //--------------------------------------------------------------
 
-  public static final Algebraic[] toAlgebraicArray (final Object[] x) {
+  public static final Real[] toRealArray (final Object[] x) {
     final int n = x.length;
-    final Algebraic[] y = new Algebraic[n];
-    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
+    final Real[] y = new Real[n];
+    for (int i=0;i<n;i++) { y[i] = toReal(x[i]); }
     return y; }
 
-  public static final Algebraic[]
-    toAlgebraicArray (final double[] x) {
+  public static final Real[]
+    toRealArray (final double[] x) {
     final int n = x.length;
-    final Algebraic[] y = new Algebraic[n];
-    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
+    final Real[] y = new Real[n];
+    for (int i=0;i<n;i++) { y[i] = toReal(x[i]); }
     return y; }
 
-  public static final Algebraic[]
-    toAlgebraicArray (final float[] x) {
+  public static final Real[]
+    toRealArray (final float[] x) {
     final int n = x.length;
-    final Algebraic[] y = new Algebraic[n];
-    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
+    final Real[] y = new Real[n];
+    for (int i=0;i<n;i++) { y[i] = toReal(x[i]); }
     return y; }
 
-  public static final Algebraic[]
-    toAlgebraicArray (final long[] x) {
+  public static final Real[]
+    toRealArray (final long[] x) {
     final int n = x.length;
-    final Algebraic[] y = new Algebraic[n];
-    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
+    final Real[] y = new Real[n];
+    for (int i=0;i<n;i++) { y[i] = toReal(x[i]); }
     return y; }
 
-  public static final Algebraic[]
-    toAlgebraicArray (final int[] x) {
+  public static final Real[]
+    toRealArray (final int[] x) {
     final int n = x.length;
-    final Algebraic[] y = new Algebraic[n];
-    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
+    final Real[] y = new Real[n];
+    for (int i=0;i<n;i++) { y[i] = toReal(x[i]); }
     return y; }
 
-  public static final Algebraic[]
-    toAlgebraicArray (final short[] x) {
+  public static final Real[]
+    toRealArray (final short[] x) {
     final int n = x.length;
-    final Algebraic[] y = new Algebraic[n];
-    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
+    final Real[] y = new Real[n];
+    for (int i=0;i<n;i++) { y[i] = toReal(x[i]); }
     return y; }
 
-  public static final Algebraic[]
-    toAlgebraicArray (final byte[] x) {
+  public static final Real[]
+    toRealArray (final byte[] x) {
     final int n = x.length;
-    final Algebraic[] y = new Algebraic[n];
-    for (int i=0;i<n;i++) { y[i] = toAlgebraic(x[i]); }
+    final Real[] y = new Real[n];
+    for (int i=0;i<n;i++) { y[i] = toReal(x[i]); }
     return y; }
 
   //--------------------------------------------------------------
 
-  public static final Algebraic[] toAlgebraicArray (final Object x) {
+  public static final Real[] toRealArray (final Object x) {
 
-    if (x instanceof Algebraic[]) { return (Algebraic[]) x; }
+    if (x instanceof Real[]) { return (Real[]) x; }
 
     if (x instanceof byte[]) {
-      return toAlgebraicArray((byte[]) x); }
+      return toRealArray((byte[]) x); }
 
     if (x instanceof short[]) {
-      return toAlgebraicArray((short[]) x); }
+      return toRealArray((short[]) x); }
 
     if (x instanceof int[]) {
-      return toAlgebraicArray((int[]) x); }
+      return toRealArray((int[]) x); }
 
     if (x instanceof long[]) {
-      return toAlgebraicArray((long[]) x); }
+      return toRealArray((long[]) x); }
 
     if (x instanceof float[]) {
-      return toAlgebraicArray((float[]) x); }
+      return toRealArray((float[]) x); }
 
     if (x instanceof double[]) {
-      return toAlgebraicArray((double[]) x); }
+      return toRealArray((double[]) x); }
 
     if (x instanceof Object[]) {
-      return toAlgebraicArray((Object[]) x); }
+      return toRealArray((Object[]) x); }
 
     throw Exceptions.unsupportedOperation(
-      SpireAlgebraics.class,"toAlgebraicArray",x); }
+      SpireReals.class,"toRealArray",x); }
 
   //--------------------------------------------------------------
 
-  public static final double doubleValue (final Algebraic f) {
+  public static final double doubleValue (final Real f) {
     return f.doubleValue(); }
 
-  public static final int intValue (final Algebraic f) {
+  public static final int intValue (final Real f) {
     return f.intValue(); }
 
-  public static final long longValue (final Algebraic f) {
+  public static final long longValue (final Real f) {
     return f.longValue(); }
 
-  public static final float floatValue (final Algebraic f) {
+  public static final float floatValue (final Real f) {
     return f.floatValue(); }
 
   //--------------------------------------------------------------
-  // operations for algebraic structures over Algebraics.
+  // operations for algebraic structures over Reals.
   //--------------------------------------------------------------
 
   // TODO: is consistency with other algebraic structure classes
   // worth the indirection?
 
-  private final Algebraic add (final Algebraic q0,
-                               final Algebraic q1) {
+  private final Real add (final Real q0,
+                               final Real q1) {
     //assert contains(q0);
     //assert contains(q1);
     return q0.$plus(q1); }
 
-  public final BinaryOperator<Algebraic> adder () {
+  public final BinaryOperator<Real> adder () {
     return new BinaryOperator<> () {
       @Override
       public final String toString () { return "BF.add()"; }
       @Override
-      public final Algebraic apply (final Algebraic q0,
-                                    final Algebraic q1) {
-        return SpireAlgebraics.this.add(q0,q1); } }; }
+      public final Real apply (final Real q0,
+                                    final Real q1) {
+        return SpireReals.this.add(q0,q1); } }; }
 
   //--------------------------------------------------------------
 
-  public static final Algebraic ZERO = Algebraic$.MODULE$.Zero();
+  public static final Real ZERO = Real$.MODULE$.zero();
 
-  public final Algebraic additiveIdentity () { return ZERO; }
+  public final Real additiveIdentity () { return ZERO; }
 
   //--------------------------------------------------------------
 
   // TODO: is consistency with other algebraic structure classes
   // worth the indirection?
 
-  private final Algebraic negate (final Algebraic q) {
+  private final Real negate (final Real q) {
     //assert contains(q);
     return q.unary_$minus(); }
 
-  public final UnaryOperator<Algebraic> additiveInverse () {
+  public final UnaryOperator<Real> additiveInverse () {
     return new UnaryOperator<> () {
       @Override
       public final String toString () { return "BF.negate()"; }
       @Override
-      public final Algebraic apply (final Algebraic q) {
-        return SpireAlgebraics.this.negate(q); } }; }
+      public final Real apply (final Real q) {
+        return SpireReals.this.negate(q); } }; }
 
   //--------------------------------------------------------------
 
-  private final Algebraic multiply (final Algebraic q0,
-                                    final Algebraic q1) {
+  private final Real multiply (final Real q0,
+                                    final Real q1) {
     //assert contains(q0);
     //assert contains(q1);
     return q0.$times(q1); }
 
-  public final BinaryOperator<Algebraic> multiplier () {
+  public final BinaryOperator<Real> multiplier () {
     return new BinaryOperator<>() {
       @Override
       public final String toString () { return "BF.multiply()"; }
       @Override
-      public final Algebraic apply (final Algebraic q0,
-                                    final Algebraic q1) {
-        return SpireAlgebraics.this.multiply(q0,q1); } }; }
+      public final Real apply (final Real q0,
+                                    final Real q1) {
+        return SpireReals.this.multiply(q0,q1); } }; }
 
   //--------------------------------------------------------------
 
-  private static final Algebraic ONE = Algebraic$.MODULE$.One();
+  private static final Real ONE = Real$.MODULE$.one();
 
-  public final Algebraic multiplicativeIdentity () { return ONE; }
+  public final Real multiplicativeIdentity () { return ONE; }
 
   //--------------------------------------------------------------
 
-  public static final Algebraic reciprocal (final Algebraic q) {
+  public static final Real reciprocal (final Real q) {
     return ONE.$div(q); }
 
-  public final UnaryOperator<Algebraic> multiplicativeInverse () {
+  public final UnaryOperator<Real> multiplicativeInverse () {
     return new UnaryOperator<> () {
       @Override
       public final String toString () { return "BF.inverse()"; }
       @Override
-      public final Algebraic apply (final Algebraic q) {
-        return SpireAlgebraics.reciprocal(q); } }; }
+      public final Real apply (final Real q) {
+        return SpireReals.reciprocal(q); } }; }
 
   //--------------------------------------------------------------
   // Set methods
@@ -276,20 +276,20 @@ public final class SpireAlgebraics implements Set {
 
   @Override
   public final boolean contains (final Object element) {
-    return element instanceof Algebraic; }
+    return element instanceof Real; }
 
   //--------------------------------------------------------------
 
-  public final boolean equals (final Algebraic q0,
-                               final Algebraic q1) {
+  public final boolean equals (final Real q0,
+                               final Real q1) {
     return q0.equals(q1); }
 
   @Override
   public final BiPredicate equivalence () {
-    return new BiPredicate<Algebraic,Algebraic>() {
+    return new BiPredicate<Real,Real>() {
       @Override
-      public final boolean test (final Algebraic q0,
-                                 final Algebraic q1) {
+      public final boolean test (final Real q0,
+                                 final Real q1) {
         return q0.equals(q1); } }; }
 
   //--------------------------------------------------------------
@@ -298,7 +298,7 @@ public final class SpireAlgebraics implements Set {
   public final Supplier generator (final Map options) {
     final UniformRandomProvider urp = Set.urp(options);
     final Generator g =
-      SpireAlgebraics.rationalFromSafeLongGenerator(urp);
+      SpireReals.rationalFromSafeLongGenerator(urp);
     //    Generators.rationalFromDoubleGenerator(urp);
     return
       new Supplier () {
@@ -315,7 +315,7 @@ public final class SpireAlgebraics implements Set {
   // singleton
   @Override
   public final boolean equals (final Object that) {
-    return that instanceof SpireAlgebraics; }
+    return that instanceof SpireReals; }
 
   @Override
   public final String toString () { return "BF"; }
@@ -326,7 +326,7 @@ public final class SpireAlgebraics implements Set {
 
   public static final int compareTo (final Object x,
                                      final Object y) {
-    return ((Algebraic) x).compare((Algebraic) y); }
+    return ((Real) x).compare((Real) y); }
 
   //--------------------------------------------------------------
   // construction
@@ -340,8 +340,8 @@ public final class SpireAlgebraics implements Set {
       final Generator g = rationalFromSafeLongGenerator(urp);
       @Override
       public final Object next () {
-        final Algebraic[] z = new Algebraic[n];
-        for (int i=0;i<n;i++) { z[i] = (Algebraic) g.next(); }
+        final Real[] z = new Real[n];
+        for (int i=0;i<n;i++) { z[i] = (Real) g.next(); }
         return z; } }; }
 
   public static final Generator
@@ -365,7 +365,7 @@ public final class SpireAlgebraics implements Set {
         if (edge) { return edgeCases.sample(); }
         final SafeLong n = (SafeLong) gn.next();
         final SafeLong d = (SafeLong) gd.next();
-        final Algebraic f = toAlgebraic(n,d);
+        final Real f = toReal(n,d);
         return f; } }; }
 
   public static final Generator
@@ -375,16 +375,16 @@ public final class SpireAlgebraics implements Set {
       final Generator g = rationalFromDoubleGenerator(urp);
       @Override
       public final Object next () {
-        final Algebraic[] z = new Algebraic[n];
-        for (int i=0;i<n;i++) { z[i] = (Algebraic) g.next(); }
+        final Real[] z = new Real[n];
+        for (int i=0;i<n;i++) { z[i] = (Real) g.next(); }
         return z; } }; }
 
   /** Intended primarily for testing. Sample a random double
    * (see {@link xfp.java.prng.DoubleSampler})
-   * and convert to <code>Algebraic</code>
+   * and convert to <code>Real</code>
    * with {@link #DOUBLE_P} probability;
-   * otherwise return {@link Algebraic#ZERO} or
-   * {@link Algebraic#ONE}, {@link Algebraic#MINUS_ONE},
+   * otherwise return {@link Real#ZERO} or
+   * {@link Real#ONE}, {@link Real#MINUS_ONE},
    * with equal probability (these are potential edge cases).
    */
 
@@ -406,7 +406,7 @@ public final class SpireAlgebraics implements Set {
       public Object next () {
         final boolean edge = choose.sample() > dp;
         if (edge) { return edgeCases.sample(); }
-        return toAlgebraic(fdg.nextDouble()); } }; }
+        return toReal(fdg.nextDouble()); } }; }
 
   public static final Generator
   nonzeroSafeLongGenerator (final int n,
@@ -483,11 +483,11 @@ public final class SpireAlgebraics implements Set {
         final SafeLong e = new SafeLongBigInteger(bi);
         return e; } }; }
 
-  private SpireAlgebraics () { }
+  private SpireReals () { }
 
-  private static final SpireAlgebraics SINGLETON = new SpireAlgebraics();
+  private static final SpireReals SINGLETON = new SpireReals();
 
-  public static final SpireAlgebraics get () { return SINGLETON; }
+  public static final SpireReals get () { return SINGLETON; }
 
   //--------------------------------------------------------------
 
