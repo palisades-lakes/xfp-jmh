@@ -66,7 +66,7 @@ public final class SpireRationals implements Set {
   public static final Rational toRational (final SafeLong n, 
                                            final SafeLong d) {
     return Rational$.MODULE$.apply(n,d); }
-  
+
   public static final Rational toRational (final BigInteger n,
                                            final BigInteger d) {
     final SafeLong nsl = new SafeLongBigInteger(n);
@@ -179,16 +179,18 @@ public final class SpireRationals implements Set {
   //--------------------------------------------------------------
 
   public static final double doubleValue (final Rational f) {
-    return f.doubleValue(); }
+    return f.toDouble(); }
+  //  return f.doubleValue(); }
+
+  public static final float floatValue (final Rational f) {
+    return f.toFloat(); }
+  //  return f.floatValue(); }
 
   public static final int intValue (final Rational f) {
     return f.intValue(); }
 
   public static final long longValue (final Rational f) {
     return f.longValue(); }
-
-  public static final float floatValue (final Rational f) {
-    return f.floatValue(); }
 
   //--------------------------------------------------------------
   // operations for algebraic structures over Rationals.

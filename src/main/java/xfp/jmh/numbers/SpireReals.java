@@ -178,16 +178,18 @@ public final class SpireReals implements Set {
   //--------------------------------------------------------------
 
   public static final double doubleValue (final Real f) {
-    return f.doubleValue(); }
+    return f.toDouble(); }
+  //  return f.doubleValue(); }
+
+  public static final float floatValue (final Real f) {
+    return f.toFloat(); }
+  //  return f.floatValue(); }
 
   public static final int intValue (final Real f) {
     return f.intValue(); }
 
   public static final long longValue (final Real f) {
     return f.longValue(); }
-
-  public static final float floatValue (final Real f) {
-    return f.floatValue(); }
 
   //--------------------------------------------------------------
   // operations for algebraic structures over Reals.
