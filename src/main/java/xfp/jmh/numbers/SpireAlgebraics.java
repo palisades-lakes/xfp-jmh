@@ -192,7 +192,7 @@ public final class SpireAlgebraics implements Set {
     return f.longValue(); }
 
   //--------------------------------------------------------------
-  // operations for algebraic structures over Algebraics.
+  // operations for algebraic structures over Algebraic.
   //--------------------------------------------------------------
 
   // TODO: is consistency with other algebraic structure classes
