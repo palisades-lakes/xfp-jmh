@@ -46,7 +46,7 @@ public final class ERationals implements Set {
       + q.getDenominator().ToRadixString(0x10) + ")"; }
 
   //--------------------------------------------------------------
-  /** Divide out gcd from numberator and denominator. */
+  /** Divide out gcd from numerator and denominator. */
 
   public static final ERational reduce (final ERational q) {
     return q; }
