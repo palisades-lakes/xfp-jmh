@@ -1,12 +1,12 @@
 package xfp.jmh;
 
-
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 
 import oshi.hardware.Baseboard;
 import oshi.hardware.CentralProcessor;
+import oshi.hardware.CentralProcessor.ProcessorIdentifier;
 import oshi.hardware.CentralProcessor.TickType;
 import oshi.hardware.ComputerSystem;
 import oshi.hardware.Display;
@@ -19,6 +19,7 @@ import oshi.hardware.NetworkIF;
 import oshi.hardware.PowerSource;
 import oshi.hardware.Sensors;
 import oshi.hardware.UsbDevice;
+import oshi.hardware.VirtualMemory;
 import oshi.software.os.FileSystem;
 import oshi.software.os.NetworkParams;
 import oshi.software.os.OSFileStore;
@@ -34,7 +35,7 @@ import oshi.util.Util;
  * rather than printing.
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-06-12
+ * @version 2021-01-27
  */
 public final class SystemInfo {
 
@@ -111,8 +112,8 @@ public final class SystemInfo {
     + " physical CPU(s)");
     pw.println(" " + processor.getLogicalProcessorCount()
     + " logical CPU(s)");
-
-    pw.println("Identifier: " + processor.getIdentifier());
+    final ProcessorIdentifier pi = processor.getProcessorIdentifier();
+    pw.println("Identifier: " + pi.getIdentifier());
     //pw.println("ProcessorID: " + processor.getProcessorID());
   }
 
@@ -121,17 +122,18 @@ public final class SystemInfo {
     pw.println(
       "Memory: " + FormatUtil.formatBytes(memory.getAvailable())
       + "/" + FormatUtil.formatBytes(memory.getTotal()));
+    final VirtualMemory vm = memory.getVirtualMemory();
     pw.println("Swap used: "
-      + FormatUtil.formatBytes(memory.getSwapUsed())
+      + FormatUtil.formatBytes(vm.getSwapUsed())
       + "/"
-      + FormatUtil.formatBytes(memory.getSwapTotal()));
+      + FormatUtil.formatBytes(vm.getSwapTotal()));
   }
 
   @SuppressWarnings("boxing")
   public static void printCpu (final CentralProcessor processor,
                                final PrintWriter pw) {
-    pw.println("Uptime: " + FormatUtil
-      .formatElapsedSecs(processor.getSystemUptime()));
+//    pw.println("Uptime: " + FormatUtil
+//      .formatElapsedSecs(processor.getSystemUptime()));
 
     final long[] prevTicks = processor.getSystemCpuLoadTicks();
     pw.println("CPU, IOWait, and IRQ ticks @ 0 sec:"
@@ -175,9 +177,8 @@ public final class SystemInfo {
       (100d * iowait) / totalCpu, (100d * irq) / totalCpu,
       (100d * softirq) / totalCpu, (100d * steal) / totalCpu);
     pw.format("CPU load: %.1f%% (counting ticks)%n",
-      processor.getSystemCpuLoadBetweenTicks() * 100);
-    pw.format("CPU load: %.1f%% (OS MXBean)%n",
-      processor.getSystemCpuLoad() * 100);
+      processor.getSystemCpuLoadBetweenTicks(
+        processor.getSystemCpuLoadTicks()) * 100);
     final double[] loadAverage = processor.getSystemLoadAverage(3);
     pw.println("CPU load averages:"
       + (loadAverage[0] < 0 ? " N/A"
@@ -189,7 +190,9 @@ public final class SystemInfo {
     // per core CPU
     final StringBuilder procCpu =
       new StringBuilder("CPU load per processor:");
-    final double[] load = processor.getProcessorCpuLoadBetweenTicks();
+    final double[] load = 
+      processor.getProcessorCpuLoadBetweenTicks(
+        processor.getProcessorCpuLoadTicks());
     for (final double avg : load) {
       procCpu.append(String.format(" %.1f%%",avg * 100));
     }
@@ -200,11 +203,14 @@ public final class SystemInfo {
   public static void printProcesses (final OperatingSystem os,
                                      final GlobalMemory memory,
                                      final PrintWriter pw) {
-    pw.println("Processes: " + os.getProcessCount()
+    pw.println("Uptime: " + FormatUtil
+      .formatElapsedSecs(os.getSystemUptime()));
+
+   pw.println("Processes: " + os.getProcessCount()
     + ", Threads: " + os.getThreadCount());
     // Sort by highest CPU
-    final List<OSProcess> procs =
-      Arrays.asList(os.getProcesses(5,ProcessSort.CPU));
+    final List<OSProcess> procs = 
+      os.getProcesses(5,ProcessSort.CPU);
 
     pw.println("   PID  %CPU %MEM       VSZ       RSS Name");
     for (int i = 0; (i < procs.size()) && (i < 5); i++) {
@@ -240,7 +246,8 @@ public final class SystemInfo {
       sb.append("Unknown");
     }
     else {
-      final double timeRemaining = powerSources[0].getTimeRemaining();
+      final double timeRemaining = 
+        powerSources[0].getTimeRemainingEstimated();
       if (timeRemaining < -1d) {
         sb.append("Charging");
       }
@@ -255,7 +262,7 @@ public final class SystemInfo {
     }
     for (final PowerSource pSource : powerSources) {
       sb.append(String.format("%n %s @ %.1f%%",pSource.getName(),
-        pSource.getRemainingCapacity() * 100d));
+        pSource.getRemainingCapacityPercent() * 100d));
     }
     pw.println(sb.toString());
   }
@@ -278,7 +285,7 @@ public final class SystemInfo {
               readwrite ? disk.getWrites() : "?",readwrite
                 ? FormatUtil.formatBytes(disk.getWriteBytes()) : "?",
                   readwrite ? disk.getTransferTime() : "?");
-      final HWPartition[] partitions = disk.getPartitions();
+      final List<HWPartition> partitions = disk.getPartitions();
       if (partitions == null) {
         // TODO Remove when all OS's implemented
         continue;
@@ -304,7 +311,7 @@ public final class SystemInfo {
       fileSystem.getOpenFileDescriptors(),
       fileSystem.getMaxFileDescriptors());
 
-    final OSFileStore[] fsArray = fileSystem.getFileStores();
+    final List<OSFileStore> fsArray = fileSystem.getFileStores();
     for (final OSFileStore fs : fsArray) {
       final long usable = fs.getUsableSpace();
       final long total = fs.getTotalSpace();

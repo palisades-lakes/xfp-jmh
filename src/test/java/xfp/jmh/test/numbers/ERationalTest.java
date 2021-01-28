@@ -1,8 +1,6 @@
 package xfp.jmh.test.numbers;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
 import com.upokecenter.numbers.ERational;
 
@@ -17,7 +15,7 @@ import xfp.jmh.numbers.ERationals;
  * </pre>
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2019-12-01
+ * @version 2021-01-22
  */
 
 public final class ERationalTest {
@@ -34,17 +32,13 @@ public final class ERationalTest {
       q -> ERationals.toHexString((ERational) q), 
       Common::compareTo, Common::compareTo);
 
-    Assertions.assertThrows(
-      AssertionFailedError.class,
-      () -> {
-        Common.floatRoundingTests(
-          ERationals::toERational,
-          ERational::FromSingle,
-          q -> ((ERational) q).ToSingle(),
-          (q0,q1) -> ((ERational) q0).Subtract((ERational) q1).Abs(),
-          q -> ERationals.toHexString((ERational) q), 
-          Common::compareTo, Common::compareTo);  },
-      "ERational doesn't round to float correctly");
+    Common.floatRoundingTests(
+      ERationals::toERational,
+      ERational::FromSingle,
+      q -> ((ERational) q).ToSingle(),
+      (q0,q1) -> ((ERational) q0).Subtract((ERational) q1).Abs(),
+      q -> ERationals.toHexString((ERational) q), 
+      Common::compareTo, Common::compareTo);  
 
   }
 
