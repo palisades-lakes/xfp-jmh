@@ -25,7 +25,7 @@ import oshi.software.os.NetworkParams;
 import oshi.software.os.OSFileStore;
 import oshi.software.os.OSProcess;
 import oshi.software.os.OperatingSystem;
-import oshi.software.os.OperatingSystem.ProcessSort;
+import oshi.software.os.OperatingSystem.ProcessSorting;
 import oshi.util.FormatUtil;
 import oshi.util.Util;
 
@@ -35,7 +35,7 @@ import oshi.util.Util;
  * rather than printing.
  *
  * @author palisades dot lakes at gmail dot com
- * @version 2021-01-27
+ * @version 2021-04-12
  */
 public final class SystemInfo {
 
@@ -132,9 +132,6 @@ public final class SystemInfo {
   @SuppressWarnings("boxing")
   public static void printCpu (final CentralProcessor processor,
                                final PrintWriter pw) {
-//    pw.println("Uptime: " + FormatUtil
-//      .formatElapsedSecs(processor.getSystemUptime()));
-
     final long[] prevTicks = processor.getSystemCpuLoadTicks();
     pw.println("CPU, IOWait, and IRQ ticks @ 0 sec:"
       + Arrays.toString(prevTicks));
@@ -210,7 +207,7 @@ public final class SystemInfo {
     + ", Threads: " + os.getThreadCount());
     // Sort by highest CPU
     final List<OSProcess> procs = 
-      os.getProcesses(5,ProcessSort.CPU);
+      os.getProcesses(null,ProcessSorting.CPU_DESC,5);
 
     pw.println("   PID  %CPU %MEM       VSZ       RSS Name");
     for (int i = 0; (i < procs.size()) && (i < 5); i++) {
