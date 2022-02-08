@@ -37,6 +37,7 @@
   <oshi-version>6.1.0</oshi-version>
   <slf4j-version>1.7.35</slf4j-version>
   <spire_2_12_version>0.17.0</spire_2_12_version>
+ <spire_2_13_version>0.17.0</spire_2_13_version>
  </properties>
  <modelVersion>4.0.0</modelVersion>
  <groupId>palisades-lakes</groupId>
@@ -164,7 +165,7 @@
        </transformers>
        <filters>
         <filter>
-         <!-- Shading signed JARs will fail without this. http://stackoverflow.com/questions/999489/invalid-signature-file-when-attempting-to-run-a-jar -->
+         <!-- Shading signed JARs will fail without this. https://stackoverflow.com/questions/999489/invalid-signature-file-when-attempting-to-run-a-jar -->
          <artifact>*:*</artifact>
          <excludes>
           <exclude>META-INF/*.SF</exclude>
