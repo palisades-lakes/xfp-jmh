@@ -1,6 +1,6 @@
 @echo off
 :: palisades.lakes (at) gmail (dot) com
-:: 2019-11-27
+:: 2025-09-24
 
 ::set GC=-XX:+AggressiveHeap -XX:+UseStringDeduplication 
 set GC=
@@ -20,7 +20,6 @@ set PROF=-agentpath:"C:\Program Files\YourKit Java Profiler 2019.8-b127\bin\win6
 set OPENS=--add-opens java.base/java.lang=ALL-UNNAMED
 set CP=-cp target/benchmarks.jar
 
-set JAVA_HOME=%JAVA12%
 set JAVA="%JAVA_HOME%\bin\java"
 
 set CMD=%JAVA% %THRUPUT% -ea -dsa %GC% %XMX% %TRACE% %PROF% %OPENS% %CP% %*

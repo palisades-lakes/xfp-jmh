@@ -1,6 +1,6 @@
 @echo off
 :: palisades.lakes (at) gmail (dot) com
-:: 2019-09-07
+:: 2025-09-24
 
 ::set GC=-XX:+AggressiveHeap -XX:+UseStringDeduplication 
 set GC=
@@ -18,9 +18,8 @@ set XMX=
 set OPENS=--add-opens java.base/java.lang=ALL-UNNAMED
 set CP=-cp target/benchmarks.jar
 
-set JAVA_HOME=%JAVA12%
 set JAVA="%JAVA_HOME%\bin\java"
 
 set CMD=%JAVA% %THRUPUT% -ea -dsa %GC% %XMX% %TRACE% %OPENS% %CP% %*
-::echo %CMD%
+echo %CMD%
 %CMD%

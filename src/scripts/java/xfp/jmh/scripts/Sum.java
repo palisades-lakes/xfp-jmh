@@ -14,10 +14,11 @@ import xfp.jmh.accumulators.ZhuHayesBranch;
 /** Benchmark accumulators tests.
  *
  * <pre>
- * jy --source 12 -ea src/scripts/java/xfp/jmh/scripts/TotalSum.java
+ * j --source 25 -ea src/scripts/java/xfp/jmh/scripts/Sum.java
+ * jy --source 25 -ea src/scripts/java/xfp/jmh/scripts/Sum.java
  * </pre>
  * @author palisades dot lakes at gmail dot com
- * @version 2019-04-08
+ * @version 2025-09-24
  */
 @SuppressWarnings("unchecked")
 public final class Sum {

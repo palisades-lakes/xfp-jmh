@@ -1,236 +1,268 @@
 <project
- xmlns="https://maven.apache.org/POM/4.0.0"
- xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 >
- <properties>
-  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  <!-- JMH version to use with this project. -->
-  <jmh.version>1.35</jmh.version>
-  <!-- Java source/target to use for compilation. -->
-  <javac.target>18</javac.target>
-  <!-- Name of the benchmark Uber-JAR to generate. -->
-  <uberjar.name>benchmarks</uberjar.name>
-  <commons-math3-version>3.6.1</commons-math3-version>
-  <commons-rng-version>1.4</commons-rng-version>
-  <junit-jupiter-version>5.8.2</junit-jupiter-version>
-  <junit-platform-version>1.8.2</junit-platform-version>
-  <lifecycle-mapping-version>1.0.0</lifecycle-mapping-version>
-  <maven-assembly-version>3.4.1</maven-assembly-version>
-  <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-  <maven-clean-version>3.2.0</maven-clean-version>
-  <maven-compiler-version>3.10.1</maven-compiler-version>
-  <maven-dependency-version>3.3.0</maven-dependency-version>
-  <maven-deploy-plugin-version>3.0.0-M2</maven-deploy-plugin-version>
-  <maven-enforcer-version>3.1.0</maven-enforcer-version>
-  <maven-install-plugin-version>3.0.0-M1</maven-install-plugin-version>
-  <maven-jar-version>3.2.2</maven-jar-version>
-  <maven-javadoc-version>3.4.0</maven-javadoc-version>
-  <maven-project-info-reports-version>3.3.0</maven-project-info-reports-version>
-  <maven-release-plugin-version>3.0.0-M6</maven-release-plugin-version>
-  <maven-resources-plugin-version>3.2.0</maven-resources-plugin-version>
-  <maven-scm-plugin-version>2.0.0-M1</maven-scm-plugin-version>
-  <maven-site-version>3.12.0</maven-site-version>
-  <maven-source-plugin-version>3.2.1</maven-source-plugin-version>
-  <maven-surefire-version>3.0.0-M7</maven-surefire-version>
-  <numbers-java-version>1.8.2</numbers-java-version>
-  <oshi-version>6.2.1</oshi-version>
-  <slf4j-version>1.7.36</slf4j-version>
-  <spire_2_12_version>0.17.0</spire_2_12_version>
-  <spire_2_13_version>0.18.0</spire_2_13_version>
- </properties>
- <modelVersion>4.0.0</modelVersion>
- <groupId>palisades-lakes</groupId>
- <artifactId>xfp-jmh</artifactId>
- <version>1.1</version>
- <packaging>jar</packaging>
- <name>XFP benchmarks via JMH</name>
- <dependencies>
-  <dependency>
-   <groupId>org.typelevel</groupId>
-   <artifactId>spire_2.12</artifactId>
-   <version>${spire_2_12_version}</version>
-  </dependency>
-  <dependency>
-   <groupId>org.openjdk.jmh</groupId>
-   <artifactId>jmh-core</artifactId>
-   <version>${jmh.version}</version>
-   <exclusions>
-    <exclusion>
-     <groupId>org.apache.commons</groupId>
-     <artifactId>commons-math3</artifactId>
-    </exclusion>
-   </exclusions>
-  </dependency>
-  <dependency>
-   <groupId>org.openjdk.jmh</groupId>
-   <artifactId>jmh-generator-annprocess</artifactId>
-   <version>${jmh.version}</version>
-   <scope>provided</scope>
-  </dependency>
-  <dependency>
-   <groupId>palisades-lakes</groupId>
-   <artifactId>xfp</artifactId>
-   <version>1.1</version>
-  </dependency>
-  <dependency>
-   <groupId>palisades-lakes</groupId>
-   <artifactId>xfp</artifactId>
-   <version>1.1</version>
-   <classifier>tests</classifier>
-  </dependency>
-  <dependency>
-   <groupId>org.apache.commons</groupId>
-   <artifactId>commons-math3</artifactId>
-   <version>${commons-math3-version}</version>
-  </dependency>
-  <dependency>
-   <groupId>com.github.peteroupc</groupId>
-   <artifactId>numbers</artifactId>
-   <version>${numbers-java-version}</version>
-  </dependency>
-  <dependency>
-   <groupId>com.github.oshi</groupId>
-   <artifactId>oshi-core</artifactId>
-   <version>${oshi-version}</version>
-  </dependency>
-  <!-- Rational.doubleValue() is interesting, but no easy way to go double -> Rational 
-   <dependency> <groupId>org.jscience</groupId> <artifactId>jscience</artifactId> <version>${jscience-version}</version> 
-   </dependency> -->
-  <!-- BigRational not useful <dependency> <groupId>de.uni-mannheim.rz.krum</groupId> 
-   <artifactId>jas</artifactId> <version>${jas-version}</version> </dependency> -->
-  <!-- no easy path double -> Rational double <dependency> <groupId>org.apfloat</groupId> 
-   <artifactId>apfloat</artifactId> <version>${apfloat-version}</version> </dependency> -->
-  <dependency>
-   <groupId>org.junit.jupiter</groupId>
-   <artifactId>junit-jupiter-api</artifactId>
-   <version>${junit-jupiter-version}</version>
-   <scope>test</scope>
-  </dependency>
-  <dependency>
-   <groupId>org.junit.jupiter</groupId>
-   <artifactId>junit-jupiter-params</artifactId>
-   <version>${junit-jupiter-version}</version>
-   <scope>test</scope>
-  </dependency>
-  <dependency>
-   <groupId>org.junit.jupiter</groupId>
-   <artifactId>junit-jupiter-engine</artifactId>
-   <version>${junit-jupiter-version}</version>
-   <scope>test</scope>
-  </dependency>
-  <dependency>
-   <groupId>org.slf4j</groupId>
-   <artifactId>slf4j-nop</artifactId>
-   <version>${slf4j-version}</version>
-  </dependency>
- </dependencies>
- <build>
-  <plugins>
-   <!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>exec-maven-plugin</artifactId> 
-    <version>1.6.0</version> <executions> <execution> <id>run-benchmarks</id> <phase>integration-test</phase> 
-    <goals> <goal>exec</goal> </goals> <configuration> <classpathScope>test</classpathScope> 
-    <executable>java</executable> <arguments> <argument>-classpath</argument> <classpath 
-    /> <argument>org.openjdk.jmh.Main</argument> <argument>.*</argument> </arguments> 
-    </configuration> </execution> </executions> </plugin> -->
-   <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <version>3.8.1</version>
-    <configuration>
-     <compilerVersion>${javac.target}</compilerVersion>
-     <source>${javac.target}</source>
-     <target>${javac.target}</target>
-    </configuration>
-   </plugin>
-   <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-shade-plugin</artifactId>
-    <!-- <version>2.2</version> -->
-    <version>3.2.4</version> 
-    <executions>
-     <execution>
-      <phase>package</phase>
-      <goals>
-       <goal>shade</goal>
-      </goals>
-      <configuration>
-       <finalName>${uberjar.name}</finalName>
-       <transformers>
-        <transformer
-         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"
-        >
-         <mainClass>org.openjdk.jmh.Main</mainClass>
-        </transformer>
-       </transformers>
-       <filters>
-        <filter>
-         <!-- Shading signed JARs will fail without this. https://stackoverflow.com/questions/999489/invalid-signature-file-when-attempting-to-run-a-jar -->
-         <artifact>*:*</artifact>
-         <excludes>
-          <exclude>META-INF/*.SF</exclude>
-          <exclude>META-INF/*.DSA</exclude>
-          <exclude>META-INF/*.RSA</exclude>
-         </excludes>
-        </filter>
-       </filters>
-      </configuration>
-     </execution>
-    </executions>
-   </plugin>
-  </plugins>
-  <pluginManagement>
-   <plugins>
-    <plugin>
-     <artifactId>maven-clean-plugin</artifactId>
-     <version>${maven-clean-version}</version>
-    </plugin>
-    <plugin>
-     <artifactId>maven-deploy-plugin</artifactId>
-     <version>${maven-deploy-plugin-version}</version>
-    </plugin>
-    <plugin>
-     <artifactId>maven-install-plugin</artifactId>
-     <version>${maven-install-plugin-version}</version>
-    </plugin>
-    <plugin>
-     <artifactId>maven-jar-plugin</artifactId>
-     <version>${maven-jar-version}</version>
-    </plugin>
-    <plugin>
-     <artifactId>maven-javadoc-plugin</artifactId>
-     <version>${maven-javadoc-version}</version>
-    </plugin>
-    <plugin>
-     <artifactId>maven-resources-plugin</artifactId>
-     <version>${maven-resources-plugin-version}</version>
-    </plugin>
-    <plugin>
-     <artifactId>maven-site-plugin</artifactId>
-     <version>${maven-site-version}</version>
-    </plugin>
-    <plugin>
-     <artifactId>maven-source-plugin</artifactId>
-     <version>${maven-source-plugin-version}</version>
-    </plugin>
-    <plugin>
-     <groupId>org.apache.maven.plugins</groupId>
-     <artifactId>maven-surefire-plugin</artifactId>
-     <version>${maven-surefire-version}</version>
-     <configuration>
-      <trimStackTrace>false</trimStackTrace>
-      <!-- argLine>-Xmx2G -XX:MaxPermSize=512M</argLine -->
-      <argLine>-Xmx4G -Xms4G</argLine>
-     </configuration>
-     <dependencies>
-      <dependency>
-       <groupId>org.junit.jupiter</groupId>
-       <artifactId>junit-jupiter-engine</artifactId>
-       <version>${junit-jupiter-version}</version>
-      </dependency>
-     </dependencies>
-    </plugin>
-   </plugins>
-  </pluginManagement>
- </build>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>palisades-lakes</groupId>
+  <name>XFP benchmarks via JMH</name>
+  <artifactId>xfp-jmh</artifactId>
+  <version>1.1</version>
+  <packaging>jar</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- JMH version to use with this project. -->
+    <jmh.version>1.35</jmh.version>
+    <!-- Java source/target to use for compilation. -->
+    <javac.target>25</javac.target>
+    <!-- Name of the benchmark Uber-JAR to generate. -->
+    <uberjar.name>benchmarks</uberjar.name>
+    <commons-math3-version>3.6.1</commons-math3-version>
+    <commons-math4-version>4.0-beta1</commons-math4-version>
+    <commons-rng-version>1.6</commons-rng-version>
+    <codox-version>0.10.8</codox-version>
+    <criterium-version>0.4.6</criterium-version>
+    <doclint>none</doclint>
+    <eclipse-collections-version>13.0.0</eclipse-collections-version>
+    <exif-processor-version>0.4.0</exif-processor-version>
+    <fastutil-version>8.5.16</fastutil-version>
+    <fipp-version>0.6.29</fipp-version>
+    <github-url>scm:git:https://github.com/${project.groupId}/${project.artifactId}.git</github-url>
+    <graph-maven-version>1.2.3</graph-maven-version>
+    <guava-version>33.5.0-jre</guava-version>
+    <!-- hiccup-version>1.0.5</hiccup-version -->
+    <hiccup-version>2.0.0</hiccup-version>
+    <hppc-version>0.10.0</hppc-version>
+    <java-version>24</java-version>
+    <java-sizeof-version>0.0.5</java-sizeof-version>
+    <jgit-version>7.3.0.202506031305-r</jgit-version>
+    <jcuda-version>12.6.0</jcuda-version>
+    <jscience-version>4.3.3</jscience-version>
+    <jsoup-version>1.21.1</jsoup-version>
+    <junit-jupiter-version>5.13.4</junit-jupiter-version>
+    <junit-platform-version>1.13.4</junit-platform-version>
+    <jts-version>1.20.0</jts-version>
+    <lifecycle-mapping-version>1.0.0</lifecycle-mapping-version>
+    <maven-assembly-version>3.7.1</maven-assembly-version>
+    <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+    <maven-clean-version>3.5.0</maven-clean-version>
+    <maven-compiler-version>3.14.0</maven-compiler-version>
+    <maven-dependency-version>3.8.1</maven-dependency-version>
+    <maven-deploy-plugin-version>3.1.4</maven-deploy-plugin-version>
+    <maven-enforcer-version>3.6.1</maven-enforcer-version>
+    <maven-install-plugin-version>3.1.4</maven-install-plugin-version>
+    <maven-jar-version>3.4.2</maven-jar-version>
+    <maven-javadoc-version>3.12.0</maven-javadoc-version>
+    <maven-project-info-reports-version>3.9.0</maven-project-info-reports-version>
+    <maven-release-plugin-version>3.1.1</maven-release-plugin-version>
+    <maven-resources-plugin-version>3.3.1</maven-resources-plugin-version>
+    <maven-scm-plugin-version>2.1.0</maven-scm-plugin-version>
+    <maven-shade-plugin-version>3.6.1</maven-shade-plugin-version>
+    <maven-site-version>4.0.0-M16</maven-site-version>
+    <maven-source-plugin-version>3.3.1</maven-source-plugin-version>
+    <maven-surefire-version>3.5.4</maven-surefire-version>
+    <metadata-extractor-version>2.19.0</metadata-extractor-version>
+    <numbers-java-version>1.8.2</numbers-java-version>
+    <oshi-version>6.9.0</oshi-version>
+    <pandect-version>1.0.2</pandect-version>
+    <parboiled-java-version>1.4.1</parboiled-java-version>
+    <potemkin-version>0.4.8</potemkin-version>
+    <slf4j-version>2.0.17</slf4j-version>
+    <spire_2_12_version>0.17.0</spire_2_12_version>
+    <spire_2_13_version>0.18.0</spire_2_13_version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.typelevel</groupId>
+      <artifactId>spire_2.12</artifactId>
+      <version>${spire_2_12_version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-core</artifactId>
+      <version>${jmh.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-math3</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-generator-annprocess</artifactId>
+      <version>${jmh.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>palisades-lakes</groupId>
+      <artifactId>xfp</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>palisades-lakes</groupId>
+      <artifactId>xfp</artifactId>
+      <version>1.1</version>
+      <classifier>tests</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-math3</artifactId>
+      <version>${commons-math3-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.peteroupc</groupId>
+      <artifactId>numbers</artifactId>
+      <version>${numbers-java-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.oshi</groupId>
+      <artifactId>oshi-core</artifactId>
+      <version>${oshi-version}</version>
+    </dependency>
+    <!-- Rational.doubleValue() is interesting, but no easy way to go double -> Rational
+     <dependency> <groupId>org.jscience</groupId> <artifactId>jscience</artifactId> <version>${jscience-version}</version>
+     </dependency> -->
+    <!-- BigRational not useful <dependency> <groupId>de.uni-mannheim.rz.krum</groupId>
+     <artifactId>jas</artifactId> <version>${jas-version}</version> </dependency> -->
+    <!-- no easy path double -> Rational double <dependency> <groupId>org.apfloat</groupId>
+     <artifactId>apfloat</artifactId> <version>${apfloat-version}</version> </dependency> -->
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <version>${junit-platform-version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit-jupiter-version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${junit-jupiter-version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit-jupiter-version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-nop</artifactId>
+      <version>${slf4j-version}</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>exec-maven-plugin</artifactId>
+       <version>1.6.0</version> <executions> <execution> <id>run-benchmarks</id> <phase>integration-test</phase>
+       <goals> <goal>exec</goal> </goals> <configuration> <classpathScope>test</classpathScope>
+       <executable>java</executable> <arguments> <argument>-classpath</argument> <classpath
+       /> <argument>org.openjdk.jmh.Main</argument> <argument>.*</argument> </arguments>
+       </configuration> </execution> </executions> </plugin> -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <compilerVersion>${javac.target}</compilerVersion>
+          <source>${javac.target}</source>
+          <target>${javac.target}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <!-- <version>2.2</version> -->
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <finalName>${uberjar.name}</finalName>
+              <transformers>
+                <transformer
+                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"
+                >
+                  <mainClass>org.openjdk.jmh.Main</mainClass>
+                </transformer>
+              </transformers>
+              <filters>
+                <filter>
+                  <!-- Shading signed JARs will fail without this. https://stackoverflow.com/questions/999489/invalid-signature-file-when-attempting-to-run-a-jar -->
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>${maven-clean-version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${maven-deploy-plugin-version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>${maven-install-plugin-version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${maven-jar-version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${maven-javadoc-version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${maven-resources-plugin-version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>${maven-site-version}</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${maven-source-plugin-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-version}</version>
+          <configuration>
+            <trimStackTrace>false</trimStackTrace>
+            <!-- argLine>-Xmx2G -XX:MaxPermSize=512M</argLine -->
+            <argLine>-Xmx4G -Xms4G</argLine>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.junit.jupiter</groupId>
+              <artifactId>junit-jupiter-engine</artifactId>
+              <version>${junit-jupiter-version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
