@@ -28,7 +28,6 @@
 *.gls
 *.ilg
 *.ind
-*.out
 *.xdy
 *.ist
 *.rawtex
@@ -44,3 +43,7 @@
 /output-2019-04-06/
 /BigIntegerTest.txt
 /BIT.txt
+/.idea/ClojureProjectResolveSettings.xml
+/dependency-reduced-pom.xml
+/.idea/modules.xml
+/.idea/xfp-jmh.iml

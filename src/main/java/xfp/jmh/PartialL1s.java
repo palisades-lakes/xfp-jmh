@@ -3,7 +3,7 @@ package xfp.jmh;
 import xfp.java.accumulators.Accumulator;
 
 /** <pre>
- * java -cp target\benchmarks.jar xfp.jmh.PartialL2s
+ * java -cp target\benchmarks.jar xfp.jmh.PartialL1s
  * </pre>
  * @author palisades dot lakes at gmail dot com
  * @version 2019-07-27

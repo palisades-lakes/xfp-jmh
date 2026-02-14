@@ -12,7 +12,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- JMH version to use with this project. -->
-    <jmh.version>1.35</jmh.version>
+    <jmh.version>1.37</jmh.version>
     <!-- Java source/target to use for compilation. -->
     <javac.target>25</javac.target>
     <!-- Name of the benchmark Uber-JAR to generate. -->
@@ -25,7 +25,7 @@
     <doclint>none</doclint>
     <eclipse-collections-version>13.0.0</eclipse-collections-version>
     <exif-processor-version>0.4.0</exif-processor-version>
-    <fastutil-version>8.5.16</fastutil-version>
+    <fastutil-version>8.5.18</fastutil-version>
     <fipp-version>0.6.29</fipp-version>
     <github-url>scm:git:https://github.com/${project.groupId}/${project.artifactId}.git</github-url>
     <graph-maven-version>1.2.3</graph-maven-version>
@@ -33,40 +33,41 @@
     <!-- hiccup-version>1.0.5</hiccup-version -->
     <hiccup-version>2.0.0</hiccup-version>
     <hppc-version>0.10.0</hppc-version>
-    <java-version>24</java-version>
+    <java-version>25</java-version>
     <java-sizeof-version>0.0.5</java-sizeof-version>
-    <jgit-version>7.3.0.202506031305-r</jgit-version>
+    <jgit-version>7.5.0.202512021534-r</jgit-version>
     <jcuda-version>12.6.0</jcuda-version>
     <jscience-version>4.3.3</jscience-version>
-    <jsoup-version>1.21.1</jsoup-version>
-    <junit-jupiter-version>5.13.4</junit-jupiter-version>
-    <junit-platform-version>1.13.4</junit-platform-version>
+    <jsoup-version>1.22.1</jsoup-version>
+    <junit-jupiter-version>6.0.2</junit-jupiter-version>
+    <junit-platform-version>6.0.2</junit-platform-version>
     <jts-version>1.20.0</jts-version>
     <lifecycle-mapping-version>1.0.0</lifecycle-mapping-version>
-    <maven-assembly-version>3.7.1</maven-assembly-version>
+    <maven-assembly-version>3.8.0</maven-assembly-version>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
     <maven-clean-version>3.5.0</maven-clean-version>
-    <maven-compiler-version>3.14.0</maven-compiler-version>
-    <maven-dependency-version>3.8.1</maven-dependency-version>
+    <maven-compiler-version>3.15.0</maven-compiler-version>
+    <maven-dependency-version>3.10.0</maven-dependency-version>
     <maven-deploy-plugin-version>3.1.4</maven-deploy-plugin-version>
-    <maven-enforcer-version>3.6.1</maven-enforcer-version>
+    <maven-enforcer-version>3.6.2</maven-enforcer-version>
     <maven-install-plugin-version>3.1.4</maven-install-plugin-version>
-    <maven-jar-version>3.4.2</maven-jar-version>
+    <maven-jar-version>3.5.0</maven-jar-version>
     <maven-javadoc-version>3.12.0</maven-javadoc-version>
     <maven-project-info-reports-version>3.9.0</maven-project-info-reports-version>
-    <maven-release-plugin-version>3.1.1</maven-release-plugin-version>
-    <maven-resources-plugin-version>3.3.1</maven-resources-plugin-version>
-    <maven-scm-plugin-version>2.1.0</maven-scm-plugin-version>
+    <maven-release-plugin-version>3.3.1</maven-release-plugin-version>
+    <maven-resources-plugin-version>3.4.0</maven-resources-plugin-version>
+    <maven-scm-plugin-version>2.2.1</maven-scm-plugin-version>
     <maven-shade-plugin-version>3.6.1</maven-shade-plugin-version>
     <maven-site-version>4.0.0-M16</maven-site-version>
-    <maven-source-plugin-version>3.3.1</maven-source-plugin-version>
+    <maven-source-plugin-version>3.4.0</maven-source-plugin-version>
     <maven-surefire-version>3.5.4</maven-surefire-version>
     <metadata-extractor-version>2.19.0</metadata-extractor-version>
     <numbers-java-version>1.8.2</numbers-java-version>
-    <oshi-version>6.9.0</oshi-version>
+    <oshi-version>6.9.3</oshi-version>
     <pandect-version>1.0.2</pandect-version>
     <parboiled-java-version>1.4.1</parboiled-java-version>
-    <potemkin-version>0.4.8</potemkin-version>
+    <potemkin-version>0.4.9</potemkin-version>
+    <rhino-version>1.9.0</rhino-version>
     <slf4j-version>2.0.17</slf4j-version>
     <spire_2_12_version>0.17.0</spire_2_12_version>
     <spire_2_13_version>0.18.0</spire_2_13_version>
@@ -168,18 +169,24 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>${maven-compiler-version}</version>
         <configuration>
           <compilerVersion>${javac.target}</compilerVersion>
           <source>${javac.target}</source>
           <target>${javac.target}</target>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.openjdk.jmh</groupId>
+              <artifactId>jmh-generator-annprocess</artifactId>
+              <version>${jmh.version}</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <!-- <version>2.2</version> -->
-        <version>3.2.4</version>
+        <version>${maven-shade-plugin-version}</version>
         <executions>
           <execution>
             <phase>package</phase>

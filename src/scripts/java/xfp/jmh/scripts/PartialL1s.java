@@ -8,6 +8,7 @@ import xfp.jmh.accumulators.BigFloat0Accumulator;
 /** Benchmark partial L1 norms
  *
  * <pre>
+ * j --source 12 src/scripts/java/xfp/jmh/scripts/PartialL1s.java
  * jy --source 12 src/scripts/java/xfp/jmh/scripts/PartialL1s.java
  * </pre>
  * @author palisades dot lakes at gmail dot com
@@ -17,7 +18,7 @@ import xfp.jmh.accumulators.BigFloat0Accumulator;
 public final class PartialL1s {
 
   public static final void main (final String[] args) {
-    final int dim = (1*1024*1024) - 1;
+    final int dim = (2*1024*1024) - 1;
     final int trys = 8 * 1024;
     //final Generator g = Generators.make("exponential",dim);
     //final Generator g = Generators.make("finite",dim);
